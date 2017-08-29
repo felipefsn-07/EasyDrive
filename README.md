@@ -1,4 +1,5 @@
 Equipe:
+
         Felipe Silva do Nascimento - 171204
         Kaique Chiovetto Siqueira - 177455
         Lucca Di Bastiani do Amaral - 182787
@@ -10,6 +11,7 @@ Objetivos:
        mais práticas e dinâmicas.
   
 Requisitos essenciais:
+
         Funcionários e instrutores: o sistema deverá permitir o cadastro, consulta, alteração e exclusão de funcionários
         e instrutores da auto escola.
 
