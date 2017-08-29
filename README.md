@@ -12,16 +12,19 @@ Objetivos:
   
 Requisitos essenciais:
 
-        Funcionários e instrutores: o sistema deverá permitir o cadastro, consulta, alteração e exclusão de funcionários
-        e instrutores da auto escola.
+        Funcionários e instrutores: o sistema deverá permitir o cadastro, consulta, alteração e 
+        exclusão de funcionários e instrutores da auto escola.
 
-        Alunos: o sistema deverá permitir o cadastro, consulta, alteração e exclusão de alunos da auto escola.
+        Alunos: o sistema deverá permitir o cadastro, consulta, alteração e exclusão de alunos da
+        auto escola.
 
-        Veículos: o sistema deverá permitir o cadastro, consulta, alteração e exclusão de veículos da auto escola.
+        Veículos: o sistema deverá permitir o cadastro, consulta, alteração e exclusão de veículos 
+        da auto escola.
 
-        Aulas: o sistema deverá permitir o agendamento de aulas, bem como o possível cancelamento ou alteração destas.
+        Aulas: o sistema deverá permitir o agendamento de aulas, bem como o possível cancelamento 
+        ou alteração destas.
 
-        Exames: o sistema deverá permitir o agendamento de exames, bem como o possível cancelamento ou alteração da data
-        do exame.
+        Exames: o sistema deverá permitir o agendamento de exames, bem como o possível cancelamento 
+        ou alteração da data do exame.
 
         
