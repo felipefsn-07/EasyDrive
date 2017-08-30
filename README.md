@@ -24,3 +24,85 @@
 
    * Exames: o sistema deverá permitir o agendamento de exames, bem como o possível cancelamento 
         ou alteração da data do exame.
+ 
+ # Classes 
+   * Funcionário
+     
+     Atributos:
+         Nome
+         Rg
+         CPF
+         Data_Nasc
+         Telefone
+         Celular
+         Endereço
+         Horário_Entrada
+         Horário Saída 
+         Código
+     
+     Métodos:
+         Criar
+         Ler
+         Atualizar
+   
+   * Aluno
+     
+     Atributos:
+         Nome
+         Rg
+         CPF
+         Data_Nasc
+         Telefone
+         Celular
+         Endereço
+         Num_LADV
+         Categoria_Pretendida
+         Status
+      
+      Métodos:
+         Criar
+         Ler
+         Atualizar
+   
+   * Veículos      
+      
+      Atributos:
+          Modelo
+          Ano
+          Placa
+          Capacidade
+          Status
+       
+       Métodos:
+         Criar
+         Ler
+         Atualizar
+    
+    * Aulas
+       
+       Atributos:
+            Aluno
+            Instrutor
+            Veículo
+            Data
+            Horário
+        
+        Métodos:
+            Criar
+            Ler
+            Cancelar
+     
+     * Exame
+        
+        Atributos:
+            Aluno
+            Instrutor
+            Veículo
+            Data
+            Horário
+        
+        Métodos:
+            Criar
+            Ler
+            Atualizar
+
