@@ -18,10 +18,15 @@ public class Aulas {
     private Instrutor instrutor;
     private ArrayList<AulasClientes> aulas;
     
+    
+    public Aulas (){
+    
+    }
+    
+    
     /**
      * @return the codAulas
      */
-    
     public int getCodAulas() {
         return codAulas;
     }
