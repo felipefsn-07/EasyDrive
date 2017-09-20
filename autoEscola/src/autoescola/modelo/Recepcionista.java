@@ -14,5 +14,4 @@ public class Recepcionista extends Funcionario{
         super (nome, rg, cpf, datanasc, telefone, celular, endereco, hora_entra, hora_sai, login, senha, "Recepcionista", status);
     }
     
-    
 }

@@ -11,4 +11,5 @@ package autoescola.controle;
  */
 public class FuncionarioControle {
     
+    
 }

@@ -12,6 +12,7 @@ package autoescola.modelo;
 public class AulasClientes {
    
    private Cliente aluno;
+   
    private Aulas aulas;
 
     /**

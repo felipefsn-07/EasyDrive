@@ -5,7 +5,7 @@
  */
 package autoescola;
 
-import autoescola.modelo.Cliente;
+import autoescola.modelo.*;
 
 /**
  *
@@ -17,9 +17,8 @@ public class AutoEscola {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-         Cliente  c = new Cliente();
-         
-         
+
+
                  // TODO code application logic here
     }
     
