@@ -9,7 +9,7 @@ package autoescola.modelo;
  *
  * @author felipe
  */
-public abstract class  Funcionario {
+public class Funcionario {
   
     private int codigoFuncionario;
     private String nome;
