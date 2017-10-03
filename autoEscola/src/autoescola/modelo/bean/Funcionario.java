@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package autoescola.modelo;
-
-import java.util.ArrayList;
+package autoescola.modelo.bean;
 
 /**
  *
  * @author felipe
  */
-public class Cliente {
-    private int codCliente;
+public class Funcionario {
+  
+    private int codigoFuncionario;
     private String nome;
     private String rg;
     private String cpf;
@@ -20,15 +19,17 @@ public class Cliente {
     private String telefone;
     private String celular;
     private String endereco;
-    private String numLADV;
-    private String categoria;
-    private String status;
-    private ArrayList<AulasClientes> aulas;
-    
-    public Cliente (){
-    
+    private String hora_entra;
+    private String hora_sai;
+    private String login;
+    private String senha;
+    private String tipo;
+    private boolean status;
+
+    public Funcionario(){
     }
-    public Cliente (String nome, String rg, String cpf, String datanasc, String telefone, String celular, String endereco, String numLADV, String categoria, String status){
+    
+    public Funcionario (String nome, String rg, String cpf, String datanasc, String telefone, String celular, String endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, boolean status){
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
@@ -36,23 +37,27 @@ public class Cliente {
         this.telefone = telefone;
         this.celular = celular;
         this.endereco = endereco;
-        this.numLADV = numLADV;
-        this.categoria = categoria;
+        this.hora_entra = hora_entra;
+        this.hora_sai = hora_sai;
+        this.login = login;
+        this.senha = senha;
+        this.tipo = tipo;
         this.status = status;
+       
+    }
+    
+    /**
+     * @return the codigoFuncionario
+     */
+    public int getCodigoFuncionario() {
+        return codigoFuncionario;
     }
 
     /**
-     * @return the codCliente
+     * @param codigoFuncionario the codigoFuncionario to set
      */
-    public int getCodCliente() {
-        return codCliente;
-    }
-
-    /**
-     * @param codCliente the codCliente to set
-     */
-    protected void setCodCliente(int codCliente) {
-        this.codCliente = codCliente;
+    protected void setCodigoFuncionario(int codigoFuncionario) {
+        this.codigoFuncionario = codigoFuncionario;
     }
 
     /**
@@ -154,62 +159,87 @@ public class Cliente {
     }
 
     /**
-     * @return the numLADV
+     * @return the hora_entra
      */
-    public String getNumLADV() {
-        return numLADV;
+    public String getHora_entra() {
+        return hora_entra;
     }
 
     /**
-     * @param numLADV the numLADV to set
+     * @param hora_entra the hora_entra to set
      */
-    public void setNumLADV(String numLADV) {
-        this.numLADV = numLADV;
+    public void setHora_entra(String hora_entra) {
+        this.hora_entra = hora_entra;
     }
 
     /**
-     * @return the categoria
+     * @return the hora_sai
      */
-    public String getCategoria() {
-        return categoria;
+    public String getHora_sai() {
+        return hora_sai;
     }
 
     /**
-     * @param categoria the categoria to set
+     * @param hora_sai the hora_sai to set
      */
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setHora_sai(String hora_sai) {
+        this.hora_sai = hora_sai;
+    }
+
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    /**
+     * @return the senha
+     */
+    public String getSenha() {
+        return senha;
+    }
+
+    /**
+     * @param senha the senha to set
+     */
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     /**
      * @return the status
      */
-    public String getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
-
-    /**
-     * @return the aulas
-     */
-    public ArrayList<AulasClientes> getAulas() {
-        return aulas;
-    }
-
-    /**
-     * @param aulas the aulas to set
-     */
-    public void setAulas(ArrayList<AulasClientes> aulas) {
-        this.aulas = aulas;
-    }
-
-        
-        
     
 }

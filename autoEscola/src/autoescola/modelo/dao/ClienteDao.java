@@ -4,23 +4,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package autoescola.modelo;
+package autoescola.modelo.dao;
 
-import java.util.Collection;
+import autoescola.modelo.bean.Cliente;
+import java.util.List;
 
 /**
  *
  * @author felipe
  */
 
-public class ClienteDAO {
+public class ClienteDao {
     //private Cliente cli;
     public boolean cadastrarCliente(Cliente cli){
        
         return false;
     }
-    public Collection<Cliente> consultarClientes(){
-        Collection<Cliente> cli = null;
+    public List<Cliente> consultarClientes(){
+        List<Cliente> cli = null;
         return cli;
     }
     public Cliente consultarCliente(){
@@ -28,6 +29,15 @@ public class ClienteDAO {
         return cli;
     }
     
+    /**
+     *
+     * @param pesquisar
+     * @return
+     */
+    public List<Cliente> consultarClientesLike(String pesquisar){
+        List<Cliente> cli = null;
+        return cli;
+    }
     public boolean consutarClienteExiste (){
         return false;
     }

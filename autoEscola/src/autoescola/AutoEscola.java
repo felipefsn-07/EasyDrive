@@ -5,8 +5,6 @@
  */
 package autoescola;
 
-import autoescola.modelo.*;
-
 /**
  *
  * @author felipe
