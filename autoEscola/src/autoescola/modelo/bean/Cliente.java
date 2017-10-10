@@ -5,6 +5,7 @@
  */
 package autoescola.modelo.bean;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -12,33 +13,34 @@ import java.util.ArrayList;
  * @author felipe
  */
 public class Cliente {
+
     private int codCliente;
+    private int codEndereco;
+    private int status;
     private String nome;
     private String rg;
     private String cpf;
     private String datanasc;
     private String telefone;
     private String celular;
-    private String endereco;
     private String numLADV;
     private String categoria;
-    private String status;
     private ArrayList<AulasClientes> aulas;
-    
-    public Cliente (){
-    
+
+    public Cliente() {
+
     }
-    public Cliente (String nome, String rg, String cpf, String datanasc, String telefone, String celular, String endereco, String numLADV, String categoria, String status){
+
+    public Cliente(String nome, String rg, String cpf, String datanasc, String telefone, String celular, String numLADV, String categoria) {
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
         this.datanasc = datanasc;
         this.telefone = telefone;
         this.celular = celular;
-        this.endereco = endereco;
         this.numLADV = numLADV;
         this.categoria = categoria;
-        this.status = status;
+        this.status = 1;
     }
 
     /**
@@ -53,6 +55,14 @@ public class Cliente {
      */
     protected void setCodCliente(int codCliente) {
         this.codCliente = codCliente;
+    }
+    
+    public void setCodEndereco(int codEndereco){
+        this.codEndereco = codEndereco;
+    }
+    
+    public int getCodEndereco(){
+        return this.codEndereco;
     }
 
     /**
@@ -140,20 +150,6 @@ public class Cliente {
     }
 
     /**
-     * @return the endereco
-     */
-    public String getEndereco() {
-        return endereco;
-    }
-
-    /**
-     * @param endereco the endereco to set
-     */
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    /**
      * @return the numLADV
      */
     public String getNumLADV() {
@@ -184,14 +180,14 @@ public class Cliente {
     /**
      * @return the status
      */
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -209,7 +205,4 @@ public class Cliente {
         this.aulas = aulas;
     }
 
-        
-        
-    
 }

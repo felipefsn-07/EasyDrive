@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package autoescola.modelo.bean;
-
 /**
  *
  * @author felipe
@@ -12,17 +11,19 @@ package autoescola.modelo.bean;
 public class Veiculo {
         
     private int codVeiculo;
+    private String placa;
     private String modelo;
     private String ano;
-    private String capacidade;
-    private String tipo; 
+    private int capacidade;
+    private String tipo;
     private boolean status;
     
     public Veiculo(){
-    
+        
     }
     
-    public Veiculo(String modelo, String ano, String capacidade, String tipo, boolean status){
+    public Veiculo(String placa, String modelo, String ano, int capacidade, String tipo, boolean status){
+        this.placa = placa;
         this.modelo = modelo;
         this.ano = ano;
         this.capacidade = capacidade;
@@ -30,18 +31,28 @@ public class Veiculo {
         this.status = status;
     }
 
-    /**
-     * @return the codVeiculo
-     */
+    /*
     public int getCodVeiculo() {
         return codVeiculo;
     }
-
-    /**
-     * @param codVeiculo the codVeiculo to set
-     */
+    */
+    
+    /*
     protected void setCodVeiculo(int codVeiculo) {
         this.codVeiculo = codVeiculo;
+    }
+    */
+    
+    public int getCodVeiculo(){
+        return this.codVeiculo;
+    }
+    
+    public void setPlaca(String placa){
+        this.placa = placa;
+    }
+    
+    public String getPlaca(){
+        return this.placa;
     }
 
     /**
@@ -75,14 +86,14 @@ public class Veiculo {
     /**
      * @return the capacidade
      */
-    public String getCapacidade() {
+    public int getCapacidade() {
         return capacidade;
     }
 
     /**
      * @param capacidade the capacidade to set
      */
-    public void setCapacidade(String capacidade) {
+    public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;
     }
 
