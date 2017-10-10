@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Out-2017 às 20:46
--- Versão do servidor: 10.1.26-MariaDB
+-- Generation Time: 10-Out-2017 às 15:20
+-- Versão do servidor: 5.5.54
 -- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -32,7 +32,7 @@ CREATE TABLE `aula` (
   `codAula` int(11) NOT NULL,
   `dataAula` date NOT NULL,
   `horarioAula` time NOT NULL,
-  `placa` varchar(8) NOT NULL,
+  `codVeiculo` int(11) NOT NULL,
   `numCarteira` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -47,7 +47,8 @@ CREATE TABLE `automovel` (
   `ano` year(4) NOT NULL,
   `modelo` varchar(25) NOT NULL,
   `capacidade` int(11) NOT NULL,
-  `status` varchar(10) NOT NULL
+  `status` varchar(10) NOT NULL,
+  `codVeiculo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -104,7 +105,8 @@ CREATE TABLE `endereco` (
   `cidade` varchar(20) NOT NULL,
   `estado` char(2) NOT NULL,
   `logradouro` varchar(30) NOT NULL,
-  `bairro` varchar(20) NOT NULL
+  `bairro` varchar(20) NOT NULL,
+  `cep` char(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -117,7 +119,7 @@ CREATE TABLE `exame` (
   `codExame` int(11) NOT NULL,
   `dataExame` date NOT NULL,
   `horaExame` time NOT NULL,
-  `placa` varchar(8) NOT NULL
+  `codVeiculo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -204,21 +206,21 @@ CREATE TABLE `recepcionista` (
 --
 ALTER TABLE `aula`
   ADD PRIMARY KEY (`codAula`),
-  ADD KEY `Fk_placa` (`placa`),
-  ADD KEY `Fk_numCarteira` (`numCarteira`);
+  ADD KEY `Fk_numCarteira` (`numCarteira`),
+  ADD KEY `Fk_codVeiculo` (`codVeiculo`);
 
 --
 -- Indexes for table `automovel`
 --
 ALTER TABLE `automovel`
-  ADD PRIMARY KEY (`placa`);
+  ADD PRIMARY KEY (`codVeiculo`);
 
 --
 -- Indexes for table `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`codCliente`),
-  ADD KEY `Fk_endereco` (`codEndereco`);
+  ADD KEY `Fk_codEndereco2` (`codEndereco`);
 
 --
 -- Indexes for table `clienteaula`
@@ -245,7 +247,7 @@ ALTER TABLE `endereco`
 --
 ALTER TABLE `exame`
   ADD PRIMARY KEY (`codExame`),
-  ADD KEY `FK_placa` (`placa`);
+  ADD KEY `Fk_codVeiculo2` (`codVeiculo`);
 
 --
 -- Indexes for table `funcionario`
@@ -298,16 +300,22 @@ ALTER TABLE `aula`
   MODIFY `codAula` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `automovel`
+--
+ALTER TABLE `automovel`
+  MODIFY `codVeiculo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `codCliente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `codEndereco` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `exame`
@@ -335,14 +343,14 @@ ALTER TABLE `login`
 -- Limitadores para a tabela `aula`
 --
 ALTER TABLE `aula`
-  ADD CONSTRAINT `Fk_numCarteira` FOREIGN KEY (`numCarteira`) REFERENCES `instrutor` (`numCarteira`),
-  ADD CONSTRAINT `Fk_placa` FOREIGN KEY (`placa`) REFERENCES `automovel` (`placa`);
+  ADD CONSTRAINT `Fk_codVeiculo` FOREIGN KEY (`codVeiculo`) REFERENCES `automovel` (`codVeiculo`),
+  ADD CONSTRAINT `Fk_numCarteira` FOREIGN KEY (`numCarteira`) REFERENCES `instrutor` (`numCarteira`);
 
 --
 -- Limitadores para a tabela `cliente`
 --
 ALTER TABLE `cliente`
-  ADD CONSTRAINT `Fk_endereco` FOREIGN KEY (`codEndereco`) REFERENCES `endereco` (`codEndereco`);
+  ADD CONSTRAINT `Fk_codEndereco2` FOREIGN KEY (`codEndereco`) REFERENCES `endereco` (`codEndereco`);
 
 --
 -- Limitadores para a tabela `clienteaula`
@@ -355,15 +363,21 @@ ALTER TABLE `clienteaula`
 -- Limitadores para a tabela `clienteexame`
 --
 ALTER TABLE `clienteexame`
-  ADD CONSTRAINT `FK_codExame` FOREIGN KEY (`codExame`) REFERENCES `exame` (`codExame`),
-  ADD CONSTRAINT `Fk_codCliente2` FOREIGN KEY (`codCliente`) REFERENCES `cliente` (`codCliente`);
+  ADD CONSTRAINT `Fk_codCliente2` FOREIGN KEY (`codCliente`) REFERENCES `cliente` (`codCliente`),
+  ADD CONSTRAINT `FK_codExame` FOREIGN KEY (`codExame`) REFERENCES `exame` (`codExame`);
+
+--
+-- Limitadores para a tabela `exame`
+--
+ALTER TABLE `exame`
+  ADD CONSTRAINT `Fk_codVeiculo2` FOREIGN KEY (`codVeiculo`) REFERENCES `automovel` (`codVeiculo`);
 
 --
 -- Limitadores para a tabela `funcionario`
 --
 ALTER TABLE `funcionario`
-  ADD CONSTRAINT `FK_codLogin` FOREIGN KEY (`codLogin`) REFERENCES `login` (`codLogin`),
-  ADD CONSTRAINT `Fk_codEndereco` FOREIGN KEY (`codEndereco`) REFERENCES `endereco` (`codEndereco`);
+  ADD CONSTRAINT `Fk_codEndereco` FOREIGN KEY (`codEndereco`) REFERENCES `endereco` (`codEndereco`),
+  ADD CONSTRAINT `FK_codLogin` FOREIGN KEY (`codLogin`) REFERENCES `login` (`codLogin`);
 
 --
 -- Limitadores para a tabela `gerente`
