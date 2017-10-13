@@ -11,8 +11,8 @@ package autoescola.modelo.bean;
  */
 public class AulasClientes {
    
-   private Cliente aluno;
-   private Aulas aulas;
+   private Cliente aluno;   
+   private Aula aulas;
 
     /**
      * @return the aluno
@@ -31,14 +31,14 @@ public class AulasClientes {
     /**
      * @return the aulas
      */
-    public Aulas getAulas() {
+    public Aula getAulas() {
         return aulas;
     }
 
     /**
      * @param aulas the aulas to set
      */
-    public void setAulas(Aulas aulas) {
+    public void setAulas(Aula aulas) {
         this.aulas = aulas;
     }
    
