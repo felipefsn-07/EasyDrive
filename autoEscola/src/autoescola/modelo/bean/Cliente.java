@@ -5,7 +5,6 @@
  */
 package autoescola.modelo.bean;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 public class Cliente {
 
     private int codCliente;
-    private int codEndereco;
+    private Endereco codEndereco;
     private int status;
     private String nome;
     private String rg;
@@ -57,11 +56,11 @@ public class Cliente {
         this.codCliente = codCliente;
     }
     
-    public void setCodEndereco(int codEndereco){
+    public void setCodEndereco(Endereco codEndereco){
         this.codEndereco = codEndereco;
     }
     
-    public int getCodEndereco(){
+    public Endereco getCodEndereco(){
         return this.codEndereco;
     }
 
