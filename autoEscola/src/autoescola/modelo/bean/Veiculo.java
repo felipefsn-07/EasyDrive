@@ -31,17 +31,12 @@ public class Veiculo {
         this.status = status;
     }
 
-    /*
-    public int getCodVeiculo() {
-        return codVeiculo;
-    }
-    */
     
-    /*
-    protected void setCodVeiculo(int codVeiculo) {
+
+    public void setCodVeiculo(int codVeiculo) {
         this.codVeiculo = codVeiculo;
     }
-    */
+    
     
     public int getCodVeiculo(){
         return this.codVeiculo;

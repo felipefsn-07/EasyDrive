@@ -14,6 +14,7 @@ public class Usuario {
     private int codLogin;
     private String login;
     private String senha;
+    private int status;
 
     /**
      * @return the login
@@ -55,5 +56,19 @@ public class Usuario {
      */
     public void setCodLogin(int codLogin) {
         this.codLogin = codLogin;
+    }
+
+    /**
+     * @return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

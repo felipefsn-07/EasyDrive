@@ -5,7 +5,7 @@
  */
 package autoescola.modelo.arquivo;
 
-import autoescola.modelo.bean.Endereco;
+import autoescola.modelo.bean.Usuario;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,9 +22,9 @@ import java.util.Scanner;
 public class UsuarioArquivo extends Arquivo {
     private final String tabela = "tabelas/usuario.csv";
 
-    public ArrayList<Endereco> consultarEnderecos() {
+    public ArrayList<Usuario> consultarUsuarios() {
         File arquivoCSV = new File(tabela);
-        ArrayList<Endereco> enderecos = new ArrayList();
+        ArrayList<Usuario> usuarios = new ArrayList();
         try {
 
             //cria um scanner para ler o arquivo
@@ -44,21 +44,16 @@ public class UsuarioArquivo extends Arquivo {
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null) {
-                    Endereco endereco = new Endereco();
-                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[0]));
-                    endereco.setNum(valoresEntreVirgulas[1]);
-                    endereco.setCidade(valoresEntreVirgulas[2]);
-                    endereco.setEstado(valoresEntreVirgulas[3]);
-                    endereco.setLogradouro(valoresEntreVirgulas[4]);
-                    endereco.setBairro(valoresEntreVirgulas[5]);
-                    endereco.setCep(valoresEntreVirgulas[6]);
-                    endereco.setStatus(parseInt(valoresEntreVirgulas[7]));
-
-                    enderecos.add(endereco);
+                    Usuario usuario = new Usuario();
+                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
+                    usuario.setLogin(valoresEntreVirgulas[1]);
+                    usuario.setSenha(valoresEntreVirgulas[2]);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    usuarios.add(usuario);
 
                 }
             }
-            return enderecos;
+            return usuarios;
 
         } catch (FileNotFoundException e) {
             //log de erro
@@ -67,9 +62,9 @@ public class UsuarioArquivo extends Arquivo {
         }
     }
 
-    public Endereco consultarEndereco(int codEndereco) {
+    public Usuario consultarUsuario(int codUsuario) {
         File arquivoCSV = new File(tabela);
-        Endereco endereco = new Endereco();
+        Usuario usuario = new Usuario();
         try {
 
             //cria um scanner para ler o arquivo
@@ -88,19 +83,15 @@ public class UsuarioArquivo extends Arquivo {
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codEndereco) {
-                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[0]));
-                    endereco.setNum(valoresEntreVirgulas[1]);
-                    endereco.setCidade(valoresEntreVirgulas[2]);
-                    endereco.setEstado(valoresEntreVirgulas[3]);
-                    endereco.setLogradouro(valoresEntreVirgulas[4]);
-                    endereco.setBairro(valoresEntreVirgulas[5]);
-                    endereco.setCep(valoresEntreVirgulas[6]);
-                    endereco.setStatus(parseInt(valoresEntreVirgulas[7]));
+                if (parseInt(valoresEntreVirgulas[0]) == codUsuario) {
+                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
+                    usuario.setLogin(valoresEntreVirgulas[1]);
+                    usuario.setSenha(valoresEntreVirgulas[2]);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
 
                 }
             }
-            return endereco;
+            return usuario;
 
         } catch (FileNotFoundException e) {
             //log de erro
@@ -109,7 +100,7 @@ public class UsuarioArquivo extends Arquivo {
         }
     }
 
-    public boolean desativarEndereco(int codEndereco) {
+    public boolean desativarUsuario(int codUsuario) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -129,15 +120,10 @@ public class UsuarioArquivo extends Arquivo {
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codEndereco) {
+                if (parseInt(valoresEntreVirgulas[0]) == codUsuario) {
                     linhasDoArquivo = valoresEntreVirgulas[0] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[1] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[2] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[4] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[5] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[6] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[7] + ",";
                     linhasDoArquivo += "0";
 
                 }
@@ -162,7 +148,7 @@ public class UsuarioArquivo extends Arquivo {
         }
     }
 
-    public boolean alterarEndereco(Endereco endereco) {
+    public boolean alterarUsuario(Usuario usuario) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -182,15 +168,11 @@ public class UsuarioArquivo extends Arquivo {
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == endereco.getCodEndereco()) {
-                    linhasDoArquivo = String.valueOf(endereco.getCodEndereco()) + ",";
-                    linhasDoArquivo += endereco.getNum() + ",";
-                    linhasDoArquivo += endereco.getCidade() + ",";
-                    linhasDoArquivo += endereco.getEstado() + ",";
-                    linhasDoArquivo += endereco.getLogradouro()+ ",";
-                    linhasDoArquivo += endereco.getBairro() + ",";
-                    linhasDoArquivo += endereco.getCep() + ",";
-                    linhasDoArquivo += String.valueOf(endereco.getStatus());
+                if (parseInt(valoresEntreVirgulas[0]) == usuario.getCodLogin()) {
+                    linhasDoArquivo = String.valueOf(usuario.getCodLogin()) + ",";
+                    linhasDoArquivo += usuario.getLogin()+ ",";
+                    linhasDoArquivo += usuario.getSenha()+ ",";
+                    linhasDoArquivo += String.valueOf(usuario.getStatus());
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -213,36 +195,30 @@ public class UsuarioArquivo extends Arquivo {
         }
     }
 
-    public boolean cadastrarEndereco(Endereco endereco) {
+    public boolean cadastrarUsuario(Usuario usuario) {
 
-        int codEndereco = autoIncremento(tabela);
+        int codUsuario = autoIncremento(tabela);
         try {
             // O parametro é que indica se deve sobrescrever ou continua no
             // arquivo.
             FileWriter fw = new FileWriter(tabela, true);
             BufferedWriter conexao = new BufferedWriter(fw);
-            if (codEndereco != 0) {
-                conexao.write(String.valueOf(codEndereco));
+            if (codUsuario != 0) {
+                conexao.write(String.valueOf(codUsuario));
                 conexao.write(',');
-                conexao.write(endereco.getNum());
+                conexao.write(usuario.getCodLogin());
                 conexao.write(',');
-                conexao.write(endereco.getCidade());
+                conexao.write(usuario.getLogin());
                 conexao.write(',');
-                conexao.write(endereco.getEstado());
-                conexao.write(',');
-                conexao.write(endereco.getLogradouro());
-                conexao.write(',');
-                conexao.write(endereco.getBairro());
-                conexao.write(',');
-                conexao.write(endereco.getCep());
-                conexao.write(',');
-                conexao.write(String.valueOf(endereco.getStatus()));
+                conexao.write(usuario.getSenha());
+                conexao.write(',');                
+                conexao.write(String.valueOf(usuario.getStatus()));
                 conexao.newLine();
                 conexao.close();
 
                 return true;
             } else {
-                //msg erro no incremento codEndereco == 0
+                //msg erro no incremento codUsuario == 0
                 return false;
             }
 
@@ -252,9 +228,9 @@ public class UsuarioArquivo extends Arquivo {
         }
     }
 
-    public ArrayList<Endereco> consultarEnderecosLike(String campo, String valor) {
+    public ArrayList<Usuario> consultarUsuariosLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
-        ArrayList<Endereco> enderecos = new ArrayList();
+        ArrayList<Usuario> usuarios = new ArrayList();
         try {
             //cria um scanner para ler o arquivo
             Scanner leitor = new Scanner(arquivoCSV);
@@ -280,21 +256,17 @@ public class UsuarioArquivo extends Arquivo {
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
-                    Endereco endereco = new Endereco();
-                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[0]));
-                    endereco.setNum(valoresEntreVirgulas[1]);
-                    endereco.setCidade(valoresEntreVirgulas[2]);
-                    endereco.setEstado(valoresEntreVirgulas[3]);
-                    endereco.setLogradouro(valoresEntreVirgulas[4]);
-                    endereco.setBairro(valoresEntreVirgulas[5]);
-                    endereco.setCep(valoresEntreVirgulas[6]);
-                    endereco.setStatus(parseInt(valoresEntreVirgulas[7]));
+                    Usuario usuario = new Usuario();
+                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
+                    usuario.setLogin(valoresEntreVirgulas[1]);
+                    usuario.setSenha(valoresEntreVirgulas[2]);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
 
-                    enderecos.add(endereco);
+                    usuarios.add(usuario);
 
                 }
             }
-            return enderecos;
+            return usuarios;
 
         } catch (FileNotFoundException e) {
             //log de erro
