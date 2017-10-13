@@ -20,7 +20,7 @@ public class Cliente {
     private String nome;
     private String rg;
     private String cpf;
-    private String datanasc;
+    private Date datanasc;
     private String telefone;
     private String celular;
     private String numLADV;
@@ -31,7 +31,7 @@ public class Cliente {
 
     }
 
-    public Cliente(String nome, String rg, String cpf, String datanasc, String telefone, String celular, String numLADV, String categoria) {
+    public Cliente(String nome, String rg, String cpf, Date datanasc, String telefone, String celular, String numLADV, String categoria) {
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
@@ -53,7 +53,7 @@ public class Cliente {
     /**
      * @param codCliente the codCliente to set
      */
-    protected void setCodCliente(int codCliente) {
+    public void setCodCliente(int codCliente) {
         this.codCliente = codCliente;
     }
     
@@ -110,14 +110,14 @@ public class Cliente {
     /**
      * @return the datanasc
      */
-    public String getDatanasc() {
+    public Date getDatanasc() {
         return datanasc;
     }
 
     /**
      * @param datanasc the datanasc to set
      */
-    public void setDatanasc(String datanasc) {
+    public void setDatanasc(Date datanasc) {
         this.datanasc = datanasc;
     }
 
