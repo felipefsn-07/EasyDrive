@@ -18,18 +18,17 @@ public class Funcionario {
     private String datanasc;
     private String telefone;
     private String celular;
-    private String endereco;
     private String hora_entra;
     private String hora_sai;
-    private String login;
-    private String senha;
+    private Usuario usuario;
     private String tipo;
     private boolean status;
+    private Endereco endereco;
 
     public Funcionario(){
     }
     
-    public Funcionario (String nome, String rg, String cpf, String datanasc, String telefone, String celular, String endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, boolean status){
+    public Funcionario (String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, boolean status){
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
@@ -39,11 +38,8 @@ public class Funcionario {
         this.endereco = endereco;
         this.hora_entra = hora_entra;
         this.hora_sai = hora_sai;
-        this.login = login;
-        this.senha = senha;
         this.tipo = tipo;
-        this.status = status;
-       
+        this.status = status;    
     }
     
     /**
@@ -56,7 +52,7 @@ public class Funcionario {
     /**
      * @param codigoFuncionario the codigoFuncionario to set
      */
-    protected void setCodigoFuncionario(int codigoFuncionario) {
+    public void setCodigoFuncionario(int codigoFuncionario) {
         this.codigoFuncionario = codigoFuncionario;
     }
 
@@ -147,14 +143,14 @@ public class Funcionario {
     /**
      * @return the endereco
      */
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
     /**
      * @param endereco the endereco to set
      */
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 
@@ -187,34 +183,6 @@ public class Funcionario {
     }
 
     /**
-     * @return the login
-     */
-    public String getLogin() {
-        return login;
-    }
-
-    /**
-     * @param login the login to set
-     */
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    /**
-     * @return the senha
-     */
-    public String getSenha() {
-        return senha;
-    }
-
-    /**
-     * @param senha the senha to set
-     */
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    /**
      * @return the tipo
      */
     public String getTipo() {
@@ -240,6 +208,20 @@ public class Funcionario {
      */
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
 }

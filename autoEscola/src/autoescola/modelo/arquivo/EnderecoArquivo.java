@@ -5,15 +5,13 @@
  */
 package autoescola.modelo.arquivo;
 
-import autoescola.modelo.bean.Aulas;
-import autoescola.modelo.bean.Instrutor;
+import autoescola.modelo.bean.Endereco;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,13 +19,13 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class AulasArquivo extends Arquivo{
-    
-    private final String tabela = "tabelas/aula.csv";
+public class EnderecoArquivo extends Arquivo {
 
-    public ArrayList<Aulas> consultarAulas() {
+    private final String tabela = "tabelas/endereco.csv";
+
+    public ArrayList<Endereco> consultarEnderecos() {
         File arquivoCSV = new File(tabela);
-        ArrayList<Aulas> aulas = new ArrayList();
+        ArrayList<Endereco> enderecos = new ArrayList();
         try {
 
             //cria um scanner para ler o arquivo
@@ -47,20 +45,21 @@ public class AulasArquivo extends Arquivo{
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null) {
-                    Aulas aula = new Aulas();
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));                   
-                    aula.setDataAula(valoresEntreVirgulas[1]);
-                    aula.setHorarioAula(valoresEntreVirgulas[2]);
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[3]));
-                    Instrutor instrutor = new Instrutor();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
-                    aula.setInstrutor(instrutor);
-                    
-                    aulas.add(aula);
+                    Endereco endereco = new Endereco();
+                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[0]));
+                    endereco.setNum(valoresEntreVirgulas[1]);
+                    endereco.setCidade(valoresEntreVirgulas[2]);
+                    endereco.setEstado(valoresEntreVirgulas[3]);
+                    endereco.setLogradouro(valoresEntreVirgulas[4]);
+                    endereco.setBairro(valoresEntreVirgulas[5]);
+                    endereco.setCep(valoresEntreVirgulas[6]);
+                    endereco.setStatus(parseInt(valoresEntreVirgulas[7]));
+
+                    enderecos.add(endereco);
 
                 }
             }
-            return aulas;
+            return enderecos;
 
         } catch (FileNotFoundException e) {
             //log de erro
@@ -69,9 +68,9 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public Aulas consultarAula(int codAulas) {
+    public Endereco consultarEndereco(int codEndereco) {
         File arquivoCSV = new File(tabela);
-        Aulas aula = new Aulas();
+        Endereco endereco = new Endereco();
         try {
 
             //cria um scanner para ler o arquivo
@@ -90,21 +89,19 @@ public class AulasArquivo extends Arquivo{
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigoCliente) {
-                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[0]));
-                    cliente.setNome(valoresEntreVirgulas[1]);
-                    cliente.setTelefone(valoresEntreVirgulas[2]);
-                    cliente.setCelular(valoresEntreVirgulas[3]);
-                    cliente.setDatanasc(Date.valueOf(valoresEntreVirgulas[4]));
-                    cliente.setRg(valoresEntreVirgulas[5]);
-                    cliente.setCpf(valoresEntreVirgulas[6]);
-                    cliente.setNumLADV(valoresEntreVirgulas[7]);
-                    cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
-                    cliente.setCategoria(valoresEntreVirgulas[9]);
-                    cliente.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                if (parseInt(valoresEntreVirgulas[0]) == codEndereco) {
+                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[0]));
+                    endereco.setNum(valoresEntreVirgulas[1]);
+                    endereco.setCidade(valoresEntreVirgulas[2]);
+                    endereco.setEstado(valoresEntreVirgulas[3]);
+                    endereco.setLogradouro(valoresEntreVirgulas[4]);
+                    endereco.setBairro(valoresEntreVirgulas[5]);
+                    endereco.setCep(valoresEntreVirgulas[6]);
+                    endereco.setStatus(parseInt(valoresEntreVirgulas[7]));
+
                 }
             }
-            return cliente;
+            return endereco;
 
         } catch (FileNotFoundException e) {
             //log de erro
@@ -113,7 +110,7 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean desativarCliente(int codigoCliente) {
+    public boolean desativarEndereco(int codEndereco) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -133,7 +130,7 @@ public class AulasArquivo extends Arquivo{
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigoCliente) {
+                if (parseInt(valoresEntreVirgulas[0]) == codEndereco) {
                     linhasDoArquivo = valoresEntreVirgulas[0] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[1] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[2] + ",";
@@ -142,9 +139,7 @@ public class AulasArquivo extends Arquivo{
                     linhasDoArquivo += valoresEntreVirgulas[5] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[6] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[7] + ",";
-                    linhasDoArquivo += "0,";
-                    linhasDoArquivo += valoresEntreVirgulas[9] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[10];
+                    linhasDoArquivo += "0";
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -159,6 +154,7 @@ public class AulasArquivo extends Arquivo{
             } catch (IOException e) {
                 return false;
             }
+            
             //return true;
         } catch (FileNotFoundException e) {
             //log de erro
@@ -167,8 +163,8 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean alterarCliente(int codigoCliente, Cliente cliente) {
-                File arquivoCSV = new File(tabela);
+    public boolean alterarEndereco(Endereco endereco) {
+        File arquivoCSV = new File(tabela);
         try {
 
             //cria um scanner para ler o arquivo
@@ -187,18 +183,15 @@ public class AulasArquivo extends Arquivo{
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigoCliente) {
-                    linhasDoArquivo = String.valueOf(codigoCliente) + ",";
-                    linhasDoArquivo +=cliente.getNome() + ",";
-                    linhasDoArquivo += cliente.getTelefone() + ",";
-                    linhasDoArquivo += cliente.getCelular() + ",";
-                    linhasDoArquivo += cliente.getDatanasc().toString()+ ",";
-                    linhasDoArquivo += cliente.getRg()+ ",";
-                    linhasDoArquivo += cliente.getCpf() + ",";
-                    linhasDoArquivo += cliente.getNumLADV() + ",";
-                    linhasDoArquivo += String.valueOf(cliente.getStatus())+",";
-                    linhasDoArquivo += cliente.getCategoria() + ",";
-                    linhasDoArquivo += String.valueOf(cliente.getCodEndereco());
+                if (parseInt(valoresEntreVirgulas[0]) == endereco.getCodEndereco()) {
+                    linhasDoArquivo = String.valueOf(endereco.getCodEndereco()) + ",";
+                    linhasDoArquivo += endereco.getNum() + ",";
+                    linhasDoArquivo += endereco.getCidade() + ",";
+                    linhasDoArquivo += endereco.getEstado() + ",";
+                    linhasDoArquivo += endereco.getLogradouro()+ ",";
+                    linhasDoArquivo += endereco.getBairro() + ",";
+                    linhasDoArquivo += endereco.getCep() + ",";
+                    linhasDoArquivo += String.valueOf(endereco.getStatus());
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -221,41 +214,36 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean cadastrarCliente(Cliente cliente) {
+    public boolean cadastrarEndereco(Endereco endereco) {
 
-        int idCliente = autoIncremento(tabela);
+        int codEndereco = autoIncremento(tabela);
         try {
             // O parametro é que indica se deve sobrescrever ou continua no
             // arquivo.
             FileWriter fw = new FileWriter(tabela, true);
             BufferedWriter conexao = new BufferedWriter(fw);
-            if (idCliente != 0) {
-                conexao.write(String.valueOf(idCliente));
+            if (codEndereco != 0) {
+                conexao.write(String.valueOf(codEndereco));
                 conexao.write(',');
-                conexao.write(cliente.getNome());
+                conexao.write(endereco.getNum());
                 conexao.write(',');
-                conexao.write(cliente.getTelefone());
+                conexao.write(endereco.getCidade());
                 conexao.write(',');
-                conexao.write(cliente.getCelular());
+                conexao.write(endereco.getEstado());
                 conexao.write(',');
-                conexao.write(cliente.getDatanasc().toString());
+                conexao.write(endereco.getLogradouro());
                 conexao.write(',');
-                conexao.write(cliente.getRg());
+                conexao.write(endereco.getBairro());
                 conexao.write(',');
-                conexao.write(cliente.getCpf());
+                conexao.write(endereco.getCep());
                 conexao.write(',');
-                conexao.write(cliente.getNumLADV());
-                conexao.write(',');
-                conexao.write(String.valueOf(cliente.getStatus()));
-                conexao.write(',');
-                conexao.write(cliente.getCategoria());
-                conexao.write(',');
-                conexao.write(String.valueOf(cliente.getCodEndereco()));
+                conexao.write(String.valueOf(endereco.getStatus()));
                 conexao.newLine();
                 conexao.close();
 
                 return true;
             } else {
+                //msg erro no incremento codEndereco == 0
                 return false;
             }
 
@@ -265,9 +253,9 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public ArrayList<Cliente> consultarClientesLike(String campo, String valor) {
+    public ArrayList<Endereco> consultarEnderecosLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
-        ArrayList<Cliente> clientes = new ArrayList();
+        ArrayList<Endereco> enderecos = new ArrayList();
         try {
             //cria um scanner para ler o arquivo
             Scanner leitor = new Scanner(arquivoCSV);
@@ -283,7 +271,6 @@ public class AulasArquivo extends Arquivo{
                     break;
                 }
             }
-
             //leitor.nextLine();
             //percorre todo o arquivo
             while (leitor.hasNext()) {
@@ -294,23 +281,21 @@ public class AulasArquivo extends Arquivo{
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
-                    Cliente cliente = new Cliente();
-                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[0]));
-                    cliente.setNome(valoresEntreVirgulas[1]);
-                    cliente.setTelefone(valoresEntreVirgulas[2]);
-                    cliente.setCelular(valoresEntreVirgulas[3]);
-                    cliente.setDatanasc(Date.valueOf(valoresEntreVirgulas[4]));
-                    cliente.setRg(valoresEntreVirgulas[5]);
-                    cliente.setCpf(valoresEntreVirgulas[6]);
-                    cliente.setNumLADV(valoresEntreVirgulas[7]);
-                    cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
-                    cliente.setCategoria(valoresEntreVirgulas[9]);
-                    cliente.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
-                    clientes.add(cliente);
+                    Endereco endereco = new Endereco();
+                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[0]));
+                    endereco.setNum(valoresEntreVirgulas[1]);
+                    endereco.setCidade(valoresEntreVirgulas[2]);
+                    endereco.setEstado(valoresEntreVirgulas[3]);
+                    endereco.setLogradouro(valoresEntreVirgulas[4]);
+                    endereco.setBairro(valoresEntreVirgulas[5]);
+                    endereco.setCep(valoresEntreVirgulas[6]);
+                    endereco.setStatus(parseInt(valoresEntreVirgulas[7]));
+
+                    enderecos.add(endereco);
 
                 }
             }
-            return clientes;
+            return enderecos;
 
         } catch (FileNotFoundException e) {
             //log de erro
@@ -318,6 +303,5 @@ public class AulasArquivo extends Arquivo{
 
         }
     }
-    
-    
+
 }

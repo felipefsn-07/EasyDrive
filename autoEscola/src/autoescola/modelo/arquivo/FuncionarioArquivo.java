@@ -5,15 +5,14 @@
  */
 package autoescola.modelo.arquivo;
 
-import autoescola.modelo.bean.Aulas;
-import autoescola.modelo.bean.Instrutor;
+import autoescola.modelo.bean.Funcionario;
+import autoescola.modelo.bean.Usuario;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,13 +20,12 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class AulasArquivo extends Arquivo{
-    
-    private final String tabela = "tabelas/aula.csv";
+public class FuncionarioArquivo extends Arquivo {
+    private final String tabela = "tabelas/funcionario.csv";
 
-    public ArrayList<Aulas> consultarAulas() {
+    public ArrayList<Funcionario> consultarFuncionario() {
         File arquivoCSV = new File(tabela);
-        ArrayList<Aulas> aulas = new ArrayList();
+        ArrayList<Funcionario> funcionarios = new ArrayList();
         try {
 
             //cria um scanner para ler o arquivo
@@ -47,20 +45,25 @@ public class AulasArquivo extends Arquivo{
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null) {
-                    Aulas aula = new Aulas();
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));                   
-                    aula.setDataAula(valoresEntreVirgulas[1]);
-                    aula.setHorarioAula(valoresEntreVirgulas[2]);
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[3]));
-                    Instrutor instrutor = new Instrutor();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
-                    aula.setInstrutor(instrutor);
-                    
-                    aulas.add(aula);
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
+                    Usuario usuario = new Usuario();
+                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
+                    funcionario.setUsuario(usuario);
+                    funcionario.set(valoresEntreVirgulas[2]);
+                    funcionario.setCelular(valoresEntreVirgulas[3]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[4]);
+                    funcionario.setRg(valoresEntreVirgulas[5]);
+                    funcionario.setCpf(valoresEntreVirgulas[6]);
+                    funcionario.setNumLADV(valoresEntreVirgulas[7]);
+                    funcionario.setStatus(parseInt(valoresEntreVirgulas[8]));
+                    funcionario.setCategoria(valoresEntreVirgulas[9]);
+                    funcionario.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                    funcionarios.add(funcionario);
 
                 }
             }
-            return aulas;
+            return funcionarios;
 
         } catch (FileNotFoundException e) {
             //log de erro
@@ -69,9 +72,9 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public Aulas consultarAula(int codAulas) {
+    public funcionario consultarfuncionario(int codigofuncionario) {
         File arquivoCSV = new File(tabela);
-        Aulas aula = new Aulas();
+        funcionario funcionario = new funcionario();
         try {
 
             //cria um scanner para ler o arquivo
@@ -90,21 +93,21 @@ public class AulasArquivo extends Arquivo{
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigoCliente) {
-                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[0]));
-                    cliente.setNome(valoresEntreVirgulas[1]);
-                    cliente.setTelefone(valoresEntreVirgulas[2]);
-                    cliente.setCelular(valoresEntreVirgulas[3]);
-                    cliente.setDatanasc(Date.valueOf(valoresEntreVirgulas[4]));
-                    cliente.setRg(valoresEntreVirgulas[5]);
-                    cliente.setCpf(valoresEntreVirgulas[6]);
-                    cliente.setNumLADV(valoresEntreVirgulas[7]);
-                    cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
-                    cliente.setCategoria(valoresEntreVirgulas[9]);
-                    cliente.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                if (parseInt(valoresEntreVirgulas[0]) == codigofuncionario) {
+                    funcionario.setCodfuncionario(parseInt(valoresEntreVirgulas[0]));
+                    funcionario.setNome(valoresEntreVirgulas[1]);
+                    funcionario.setTelefone(valoresEntreVirgulas[2]);
+                    funcionario.setCelular(valoresEntreVirgulas[3]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[4]);
+                    funcionario.setRg(valoresEntreVirgulas[5]);
+                    funcionario.setCpf(valoresEntreVirgulas[6]);
+                    funcionario.setNumLADV(valoresEntreVirgulas[7]);
+                    funcionario.setStatus(parseInt(valoresEntreVirgulas[8]));
+                    funcionario.setCategoria(valoresEntreVirgulas[9]);
+                    funcionario.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
                 }
             }
-            return cliente;
+            return funcionario;
 
         } catch (FileNotFoundException e) {
             //log de erro
@@ -113,7 +116,7 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean desativarCliente(int codigoCliente) {
+    public boolean desativarfuncionario(int codigofuncionario) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -133,7 +136,7 @@ public class AulasArquivo extends Arquivo{
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigoCliente) {
+                if (parseInt(valoresEntreVirgulas[0]) == codigofuncionario) {
                     linhasDoArquivo = valoresEntreVirgulas[0] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[1] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[2] + ",";
@@ -167,7 +170,7 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean alterarCliente(int codigoCliente, Cliente cliente) {
+    public boolean alterarfuncionario(int codigofuncionario, funcionario funcionario) {
                 File arquivoCSV = new File(tabela);
         try {
 
@@ -187,18 +190,18 @@ public class AulasArquivo extends Arquivo{
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigoCliente) {
-                    linhasDoArquivo = String.valueOf(codigoCliente) + ",";
-                    linhasDoArquivo +=cliente.getNome() + ",";
-                    linhasDoArquivo += cliente.getTelefone() + ",";
-                    linhasDoArquivo += cliente.getCelular() + ",";
-                    linhasDoArquivo += cliente.getDatanasc().toString()+ ",";
-                    linhasDoArquivo += cliente.getRg()+ ",";
-                    linhasDoArquivo += cliente.getCpf() + ",";
-                    linhasDoArquivo += cliente.getNumLADV() + ",";
-                    linhasDoArquivo += String.valueOf(cliente.getStatus())+",";
-                    linhasDoArquivo += cliente.getCategoria() + ",";
-                    linhasDoArquivo += String.valueOf(cliente.getCodEndereco());
+                if (parseInt(valoresEntreVirgulas[0]) == codigofuncionario) {
+                    linhasDoArquivo = String.valueOf(codigofuncionario) + ",";
+                    linhasDoArquivo +=funcionario.getNome() + ",";
+                    linhasDoArquivo += funcionario.getTelefone() + ",";
+                    linhasDoArquivo += funcionario.getCelular() + ",";
+                    linhasDoArquivo += funcionario.getDatanasc()+ ",";
+                    linhasDoArquivo += funcionario.getRg()+ ",";
+                    linhasDoArquivo += funcionario.getCpf() + ",";
+                    linhasDoArquivo += funcionario.getNumLADV() + ",";
+                    linhasDoArquivo += String.valueOf(funcionario.getStatus())+",";
+                    linhasDoArquivo += funcionario.getCategoria() + ",";
+                    linhasDoArquivo += String.valueOf(funcionario.getCodEndereco());
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -221,36 +224,36 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean cadastrarCliente(Cliente cliente) {
+    public boolean cadastrarfuncionario(Funcionario funcionario) {
 
-        int idCliente = autoIncremento(tabela);
+        int idfuncionario = autoIncremento(tabela);
         try {
             // O parametro é que indica se deve sobrescrever ou continua no
             // arquivo.
             FileWriter fw = new FileWriter(tabela, true);
             BufferedWriter conexao = new BufferedWriter(fw);
-            if (idCliente != 0) {
-                conexao.write(String.valueOf(idCliente));
+            if (idfuncionario != 0) {
+                conexao.write(String.valueOf(idfuncionario));
                 conexao.write(',');
-                conexao.write(cliente.getNome());
+                conexao.write(funcionario.getNome());
                 conexao.write(',');
-                conexao.write(cliente.getTelefone());
+                conexao.write(funcionario.getTelefone());
                 conexao.write(',');
-                conexao.write(cliente.getCelular());
+                conexao.write(funcionario.getCelular());
                 conexao.write(',');
-                conexao.write(cliente.getDatanasc().toString());
+                conexao.write(funcionario.getDatanasc());
                 conexao.write(',');
-                conexao.write(cliente.getRg());
+                conexao.write(funcionario.getRg());
                 conexao.write(',');
-                conexao.write(cliente.getCpf());
+                conexao.write(funcionario.getCpf());
                 conexao.write(',');
-                conexao.write(cliente.getNumLADV());
+                conexao.write(funcionario.getNumLADV());
                 conexao.write(',');
-                conexao.write(String.valueOf(cliente.getStatus()));
+                conexao.write(String.valueOf(funcionario.getStatus()));
                 conexao.write(',');
-                conexao.write(cliente.getCategoria());
+                conexao.write(funcionario.getCategoria());
                 conexao.write(',');
-                conexao.write(String.valueOf(cliente.getCodEndereco()));
+                conexao.write(String.valueOf(funcionario.getCodEndereco()));
                 conexao.newLine();
                 conexao.close();
 
@@ -265,9 +268,9 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public ArrayList<Cliente> consultarClientesLike(String campo, String valor) {
+    public ArrayList<funcionario> consultarfuncionariosLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
-        ArrayList<Cliente> clientes = new ArrayList();
+        ArrayList<funcionario> funcionarios = new ArrayList();
         try {
             //cria um scanner para ler o arquivo
             Scanner leitor = new Scanner(arquivoCSV);
@@ -294,30 +297,28 @@ public class AulasArquivo extends Arquivo{
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
-                    Cliente cliente = new Cliente();
-                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[0]));
-                    cliente.setNome(valoresEntreVirgulas[1]);
-                    cliente.setTelefone(valoresEntreVirgulas[2]);
-                    cliente.setCelular(valoresEntreVirgulas[3]);
-                    cliente.setDatanasc(Date.valueOf(valoresEntreVirgulas[4]));
-                    cliente.setRg(valoresEntreVirgulas[5]);
-                    cliente.setCpf(valoresEntreVirgulas[6]);
-                    cliente.setNumLADV(valoresEntreVirgulas[7]);
-                    cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
-                    cliente.setCategoria(valoresEntreVirgulas[9]);
-                    cliente.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
-                    clientes.add(cliente);
+                    funcionario funcionario = new funcionario();
+                    funcionario.setCodfuncionario(parseInt(valoresEntreVirgulas[0]));
+                    funcionario.setNome(valoresEntreVirgulas[1]);
+                    funcionario.setTelefone(valoresEntreVirgulas[2]);
+                    funcionario.setCelular(valoresEntreVirgulas[3]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[4]);
+                    funcionario.setRg(valoresEntreVirgulas[5]);
+                    funcionario.setCpf(valoresEntreVirgulas[6]);
+                    funcionario.setNumLADV(valoresEntreVirgulas[7]);
+                    funcionario.setStatus(parseInt(valoresEntreVirgulas[8]));
+                    funcionario.setCategoria(valoresEntreVirgulas[9]);
+                    funcionario.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                    funcionarios.add(funcionario);
 
                 }
             }
-            return clientes;
+            return funcionarios;
 
         } catch (FileNotFoundException e) {
             //log de erro
             return null;
 
         }
-    }
-    
-    
+    }    
 }

@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,7 +20,6 @@ import java.util.Scanner;
  * @author felipe
  */
 public class ClienteArquivo extends Arquivo {
-
     private final String tabela = "tabelas/cliente.csv";
 
     public ArrayList<Cliente> consultarClientes() {
@@ -51,7 +49,7 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setNome(valoresEntreVirgulas[1]);
                     cliente.setTelefone(valoresEntreVirgulas[2]);
                     cliente.setCelular(valoresEntreVirgulas[3]);
-                    cliente.setDatanasc(Date.valueOf(valoresEntreVirgulas[4]));
+                    cliente.setDatanasc(valoresEntreVirgulas[4]);
                     cliente.setRg(valoresEntreVirgulas[5]);
                     cliente.setCpf(valoresEntreVirgulas[6]);
                     cliente.setNumLADV(valoresEntreVirgulas[7]);
@@ -97,7 +95,7 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setNome(valoresEntreVirgulas[1]);
                     cliente.setTelefone(valoresEntreVirgulas[2]);
                     cliente.setCelular(valoresEntreVirgulas[3]);
-                    cliente.setDatanasc(Date.valueOf(valoresEntreVirgulas[4]));
+                    cliente.setDatanasc(valoresEntreVirgulas[4]);
                     cliente.setRg(valoresEntreVirgulas[5]);
                     cliente.setCpf(valoresEntreVirgulas[6]);
                     cliente.setNumLADV(valoresEntreVirgulas[7]);
@@ -169,7 +167,7 @@ public class ClienteArquivo extends Arquivo {
         }
     }
 
-    public boolean alterarCliente(int codigoCliente, Cliente cliente) {
+    public boolean alterarCliente(Cliente cliente) {
                 File arquivoCSV = new File(tabela);
         try {
 
@@ -189,12 +187,12 @@ public class ClienteArquivo extends Arquivo {
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigoCliente) {
-                    linhasDoArquivo = String.valueOf(codigoCliente) + ",";
+                if (parseInt(valoresEntreVirgulas[0]) == cliente.getCodCliente()) {
+                    linhasDoArquivo = String.valueOf(cliente.getCodCliente()) + ",";
                     linhasDoArquivo +=cliente.getNome() + ",";
                     linhasDoArquivo += cliente.getTelefone() + ",";
                     linhasDoArquivo += cliente.getCelular() + ",";
-                    linhasDoArquivo += cliente.getDatanasc().toString()+ ",";
+                    linhasDoArquivo += cliente.getDatanasc()+ ",";
                     linhasDoArquivo += cliente.getRg()+ ",";
                     linhasDoArquivo += cliente.getCpf() + ",";
                     linhasDoArquivo += cliente.getNumLADV() + ",";
@@ -240,7 +238,7 @@ public class ClienteArquivo extends Arquivo {
                 conexao.write(',');
                 conexao.write(cliente.getCelular());
                 conexao.write(',');
-                conexao.write(cliente.getDatanasc().toString());
+                conexao.write(cliente.getDatanasc());
                 conexao.write(',');
                 conexao.write(cliente.getRg());
                 conexao.write(',');
@@ -301,7 +299,7 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setNome(valoresEntreVirgulas[1]);
                     cliente.setTelefone(valoresEntreVirgulas[2]);
                     cliente.setCelular(valoresEntreVirgulas[3]);
-                    cliente.setDatanasc(Date.valueOf(valoresEntreVirgulas[4]));
+                    cliente.setDatanasc(valoresEntreVirgulas[4]);
                     cliente.setRg(valoresEntreVirgulas[5]);
                     cliente.setCpf(valoresEntreVirgulas[6]);
                     cliente.setNumLADV(valoresEntreVirgulas[7]);

@@ -34,7 +34,7 @@ public class Aulas {
     /**
      * @param codAulas the codAulas to set
      */
-    protected void setCodAulas(int codAulas) {
+    public void setCodAulas(int codAulas) {
         this.codAulas = codAulas;
     }
 
