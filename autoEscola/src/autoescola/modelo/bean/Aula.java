@@ -21,6 +21,8 @@ public class Aula {
     private Time horarioAula;
     private Instrutor instrutor;
     private Veiculo veiculo;
+    private Veiculo codVeiculo;
+    private String statusAula;//Ativa, cancelada, realizada, adiada, desativada
     private ArrayList<AulasClientes> aulas;
     
     
@@ -39,7 +41,7 @@ public class Aula {
     /**
      * @param codAulas the codAulas to set
      */
-    protected void setCodAulas(int codAulas) {
+    public void setCodAulas(int codAulas) {
         this.codAulas = codAulas;
     }
 
@@ -105,5 +107,33 @@ public class Aula {
      */
     public void setAulas(ArrayList<AulasClientes> aulas) {
         this.aulas = aulas;
+    }
+
+    /**
+     * @return the statusAula
+     */
+    public String getStatusAula() {
+        return statusAula;
+    }
+
+    /**
+     * @param statusAula the statusAula to set
+     */
+    public void setStatusAula(String statusAula) {
+        this.statusAula = statusAula;
+    }
+
+    /**
+     * @return the codVeiculo
+     */
+    public Veiculo getCodVeiculo() {
+        return codVeiculo;
+    }
+
+    /**
+     * @param codVeiculo the codVeiculo to set
+     */
+    public void setCodVeiculo(Veiculo codVeiculo) {
+        this.codVeiculo = codVeiculo;
     }
 }

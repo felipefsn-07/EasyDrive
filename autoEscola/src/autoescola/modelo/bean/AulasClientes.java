@@ -11,8 +11,7 @@ package autoescola.modelo.bean;
  */
 public class AulasClientes {
    
-   private Cliente aluno;
-   
+   private Cliente aluno;   
    private Aula aulas;
 
     /**
