@@ -52,7 +52,7 @@ public class Cliente {
     /**
      * @param codCliente the codCliente to set
      */
-    protected void setCodCliente(int codCliente) {
+    public void setCodCliente(int codCliente) {
         this.codCliente = codCliente;
     }
     

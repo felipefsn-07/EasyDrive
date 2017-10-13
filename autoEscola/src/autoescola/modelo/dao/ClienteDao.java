@@ -32,7 +32,7 @@ public class ClienteDao {
             stmt.setString(1, cli.getNome());
             stmt.setString(2, cli.getTelefone());
             stmt.setString(3, cli.getCelular());
-            stmt.setString(4, cli.getDatanasc());
+            stmt.setDate(4, cli.getDatanasc());
             stmt.setString(5, cli.getRg());
             stmt.setString(6, cli.getCpf());
             stmt.setString(7, cli.getNumLADV());
@@ -73,7 +73,7 @@ public class ClienteDao {
                 cli.setNome(rs.getString("nome"));
                 cli.setTelefone(rs.getString("tel"));
                 cli.setCelular(rs.getString("cel"));
-                cli.setDatanasc(rs.getString("dataNasc"));
+                cli.setDatanasc(rs.getDate("dataNasc"));
                 cli.setRg(rs.getString("rg"));
                 cli.setCpf(rs.getString("cpf"));
                 cli.setNumLADV(rs.getString("numLadv"));
@@ -117,7 +117,7 @@ public class ClienteDao {
                 cli.setNome(rs.getString("nome"));
                 cli.setTelefone(rs.getString("tel"));
                 cli.setCelular(rs.getString("cel"));
-                cli.setDatanasc(rs.getString("dataNasc"));
+                cli.setDatanasc(rs.getDate("dataNasc"));
                 cli.setRg(rs.getString("rg"));
                 cli.setCpf(rs.getString("cpf"));
                 cli.setNumLADV(rs.getString("numLadv"));
@@ -169,7 +169,7 @@ public class ClienteDao {
             stmt.setString(1, cli.getNome());
             stmt.setString(2, cli.getTelefone());
             stmt.setString(3, cli.getCelular());
-            stmt.setString(4, cli.getDatanasc());
+            stmt.setDate(4, cli.getDatanasc());
             stmt.setString(5, cli.getRg());
             stmt.setString(6, cli.getCpf());
             stmt.setString(7, cli.getNumLADV());

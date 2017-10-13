@@ -10,6 +10,7 @@ package autoescola.modelo.bean;
  * @author Lucca
  */
 public class Endereco {
+
     private int codEndereco;
     private String num;
     private String cidade;
@@ -17,8 +18,9 @@ public class Endereco {
     private String logradouro;
     private String bairro;
     private String cep;
-    
-    public Endereco(String num, String cidade, String estado, String logradouro, String bairro, String cep){
+    private int status;
+
+    public Endereco(String num, String cidade, String estado, String logradouro, String bairro, String cep) {
         this.num = num;
         this.cidade = cidade;
         this.estado = estado;
@@ -26,57 +28,81 @@ public class Endereco {
         this.bairro = bairro;
         this.cep = cep;
     }
-    
-    public int getCodEndereco(){
+
+    public Endereco() {
+    }
+
+    /**
+     * @param codEndereco the codEndereco to set
+     */
+    public void setCodEndereco(int codEndereco) {
+        this.codEndereco = codEndereco;
+    }
+
+    public int getCodEndereco() {
         return this.codEndereco;
     }
-    
-    public void setNum(String num){
+
+    public void setNum(String num) {
         this.num = num;
     }
-    
-    public String getNum(){
+
+    public String getNum() {
         return this.num;
     }
-    
-    public void setCidade(String cidade){
+
+    public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-    
-    public String getCidade(){
+
+    public String getCidade() {
         return this.cidade;
     }
-    
-    public void setEstado(String estado){
+
+    public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    public String getEstado(){
+
+    public String getEstado() {
         return this.estado;
     }
-    
-    public void setLogradouro(String logradouro){
+
+    public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
     }
-    
-    public String getLogradouro(){
+
+    public String getLogradouro() {
         return this.logradouro;
     }
-    
-    public void setBairro(String bairro){
+
+    public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-    
-    public String getBairro(){
+
+    public String getBairro() {
         return this.bairro;
     }
-    
-    public void setCep(String cep){
+
+    public void setCep(String cep) {
         this.cep = cep;
     }
-    
-    public String getCep(){
+
+    public String getCep() {
         return this.cep;
     }
-}
 
+    /**
+     * @return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+}
