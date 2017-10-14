@@ -14,10 +14,10 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class Arquivo {
+public class  Arquivo {
 
     //public abstract boolean cadastrar(Object object);
-    protected int autoIncremento(String tabela) {
+    protected final int autoIncremento(String tabela) {
         int numLinhas = 1;
         //abre um arquivo e cria um file
         File arquivoCSV = new File(tabela);

@@ -6,6 +6,7 @@
 package autoescola.modelo.arquivo;
 
 import autoescola.modelo.bean.Cliente;
+import autoescola.modelo.bean.Endereco;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +21,7 @@ import java.util.Scanner;
  * @author felipe
  */
 public class ClienteArquivo extends Arquivo {
+
     private final String tabela = "tabelas/cliente.csv";
 
     public ArrayList<Cliente> consultarClientes() {
@@ -55,7 +57,10 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setNumLADV(valoresEntreVirgulas[7]);
                     cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
                     cliente.setCategoria(valoresEntreVirgulas[9]);
-                    cliente.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                    Endereco endereco;
+                    EnderecoArquivo endArq = new EnderecoArquivo();
+                    endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[10]));
+                    cliente.setEndereco(endereco);
                     clientes.add(cliente);
 
                 }
@@ -101,7 +106,10 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setNumLADV(valoresEntreVirgulas[7]);
                     cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
                     cliente.setCategoria(valoresEntreVirgulas[9]);
-                    cliente.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                    Endereco endereco;
+                    EnderecoArquivo endArq = new EnderecoArquivo();
+                    endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[10]));
+                    cliente.setEndereco(endereco);
                 }
             }
             return cliente;
@@ -168,7 +176,7 @@ public class ClienteArquivo extends Arquivo {
     }
 
     public boolean alterarCliente(Cliente cliente) {
-                File arquivoCSV = new File(tabela);
+        File arquivoCSV = new File(tabela);
         try {
 
             //cria um scanner para ler o arquivo
@@ -189,16 +197,16 @@ public class ClienteArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == cliente.getCodCliente()) {
                     linhasDoArquivo = String.valueOf(cliente.getCodCliente()) + ",";
-                    linhasDoArquivo +=cliente.getNome() + ",";
+                    linhasDoArquivo += cliente.getNome() + ",";
                     linhasDoArquivo += cliente.getTelefone() + ",";
                     linhasDoArquivo += cliente.getCelular() + ",";
-                    linhasDoArquivo += cliente.getDatanasc()+ ",";
-                    linhasDoArquivo += cliente.getRg()+ ",";
+                    linhasDoArquivo += cliente.getDatanasc() + ",";
+                    linhasDoArquivo += cliente.getRg() + ",";
                     linhasDoArquivo += cliente.getCpf() + ",";
                     linhasDoArquivo += cliente.getNumLADV() + ",";
-                    linhasDoArquivo += String.valueOf(cliente.getStatus())+",";
+                    linhasDoArquivo += String.valueOf(cliente.getStatus()) + ",";
                     linhasDoArquivo += cliente.getCategoria() + ",";
-                    linhasDoArquivo += String.valueOf(cliente.getCodEndereco());
+                    linhasDoArquivo += String.valueOf(cliente.getEndereco().getCodEndereco());
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -250,7 +258,7 @@ public class ClienteArquivo extends Arquivo {
                 conexao.write(',');
                 conexao.write(cliente.getCategoria());
                 conexao.write(',');
-                conexao.write(String.valueOf(cliente.getCodEndereco()));
+                conexao.write(String.valueOf(cliente.getEndereco().getCodEndereco()));
                 conexao.newLine();
                 conexao.close();
 
@@ -305,7 +313,10 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setNumLADV(valoresEntreVirgulas[7]);
                     cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
                     cliente.setCategoria(valoresEntreVirgulas[9]);
-                    cliente.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                    Endereco endereco;
+                    EnderecoArquivo endArq = new EnderecoArquivo();
+                    endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[10]));
+                    cliente.setEndereco(endereco);
                     clientes.add(cliente);
 
                 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Cliente {
 
     private int codCliente;
-    private int codEndereco;
+    private Endereco endereco;
     private int status;
     private String nome;
     private String rg;
@@ -57,12 +57,12 @@ public class Cliente {
         this.codCliente = codCliente;
     }
 
-    public void setCodEndereco(int codEndereco) {
-        this.codEndereco = codEndereco;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
-    public int getCodEndereco() {
-        return this.codEndereco;
+    public Endereco getEndereco() {
+        return this.endereco;
     }
 
     /**

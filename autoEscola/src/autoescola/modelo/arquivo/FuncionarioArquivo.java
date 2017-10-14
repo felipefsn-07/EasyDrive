@@ -52,8 +52,8 @@ public class FuncionarioArquivo extends Arquivo {
                     Usuario usuario = new Usuario();
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setUsuario(usuario);
-                    Endereco endereco = new Endereco();
-                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[2]));
+                    EnderecoArquivo endArq = new EnderecoArquivo();
+                    Endereco endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[2]));
                     funcionario.setEndereco(endereco);
                     funcionario.setRg(valoresEntreVirgulas[3]);
                     funcionario.setNome(valoresEntreVirgulas[4]);
@@ -104,8 +104,8 @@ public class FuncionarioArquivo extends Arquivo {
                     Usuario usuario = new Usuario();
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setUsuario(usuario);
-                    Endereco endereco = new Endereco();
-                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[2]));
+                    EnderecoArquivo endArq = new EnderecoArquivo();
+                    Endereco endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[2]));
                     funcionario.setEndereco(endereco);
                     funcionario.setRg(valoresEntreVirgulas[3]);
                     funcionario.setNome(valoresEntreVirgulas[4]);
@@ -322,8 +322,8 @@ public class FuncionarioArquivo extends Arquivo {
                     Usuario usuario = new Usuario();
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setUsuario(usuario);
-                    Endereco endereco = new Endereco();
-                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[2]));
+                    EnderecoArquivo endArq = new EnderecoArquivo();
+                    Endereco endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[2]));
                     funcionario.setEndereco(endereco);
                     funcionario.setRg(valoresEntreVirgulas[3]);
                     funcionario.setNome(valoresEntreVirgulas[4]);
