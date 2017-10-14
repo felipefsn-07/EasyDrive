@@ -5,10 +5,6 @@
  */
 package autoescola.modelo.bean;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -17,10 +13,9 @@ import java.util.ArrayList;
  */
 public class Aula {
     private int codAulas;
-    private Date dataAula;
-    private Time horarioAula;
+    private String dataAula;
+    private String horarioAula;
     private Instrutor instrutor;
-    private Veiculo veiculo;
     private Veiculo codVeiculo;
     private String statusAula;//Ativa, cancelada, realizada, adiada, desativada
     private ArrayList<AulasClientes> aulas;
@@ -48,29 +43,29 @@ public class Aula {
     /**
      * @return the dataAula
      */
-    public Date getDataAula() {
+    public String getDataAula() {
         return dataAula;
     }
 
     /**
      * @param dataAula the dataAula to set
      */
-    public void setDataAula(LocalDate dataAula) {
-        this.dataAula = Date.valueOf(dataAula);
+    public void setDataAula(String dataAula) {
+        this.dataAula = dataAula;
     }
 
     /**
      * @return the horarioAula
      */
-    public Time getHorarioAula() {
+    public String getHorarioAula() {
         return horarioAula;
     }
 
     /**
      * @param horarioAula the horarioAula to set
      */
-    public void setHorarioAula(LocalTime horarioAula) {
-        this.horarioAula = Time.valueOf​(horarioAula);
+    public void setHorarioAula(String horarioAula) {
+        this.horarioAula = horarioAula;
     }
 
     /**
@@ -85,14 +80,6 @@ public class Aula {
      */
     public void setInstrutor(Instrutor instrutor) {
         this.instrutor = instrutor;
-    }
-    
-    public void setVeiculo(Veiculo veiculo){
-        this.veiculo = veiculo;
-    }
-    
-    public Veiculo getVeiculo(){
-        return veiculo;
     }
 
     /**

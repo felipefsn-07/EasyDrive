@@ -5,7 +5,7 @@
  */
 package autoescola.modelo.arquivo;
 
-import autoescola.modelo.bean.Aulas;
+import autoescola.modelo.bean.Aula;
 import autoescola.modelo.bean.Instrutor;
 import autoescola.modelo.bean.Veiculo;
 import java.io.BufferedWriter;
@@ -25,9 +25,9 @@ public class AulasArquivo extends Arquivo{
     
     private final String tabela = "tabelas/aula.csv";
 
-    public ArrayList<Aulas> consultarAulas() {
+    public ArrayList<Aula> consultarAulas() {
         File arquivoCSV = new File(tabela);
-        ArrayList<Aulas> aulas = new ArrayList();
+        ArrayList<Aula> aulas = new ArrayList();
         try {
 
             //cria um scanner para ler o arquivo
@@ -47,7 +47,7 @@ public class AulasArquivo extends Arquivo{
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null) {
-                    Aulas aula = new Aulas();
+                    Aula aula = new Aula();
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));                   
                     aula.setDataAula(valoresEntreVirgulas[1]);
                     aula.setHorarioAula(valoresEntreVirgulas[2]);
@@ -72,9 +72,9 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public Aulas consultarAula(int codAulas) {
+    public Aula consultarAula(int codAulas) {
         File arquivoCSV = new File(tabela);
-        Aulas aula = new Aulas();
+        Aula aula = new Aula();
         try {
 
             //cria um scanner para ler o arquivo
@@ -163,7 +163,7 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean alterarAulas(Aulas aula) {
+    public boolean alterarAulas(Aula aula) {
                 File arquivoCSV = new File(tabela);
         try {
 
@@ -212,7 +212,7 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean cadastrarAulas(Aulas aula) {
+    public boolean cadastrarAulas(Aula aula) {
 
         int idAulas = autoIncremento(tabela);
         try {
@@ -246,9 +246,9 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public ArrayList<Aulas> consultarAulassLike(String campo, String valor) {
+    public ArrayList<Aula> consultarAulassLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
-        ArrayList<Aulas> aulas = new ArrayList();
+        ArrayList<Aula> aulas = new ArrayList();
         try {
             //cria um scanner para ler o arquivo
             Scanner leitor = new Scanner(arquivoCSV);
@@ -275,7 +275,7 @@ public class AulasArquivo extends Arquivo{
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
-                    Aulas aula = new Aulas();
+                    Aula aula = new Aula();
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));                   
                     aula.setDataAula(valoresEntreVirgulas[1]);
                     aula.setHorarioAula(valoresEntreVirgulas[2]);

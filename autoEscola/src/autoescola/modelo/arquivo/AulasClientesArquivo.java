@@ -5,7 +5,7 @@
  */
 package autoescola.modelo.arquivo;
 
-import autoescola.modelo.bean.Aulas;
+import autoescola.modelo.bean.Aula;
 import autoescola.modelo.bean.AulasClientes;
 import autoescola.modelo.bean.Cliente;
 import java.io.BufferedWriter;
@@ -47,7 +47,7 @@ public class AulasClientesArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null) {
                     AulasClientes aulaCliente = new AulasClientes();
-                    Aulas aula = new Aulas();
+                    Aula aula = new Aula();
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aulaCliente.setAulas(aula);
                     Cliente cliente = new Cliente();
@@ -88,7 +88,7 @@ public class AulasClientesArquivo extends Arquivo {
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[1]) == codCliente) {
-                    Aulas aula = new Aulas();
+                    Aula aula = new Aula();
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aulaCliente.setAulas(aula);
                     Cliente cliente = new Cliente();
@@ -129,7 +129,7 @@ public class AulasClientesArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == codAula) {
                     AulasClientes aulaCliente = new AulasClientes();
-                    Aulas aula = new Aulas();
+                    Aula aula = new Aula();
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aulaCliente.setAulas(aula);
                     Cliente cliente = new Cliente();
@@ -247,7 +247,7 @@ public class AulasClientesArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
                     AulasClientes aulaCliente = new AulasClientes();
-                    Aulas aula = new Aulas();
+                    Aula aula = new Aula();
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aulaCliente.setAulas(aula);
                     Cliente cliente = new Cliente();
