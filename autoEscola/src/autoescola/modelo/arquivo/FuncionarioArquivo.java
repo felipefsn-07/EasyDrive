@@ -5,6 +5,7 @@
  */
 package autoescola.modelo.arquivo;
 
+import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Usuario;
 import java.io.BufferedWriter;
@@ -21,6 +22,7 @@ import java.util.Scanner;
  * @author felipe
  */
 public class FuncionarioArquivo extends Arquivo {
+
     private final String tabela = "tabelas/funcionario.csv";
 
     public ArrayList<Funcionario> consultarFuncionario() {
@@ -50,15 +52,19 @@ public class FuncionarioArquivo extends Arquivo {
                     Usuario usuario = new Usuario();
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setUsuario(usuario);
-                    funcionario.set(valoresEntreVirgulas[2]);
-                    funcionario.setCelular(valoresEntreVirgulas[3]);
-                    funcionario.setDatanasc(valoresEntreVirgulas[4]);
-                    funcionario.setRg(valoresEntreVirgulas[5]);
-                    funcionario.setCpf(valoresEntreVirgulas[6]);
-                    funcionario.setNumLADV(valoresEntreVirgulas[7]);
-                    funcionario.setStatus(parseInt(valoresEntreVirgulas[8]));
-                    funcionario.setCategoria(valoresEntreVirgulas[9]);
-                    funcionario.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                    Endereco endereco = new Endereco();
+                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[2]));
+                    funcionario.setEndereco(endereco);
+                    funcionario.setRg(valoresEntreVirgulas[3]);
+                    funcionario.setNome(valoresEntreVirgulas[4]);
+                    funcionario.setCpf(valoresEntreVirgulas[5]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[6]);
+                    funcionario.setTelefone(valoresEntreVirgulas[7]);
+                    funcionario.setCelular(valoresEntreVirgulas[8]);
+                    funcionario.setHora_entra(valoresEntreVirgulas[9]);
+                    funcionario.setHora_sai(valoresEntreVirgulas[10]);
+                    funcionario.setTipo(valoresEntreVirgulas[11]);
+                    funcionario.setStatus(parseInt(valoresEntreVirgulas[12]));
                     funcionarios.add(funcionario);
 
                 }
@@ -72,9 +78,9 @@ public class FuncionarioArquivo extends Arquivo {
         }
     }
 
-    public funcionario consultarfuncionario(int codigofuncionario) {
+    public Funcionario consultarfuncionario(int codigofuncionario) {
         File arquivoCSV = new File(tabela);
-        funcionario funcionario = new funcionario();
+        Funcionario funcionario = new Funcionario();
         try {
 
             //cria um scanner para ler o arquivo
@@ -94,17 +100,23 @@ public class FuncionarioArquivo extends Arquivo {
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == codigofuncionario) {
-                    funcionario.setCodfuncionario(parseInt(valoresEntreVirgulas[0]));
-                    funcionario.setNome(valoresEntreVirgulas[1]);
-                    funcionario.setTelefone(valoresEntreVirgulas[2]);
-                    funcionario.setCelular(valoresEntreVirgulas[3]);
-                    funcionario.setDatanasc(valoresEntreVirgulas[4]);
-                    funcionario.setRg(valoresEntreVirgulas[5]);
-                    funcionario.setCpf(valoresEntreVirgulas[6]);
-                    funcionario.setNumLADV(valoresEntreVirgulas[7]);
-                    funcionario.setStatus(parseInt(valoresEntreVirgulas[8]));
-                    funcionario.setCategoria(valoresEntreVirgulas[9]);
-                    funcionario.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
+                    Usuario usuario = new Usuario();
+                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
+                    funcionario.setUsuario(usuario);
+                    Endereco endereco = new Endereco();
+                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[2]));
+                    funcionario.setEndereco(endereco);
+                    funcionario.setRg(valoresEntreVirgulas[3]);
+                    funcionario.setNome(valoresEntreVirgulas[4]);
+                    funcionario.setCpf(valoresEntreVirgulas[5]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[6]);
+                    funcionario.setTelefone(valoresEntreVirgulas[7]);
+                    funcionario.setCelular(valoresEntreVirgulas[8]);
+                    funcionario.setHora_entra(valoresEntreVirgulas[9]);
+                    funcionario.setHora_sai(valoresEntreVirgulas[10]);
+                    funcionario.setTipo(valoresEntreVirgulas[11]);
+                    funcionario.setStatus(parseInt(valoresEntreVirgulas[12]));
                 }
             }
             return funcionario;
@@ -145,9 +157,11 @@ public class FuncionarioArquivo extends Arquivo {
                     linhasDoArquivo += valoresEntreVirgulas[5] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[6] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[7] + ",";
-                    linhasDoArquivo += "0,";
+                    linhasDoArquivo += valoresEntreVirgulas[8] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[9] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[10];
+                    linhasDoArquivo += valoresEntreVirgulas[10] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[11] + ",";
+                    linhasDoArquivo += "0";
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -170,8 +184,8 @@ public class FuncionarioArquivo extends Arquivo {
         }
     }
 
-    public boolean alterarfuncionario(int codigofuncionario, funcionario funcionario) {
-                File arquivoCSV = new File(tabela);
+    public boolean alterarfuncionario(Funcionario funcionario) {
+        File arquivoCSV = new File(tabela);
         try {
 
             //cria um scanner para ler o arquivo
@@ -190,18 +204,20 @@ public class FuncionarioArquivo extends Arquivo {
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigofuncionario) {
-                    linhasDoArquivo = String.valueOf(codigofuncionario) + ",";
-                    linhasDoArquivo +=funcionario.getNome() + ",";
+                if (parseInt(valoresEntreVirgulas[0]) == funcionario.getCodigoFuncionario()) {
+                    linhasDoArquivo = String.valueOf(funcionario.getCodigoFuncionario()) + ",";
+                    linhasDoArquivo += String.valueOf(funcionario.getUsuario().getCodLogin()) + ",";
+                    linhasDoArquivo += String.valueOf(funcionario.getEndereco().getCodEndereco()) + ",";
+                    linhasDoArquivo += funcionario.getRg() + ",";
+                    linhasDoArquivo += funcionario.getNome() + ",";
+                    linhasDoArquivo += funcionario.getCpf() + ",";
+                    linhasDoArquivo += funcionario.getDatanasc() + ",";
                     linhasDoArquivo += funcionario.getTelefone() + ",";
                     linhasDoArquivo += funcionario.getCelular() + ",";
-                    linhasDoArquivo += funcionario.getDatanasc()+ ",";
-                    linhasDoArquivo += funcionario.getRg()+ ",";
-                    linhasDoArquivo += funcionario.getCpf() + ",";
-                    linhasDoArquivo += funcionario.getNumLADV() + ",";
-                    linhasDoArquivo += String.valueOf(funcionario.getStatus())+",";
-                    linhasDoArquivo += funcionario.getCategoria() + ",";
-                    linhasDoArquivo += String.valueOf(funcionario.getCodEndereco());
+                    linhasDoArquivo += funcionario.getHora_entra() + ",";
+                    linhasDoArquivo += funcionario.getHora_sai() + ",";
+                    linhasDoArquivo += funcionario.getTipo() + ",";
+                    linhasDoArquivo += String.valueOf(funcionario.getStatus());
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -226,34 +242,38 @@ public class FuncionarioArquivo extends Arquivo {
 
     public boolean cadastrarfuncionario(Funcionario funcionario) {
 
-        int idfuncionario = autoIncremento(tabela);
+        int idFuncionario = autoIncremento(tabela);
         try {
             // O parametro é que indica se deve sobrescrever ou continua no
             // arquivo.
             FileWriter fw = new FileWriter(tabela, true);
             BufferedWriter conexao = new BufferedWriter(fw);
-            if (idfuncionario != 0) {
-                conexao.write(String.valueOf(idfuncionario));
+            if (idFuncionario != 0) {
+                conexao.write(String.valueOf(funcionario.getCodigoFuncionario()));
+                conexao.write(',');
+                conexao.write(String.valueOf(funcionario.getUsuario().getCodLogin()));
+                conexao.write(',');
+                conexao.write(String.valueOf(funcionario.getEndereco().getCodEndereco()));
+                conexao.write(',');
+                conexao.write(funcionario.getRg());
                 conexao.write(',');
                 conexao.write(funcionario.getNome());
+                conexao.write(',');
+                conexao.write(funcionario.getCpf());
+                conexao.write(',');
+                conexao.write(funcionario.getDatanasc());
                 conexao.write(',');
                 conexao.write(funcionario.getTelefone());
                 conexao.write(',');
                 conexao.write(funcionario.getCelular());
                 conexao.write(',');
-                conexao.write(funcionario.getDatanasc());
+                conexao.write(funcionario.getHora_entra());
                 conexao.write(',');
-                conexao.write(funcionario.getRg());
+                conexao.write(funcionario.getHora_sai());
                 conexao.write(',');
-                conexao.write(funcionario.getCpf());
-                conexao.write(',');
-                conexao.write(funcionario.getNumLADV());
+                conexao.write(funcionario.getTipo());
                 conexao.write(',');
                 conexao.write(String.valueOf(funcionario.getStatus()));
-                conexao.write(',');
-                conexao.write(funcionario.getCategoria());
-                conexao.write(',');
-                conexao.write(String.valueOf(funcionario.getCodEndereco()));
                 conexao.newLine();
                 conexao.close();
 
@@ -268,9 +288,9 @@ public class FuncionarioArquivo extends Arquivo {
         }
     }
 
-    public ArrayList<funcionario> consultarfuncionariosLike(String campo, String valor) {
+    public ArrayList<Funcionario> consultarfuncionariosLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
-        ArrayList<funcionario> funcionarios = new ArrayList();
+        ArrayList<Funcionario> funcionarios = new ArrayList();
         try {
             //cria um scanner para ler o arquivo
             Scanner leitor = new Scanner(arquivoCSV);
@@ -297,18 +317,24 @@ public class FuncionarioArquivo extends Arquivo {
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
-                    funcionario funcionario = new funcionario();
-                    funcionario.setCodfuncionario(parseInt(valoresEntreVirgulas[0]));
-                    funcionario.setNome(valoresEntreVirgulas[1]);
-                    funcionario.setTelefone(valoresEntreVirgulas[2]);
-                    funcionario.setCelular(valoresEntreVirgulas[3]);
-                    funcionario.setDatanasc(valoresEntreVirgulas[4]);
-                    funcionario.setRg(valoresEntreVirgulas[5]);
-                    funcionario.setCpf(valoresEntreVirgulas[6]);
-                    funcionario.setNumLADV(valoresEntreVirgulas[7]);
-                    funcionario.setStatus(parseInt(valoresEntreVirgulas[8]));
-                    funcionario.setCategoria(valoresEntreVirgulas[9]);
-                    funcionario.setCodEndereco(parseInt(valoresEntreVirgulas[10]));
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
+                    Usuario usuario = new Usuario();
+                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
+                    funcionario.setUsuario(usuario);
+                    Endereco endereco = new Endereco();
+                    endereco.setCodEndereco(parseInt(valoresEntreVirgulas[2]));
+                    funcionario.setEndereco(endereco);
+                    funcionario.setRg(valoresEntreVirgulas[3]);
+                    funcionario.setNome(valoresEntreVirgulas[4]);
+                    funcionario.setCpf(valoresEntreVirgulas[5]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[6]);
+                    funcionario.setTelefone(valoresEntreVirgulas[7]);
+                    funcionario.setCelular(valoresEntreVirgulas[8]);
+                    funcionario.setHora_entra(valoresEntreVirgulas[9]);
+                    funcionario.setHora_sai(valoresEntreVirgulas[10]);
+                    funcionario.setTipo(valoresEntreVirgulas[11]);
+                    funcionario.setStatus(parseInt(valoresEntreVirgulas[12]));
                     funcionarios.add(funcionario);
 
                 }
@@ -320,5 +346,5 @@ public class FuncionarioArquivo extends Arquivo {
             return null;
 
         }
-    }    
+    }
 }

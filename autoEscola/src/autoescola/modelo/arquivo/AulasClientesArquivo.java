@@ -68,7 +68,7 @@ public class AulasClientesArquivo extends Arquivo {
 
     public AulasClientes consultarAulasPorClientes(int codCliente) {
         File arquivoCSV = new File(tabela);
-        AulasClientes aulacliente = new AulasClientes();
+        AulasClientes aulaCliente = new AulasClientes();
         try {
 
             //cria um scanner para ler o arquivo
@@ -88,7 +88,6 @@ public class AulasClientesArquivo extends Arquivo {
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[1]) == codCliente) {
-                    AulasClientes aulaCliente = new AulasClientes();
                     Aulas aula = new Aulas();
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aulaCliente.setAulas(aula);
@@ -98,7 +97,7 @@ public class AulasClientesArquivo extends Arquivo {
 
                 }
             }
-            return aulacliente;
+            return aulaCliente;
 
         } catch (FileNotFoundException e) {
             //log de erro

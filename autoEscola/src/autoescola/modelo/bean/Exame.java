@@ -5,6 +5,8 @@
  */
 package autoescola.modelo.bean;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author felipe
@@ -15,6 +17,9 @@ public class Exame {
     private String horarioExame;
     private Veiculo veiculo;
     private Instrutor instrutor;
+    private int status;
+    private ArrayList<ExameClientes> exames;
+
 
     /**
      * @return the codigoExame
@@ -84,6 +89,34 @@ public class Exame {
      */
     public void setInstrutor(Instrutor instrutor) {
         this.instrutor = instrutor;
+    }
+
+    /**
+     * @return the exames
+     */
+    public ArrayList<ExameClientes> getExames() {
+        return exames;
+    }
+
+    /**
+     * @param exames the exames to set
+     */
+    public void setExames(ArrayList<ExameClientes> exames) {
+        this.exames = exames;
+    }
+
+    /**
+     * @return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
     }
     
     

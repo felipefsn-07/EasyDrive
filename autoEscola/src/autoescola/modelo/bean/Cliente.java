@@ -25,6 +25,7 @@ public class Cliente {
     private String numLADV;
     private String categoria;
     private ArrayList<AulasClientes> aulas;
+    private ArrayList<ExameClientes> exames;
 
     public Cliente() {
 
@@ -55,12 +56,12 @@ public class Cliente {
     public void setCodCliente(int codCliente) {
         this.codCliente = codCliente;
     }
-    
-    public void setCodEndereco(int codEndereco){
+
+    public void setCodEndereco(int codEndereco) {
         this.codEndereco = codEndereco;
     }
-    
-    public int getCodEndereco(){
+
+    public int getCodEndereco() {
         return this.codEndereco;
     }
 
@@ -202,6 +203,20 @@ public class Cliente {
      */
     public void setAulas(ArrayList<AulasClientes> aulas) {
         this.aulas = aulas;
+    }
+
+    /**
+     * @return the exames
+     */
+    public ArrayList<ExameClientes> getExames() {
+        return exames;
+    }
+
+    /**
+     * @param exames the exames to set
+     */
+    public void setExames(ArrayList<ExameClientes> exames) {
+        this.exames = exames;
     }
 
 }

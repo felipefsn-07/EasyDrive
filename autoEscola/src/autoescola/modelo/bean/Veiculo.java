@@ -14,15 +14,15 @@ public class Veiculo {
     private String placa;
     private String modelo;
     private String ano;
-    private int capacidade;
+    private float capacidade;
     private String tipo;
-    private boolean status;
+    private int status;
     
     public Veiculo(){
         
     }
     
-    public Veiculo(String placa, String modelo, String ano, int capacidade, String tipo, boolean status){
+    public Veiculo(String placa, String modelo, String ano, float capacidade, String tipo, int status){
         this.placa = placa;
         this.modelo = modelo;
         this.ano = ano;
@@ -81,14 +81,14 @@ public class Veiculo {
     /**
      * @return the capacidade
      */
-    public int getCapacidade() {
+    public float getCapacidade() {
         return capacidade;
     }
 
     /**
      * @param capacidade the capacidade to set
      */
-    public void setCapacidade(int capacidade) {
+    public void setCapacidade(float capacidade) {
         this.capacidade = capacidade;
     }
 
@@ -109,14 +109,14 @@ public class Veiculo {
     /**
      * @return the status
      */
-    public boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
     
