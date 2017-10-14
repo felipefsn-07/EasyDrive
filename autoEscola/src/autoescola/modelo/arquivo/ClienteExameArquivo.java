@@ -9,6 +9,6 @@ package autoescola.modelo.arquivo;
  *
  * @author felipe
  */
-public class ClienteExameArquivo {
+public class ClienteExameArquivo extends Arquivo {
     
 }
