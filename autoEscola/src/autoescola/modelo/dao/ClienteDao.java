@@ -8,6 +8,7 @@ package autoescola.modelo.dao;
 
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Cliente;
+import autoescola.modelo.bean.Endereco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +29,7 @@ public class ClienteDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO cliente (nome, tel, cel, dataNasc, rg, cpf, numLadv, status, categoria) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO cliente (nome, tel, cel, dataNasc, rg, cpf, numLadv, status, categoria, codEndereco) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, cli.getNome());
             stmt.setString(2, cli.getTelefone());
             stmt.setString(3, cli.getCelular());
@@ -38,12 +39,10 @@ public class ClienteDao {
             stmt.setString(7, cli.getNumLADV());
             stmt.setInt(8, cli.getStatus());
             stmt.setString(9, cli.getCategoria());
+            stmt.setInt(10, cli.getEndereco().getCodEndereco());
 
             stmt.executeUpdate();
 
-            //stmt = con.prepareStatement("INSERT INTO endereco (num, cidade, estado, logradouro, bairro, cep, codCliente) VALUES(?, ?, ?, ?, ?, ?, ?)");
-            //stmt = con.prepareStatement("INSERT INTO endereco (num, cidade, estado, logradouro, bairro, cep, codCliente) VALUES('480', 'carapicuiba', 'SP', 'Avenida tamara', 'centro')");
-            //stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
             return true;
         } catch (SQLException ex) {
@@ -68,8 +67,9 @@ public class ClienteDao {
 
             while (rs.next()) {
                 Cliente cli = new Cliente();
+                Endereco endereco = new Endereco();
 
-                cli.getCodCliente();
+                cli.setCodCliente(rs.getInt("codCliente"));
                 cli.setNome(rs.getString("nome"));
                 cli.setTelefone(rs.getString("tel"));
                 cli.setCelular(rs.getString("cel"));
@@ -79,6 +79,7 @@ public class ClienteDao {
                 cli.setNumLADV(rs.getString("numLadv"));
                 cli.setStatus(rs.getInt("status"));
                 cli.setCategoria(rs.getString("categoria"));
+                endereco.setCodEndereco(rs.getInt("codEndereco"));
 
                 clientes.add(cli);
             }
@@ -112,8 +113,9 @@ public class ClienteDao {
 
             while (rs.next()) {
                 Cliente cli = new Cliente();
+                Endereco endereco = new Endereco();
 
-                cli.getCodCliente();
+                cli.setCodCliente(rs.getInt("codCliente"));
                 cli.setNome(rs.getString("nome"));
                 cli.setTelefone(rs.getString("tel"));
                 cli.setCelular(rs.getString("cel"));
@@ -123,6 +125,7 @@ public class ClienteDao {
                 cli.setNumLADV(rs.getString("numLadv"));
                 cli.setStatus(rs.getInt("status"));
                 cli.setCategoria(rs.getString("categoria"));
+                endereco.setCodEndereco(rs.getInt("codEndereco"));
 
                 clientes.add(cli);
             }
@@ -194,15 +197,16 @@ public class ClienteDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM cliente WHERE codCliente = ?");
-            stmt.setInt(1, cli.getCodCliente());
+            stmt = con.prepareStatement("UPDATE cliente SET status = ? WHERE codCliente = ?");
+            stmt.setInt(1, cli.getStatus());
+            stmt.setInt(2, cli.getCodCliente());
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
             return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar! " + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
             return false;
         } finally {
             ConnectionFactory.closeConnection(con, stmt);

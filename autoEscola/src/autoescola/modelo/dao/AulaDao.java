@@ -21,17 +21,18 @@ import javax.swing.JOptionPane;
  *
  * @author Lucca
 */
-public class AulasDao {
+public class AulaDao {
     public boolean cadastrarAula(Aula aula) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO aula (dataAula, horarioAula, codVeiculo, numCarteira) VALUES(?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO aula (dataAula, horarioAula, codVeiculo, numCarteira, status) VALUES(?, ?, ?, ?, ?)");
             stmt.setString(1, aula.getDataAula());
             stmt.setString(2, aula.getHorarioAula());
-            stmt.setInt(3, aula.getVeiculo().getCodVeiculo());
+            stmt.setInt(3, aula.getCodVeiculo().getCodVeiculo());
             stmt.setString(4, aula.getInstrutor().getNumCarteira());
+            stmt.setString(5, aula.getStatusAula());
 
             stmt.executeUpdate();
 
@@ -67,6 +68,7 @@ public class AulasDao {
                 aula.setHorarioAula(rs.getString("horarioAula"));
                 veiculo.setCodVeiculo(rs.getInt("codVeiculo"));
                 instrutor.setNumCarteira(rs.getString("numCarteira"));
+                aula.setStatusAula(rs.getString("status"));
                       
                 aulas.add(aula);
             }
@@ -112,7 +114,7 @@ public class AulasDao {
             stmt = con.prepareStatement("UPDATE aula SET dataAula = ?, horarioAula = ?, codVeiculo = ?, numCarteira = ?, status = ? WHERE codAula = ?");
             stmt.setString(1, aula.getDataAula());
             stmt.setString(2, aula.getHorarioAula());
-            stmt.setInt(3, aula.getVeiculo().getCodVeiculo());
+            stmt.setInt(3, aula.getCodVeiculo().getCodVeiculo());
             stmt.setString(4, aula.getInstrutor().getNumCarteira());
             stmt.setString(5, aula.getStatusAula());
             stmt.setInt(6, aula.getCodAulas());

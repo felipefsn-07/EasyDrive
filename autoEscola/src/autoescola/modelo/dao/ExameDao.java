@@ -6,6 +6,8 @@
 package autoescola.modelo.dao;
 
 import autoescola.connection.ConnectionFactory;
+import autoescola.modelo.bean.Exame;
+import autoescola.modelo.bean.Instrutor;
 import autoescola.modelo.bean.Veiculo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,20 +21,18 @@ import javax.swing.JOptionPane;
  *
  * @author Lucca
  */
-public class VeiculoDao {
-
-    public boolean cadastrarVeiculo(Veiculo veic) {
+public class ExameDao {
+    public boolean cadastrarExame(Exame exame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO automovel (placa, ano, modelo, capacidade, status, tipo) VALUES(?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, veic.getPlaca());
-            stmt.setString(2, veic.getAno());
-            stmt.setString(3, veic.getModelo());
-            stmt.setFloat(4, veic.getCapacidade());
-            stmt.setInt(5, veic.getStatus());
-            stmt.setString(6, veic.getTipo());
+            stmt = con.prepareStatement("INSERT INTO exame (dataExame, horaExame, codVeiculo, numCarteira, status) VALUES(?, ?, ?, ?, ?)");
+            stmt.setString(1, exame.getDataExame());
+            stmt.setString(2, exame.getHorarioExame());
+            stmt.setInt(3, exame.getVeiculo().getCodVeiculo());
+            stmt.setString(4, exame.getInstrutor().getNumCarteira());
+            stmt.setInt(5, exame.getStatus());
 
             stmt.executeUpdate();
 
@@ -45,31 +45,32 @@ public class VeiculoDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
+    
+    public List<Exame> consultarExame() {
 
-    public List<Veiculo> consultarVeiculos() {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Veiculo> veiculos = new ArrayList<>();
+        List<Exame> exames = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM automovel");
+            stmt = con.prepareStatement("SELECT * FROM exame");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Veiculo veic = new Veiculo();
-                
-                veic.setCodVeiculo(rs.getInt("codVeiculo"));
-                veic.setPlaca(rs.getString("placa"));
-                veic.setAno(rs.getString("ano"));
-                veic.setModelo(rs.getString("modelo"));
-                veic.setCapacidade(rs.getInt("capacidade"));
-                veic.setStatus(rs.getInt("status"));
-                veic.setCodVeiculo(rs.getInt("codVeiculo"));
-                veic.setTipo(rs.getString("tipo"));
+                Exame exame = new Exame();
+                Veiculo veiculo = new Veiculo();
+                Instrutor instrutor = new Instrutor();
 
-                veiculos.add(veic);
+                exame.setCodigoExame(rs.getInt("codExame"));
+                exame.setDataExame(rs.getString("dataExame"));
+                exame.setHorarioExame(rs.getString("horaExame"));
+                veiculo.setCodVeiculo(rs.getInt("codVeiculo"));
+                instrutor.setNumCarteira("numCarteira");
+                exame.setStatus(rs.getInt("status"));
+
+                exames.add(exame);
             }
             JOptionPane.showMessageDialog(null, "Consulta concluida!");
 
@@ -79,17 +80,17 @@ public class VeiculoDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
 
-        return veiculos;
+        return exames;
     }
     
-    public boolean consutarVeiculoExiste(int codVeiculo) {
+    public boolean consutarExameExiste(int codExame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM automavel WHERE codVeiculo = ?");
-            stmt.setInt(1, codVeiculo);
+            stmt = con.prepareStatement("SELECT * FROM exame WHERE codExame = ?");
+            stmt.setInt(1, codExame);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -105,20 +106,18 @@ public class VeiculoDao {
         return false;
     }
     
-    public boolean alterarVeiculo(Veiculo veic) {
+    public boolean alterarExame(Exame exame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE automovel SET placa = ?, ano = ?, modelo = ?, capacidade = ?, status = ?, tipo = ? WHERE codVeiculo = ?");
-            
-            stmt.setString(1, veic.getPlaca());
-            stmt.setString(2, veic.getAno());
-            stmt.setString(3, veic.getModelo());
-            stmt.setFloat(3, veic.getCapacidade());
-            stmt.setInt(4, veic.getStatus());
-            stmt.setString(5, veic.getTipo());
-            stmt.setInt(6, veic.getCodVeiculo());
+            stmt = con.prepareStatement("UPDATE exame SET dataExame = ?, horaExame = ?, codVeiculo = ?, numCarteira = ?, status = ? WHERE codExame = ?");
+            stmt.setString(1, exame.getDataExame());
+            stmt.setString(2, exame.getHorarioExame());
+            stmt.setInt(3, exame.getVeiculo().getCodVeiculo());
+            stmt.setString(4, exame.getInstrutor().getNumCarteira());
+            stmt.setInt(5, exame.getStatus());
+            stmt.setInt(6, exame.getCodigoExame());
 
             stmt.executeUpdate();
 
@@ -132,17 +131,18 @@ public class VeiculoDao {
         }
     }
     
-    public boolean excluirVeiculo(Veiculo veic) {
+    public boolean excluirExame(Exame exame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE automovel SET status = ? WHERE codVeiculo = ?");
-            stmt.setInt(1, veic.getCodVeiculo());
+            stmt = con.prepareStatement("UPDATE exame SET status = ? WHERE codExame = ?");
+            stmt.setInt(1, exame.getStatus());
+            stmt.setInt(2, exame.getCodigoExame());
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
