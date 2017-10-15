@@ -25,7 +25,7 @@ public class Cliente {
     private String numLADV;
     private String categoria;
     private ArrayList<AulasClientes> aulas;
-    private ArrayList<ExameClientes> exames;
+    //private ArrayList<ExameClientes> exames;
 
     public Cliente() {
 
@@ -208,15 +208,22 @@ public class Cliente {
     /**
      * @return the exames
      */
+    
+    /*
     public ArrayList<ExameClientes> getExames() {
         return exames;
     }
+    */
+    
 
     /**
      * @param exames the exames to set
      */
+    
+    /*
     public void setExames(ArrayList<ExameClientes> exames) {
         this.exames = exames;
     }
+    */
 
 }
