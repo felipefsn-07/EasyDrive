@@ -16,7 +16,6 @@ import java.util.Scanner;
  */
 public class  Arquivo {
 
-    //public abstract boolean cadastrar(Object object);
     protected final int autoIncremento(String tabela) {
         int numLinhas = 1;
         //abre um arquivo e cria um file
