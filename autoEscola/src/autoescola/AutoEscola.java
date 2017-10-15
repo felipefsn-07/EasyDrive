@@ -5,9 +5,8 @@
  */
 package autoescola;
 
-import autoescola.modelo.arquivo.ClienteArquivo;
-import autoescola.modelo.bean.Cliente;
-import java.sql.Date;
+import autoescola.modelo.arquivo.*;
+import autoescola.modelo.bean.*;
 import java.util.ArrayList;
 
 /**
@@ -23,19 +22,21 @@ public class AutoEscola {
 
         // TODO code application logic here
         ClienteArquivo arq = new ClienteArquivo();
-
+        EnderecoArquivo enderecoArq = new EnderecoArquivo();
         Cliente cli = new Cliente();
-
+        
         cli.setNome("Felipe Silva do Nascimento");
-        cli.setTelefone("34973818");
-        cli.setCelular("981773296");
-        cli.setDatanasc(Date.valueOf("1999-01-25"));
-        cli.setRg("526686868");
-        cli.setCpf("43108186841");
-        cli.setNumLADV("123456789");
+        cli.setTelefone("349738181");
+        cli.setCelular("9817732961");
+        cli.setDatanasc("1999-01-251");
+        cli.setRg("5266868681");
+        cli.setCpf("431081868411");
+        cli.setNumLADV("1234567891");
         cli.setStatus(1);
-        cli.setCategoria("A");
-        cli.setCodEndereco(1);
+        cli.setCategoria("A1");
+        Endereco endereco = enderecoArq.consultarEndereco(1);
+        endereco.setCodEndereco(1);
+        cli.setEndereco(endereco);
 
         //arq.cadastrarCliente(cli);
         // System.out.println(arq.consultarCliente(1).getNome());
@@ -46,11 +47,21 @@ public class AutoEscola {
             System.out.println(clientes.get(i).getNome());
         }
         */
-        arq.alterarCliente(3, cli);
+        cli.setCodCliente(1);
+        arq.alterarCliente(cli);
         
        ArrayList<Cliente> clientes = arq.consultarClientes();
         for (int i = 0; i < clientes.size(); i++) {
-            System.out.print(clientes.get(i).getCodCliente());
+            System.out.print(clientes.get(i).getCodCliente()+" ");
+            System.out.print(clientes.get(i).getTelefone()+" ");
+            System.out.print(clientes.get(i).getCelular()+" ");
+            System.out.print(clientes.get(i).getDatanasc()+" ");
+            System.out.print(clientes.get(i).getCelular()+" ");
+            System.out.print(clientes.get(i).getRg()+" ");
+            System.out.print(clientes.get(i).getCpf()+" ");
+            System.out.print(clientes.get(i).getNumLADV()+" ");
+            System.out.print(clientes.get(i).getStatus()+" ");
+            System.out.print(clientes.get(i).getEndereco().getCodEndereco()+" ");
             System.out.println(clientes.get(i).getNome());
         }
         
