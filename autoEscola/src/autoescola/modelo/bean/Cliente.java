@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Cliente {
 
     private int codCliente;
-    private int codEndereco;
+    private Endereco endereco;
     private int status;
     private String nome;
     private String rg;
@@ -25,6 +25,7 @@ public class Cliente {
     private String numLADV;
     private String categoria;
     private ArrayList<AulasClientes> aulas;
+    private ArrayList<ExameClientes> exames;
 
     public Cliente() {
 
@@ -55,13 +56,13 @@ public class Cliente {
     public void setCodCliente(int codCliente) {
         this.codCliente = codCliente;
     }
-    
-    public void setCodEndereco(int codEndereco){
-        this.codEndereco = codEndereco;
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
-    
-    public int getCodEndereco(){
-        return this.codEndereco;
+
+    public Endereco getEndereco() {
+        return this.endereco;
     }
 
     /**
@@ -202,6 +203,20 @@ public class Cliente {
      */
     public void setAulas(ArrayList<AulasClientes> aulas) {
         this.aulas = aulas;
+    }
+
+    /**
+     * @return the exames
+     */
+    public ArrayList<ExameClientes> getExames() {
+        return exames;
+    }
+
+    /**
+     * @param exames the exames to set
+     */
+    public void setExames(ArrayList<ExameClientes> exames) {
+        this.exames = exames;
     }
 
 }

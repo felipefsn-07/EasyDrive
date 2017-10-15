@@ -5,10 +5,6 @@
  */
 package autoescola.modelo.bean;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +16,6 @@ public class Aula {
     private String dataAula;
     private String horarioAula;
     private Instrutor instrutor;
-    private Veiculo veiculo;
     private Veiculo codVeiculo;
     private String statusAula;//Ativa, cancelada, realizada, adiada, desativada
     private ArrayList<AulasClientes> aulas;
@@ -85,14 +80,6 @@ public class Aula {
      */
     public void setInstrutor(Instrutor instrutor) {
         this.instrutor = instrutor;
-    }
-    
-    public void setVeiculo(Veiculo veiculo){
-        this.veiculo = veiculo;
-    }
-    
-    public Veiculo getVeiculo(){
-        return veiculo;
     }
 
     /**

@@ -22,13 +22,13 @@ public class Funcionario {
     private String hora_sai;
     private Usuario usuario;
     private String tipo;
-    private boolean status;
+    private int status;
     private Endereco endereco;
 
     public Funcionario(){
     }
     
-    public Funcionario (String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, boolean status){
+    public Funcionario (String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, int status){
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
@@ -199,14 +199,14 @@ public class Funcionario {
     /**
      * @return the status
      */
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
