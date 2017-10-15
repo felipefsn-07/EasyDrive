@@ -58,12 +58,13 @@ public class VeiculoDao {
 
             while (rs.next()) {
                 Veiculo veic = new Veiculo();
-
-                veic.getPlaca();
+                   
+                veic.setPlaca(rs.getString("placa"));
                 veic.setAno(rs.getString("ano"));
                 veic.setModelo(rs.getString("modelo"));
                 veic.setCapacidade(rs.getInt("capacidade"));
                 veic.setStatus(rs.getBoolean("status"));
+                veic.setCodVeiculo(rs.getInt("codVeiculo"));
 
                 veiculos.add(veic);
             }
@@ -78,14 +79,14 @@ public class VeiculoDao {
         return veiculos;
     }
     
-    public boolean consutarVeiculoExiste(String placa) {
+    public boolean consutarVeiculoExiste(int codVeiculo) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM automavel WHERE placa = ?");
-            stmt.setString(1, placa);
+            stmt = con.prepareStatement("SELECT * FROM automavel WHERE codVeiculo = ?");
+            stmt.setInt(1, codVeiculo);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -106,11 +107,12 @@ public class VeiculoDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE automovel SET ano = ?, modelo = ?, capacidade = ?, status = ? WHERE placa = ?");
+            stmt = con.prepareStatement("UPDATE automovel SET ano = ?, modelo = ?, capacidade = ?, status = ? WHERE codVeiculo = ?");
             stmt.setString(1, veic.getAno());
             stmt.setString(2, veic.getModelo());
             stmt.setInt(3, veic.getCapacidade());
             stmt.setBoolean(4, veic.getStatus());
+            stmt.setInt(5, veic.getCodVeiculo());
 
             stmt.executeUpdate();
 
@@ -129,8 +131,8 @@ public class VeiculoDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM automovel WHERE placa = ?");
-            stmt.setString(1, veic.getPlaca());
+            stmt = con.prepareStatement("UPDATE automovel SET status = ? WHERE codVeiculo = ?");
+            stmt.setInt(1, veic.getCodVeiculo());
 
             stmt.executeUpdate();
 
