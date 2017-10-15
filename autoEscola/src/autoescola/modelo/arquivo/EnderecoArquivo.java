@@ -214,7 +214,7 @@ public class EnderecoArquivo extends Arquivo {
         }
     }
 
-    public boolean cadastrarEndereco(Endereco endereco) {
+    public int cadastrarEndereco(Endereco endereco) {
 
         int codEndereco = autoIncremento(tabela);
         try {
@@ -241,15 +241,15 @@ public class EnderecoArquivo extends Arquivo {
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return codEndereco;
             } else {
                 //msg erro no incremento codEndereco == 0
-                return false;
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 

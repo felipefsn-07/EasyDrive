@@ -5,10 +5,263 @@
  */
 package autoescola.modelo.arquivo;
 
+import autoescola.modelo.bean.Exame;
+import autoescola.modelo.bean.ExameClientes;
+import autoescola.modelo.bean.Cliente;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  *
  * @author felipe
  */
-public class ClienteExameArquivo {
+public class ClienteExameArquivo extends Arquivo {
+private final String tabela = "tabelas/clienteexame.csv";
+
+    public ArrayList<ExameClientes> consultarExameClientes() {
+        File arquivoCSV = new File(tabela);
+        ArrayList<ExameClientes> exameClientes = new ArrayList();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[0] != null) {
+                    ExameClientes exameCliente = new ExameClientes();
+                    Exame exame = new Exame();
+                    exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
+                    exameCliente.setExame(exame);
+                    Cliente cliente = new Cliente();
+                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
+                    exameCliente.setCliente(cliente);
+                    exameClientes.add(exameCliente);
+
+                }
+            }
+            return exameClientes;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
+    public ExameClientes consultarExamePorClientes(int codCliente) {
+        File arquivoCSV = new File(tabela);
+        ExameClientes exameCliente = new ExameClientes();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[1]) == codCliente) {
+                    Exame exame = new Exame();
+                    exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
+                    exameCliente.setExame(exame);
+                    Cliente cliente = new Cliente();
+                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
+                    exameCliente.setCliente(cliente);
+
+                }
+            }
+            return exameCliente;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
+    public ExameClientes consultarClientesPorExame(int codExame) {
+        File arquivoCSV = new File(tabela);
+        ExameClientes exameCliente = new ExameClientes();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == codExame) {
+                    Exame exame = new Exame();
+                    exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
+                    exameCliente.setExame(exame);
+                    Cliente cliente = new Cliente();
+                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
+                    exameCliente.setCliente(cliente);
+
+                }
+            }
+            return exameCliente;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+     
+    public boolean alterarExameClientes(ExameClientes exameCliente) {
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+            String todo = "";
+            //ignora a primeira linha do arquivo
+            todo += leitor.nextLine() + "\n";
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == exameCliente.getExame().getCodigoExame()&& parseInt(valoresEntreVirgulas[1]) == exameCliente.getCliente().getCodCliente()) {
+                    linhasDoArquivo = String.valueOf(exameCliente.getExame().getCodigoExame()) + ",";
+                    linhasDoArquivo += String.valueOf(exameCliente.getCliente().getCodCliente()) ;
+                }
+                todo += linhasDoArquivo + "\n";
+
+            }
+            try {
+                FileWriter fw = new FileWriter(tabela);
+                BufferedWriter conexao = new BufferedWriter(fw);
+                conexao.write(todo);
+                conexao.close();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+            //return true;
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
+    public boolean cadastrarExameClientes(ExameClientes exameCliente) {
+
+        int codExameClientes = autoIncremento(tabela);
+        try {
+            // O parametro é que indica se deve sobrescrever ou continua no
+            // arquivo.
+            FileWriter fw = new FileWriter(tabela, true);
+            BufferedWriter conexao = new BufferedWriter(fw);
+            if (codExameClientes != 0) {
+                conexao.write(String.valueOf(exameCliente.getExame().getCodigoExame()));
+                conexao.write(',');
+                conexao.write(String.valueOf(exameCliente.getCliente().getCodCliente()));
+                conexao.newLine();
+                conexao.close();
+
+                return true;
+            } else {
+                //msg erro no incremento codExameClientes == 0
+                return false;
+            }
+
+        } catch (IOException e) {
+            //criar arquivo para salvar os erros 
+            return false;
+        }
+    }
     
+    public ArrayList<ExameClientes> consultarExameClientesLike(String campo, String valor) {
+        File arquivoCSV = new File(tabela);
+        ArrayList<ExameClientes> exameClientes = new ArrayList();
+        try {
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            String[] valoresEntreVirgulasCampos = leitor.nextLine().split(",");
+            int numCamp;
+            for (numCamp = 0; numCamp <= 10; numCamp++) {
+                if (valoresEntreVirgulasCampos[numCamp].equals(campo)) {
+                    break;
+                }
+            }
+            //leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
+                    ExameClientes exameCliente = new ExameClientes();
+                    Exame exame = new Exame();
+                    exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
+                    exameCliente.setExame(exame);
+                    Cliente cliente = new Cliente();
+                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
+                    exameCliente.setCliente(cliente);
+                    exameClientes.add(exameCliente);
+
+                }
+            }
+            return exameClientes;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }    
 }
