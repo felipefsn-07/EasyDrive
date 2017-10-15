@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 10-Out-2017 às 15:20
+-- Generation Time: 15-Out-2017 às 21:30
 -- Versão do servidor: 5.5.54
 -- PHP Version: 7.1.9
 
@@ -33,7 +33,8 @@ CREATE TABLE `aula` (
   `dataAula` date NOT NULL,
   `horarioAula` time NOT NULL,
   `codVeiculo` int(11) NOT NULL,
-  `numCarteira` varchar(12) NOT NULL
+  `numCarteira` varchar(12) NOT NULL,
+  `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -48,7 +49,8 @@ CREATE TABLE `automovel` (
   `modelo` varchar(25) NOT NULL,
   `capacidade` int(11) NOT NULL,
   `status` varchar(10) NOT NULL,
-  `codVeiculo` int(11) NOT NULL
+  `codVeiculo` int(11) NOT NULL,
+  `tipo` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -119,7 +121,9 @@ CREATE TABLE `exame` (
   `codExame` int(11) NOT NULL,
   `dataExame` date NOT NULL,
   `horaExame` time NOT NULL,
-  `codVeiculo` int(11) NOT NULL
+  `codVeiculo` int(11) NOT NULL,
+  `numCarteira` varchar(12) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -139,7 +143,9 @@ CREATE TABLE `funcionario` (
   `tel` varchar(14) NOT NULL,
   `cel` varchar(14) NOT NULL,
   `horaEntra` datetime NOT NULL,
-  `horaSai` datetime NOT NULL
+  `horaSai` datetime NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `tipo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -184,7 +190,8 @@ CREATE TABLE `instrutorexame` (
 CREATE TABLE `login` (
   `codLogin` int(11) NOT NULL,
   `login` varchar(25) NOT NULL,
-  `senha` varchar(25) NOT NULL
+  `senha` varchar(25) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -247,7 +254,8 @@ ALTER TABLE `endereco`
 --
 ALTER TABLE `exame`
   ADD PRIMARY KEY (`codExame`),
-  ADD KEY `Fk_codVeiculo2` (`codVeiculo`);
+  ADD KEY `Fk_codVeiculo2` (`codVeiculo`),
+  ADD KEY `Fk_numCarteira3` (`numCarteira`);
 
 --
 -- Indexes for table `funcionario`
@@ -309,13 +317,13 @@ ALTER TABLE `automovel`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `codCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `codCliente` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `codEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `codEndereco` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `exame`
@@ -370,7 +378,8 @@ ALTER TABLE `clienteexame`
 -- Limitadores para a tabela `exame`
 --
 ALTER TABLE `exame`
-  ADD CONSTRAINT `Fk_codVeiculo2` FOREIGN KEY (`codVeiculo`) REFERENCES `automovel` (`codVeiculo`);
+  ADD CONSTRAINT `Fk_codVeiculo2` FOREIGN KEY (`codVeiculo`) REFERENCES `automovel` (`codVeiculo`),
+  ADD CONSTRAINT `Fk_numCarteira3` FOREIGN KEY (`numCarteira`) REFERENCES `instrutor` (`numCarteira`);
 
 --
 -- Limitadores para a tabela `funcionario`
