@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class EnderecoArquivo extends Arquivo {
+public class EnderecoArquivo extends Arquivo implements Csv{
 
     private final String tabela = "tabelas/endereco.csv";
 
@@ -68,7 +68,8 @@ public class EnderecoArquivo extends Arquivo {
         }
     }
 
-    public Endereco consultarEndereco(int codEndereco) {
+    @Override
+    public Endereco consultar(int codEndereco) {
         File arquivoCSV = new File(tabela);
         Endereco endereco = new Endereco();
         try {
@@ -110,7 +111,8 @@ public class EnderecoArquivo extends Arquivo {
         }
     }
 
-    public boolean desativarEndereco(int codEndereco) {
+    @Override
+    public boolean desativar(int codEndereco) {
         File arquivoCSV = new File(tabela);
         try {
 

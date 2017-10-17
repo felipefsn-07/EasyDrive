@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class UsuarioArquivo extends Arquivo {
+public class UsuarioArquivo extends Arquivo implements Csv{
     private final String tabela = "tabelas/usuario.csv";
 
     public ArrayList<Usuario> consultarUsuarios() {
@@ -62,7 +62,8 @@ public class UsuarioArquivo extends Arquivo {
         }
     }
 
-    public Usuario consultarUsuario(int codUsuario) {
+    @Override
+    public Usuario consultar(int codUsuario) {
         File arquivoCSV = new File(tabela);
         Usuario usuario = new Usuario();
         try {
@@ -100,7 +101,8 @@ public class UsuarioArquivo extends Arquivo {
         }
     }
 
-    public boolean desativarUsuario(int codUsuario) {
+    @Override
+    public boolean desativar(int codUsuario) {
         File arquivoCSV = new File(tabela);
         try {
 

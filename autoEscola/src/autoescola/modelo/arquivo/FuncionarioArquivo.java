@@ -53,7 +53,7 @@ public class FuncionarioArquivo extends Arquivo {
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setUsuario(usuario);
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    Endereco endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[2]));
+                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[2]));
                     funcionario.setEndereco(endereco);
                     funcionario.setRg(valoresEntreVirgulas[3]);
                     funcionario.setNome(valoresEntreVirgulas[4]);
@@ -105,7 +105,7 @@ public class FuncionarioArquivo extends Arquivo {
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setUsuario(usuario);
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    Endereco endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[2]));
+                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[2]));
                     funcionario.setEndereco(endereco);
                     funcionario.setRg(valoresEntreVirgulas[3]);
                     funcionario.setNome(valoresEntreVirgulas[4]);
@@ -323,7 +323,7 @@ public class FuncionarioArquivo extends Arquivo {
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setUsuario(usuario);
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    Endereco endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[2]));
+                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[2]));
                     funcionario.setEndereco(endereco);
                     funcionario.setRg(valoresEntreVirgulas[3]);
                     funcionario.setNome(valoresEntreVirgulas[4]);

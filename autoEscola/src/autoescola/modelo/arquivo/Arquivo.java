@@ -14,7 +14,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class  Arquivo {
+ abstract class  Arquivo {
 
     protected final int autoIncremento(String tabela) {
         int numLinhas = 1;
