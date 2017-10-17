@@ -36,6 +36,7 @@ public class TelaConsultarFuncionario extends javax.swing.JInternalFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Consultar Funcionário");
 
         jLabel1.setText("Pesquisar:");

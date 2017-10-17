@@ -3,11 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
-
-import autoescola.view.TelaConsultaAluno;
-import autoescola.view.TelaConsultaVeiculos;
-import autoescola.view.TelaConsultarFuncionario;
+package autoescola.view;
 
 /**
  *
@@ -65,7 +61,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 281, Short.MAX_VALUE)
+            .addGap(0, 282, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -193,7 +189,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaCadastroFuncionario telaCadFunc = new TelaCadastroFuncionario();
         jDesktopPane1.add(telaCadFunc);
         telaCadFunc.setVisible(true);
-     
+        
+         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
