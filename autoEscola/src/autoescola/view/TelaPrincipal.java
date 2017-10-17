@@ -5,6 +5,10 @@
  */
 package view;
 
+import autoescola.view.TelaConsultaAluno;
+import autoescola.view.TelaConsultaVeiculos;
+import autoescola.view.TelaConsultarFuncionario;
+
 /**
  *
  * @author kaiqu
@@ -87,6 +91,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem5.setText("Consultar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
@@ -102,6 +111,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem6);
 
         jMenuItem9.setText("Consultar");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem9);
 
         jMenuBar1.add(jMenu3);
@@ -117,6 +131,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu5.add(jMenuItem10);
 
         jMenuItem13.setText("Consultar");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem13);
 
         jMenuBar1.add(jMenu5);
@@ -192,6 +211,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        TelaConsultarFuncionario telaConFunc = new TelaConsultarFuncionario();
+        jDesktopPane1.add(telaConFunc);
+        telaConFunc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        TelaConsultaAluno telaConAlu = new TelaConsultaAluno();
+        jDesktopPane1.add(telaConAlu);
+        telaConAlu.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        TelaConsultaVeiculos telaConVei = new TelaConsultaVeiculos();
+        jDesktopPane1.add(telaConVei);
+        telaConVei.setVisible(true);       
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     /**
      * @param args the command line arguments
