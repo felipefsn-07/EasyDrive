@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class InstrutorArquivo extends Arquivo implements Csv{
+public class InstrutorArquivo extends Arquivo implements Tabela{
 
     private final String tabela = "tabelas/instrutor.csv";
 

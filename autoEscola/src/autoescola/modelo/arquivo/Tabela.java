@@ -9,10 +9,10 @@ package autoescola.modelo.arquivo;
  *
  * @author felipe
  */
-public interface Csv {
+public interface Tabela {
     boolean desativar(int codigo);
     Object consultar(int codigo);
-   // ArrayList<Object> consultarVarios();
-     //public boolean alterar(Aula aula);
+  //  ArrayList<Object> consultarVarios();
+     //public boolean alterar(Object object);
     
 }

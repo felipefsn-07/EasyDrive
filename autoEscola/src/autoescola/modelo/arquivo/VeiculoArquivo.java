@@ -20,7 +20,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class VeiculoArquivo extends Arquivo implements Csv{
+public class VeiculoArquivo extends Arquivo implements Tabela{
 
     private final String tabela = "tabelas/veiculo.csv";
 

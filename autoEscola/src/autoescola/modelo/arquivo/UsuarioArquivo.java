@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class UsuarioArquivo extends Arquivo implements Csv{
+public class UsuarioArquivo extends Arquivo implements Tabela{
     private final String tabela = "tabelas/usuario.csv";
 
     public ArrayList<Usuario> consultarUsuarios() {

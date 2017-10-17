@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class EnderecoArquivo extends Arquivo implements Csv{
+public class EnderecoArquivo extends Arquivo implements Tabela{
 
     private final String tabela = "tabelas/endereco.csv";
 
