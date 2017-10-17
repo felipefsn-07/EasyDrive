@@ -166,6 +166,7 @@ public class AulasArquivo extends Arquivo implements Tabela{
     }
 
     public boolean alterar(Aula aula) {
+                
                 File arquivoCSV = new File(tabela);
         try {
 
@@ -300,6 +301,5 @@ public class AulasArquivo extends Arquivo implements Tabela{
 
         }
     }
-    
     
 }

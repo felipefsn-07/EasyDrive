@@ -12,7 +12,5 @@ package autoescola.modelo.arquivo;
 public interface Tabela {
     boolean desativar(int codigo);
     Object consultar(int codigo);
-  //  ArrayList<Object> consultarVarios();
-     //public boolean alterar(Object object);
-    
+
 }
