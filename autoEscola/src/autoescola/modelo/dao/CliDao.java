@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author felipe
  */
-public class ClienteDao {
+public class CliDao {
 
     //private Cliente cli;
     public boolean cadastrarCliente(Cliente cli) {

@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author Lucca
  */
-public class VeiculoDao {
+public class VeicDao {
 
     public boolean cadastrarVeiculo(Veiculo veic) {
         Connection con = ConnectionFactory.getConnection();
