@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Samuelson
  */
-public class ConnectionFactory {
+public abstract class ConnectionFactory {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/db_autoescola";
