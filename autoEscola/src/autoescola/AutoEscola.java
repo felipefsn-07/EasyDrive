@@ -34,7 +34,7 @@ public class AutoEscola {
         cli.setNumLADV("1234567891");
         cli.setStatus(1);
         cli.setCategoria("A1");
-        Endereco endereco = enderecoArq.consultarEndereco(1);
+        Endereco endereco = enderecoArq.consultar(1);
         endereco.setCodEndereco(1);
         cli.setEndereco(endereco);
 
