@@ -292,8 +292,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        TelaCadastroEndereco telaCadEnd = new TelaCadastroEndereco();
-        telaCadEnd.show();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
