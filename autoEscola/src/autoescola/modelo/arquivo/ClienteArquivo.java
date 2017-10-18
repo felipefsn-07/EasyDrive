@@ -20,7 +20,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class ClienteArquivo extends Arquivo {
+public class ClienteArquivo extends Arquivo implements Tabela{
 
     private final String tabela = "tabelas/cliente.csv";
 
@@ -59,7 +59,7 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setCategoria(valoresEntreVirgulas[9]);
                     Endereco endereco;
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[10]));
+                    endereco = endArq.consultar(parseInt(valoresEntreVirgulas[10]));
                     cliente.setEndereco(endereco);
                     clientes.add(cliente);
 
@@ -74,7 +74,8 @@ public class ClienteArquivo extends Arquivo {
         }
     }
 
-    public Cliente consultarCliente(int codigoCliente) {
+    @Override
+    public Cliente consultar(int codigoCliente) {
         File arquivoCSV = new File(tabela);
         Cliente cliente = new Cliente();
         try {
@@ -108,7 +109,7 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setCategoria(valoresEntreVirgulas[9]);
                     Endereco endereco;
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[10]));
+                    endereco = endArq.consultar(parseInt(valoresEntreVirgulas[10]));
                     cliente.setEndereco(endereco);
                 }
             }
@@ -121,7 +122,8 @@ public class ClienteArquivo extends Arquivo {
         }
     }
 
-    public boolean desativarCliente(int codigoCliente) {
+    @Override
+    public boolean desativar(int codigoCliente) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -315,7 +317,7 @@ public class ClienteArquivo extends Arquivo {
                     cliente.setCategoria(valoresEntreVirgulas[9]);
                     Endereco endereco;
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    endereco = endArq.consultarEndereco(parseInt(valoresEntreVirgulas[10]));
+                    endereco = endArq.consultar(parseInt(valoresEntreVirgulas[10]));
                     cliente.setEndereco(endereco);
                     clientes.add(cliente);
 

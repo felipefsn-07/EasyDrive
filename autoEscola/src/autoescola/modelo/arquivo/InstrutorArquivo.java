@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class InstrutorArquivo extends Arquivo {
+public class InstrutorArquivo extends Arquivo implements Tabela{
 
     private final String tabela = "tabelas/instrutor.csv";
 
@@ -63,7 +63,8 @@ public class InstrutorArquivo extends Arquivo {
         }
     }
 
-    public Instrutor consultarInstrutor(int codigoInstrutor) {
+    @Override
+    public Instrutor consultar(int codigoInstrutor) {
         File arquivoCSV = new File(tabela);
         Instrutor instrutor = new Instrutor();
         try {
@@ -100,7 +101,8 @@ public class InstrutorArquivo extends Arquivo {
         }
     }
 
-    public boolean desativarInstrutor(int codigoInstrutor) {
+    @Override
+    public boolean desativar(int codigoInstrutor) {
         File arquivoCSV = new File(tabela);
         try {
 

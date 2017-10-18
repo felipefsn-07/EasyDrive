@@ -21,7 +21,7 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class AulasArquivo extends Arquivo{
+public class AulasArquivo extends Arquivo implements Tabela{
     
     private final String tabela = "tabelas/aula.csv";
 
@@ -72,7 +72,8 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public Aula consultarAula(int codAulas) {
+    @Override
+    public Aula consultar(int codAulas) {
         File arquivoCSV = new File(tabela);
         Aula aula = new Aula();
         try {
@@ -115,7 +116,8 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean desativarAulas(int codigoAulas) {
+    @Override
+    public boolean desativar(int codigoAulas) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -163,7 +165,8 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    public boolean alterarAulas(Aula aula) {
+    public boolean alterar(Aula aula) {
+                
                 File arquivoCSV = new File(tabela);
         try {
 
@@ -298,6 +301,5 @@ public class AulasArquivo extends Arquivo{
 
         }
     }
-    
     
 }
