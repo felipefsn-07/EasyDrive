@@ -14,8 +14,28 @@ import java.util.Scanner;
  *
  * @author felipe
  */
- public abstract class  Arquivo {
+public abstract class Arquivo {
 
+    /**
+     * Implementado nas outras classes de arquivo
+     *
+     * @param codigo
+     * @return
+     */
+    protected boolean desativar(int codigo) {
+        return false;
+    }
+
+    /**
+     * Implementado nas outras classes de arquivo
+     *
+     * @param codigo
+     * @return
+     */
+    protected Object consultar(int codigo) {
+        return false;
+    }
+   
     protected final int autoIncremento(String tabela) {
         int numLinhas = 1;
         //abre um arquivo e cria um file

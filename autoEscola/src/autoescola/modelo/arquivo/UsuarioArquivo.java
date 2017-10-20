@@ -19,9 +19,13 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class UsuarioArquivo extends Arquivo implements Tabela{
+public class UsuarioArquivo extends Arquivo{
     private final String tabela = "tabelas/usuario.csv";
-
+    
+    /**
+     * Consulta e retorna todos os usuarios cadastrados
+     * @return ArrayList of Usuario
+     */
     public ArrayList<Usuario> consultarUsuarios() {
         File arquivoCSV = new File(tabela);
         ArrayList<Usuario> usuarios = new ArrayList();
@@ -62,6 +66,11 @@ public class UsuarioArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Consultar usuario a partir do código do usuario
+     * @param codUsuario
+     * @return the Usuario
+     */
     @Override
     public Usuario consultar(int codUsuario) {
         File arquivoCSV = new File(tabela);
@@ -100,7 +109,12 @@ public class UsuarioArquivo extends Arquivo implements Tabela{
 
         }
     }
-
+    
+    /**
+     * Desativar usuario a partir do código do usuario
+     * @param codUsuario
+     * @return false or true
+     */
     @Override
     public boolean desativar(int codUsuario) {
         File arquivoCSV = new File(tabela);
@@ -150,6 +164,11 @@ public class UsuarioArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Alterar o usuario
+     * @param usuario
+     * @return false or true
+     */
     public boolean alterarUsuario(Usuario usuario) {
         File arquivoCSV = new File(tabela);
         try {
@@ -197,6 +216,11 @@ public class UsuarioArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Cadastrar usuario
+     * @param usuario
+     * @return false or true
+     */
     public boolean cadastrarUsuario(Usuario usuario) {
 
         int codUsuario = autoIncremento(tabela);
@@ -230,6 +254,12 @@ public class UsuarioArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     *  Função para consultar usuario a partir do campo e um valor que pode ser encontrado nessa coluna
+     * @param campo
+     * @param valor
+     * @return the ArrayList of Usuario
+     */
     public ArrayList<Usuario> consultarUsuariosLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<Usuario> usuarios = new ArrayList();

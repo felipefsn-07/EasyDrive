@@ -20,10 +20,13 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class VeiculoArquivo extends Arquivo implements Tabela{
-
+public class VeiculoArquivo extends Arquivo {
+    
     private final String tabela = "tabelas/veiculo.csv";
-
+/**
+ * Consulta e retorna todos os veiculos cadastrados
+ * @return the ArrayList of Veiculo
+ */
     public ArrayList<Veiculo> consultarVeiculos() {
         File arquivoCSV = new File(tabela);
         ArrayList<Veiculo> veiculos = new ArrayList();
@@ -66,6 +69,11 @@ public class VeiculoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Consultar e retorn veiculo a partir do código do veiculo
+     * @param codVeiculo
+     * @return the Veiculo
+     */
     @Override
     public Veiculo consultar(int codVeiculo) {
         File arquivoCSV = new File(tabela);
@@ -107,6 +115,11 @@ public class VeiculoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Desativar veiculo a partir do código Veiculo 
+     * @param codVeiculo
+     * @return false or true
+     */
     @Override
     public boolean desativar(int codVeiculo) {
         File arquivoCSV = new File(tabela);
@@ -158,6 +171,11 @@ public class VeiculoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Alterar veiculo
+     * @param veiculo
+     * @return false or true
+     */
     public boolean alterarVeiculo(Veiculo veiculo) {
         File arquivoCSV = new File(tabela);
         try {
@@ -207,6 +225,11 @@ public class VeiculoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Cadastrar veiculo
+     * @param veiculo
+     * @return false or true
+     */
     public boolean cadastrarVeiculo(Veiculo veiculo) {
 
         int codVeiculo = autoIncremento(tabela);
@@ -242,6 +265,12 @@ public class VeiculoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     *  Função para consultar veiculos a partir do campo e um valor que pode ser encontrado nessa coluna
+     * @param campo
+     * @param valor
+     * @return ArrayList of Veiculo
+     */
     public ArrayList<Veiculo> consultarVeiculosLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<Veiculo> veiculos = new ArrayList();

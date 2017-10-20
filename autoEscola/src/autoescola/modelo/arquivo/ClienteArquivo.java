@@ -20,10 +20,14 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class ClienteArquivo extends Arquivo implements Tabela{
+public class ClienteArquivo extends Arquivo{
 
     private final String tabela = "tabelas/cliente.csv";
 
+    /**
+     * 
+     * @return the ArrayList of Cliente
+     */
     public ArrayList<Cliente> consultarClientes() {
         File arquivoCSV = new File(tabela);
         ArrayList<Cliente> clientes = new ArrayList();
@@ -74,6 +78,11 @@ public class ClienteArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * 
+     * @param codigoCliente
+     * @return Cliente
+     */
     @Override
     public Cliente consultar(int codigoCliente) {
         File arquivoCSV = new File(tabela);
@@ -122,6 +131,12 @@ public class ClienteArquivo extends Arquivo implements Tabela{
         }
     }
 
+    
+    /**
+     * 
+     * @param codigoCliente
+     * @return false or true
+     */
     @Override
     public boolean desativar(int codigoCliente) {
         File arquivoCSV = new File(tabela);
@@ -177,6 +192,11 @@ public class ClienteArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return false or true
+     */
     public boolean alterarCliente(Cliente cliente) {
         File arquivoCSV = new File(tabela);
         try {
@@ -231,6 +251,11 @@ public class ClienteArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return false or true 
+     */
     public boolean cadastrarCliente(Cliente cliente) {
 
         int idCliente = autoIncremento(tabela);
@@ -275,6 +300,12 @@ public class ClienteArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     *
+     * @param campo
+     * @param valor
+     * @return the ArrayList of Cliente
+     */
     public ArrayList<Cliente> consultarClientesLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<Cliente> clientes = new ArrayList();

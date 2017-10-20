@@ -25,6 +25,10 @@ public class ExameArquivo extends Arquivo {
 
     private final String tabela = "tabelas/exame.csv";
 
+    /**
+     * Consulta e retorna todos os Exames cadastrados
+     * @return the ArrayList of Exame
+     */
     public ArrayList<Exame> consultarExames() {
         File arquivoCSV = new File(tabela);
         ArrayList<Exame> exames = new ArrayList();
@@ -72,6 +76,11 @@ public class ExameArquivo extends Arquivo {
         }
     }
 
+    /**
+     *Consulta e retorna o exame a partir do código do Exame 
+     * @param codExame
+     * @return tje Exame
+     */
     public Exame consultarExame(int codExame) {
         File arquivoCSV = new File(tabela);
         Exame exame = new Exame();
@@ -116,7 +125,13 @@ public class ExameArquivo extends Arquivo {
         }
     }
 
-    public boolean desativarExame(int codExame) {
+    /**
+     * Desativar o exame cadastrado a partir do codigo do Exame
+     * @param codExame
+     * @return false or true
+     */
+    @Override
+    public boolean desativar(int codExame) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -166,6 +181,11 @@ public class ExameArquivo extends Arquivo {
         }
     }
 
+    /**
+     * Alterar dados do Exame
+     * @param exame
+     * @return false or true
+     */
     public boolean alterarExame(Exame exame) {
         File arquivoCSV = new File(tabela);
         try {
@@ -214,7 +234,11 @@ public class ExameArquivo extends Arquivo {
 
         }
     }
-
+    /**
+     * Função para cadastrar exame
+     * @param exame
+     * @return false or true
+     */
     public boolean cadastrarExame(Exame exame) {
 
         int codExame = autoIncremento(tabela);
@@ -250,6 +274,12 @@ public class ExameArquivo extends Arquivo {
         }
     }
 
+    /**
+     * Função para consultar Exame a partir do campo e um valor que pode ser encontrado nessa coluna
+     * @param campo
+     * @param valor
+     * @return the ArrayList of Exame
+     */
     public ArrayList<Exame> consultarExamesLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<Exame> exames = new ArrayList();

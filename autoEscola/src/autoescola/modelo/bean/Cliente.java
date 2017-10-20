@@ -26,10 +26,24 @@ public class Cliente {
     private String categoria;
     private ArrayList<AulasClientes> aulas;
     private ArrayList<ExameClientes> exames;
-
+/**
+ * Método construtor
+ */
     public Cliente() {
 
     }
+    
+    /**
+     * Metodo construtors
+     * @param nome
+     * @param rg
+     * @param cpf
+     * @param datanasc
+     * @param telefone
+     * @param celular
+     * @param numLADV
+     * @param categoria 
+     */
 
     public Cliente(String nome, String rg, String cpf, String datanasc, String telefone, String celular, String numLADV, String categoria) {
         this.nome = nome;
