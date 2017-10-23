@@ -19,10 +19,14 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class InstrutorArquivo extends Arquivo implements Tabela{
+public class InstrutorArquivo extends Arquivo {
 
     private final String tabela = "tabelas/instrutor.csv";
 
+    /**
+     * Consulta e retorna todos os Instrutores cadatrados
+     * @return the ArrayList of Instrutor
+     */
     public ArrayList<Instrutor> consultarInstrutors() {
         File arquivoCSV = new File(tabela);
         ArrayList<Instrutor> instrutores = new ArrayList();
@@ -62,7 +66,12 @@ public class InstrutorArquivo extends Arquivo implements Tabela{
 
         }
     }
-
+    
+    /**
+     * Consulta e reterona o Instrutor a partir do código do Instrutor
+     * @param codigoInstrutor
+     * @return the Instrutor
+     */
     @Override
     public Instrutor consultar(int codigoInstrutor) {
         File arquivoCSV = new File(tabela);
@@ -101,6 +110,11 @@ public class InstrutorArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Desativar Instrutor a partir do codigo Instrutor
+     * @param codigoInstrutor
+     * @return false or true
+     */
     @Override
     public boolean desativar(int codigoInstrutor) {
         File arquivoCSV = new File(tabela);
@@ -130,7 +144,7 @@ public class InstrutorArquivo extends Arquivo implements Tabela{
                 }
                 todo += linhasDoArquivo + "\n";
                 FuncionarioArquivo arq = new FuncionarioArquivo();
-                arq.desativarfuncionario(codigoInstrutor);
+                arq.desativar(codigoInstrutor);
             }
             try {
                 FileWriter fw = new FileWriter(tabela);
@@ -149,6 +163,11 @@ public class InstrutorArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Alterar Instrutor
+     * @param instrutor
+     * @return false or true
+     */
     public boolean alterarInstrutor(Instrutor instrutor) {
         File arquivoCSV = new File(tabela);
         try {
@@ -171,8 +190,8 @@ public class InstrutorArquivo extends Arquivo implements Tabela{
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == instrutor.getCodigoFuncionario()) {
                     linhasDoArquivo = String.valueOf(instrutor.getCodigoFuncionario()) + ",";
-                    linhasDoArquivo += instrutor.getNumCarteira()+ ",";
-                    linhasDoArquivo += instrutor.getCategoria()+ ",";
+                    linhasDoArquivo += instrutor.getNumCarteira() + ",";
+                    linhasDoArquivo += instrutor.getCategoria() + ",";
                     linhasDoArquivo += String.valueOf(instrutor.getStatus());
                     FuncionarioArquivo arq = new FuncionarioArquivo();
                     arq.alterarfuncionario(instrutor);
@@ -197,6 +216,11 @@ public class InstrutorArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Cadastra funcionario
+     * @param instrutor
+     * @return false or true
+     */
     public boolean cadastrarInstrutor(Instrutor instrutor) {
 
         int idInstrutor = autoIncremento(tabela);
@@ -229,6 +253,12 @@ public class InstrutorArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     *  Função para consultar Instrutor a partir do campo e um valor que pode ser encontrado nessa coluna
+     * @param campo
+     * @param valor
+     * @return the ArrayList of Instrutor
+     */
     public ArrayList<Instrutor> consultarInstrutorsLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<Instrutor> instrutores = new ArrayList();

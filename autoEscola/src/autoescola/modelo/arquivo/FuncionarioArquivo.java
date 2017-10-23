@@ -24,7 +24,10 @@ import java.util.Scanner;
 public class FuncionarioArquivo extends Arquivo {
 
     private final String tabela = "tabelas/funcionario.csv";
-
+    /**
+     * Consulta e retorna todos funcionarios cadastrados
+     * @return the ArrayList of Funcionario
+     */
     public ArrayList<Funcionario> consultarFuncionario() {
         File arquivoCSV = new File(tabela);
         ArrayList<Funcionario> funcionarios = new ArrayList();
@@ -78,7 +81,13 @@ public class FuncionarioArquivo extends Arquivo {
         }
     }
 
-    public Funcionario consultarfuncionario(int codigofuncionario) {
+    /**
+     * Função para consultar o funcionário a partir do código
+     * @param codigofuncionario
+     * @return 
+     */
+    @Override
+    public Funcionario consultar(int codigofuncionario) {
         File arquivoCSV = new File(tabela);
         Funcionario funcionario = new Funcionario();
         try {
@@ -127,8 +136,15 @@ public class FuncionarioArquivo extends Arquivo {
 
         }
     }
-
-    public boolean desativarfuncionario(int codigofuncionario) {
+    
+    /**
+     * Desativar funcionário a partir do código do funcionario
+     * @param codigofuncionario
+     * @return false or true
+     */
+    
+    @Override
+    public boolean desativar(int codigofuncionario) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -184,6 +200,11 @@ public class FuncionarioArquivo extends Arquivo {
         }
     }
 
+    /**
+     * Alterar funcionario
+     * @param funcionario
+     * @return false or true
+     */
     public boolean alterarfuncionario(Funcionario funcionario) {
         File arquivoCSV = new File(tabela);
         try {
@@ -240,6 +261,11 @@ public class FuncionarioArquivo extends Arquivo {
         }
     }
 
+    /**
+     * Cadastrar funcionário
+     * @param funcionario
+     * @return false or true
+     */
     public boolean cadastrarfuncionario(Funcionario funcionario) {
 
         int idFuncionario = autoIncremento(tabela);
@@ -288,6 +314,12 @@ public class FuncionarioArquivo extends Arquivo {
         }
     }
 
+    /**
+     *  Função para consultar Funcionario a partir do campo e um valor que pode ser encontrado nessa coluna
+     * @param campo
+     * @param valor
+     * @return ArrayList of Funcionario
+     */
     public ArrayList<Funcionario> consultarfuncionariosLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<Funcionario> funcionarios = new ArrayList();

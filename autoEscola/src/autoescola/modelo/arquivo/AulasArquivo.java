@@ -21,10 +21,12 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class AulasArquivo extends Arquivo implements Tabela{
+public class AulasArquivo extends Arquivo{
     
     private final String tabela = "tabelas/aula.csv";
-
+/**
+ * @return the ArrayList of Aula
+ */
     public ArrayList<Aula> consultarAulas() {
         File arquivoCSV = new File(tabela);
         ArrayList<Aula> aulas = new ArrayList();
@@ -72,7 +74,12 @@ public class AulasArquivo extends Arquivo implements Tabela{
         }
     }
 
+    
     @Override
+    /**
+     * @param codAulas
+     * @return the Aula
+     */
     public Aula consultar(int codAulas) {
         File arquivoCSV = new File(tabela);
         Aula aula = new Aula();
@@ -115,7 +122,12 @@ public class AulasArquivo extends Arquivo implements Tabela{
 
         }
     }
-
+    
+    /**
+     * 
+     * @param codigoAulas
+     * @return false or true
+     */
     @Override
     public boolean desativar(int codigoAulas) {
         File arquivoCSV = new File(tabela);
@@ -165,6 +177,11 @@ public class AulasArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * 
+     * @param aula
+     * @return false or true
+     */
     public boolean alterar(Aula aula) {
                 
                 File arquivoCSV = new File(tabela);
@@ -215,6 +232,12 @@ public class AulasArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * 
+     * @param aula
+     * @return false or true
+     */
+    
     public boolean cadastrarAulas(Aula aula) {
 
         int idAulas = autoIncremento(tabela);
@@ -248,6 +271,13 @@ public class AulasArquivo extends Arquivo implements Tabela{
             return false;
         }
     }
+    
+    /**
+     * 
+     * @param campo
+     * @param valor
+     * @return the ArrayList of Aula
+     */
 
     public ArrayList<Aula> consultarAulassLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);

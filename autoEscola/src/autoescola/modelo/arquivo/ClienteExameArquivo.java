@@ -22,8 +22,12 @@ import java.util.Scanner;
  * @author felipe
  */
 public class ClienteExameArquivo extends Arquivo {
-private final String tabela = "tabelas/clienteexame.csv";
 
+    private final String tabela = "tabelas/clienteexame.csv";
+    /**
+     * 
+     * @return the ArrayList of ExameClientes
+     */
     public ArrayList<ExameClientes> consultarExameClientes() {
         File arquivoCSV = new File(tabela);
         ArrayList<ExameClientes> exameClientes = new ArrayList();
@@ -65,6 +69,12 @@ private final String tabela = "tabelas/clienteexame.csv";
 
         }
     }
+    
+    /**
+     * 
+     * @param codCliente
+     * @return ExameClientes
+     */
 
     public ExameClientes consultarExamePorClientes(int codCliente) {
         File arquivoCSV = new File(tabela);
@@ -106,6 +116,11 @@ private final String tabela = "tabelas/clienteexame.csv";
         }
     }
 
+    /**
+     * 
+     * @param codExame
+     * @return ExameClientes
+     */
     public ExameClientes consultarClientesPorExame(int codExame) {
         File arquivoCSV = new File(tabela);
         ExameClientes exameCliente = new ExameClientes();
@@ -145,7 +160,12 @@ private final String tabela = "tabelas/clienteexame.csv";
 
         }
     }
-     
+
+    /**
+     * 
+     * @param exameCliente
+     * @return false or true
+     */
     public boolean alterarExameClientes(ExameClientes exameCliente) {
         File arquivoCSV = new File(tabela);
         try {
@@ -166,9 +186,9 @@ private final String tabela = "tabelas/clienteexame.csv";
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == exameCliente.getExame().getCodigoExame()&& parseInt(valoresEntreVirgulas[1]) == exameCliente.getCliente().getCodCliente()) {
+                if (parseInt(valoresEntreVirgulas[0]) == exameCliente.getExame().getCodigoExame() && parseInt(valoresEntreVirgulas[1]) == exameCliente.getCliente().getCodCliente()) {
                     linhasDoArquivo = String.valueOf(exameCliente.getExame().getCodigoExame()) + ",";
-                    linhasDoArquivo += String.valueOf(exameCliente.getCliente().getCodCliente()) ;
+                    linhasDoArquivo += String.valueOf(exameCliente.getCliente().getCodCliente());
                 }
                 todo += linhasDoArquivo + "\n";
 
@@ -190,6 +210,11 @@ private final String tabela = "tabelas/clienteexame.csv";
         }
     }
 
+    /**
+     * 
+     * @param exameCliente
+     * @return false or true
+     */
     public boolean cadastrarExameClientes(ExameClientes exameCliente) {
 
         int codExameClientes = autoIncremento(tabela);
@@ -216,7 +241,13 @@ private final String tabela = "tabelas/clienteexame.csv";
             return false;
         }
     }
-    
+
+    /**
+     * 
+     * @param campo
+     * @param valor
+     * @return ArrayList of ExameClientes
+     */
     public ArrayList<ExameClientes> consultarExameClientesLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<ExameClientes> exameClientes = new ArrayList();
@@ -263,5 +294,6 @@ private final String tabela = "tabelas/clienteexame.csv";
             return null;
 
         }
-    }    
+    }
+
 }

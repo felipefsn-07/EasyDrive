@@ -24,6 +24,10 @@ import java.util.Scanner;
 public class AulasClientesArquivo extends Arquivo {
     private final String tabela = "tabelas/clienteaula.csv";
 
+    /**
+     * 
+     * @return the ArrayList of AulasClientes
+     */
     public ArrayList<AulasClientes> consultarAulasClientes() {
         File arquivoCSV = new File(tabela);
         ArrayList<AulasClientes> aulaClientes = new ArrayList();
@@ -66,7 +70,13 @@ public class AulasClientesArquivo extends Arquivo {
         }
     }
 
-    public AulasClientes consultarAulasPorClientes(int codCliente) {
+    /**
+     * 
+     * @param codCliente
+     * @return the AulasClientes
+     */
+    @Override
+    public AulasClientes consultar(int codCliente) {
         File arquivoCSV = new File(tabela);
         AulasClientes aulaCliente = new AulasClientes();
         try {
@@ -106,6 +116,12 @@ public class AulasClientesArquivo extends Arquivo {
         }
     }
 
+    /**
+     * 
+     * @param codAula
+     * @return AulasClientes
+     */
+    
     public AulasClientes consultarClientesPorAula(int codAula) {
         File arquivoCSV = new File(tabela);
         AulasClientes aulacliente = new AulasClientes();
@@ -146,7 +162,12 @@ public class AulasClientesArquivo extends Arquivo {
 
         }
     }
-     
+    
+    /**
+     * 
+     * @param aulaCliente
+     * @return false or true
+     */
     public boolean alterarAulasClientes(AulasClientes aulaCliente) {
         File arquivoCSV = new File(tabela);
         try {
@@ -191,6 +212,11 @@ public class AulasClientesArquivo extends Arquivo {
         }
     }
 
+    /**
+     * 
+     * @param aulaCliente
+     * @return false or true
+     */
     public boolean cadastrarAulasClientes(AulasClientes aulaCliente) {
 
         int codAulasClientes = autoIncremento(tabela);
@@ -218,6 +244,12 @@ public class AulasClientesArquivo extends Arquivo {
         }
     }
     
+    /**
+     * 
+     * @param campo
+     * @param valor
+     * @return the ArrayList of AulasClientes
+     */
     public ArrayList<AulasClientes> consultarAulasClientesLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<AulasClientes> aulaClientes = new ArrayList();
@@ -265,6 +297,5 @@ public class AulasClientesArquivo extends Arquivo {
 
         }
     }
-
     
 }

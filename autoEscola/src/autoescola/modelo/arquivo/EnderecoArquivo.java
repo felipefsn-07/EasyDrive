@@ -19,10 +19,13 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class EnderecoArquivo extends Arquivo implements Tabela{
+public class EnderecoArquivo extends Arquivo{
 
     private final String tabela = "tabelas/endereco.csv";
-
+    /**
+     * 
+     * @return the ArrayList of Endereco
+     */
     public ArrayList<Endereco> consultarEnderecos() {
         File arquivoCSV = new File(tabela);
         ArrayList<Endereco> enderecos = new ArrayList();
@@ -68,6 +71,11 @@ public class EnderecoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * 
+     * @param codEndereco
+     * @return the Endereco
+     */
     @Override
     public Endereco consultar(int codEndereco) {
         File arquivoCSV = new File(tabela);
@@ -111,6 +119,11 @@ public class EnderecoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Função para desativar o endereço
+     * @param codEndereco
+     * @return false or true
+     */
     @Override
     public boolean desativar(int codEndereco) {
         File arquivoCSV = new File(tabela);
@@ -165,6 +178,11 @@ public class EnderecoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Função para alterar o endereço
+     * @param endereco
+     * @return false or true
+     */
     public boolean alterarEndereco(Endereco endereco) {
         File arquivoCSV = new File(tabela);
         try {
@@ -216,6 +234,11 @@ public class EnderecoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Função para cadastrar endereço
+     * @param endereco
+     * @return the int values
+     */
     public int cadastrarEndereco(Endereco endereco) {
 
         int codEndereco = autoIncremento(tabela);
@@ -255,6 +278,12 @@ public class EnderecoArquivo extends Arquivo implements Tabela{
         }
     }
 
+    /**
+     * Função para consultar endereços a partir do campo e um valor que pode ser encontrado nessa coluna
+     * @param campo
+     * @param valor
+     * @return the ArrayList of Endereco
+     */
     public ArrayList<Endereco> consultarEnderecosLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<Endereco> enderecos = new ArrayList();
