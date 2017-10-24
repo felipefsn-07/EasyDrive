@@ -5,6 +5,17 @@
  */
 package autoescola.view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.MenuElement;
+import javax.swing.plaf.basic.BasicMenuBarUI;
+
 /**
  *
  * @author kaiqu
@@ -16,6 +27,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        customizeMenuBar(jMenuBar1);
     }
 
     /**
@@ -295,6 +307,54 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 new TelaPrincipal().setVisible(true);
             }
         });
+
+    }
+
+    private void customizeMenuBar(JMenuBar menuBar) {
+
+        menuBar.setUI(new BasicMenuBarUI() {
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Color myGreen = new Color(97,212,195); 
+                g.setColor(myGreen);
+                g.fillRect(0, 0, c.getWidth(), c.getHeight());
+            }
+
+        });
+
+        MenuElement[] menus = menuBar.getSubElements();
+
+        for (MenuElement menuElement : menus) {
+
+            JMenu menu = (JMenu) menuElement.getComponent();
+            changeComponentColors(menu);
+            menu.setOpaque(true);
+
+            MenuElement[] menuElements = menu.getSubElements();
+
+            for (MenuElement popupMenuElement : menuElements) {
+
+                JPopupMenu popupMenu = (JPopupMenu) popupMenuElement.getComponent();
+                popupMenu.setBorder(null);
+
+                MenuElement[] menuItens = popupMenuElement.getSubElements();
+
+                for (MenuElement menuItemElement : menuItens) {
+
+                    JMenuItem menuItem = (JMenuItem) menuItemElement.getComponent();
+                    changeComponentColors(menuItem);
+                    menuItem.setOpaque(true);
+
+                }
+            }
+        }
+    }
+
+    private void changeComponentColors(Component comp) {
+        Color myGreen = new Color(97,212,195); 
+        comp.setBackground(myGreen);
+        comp.setForeground(Color.white);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
