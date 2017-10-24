@@ -80,7 +80,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 431, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(36, 47, 65));
+        jPanel2.setBackground(new java.awt.Color(97, 212, 195));
         jPanel2.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -94,7 +94,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 431, Short.MAX_VALUE)
         );
 
-        jMenuBar1.setBackground(new java.awt.Color(97, 212, 195));
+        jMenuBar1.setBackground(new java.awt.Color(36, 47, 65));
         jMenuBar1.setForeground(new java.awt.Color(254, 254, 254));
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -316,8 +316,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             @Override
             public void paint(Graphics g, JComponent c) {
-                Color myGreen = new Color(97,212,195); 
-                g.setColor(Color.BLACK);
+                Color myBlue = new Color(36, 47, 65);
+                g.setColor(myBlue);
                 g.fillRect(0, 0, c.getWidth(), c.getHeight());
             }
 
@@ -352,8 +352,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     private void changeComponentColors(Component comp) {
-        Color myGreen = new Color(97,212,195); 
-        comp.setBackground(Color.BLACK);
+        //Color myGreen = new Color(97,212,195); 
+        Color myBlue = new Color(36, 47, 65);
+        comp.setBackground(myBlue);
         comp.setForeground(Color.white);
     }
 
