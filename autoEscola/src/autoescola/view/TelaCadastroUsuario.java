@@ -36,6 +36,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Usuário");
 
         jLabel1.setText("Login:");
 

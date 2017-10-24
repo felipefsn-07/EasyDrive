@@ -45,6 +45,7 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Endereço");
 
         jLabel1.setText("Logradouro:");
 
