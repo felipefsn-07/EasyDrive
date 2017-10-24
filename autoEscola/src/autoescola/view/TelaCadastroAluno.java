@@ -63,6 +63,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Aluno");
 
         jPanel1.setBackground(new java.awt.Color(36, 47, 65));
 
