@@ -316,7 +316,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             @Override
             public void paint(Graphics g, JComponent c) {
                 Color myGreen = new Color(97,212,195); 
-                g.setColor(myGreen);
+                g.setColor(Color.BLACK);
                 g.fillRect(0, 0, c.getWidth(), c.getHeight());
             }
 
@@ -352,7 +352,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void changeComponentColors(Component comp) {
         Color myGreen = new Color(97,212,195); 
-        comp.setBackground(myGreen);
+        comp.setBackground(Color.BLACK);
         comp.setForeground(Color.white);
     }
 
