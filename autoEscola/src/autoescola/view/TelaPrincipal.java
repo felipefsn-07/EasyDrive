@@ -259,7 +259,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        TelaConsultarFuncionario telaConFunc = new TelaConsultarFuncionario();
+        TelaConsultaFuncionario telaConFunc = new TelaConsultaFuncionario();
         telaConFunc.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
