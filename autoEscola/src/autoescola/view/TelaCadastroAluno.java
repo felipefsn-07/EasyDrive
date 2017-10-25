@@ -64,7 +64,8 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(36, 47, 65));
 
-        jPanel2.setBackground(new java.awt.Color(97, 212, 195));
+        jPanel2.setBackground(new java.awt.Color(43, 167, 142));
+        jPanel2.setForeground(new java.awt.Color(254, 254, 254));
 
         jLabel2.setBackground(new java.awt.Color(254, 254, 254));
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -96,17 +97,17 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(254, 254, 254));
         jLabel7.setText("Celular:");
 
-        jTextField2.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField2.setBackground(new java.awt.Color(43, 167, 142));
         jTextField2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(254, 254, 254));
         jTextField2.setBorder(null);
 
-        jTextField3.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField3.setBackground(new java.awt.Color(43, 167, 142));
         jTextField3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField3.setForeground(new java.awt.Color(254, 254, 254));
         jTextField3.setBorder(null);
 
-        jTextField4.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField4.setBackground(new java.awt.Color(43, 167, 142));
         jTextField4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField4.setForeground(new java.awt.Color(254, 254, 254));
         jTextField4.setBorder(null);
@@ -116,17 +117,17 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
             }
         });
 
-        jTextField5.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField5.setBackground(new java.awt.Color(43, 167, 142));
         jTextField5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField5.setForeground(new java.awt.Color(254, 254, 254));
         jTextField5.setBorder(null);
 
-        jTextField6.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField6.setBackground(new java.awt.Color(43, 167, 142));
         jTextField6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField6.setForeground(new java.awt.Color(254, 254, 254));
         jTextField6.setBorder(null);
 
-        jTextField7.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField7.setBackground(new java.awt.Color(43, 167, 142));
         jTextField7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField7.setForeground(new java.awt.Color(254, 254, 254));
         jTextField7.setBorder(null);
@@ -136,7 +137,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(254, 254, 254));
         jLabel9.setText("Número da LADV:");
 
-        jTextField9.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField9.setBackground(new java.awt.Color(43, 167, 142));
         jTextField9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField9.setForeground(new java.awt.Color(254, 254, 254));
         jTextField9.setBorder(null);
@@ -151,7 +152,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(254, 254, 254));
         jLabel11.setText("Status:");
 
-        jTextField10.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField10.setBackground(new java.awt.Color(43, 167, 142));
         jTextField10.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField10.setForeground(new java.awt.Color(254, 254, 254));
         jTextField10.setBorder(null);
@@ -161,7 +162,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
             }
         });
 
-        jTextField11.setBackground(new java.awt.Color(97, 212, 195));
+        jTextField11.setBackground(new java.awt.Color(43, 167, 142));
         jTextField11.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField11.setForeground(new java.awt.Color(254, 254, 254));
         jTextField11.setBorder(null);
@@ -228,11 +229,9 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel4)
-                                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel4)
+                                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(8, 8, 8))
                                     .addComponent(jLabel6)
                                     .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -255,7 +254,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 8, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(30, 30, 30))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -360,7 +359,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 984, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 984, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
