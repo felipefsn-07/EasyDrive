@@ -5,6 +5,10 @@
  */
 package autoescola.view;
 
+import autoescola.controle.ControleLogin;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kaiqu
@@ -16,6 +20,7 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        setIcon();
     }
 
     /**
@@ -81,6 +86,11 @@ public class TelaLogin extends javax.swing.JFrame {
         button1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         button1.setForeground(new java.awt.Color(255, 245, 245));
         button1.setLabel("Entrar");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(254, 254, 254));
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
@@ -130,8 +140,6 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap(97, Short.MAX_VALUE))
         );
 
-        jLabel3.getAccessibleContext().setAccessibleName("Senha");
-        button1.getAccessibleContext().setAccessibleName("Entrar");
         jLabel4.getAccessibleContext().setAccessibleName("easy");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -165,6 +173,18 @@ public class TelaLogin extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        ControleLogin crl = new ControleLogin();
+        if (crl.verificarLogin(txtLogin, txtSenha) != 0) {
+            TelaPrincipal form2 = new TelaPrincipal();
+            form2.setVisible(true);
+            form2.setLocationRelativeTo(null);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Senha ou usuário estão incorretos ou não cadastrados!");
+        }
+    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,4 +234,8 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("imagens/icon-volante.png")));
+    }
 }

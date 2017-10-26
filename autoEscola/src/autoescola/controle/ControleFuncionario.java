@@ -9,7 +9,7 @@ package autoescola.controle;
  *
  * @author felipe
  */
-public class FuncionarioControle {
+public class ControleFuncionario {
     
     
 }
