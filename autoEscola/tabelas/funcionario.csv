@@ -1,2 +1,3 @@
 codFunc,codLogin,codEndereco,rg,nome,cpf,dataNasc,tel,cel,horaEntra,horaSai,tipo,status
 1,1,1,342342342,Felipe Silva do Nascimento,34234234,04/07/1996,112341314,1123413,11:11, 12:12,Gerente,1
+2,1,1,342342342,Felipe Silva do Nascimento,34234234,04/07/1996,112341314,1123413,11:11, 12:12,Instrutor,1

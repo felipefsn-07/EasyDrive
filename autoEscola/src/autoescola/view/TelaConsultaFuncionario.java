@@ -1,5 +1,6 @@
 package autoescola.view;
 
+import autoescola.controle.ControleFuncionario;
 import autoescola.controle.ControleLogin;
 import java.awt.Toolkit;
 
@@ -18,10 +19,11 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
      * Creates new form TelaConsultaFuncionario1
      */
     private final ControleLogin controleLogin = new ControleLogin();
-
+    private final ControleFuncionario controleFuncionario = new ControleFuncionario();
     public TelaConsultaFuncionario() {
         initComponents();
         setIcon();
+        jTableFuncionario.setModel(controleFuncionario.consultaUsuarios());
     }
 
     /**
@@ -47,10 +49,12 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        psConfigUsuario = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         panelSair = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableFuncionario = new javax.swing.JTable();
         jTextField2 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -224,6 +228,35 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        psConfigUsuario.setBackground(new java.awt.Color(97, 212, 195));
+        psConfigUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        psConfigUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                psConfigUsuarioMouseClicked(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel12.setText("Editar  perfil");
+
+        javax.swing.GroupLayout psConfigUsuarioLayout = new javax.swing.GroupLayout(psConfigUsuario);
+        psConfigUsuario.setLayout(psConfigUsuarioLayout);
+        psConfigUsuarioLayout.setHorizontalGroup(
+            psConfigUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(psConfigUsuarioLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel12)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        psConfigUsuarioLayout.setVerticalGroup(
+            psConfigUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(psConfigUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         panelSair.setBackground(new java.awt.Color(97, 212, 195));
         panelSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panelSair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -243,7 +276,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
             .addGroup(panelSairLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel10)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelSairLayout.setVerticalGroup(
             panelSairLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,6 +297,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(psConfigUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,13 +315,16 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(psConfigUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.getAccessibleContext().setAccessibleName("jPanel4");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableFuncionario.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jTableFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -298,12 +335,17 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
                 "Codigo Funcionário", "Nome", "Rg", "Cpf", "Telefone", "Celular", "Endereço", "Editar", "Desativar"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableFuncionario);
 
         jTextField2.setBackground(new java.awt.Color(254, 254, 254));
         jTextField2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(1, 1, 1));
         jTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(144, 180, 242), 1, true));
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setBackground(new java.awt.Color(254, 254, 254));
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -388,14 +430,25 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jPanel3MouseClicked
 
+    private void psConfigUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_psConfigUsuarioMouseClicked
+        TelaConfiguraUsuario telaConfig = new TelaConfiguraUsuario();
+        telaConfig.setVisible(true);
+        telaConfig.setLocationRelativeTo(null);
+        dispose();
+    }//GEN-LAST:event_psConfigUsuarioMouseClicked
+
     private void panelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSairMouseClicked
         TelaLogin telaLogin = new TelaLogin();
         telaLogin.setVisible(true);
         telaLogin.setLocationRelativeTo(null);
         controleLogin.sair();
-        this.dispose();
+        dispose();
 
     }//GEN-LAST:event_panelSairMouseClicked
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,6 +492,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -453,9 +507,10 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableFuncionario;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel panelSair;
+    private javax.swing.JPanel psConfigUsuario;
     // End of variables declaration//GEN-END:variables
 
     private void setIcon() {
