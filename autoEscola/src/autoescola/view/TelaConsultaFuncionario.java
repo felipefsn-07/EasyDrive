@@ -7,6 +7,9 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,12 +28,15 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     ImageIcon imageEditar = new ImageIcon("imagens/icon-volante");
     private final ControleLogin controleLogin = new ControleLogin();
     private final ControleFuncionario controleFuncionario = new ControleFuncionario();
+    private final Tabela tabela = new Tabela();
 
     public TelaConsultaFuncionario() {
+        tabela.setBackground(Color.WHITE);
+        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         initComponents();
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
+
         setIcon();
-        
-        jTableFuncionario.setModel(controleFuncionario.consultaUsuarios());
 
     }
 
@@ -62,7 +68,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         panelSair = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableFuncionario = new Tabela();
+        jTableFuncionario = tabela;
         jTextField2 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -74,8 +80,6 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        btnDesativar = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(controleLogin.login() + " - "+ "Funcionários");
@@ -199,6 +203,11 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(97, 212, 195));
         jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel7MouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(254, 254, 254));
@@ -223,6 +232,11 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(97, 212, 195));
         jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel8MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(254, 254, 254));
@@ -341,29 +355,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jPanel4.getAccessibleContext().setAccessibleName("jPanel4");
 
         jTableFuncionario.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jTableFuncionario.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Codigo Funcionário", "Nome", "Rg", "Cpf", "Telefone", "Celular", "Ativo"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTableFuncionario.setCellSelectionEnabled(true);
-        jTableFuncionario.setColumnSelectionAllowed(true);
-        jTableFuncionario.setGridColor(new java.awt.Color(83, 233, 199));
-        jTableFuncionario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableFuncionario.setModel(controleFuncionario.consultarFuncionarios());
         jTableFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableFuncionarioMouseClicked(evt);
@@ -480,10 +472,20 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
 
         btnCadastrar.setBackground(new java.awt.Color(61, 180, 162));
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCadastrarMouseClicked(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(254, 254, 254));
         jLabel15.setText("Cadastrar");
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnCadastrarLayout = new javax.swing.GroupLayout(btnCadastrar);
         btnCadastrar.setLayout(btnCadastrarLayout);
@@ -502,30 +504,6 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnDesativar.setBackground(new java.awt.Color(73, 138, 128));
-        btnDesativar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(254, 254, 254));
-        jLabel16.setText("Desativar");
-
-        javax.swing.GroupLayout btnDesativarLayout = new javax.swing.GroupLayout(btnDesativar);
-        btnDesativar.setLayout(btnDesativarLayout);
-        btnDesativarLayout.setHorizontalGroup(
-            btnDesativarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDesativarLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(jLabel16)
-                .addGap(39, 39, 39))
-        );
-        btnDesativarLayout.setVerticalGroup(
-            btnDesativarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnDesativarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -538,24 +516,22 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
                         .addComponent(jTextField2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 962, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 338, Short.MAX_VALUE)
                                 .addComponent(btnConsultarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnConsultarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDesativar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)))
+                        .addGap(6, 6, 6))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -564,15 +540,11 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnConsultarEndereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnConsultarUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnDesativar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarEndereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -587,12 +559,14 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -600,24 +574,31 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        jTableFuncionario.setModel(controleFuncionario.consultaUsuario(jTextField2, jComboBox1));
-        Color verdeEscuro = new Color(73,138,128);
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionario(jTextField2, jComboBox1));
+        jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
+        Color verdeEscuro = new Color(73, 138, 128);
         btnConsultarUsuario.setBackground(verdeEscuro);
         btnConsultarEndereco.setBackground(verdeEscuro);
-        btnDesativar.setBackground(verdeEscuro);
         btnEditar.setBackground(verdeEscuro);
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        jTableFuncionario.setModel(controleFuncionario.consultaUsuario(jTextField2, jComboBox1));
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionario(jTextField2, jComboBox1));
+        jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
+
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        jTableFuncionario.setModel(controleFuncionario.consultaUsuario(jTextField2, jComboBox1));
+
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionario(jTextField2, jComboBox1));
+        jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
+
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextField2InputMethodTextChanged
-        jTableFuncionario.setModel(controleFuncionario.consultaUsuario(jTextField2, jComboBox1));
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionario(jTextField2, jComboBox1));
+        jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
+
     }//GEN-LAST:event_jTextField2InputMethodTextChanged
 
     private void panelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSairMouseClicked
@@ -654,16 +635,50 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jTableFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionarioMouseClicked
+
+        int row = jTableFuncionario.getSelectedRow();
+
         Color verdeClaro = new Color(61, 180, 162);
         btnConsultarUsuario.setBackground(verdeClaro);
         btnConsultarEndereco.setBackground(verdeClaro);
-        btnDesativar.setBackground(verdeClaro);
         btnEditar.setBackground(verdeClaro);
+
+        //int id = (int) jTableFuncionario.getValueAt(row, 0);
+        if (jTableFuncionario.isCellSelected(row, 6)) {
+            // controleFuncionario.alterarStatus(true, id);
+            String id = String.valueOf(jTableFuncionario.getValueAt(row, 0));
+            boolean anterior = (boolean) jTableFuncionario.getValueAt(row, 6);
+            controleFuncionario.alterarStatus(anterior, id);
+
+        }
     }//GEN-LAST:event_jTableFuncionarioMouseClicked
 
-    public boolean isCellEditable(int row, int column) {
-        return false;
-    }
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
+        tcf.setVisible(true);
+        tcf.setLocationRelativeTo(null);
+        dispose();
+    }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
+        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
+        tcf.setVisible(true);
+        tcf.setLocationRelativeTo(null);
+        dispose();    }//GEN-LAST:event_btnCadastrarMouseClicked
+
+    private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
+        TelaConsultaAula tcf = new TelaConsultaAula();
+        tcf.setVisible(true);
+        tcf.setLocationRelativeTo(null);
+        dispose();     }//GEN-LAST:event_jPanel7MouseClicked
+
+    private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
+        TelaConsultaExame tcf = new TelaConsultaExame();
+        tcf.setVisible(true);
+        tcf.setLocationRelativeTo(null);
+        dispose();
+
+    }//GEN-LAST:event_jPanel8MouseClicked
 
     /**
      * @param args the command line arguments
@@ -705,7 +720,6 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel btnCadastrar;
     private javax.swing.JPanel btnConsultarEndereco;
     private javax.swing.JPanel btnConsultarUsuario;
-    private javax.swing.JPanel btnDesativar;
     private javax.swing.JPanel btnEditar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -714,7 +728,6 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

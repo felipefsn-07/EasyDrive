@@ -25,6 +25,7 @@ public class InstrutorArquivo extends Arquivo {
 
     /**
      * Consulta e retorna todos os Instrutores cadatrados
+     *
      * @return the ArrayList of Instrutor
      */
     public ArrayList<Instrutor> consultarInstrutors() {
@@ -53,8 +54,10 @@ public class InstrutorArquivo extends Arquivo {
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
                     instrutor.setNumCarteira(valoresEntreVirgulas[1]);
                     instrutor.setCategoria(valoresEntreVirgulas[2]);
+                    boolean status;
+                    status = valoresEntreVirgulas[3].equals("true");
+                    instrutor.setStatus(status);
                     instrutores.add(instrutor);
-                    instrutor.setStatus(parseInt(valoresEntreVirgulas[3]));
 
                 }
             }
@@ -66,9 +69,10 @@ public class InstrutorArquivo extends Arquivo {
 
         }
     }
-    
+
     /**
      * Consulta e reterona o Instrutor a partir do código do Instrutor
+     *
      * @param codigoInstrutor
      * @return the Instrutor
      */
@@ -98,7 +102,9 @@ public class InstrutorArquivo extends Arquivo {
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
                     instrutor.setNumCarteira(valoresEntreVirgulas[1]);
                     instrutor.setCategoria(valoresEntreVirgulas[2]);
-                    instrutor.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    boolean status;
+                    status = valoresEntreVirgulas[3].equals("true");
+                    instrutor.setStatus(status);
                 }
             }
             return instrutor;
@@ -112,6 +118,7 @@ public class InstrutorArquivo extends Arquivo {
 
     /**
      * Desativar Instrutor a partir do codigo Instrutor
+     *
      * @param codigoInstrutor
      * @return false or true
      */
@@ -165,6 +172,7 @@ public class InstrutorArquivo extends Arquivo {
 
     /**
      * Alterar Instrutor
+     *
      * @param instrutor
      * @return false or true
      */
@@ -218,6 +226,7 @@ public class InstrutorArquivo extends Arquivo {
 
     /**
      * Cadastra funcionario
+     *
      * @param instrutor
      * @return false or true
      */
@@ -254,7 +263,9 @@ public class InstrutorArquivo extends Arquivo {
     }
 
     /**
-     *  Função para consultar Instrutor a partir do campo e um valor que pode ser encontrado nessa coluna
+     * Função para consultar Instrutor a partir do campo e um valor que pode ser
+     * encontrado nessa coluna
+     *
      * @param campo
      * @param valor
      * @return the ArrayList of Instrutor
@@ -292,6 +303,9 @@ public class InstrutorArquivo extends Arquivo {
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
                     instrutor.setNumCarteira(valoresEntreVirgulas[1]);
                     instrutor.setCategoria(valoresEntreVirgulas[2]);
+                    boolean status;
+                    status = valoresEntreVirgulas[3].equals("true");
+                    instrutor.setStatus(status);
                     instrutores.add(instrutor);
 
                 }

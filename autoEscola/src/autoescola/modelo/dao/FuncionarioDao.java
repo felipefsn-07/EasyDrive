@@ -38,7 +38,7 @@ public class FuncionarioDao {
             stmt.setString(8, func.getCelular());
             stmt.setString(9, func.getHora_entra());
             stmt.setString(10, func.getHora_sai());
-            stmt.setInt(11, func.getStatus());
+            stmt.setBoolean(11, func.getStatus());
             stmt.setString(12, func.getTipo());
 
             stmt.executeUpdate();
@@ -81,7 +81,7 @@ public class FuncionarioDao {
                 func.setCelular(rs.getString("cel"));
                 func.setHora_entra(rs.getString("horaEntra"));
                 func.setHora_sai(rs.getString("horaSai"));
-                func.setStatus(rs.getInt("status"));
+                func.setStatus(rs.getBoolean("status"));
                 func.setTipo(rs.getString("tipo"));
                       
                 funcs.add(func);
@@ -134,7 +134,7 @@ public class FuncionarioDao {
             stmt.setString(6, func.getCelular());
             stmt.setString(7, func.getHora_entra());
             stmt.setString(8, func.getHora_sai());
-            stmt.setInt(9, func.getStatus());
+            stmt.setBoolean(9, func.getStatus());
             stmt.setString(10, func.getTipo());
             stmt.setInt(11, func.getCodigoFuncionario());
 
@@ -156,7 +156,7 @@ public class FuncionarioDao {
 
         try {
             stmt = con.prepareStatement("UPDATE funcionario SET status = ? WHERE codFunc = ?");
-            stmt.setInt(1, func.getStatus());
+            stmt.setBoolean(1, func.getStatus());
             stmt.setInt(2, func.getCodigoFuncionario());
 
             stmt.executeUpdate();

@@ -16,7 +16,7 @@ public class Instrutor extends Funcionario{
     private String numCarteira;
 
 
-    public Instrutor(String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, int status, String categoria, String numCarteira){
+    public Instrutor(String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, boolean status, String categoria, String numCarteira){
         super (nome, rg, cpf, datanasc, telefone, celular, endereco, hora_entra, hora_sai, login, senha, "Instrutor", status);
         this.categoria = categoria;
         this.numCarteira = numCarteira;
