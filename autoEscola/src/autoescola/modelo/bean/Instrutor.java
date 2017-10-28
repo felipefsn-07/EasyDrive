@@ -24,7 +24,6 @@ public class Instrutor extends Funcionario{
     }
 
     public Instrutor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

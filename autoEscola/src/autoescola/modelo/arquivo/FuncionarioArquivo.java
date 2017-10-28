@@ -345,7 +345,7 @@ public class FuncionarioArquivo extends Arquivo {
             FileWriter fw = new FileWriter(tabela, true);
             BufferedWriter conexao = new BufferedWriter(fw);
             if (idFuncionario != 0) {
-                conexao.write(String.valueOf(funcionario.getCodigoFuncionario()));
+                conexao.write(String.valueOf(idFuncionario));
                 conexao.write(',');
                 conexao.write(String.valueOf(funcionario.getUsuario().getCodLogin()));
                 conexao.write(',');

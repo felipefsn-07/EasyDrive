@@ -267,7 +267,7 @@ public class UsuarioArquivo extends Arquivo {
      * @param usuario
      * @return false or true
      */
-    public boolean cadastrarUsuario(Usuario usuario) {
+    public int cadastrarUsuario(Usuario usuario) {
 
         int codUsuario = autoIncremento(tabela);
         try {
@@ -288,15 +288,16 @@ public class UsuarioArquivo extends Arquivo {
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return codUsuario;
             } else {
                 //msg erro no incremento codUsuario == 0
-                return false;
+                
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 

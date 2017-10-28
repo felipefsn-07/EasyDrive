@@ -6,8 +6,11 @@
 package autoescola.controle;
 
 import autoescola.modelo.arquivo.FuncionarioArquivo;
+import autoescola.modelo.arquivo.InstrutorArquivo;
+import autoescola.modelo.arquivo.UsuarioArquivo;
 import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Funcionario;
+import autoescola.modelo.bean.Instrutor;
 import autoescola.modelo.bean.Usuario;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ public class ControleFuncionario {
     private Usuario usuario;
     private Funcionario funcionario;
     private Endereco endereco;
+    private boolean botao;
 
     public TableModel consultarFuncionarios() {
 
@@ -73,9 +77,19 @@ public class ControleFuncionario {
 
     }
 
-    boolean isDigit(String s) {
+    protected boolean isDigit(String s) {
         char ch = s.charAt(0);
         return (ch >= 48 && ch <= 57);
+    }
+
+    protected String pegarNumero(String variavel) {
+        String a = "";
+        for (int i = 0; i < variavel.length(); i++) {
+            if (variavel.charAt(i) >= 48 && variavel.charAt(i) <= 57) {
+                a += variavel.charAt(i);
+            }
+        }
+        return a;
     }
 
     public TableModel consultaFuncionario(JTextField id, JComboBox tipo) {
@@ -167,8 +181,11 @@ public class ControleFuncionario {
     }
 
     public String gerarSenha() {
+        String senha = getRandomPass(8);
+        usuario.setSenha(senha);
 
-        return getRandomPass(8);
+        return senha;
+
     }
 
     public String valorUsuario(int tipo) {
@@ -193,6 +210,148 @@ public class ControleFuncionario {
                 return "";
         }
 
+    }
+
+    public boolean cadastrarFuncionario(String nome, String rg, String cpf, String dataNasc, String telefone, String celular, String horaEntra, String horaSai, String tipo, String carteira, String categoria) {
+        FuncionarioArquivo arq = new FuncionarioArquivo();
+        UsuarioArquivo arqUser = new UsuarioArquivo();
+
+        funcionario = new Funcionario();
+        usuario = new Usuario();
+        endereco = new Endereco();
+        if (!"".equals(nome) && !"  .   .   - ".equals(rg) && !"   .   .   -  ".equals(cpf) && !"  /  /    ".equals(dataNasc) && !"(  )     -    ".equals(telefone) && !"".equals(celular) && !"  :  ".equals(horaEntra) && !"  :  ".equals(horaSai)) {
+            switch (tipo) {
+                case "Gerente":
+                case "Recepcionista":
+                    funcionario.setNome(nome);
+                    funcionario.setRg(rg);
+                    funcionario.setCpf(cpf);
+                    funcionario.setDatanasc(dataNasc);
+                    funcionario.setTelefone(telefone);
+                    funcionario.setCelular(celular);
+                    funcionario.setHora_entra(horaEntra);
+                    funcionario.setHora_sai(horaSai);
+                    funcionario.setTipo(tipo);
+                    funcionario.setStatus(true);
+                    usuario.setCodLogin(0);
+                    usuario.setLogin(pegarNumero(rg));
+                    funcionario.setUsuario(usuario);
+                    endereco.setCodEndereco(0);
+                    funcionario.setEndereco(endereco);
+
+                    if (arq.cadastrarfuncionario(funcionario)) {
+                        int user = arqUser.cadastrarUsuario(usuario);
+                        usuario.setCodLogin(user);
+                        funcionario.setUsuario(usuario);
+                        arq.alterarfuncionario(funcionario);
+                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                        return true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi cadastrado!");
+                        return false;
+
+                    }
+                case "Instrutor":
+                    if (!"".equals(carteira) && !"".equals(categoria)) {
+
+                        Instrutor instrutor = new Instrutor();
+                        instrutor.setNome(nome);
+                        instrutor.setRg(rg);
+                        instrutor.setCpf(cpf);
+                        instrutor.setDatanasc(dataNasc);
+                        instrutor.setTelefone(telefone);
+                        instrutor.setCelular(celular);
+                        instrutor.setHora_entra(horaEntra);
+                        instrutor.setHora_sai(horaSai);
+                        instrutor.setTipo(tipo);
+                        instrutor.setNumCarteira(carteira);
+                        instrutor.setCategoria(categoria);
+                        instrutor.setStatus(true);
+                        usuario.setCodLogin(0);
+                        usuario.setLogin(pegarNumero(rg));
+                        instrutor.setUsuario(usuario);
+                        endereco.setCodEndereco(0);
+                        instrutor.setEndereco(endereco);
+
+                        InstrutorArquivo arqInstrutor = new InstrutorArquivo();
+                        if (arqInstrutor.cadastrarInstrutor(instrutor)) {
+                            int user = arqUser.cadastrarUsuario(usuario);
+                            usuario.setCodLogin(user);
+                            instrutor.setUsuario(usuario);
+                            arq.alterarfuncionario(instrutor);
+                            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                            return true;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi cadastrado!");
+                            return false;
+
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
+                        return false;
+
+                    }
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção invalida!");
+                    return false;
+            }
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
+            return false;
+        }
+    }
+
+    public void alterarSenha() {
+        //setBotao(true);
+        if (!"".equals(usuario.getSenha())) {
+            UsuarioArquivo arq = new UsuarioArquivo();
+            if (arq.alterarUsuario(usuario)) {
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao alterar senha!");
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Cadastre o funcinário primeiro!");
+        }
+
+    }
+
+    public boolean alterarFuncionario() {
+        return false;
+    }
+
+    public boolean verificarSeFuncinario() {
+
+        return funcionario != null;
+    }
+
+    public boolean verificarSeEndereco() {
+
+        return endereco != null;
+    }
+
+    public boolean verificarSeUsuario() {
+
+        return usuario != null;
+    }
+
+    /**
+     * @return the botao
+     */
+    public boolean isBotao() {
+        return botao;
+    }
+
+    /**
+     * @param botao the botao to set
+     */
+    private void setBotao(boolean botao) {
+        this.botao = botao;
     }
 
 }
