@@ -230,9 +230,9 @@ public class InstrutorArquivo extends Arquivo {
      * @param instrutor
      * @return false or true
      */
-    public boolean cadastrarInstrutor(Instrutor instrutor) {
-
-        int idInstrutor = autoIncremento(tabela);
+    public int cadastrarInstrutor(Instrutor instrutor) {
+        FuncionarioArquivo arq = new FuncionarioArquivo();
+        int idInstrutor = arq.cadastrarfuncionario(instrutor);
         try {
             // O parametro é que indica se deve sobrescrever ou continua no
             // arquivo.
@@ -248,17 +248,15 @@ public class InstrutorArquivo extends Arquivo {
                 conexao.write(String.valueOf(instrutor.getStatus()));
                 conexao.newLine();
                 conexao.close();
-                FuncionarioArquivo arq = new FuncionarioArquivo();
-                arq.cadastrarfuncionario(instrutor);
 
-                return true;
+                return idInstrutor;
             } else {
-                return false;
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 

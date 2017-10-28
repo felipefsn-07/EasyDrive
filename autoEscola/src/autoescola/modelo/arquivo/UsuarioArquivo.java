@@ -5,6 +5,7 @@
  */
 package autoescola.modelo.arquivo;
 
+import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Usuario;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -54,7 +55,11 @@ public class UsuarioArquivo extends Arquivo {
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
                     usuario.setLogin(valoresEntreVirgulas[1]);
                     usuario.setSenha(valoresEntreVirgulas[2]);
-                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[3]));
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[4]));
+
                     usuarios.add(usuario);
 
                 }
@@ -100,7 +105,10 @@ public class UsuarioArquivo extends Arquivo {
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
                     usuario.setLogin(valoresEntreVirgulas[1]);
                     usuario.setSenha(valoresEntreVirgulas[2]);
-                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[3]));
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[4]));
 
                 }
             }
@@ -113,6 +121,47 @@ public class UsuarioArquivo extends Arquivo {
         }
     }
 
+    public Usuario consultarFuncionarioUsuario (int codigoFuncionario) {
+        File arquivoCSV = new File(tabela);
+        Usuario usuario = new Usuario();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[3]) == codigoFuncionario) {
+                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
+                    usuario.setLogin(valoresEntreVirgulas[1]);
+                    usuario.setSenha(valoresEntreVirgulas[2]);
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[3]));
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[4]));
+
+                }
+            }
+            return usuario;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+    
     public int consultarUsuario(String login, String senha, int tipo) {
 
         File arquivoCSV = new File(tabela);
@@ -184,7 +233,57 @@ public class UsuarioArquivo extends Arquivo {
                     linhasDoArquivo = valoresEntreVirgulas[0] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[1] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[2] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
                     linhasDoArquivo += "0";
+
+                }
+                todo += linhasDoArquivo + "\n";
+
+            }
+            try {
+                FileWriter fw = new FileWriter(tabela);
+                BufferedWriter conexao = new BufferedWriter(fw);
+                conexao.write(todo);
+                conexao.close();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+
+            //return true;
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
+       public boolean ativar(int codUsuario) {
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+            String todo = "";
+            //ignora a primeira linha do arquivo
+            todo += leitor.nextLine() + "\n";
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == codUsuario) {
+                    linhasDoArquivo = valoresEntreVirgulas[0] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[1] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[2] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
+                    linhasDoArquivo += "1";
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -238,6 +337,8 @@ public class UsuarioArquivo extends Arquivo {
                     linhasDoArquivo = String.valueOf(usuario.getCodLogin()) + ",";
                     linhasDoArquivo += usuario.getLogin() + ",";
                     linhasDoArquivo += usuario.getSenha() + ",";
+                    linhasDoArquivo += String.valueOf(usuario.getFucionario().getCodigoFuncionario()) + ",";
+
                     linhasDoArquivo += String.valueOf(usuario.getStatus());
 
                 }
@@ -278,11 +379,11 @@ public class UsuarioArquivo extends Arquivo {
             if (codUsuario != 0) {
                 conexao.write(String.valueOf(codUsuario));
                 conexao.write(',');
-                conexao.write(usuario.getCodLogin());
-                conexao.write(',');
                 conexao.write(usuario.getLogin());
                 conexao.write(',');
                 conexao.write(usuario.getSenha());
+                conexao.write(',');
+                conexao.write(usuario.getFucionario().getCodigoFuncionario());
                 conexao.write(',');
                 conexao.write(String.valueOf(usuario.getStatus()));
                 conexao.newLine();
@@ -291,7 +392,7 @@ public class UsuarioArquivo extends Arquivo {
                 return codUsuario;
             } else {
                 //msg erro no incremento codUsuario == 0
-                
+
                 return 0;
             }
 
@@ -341,7 +442,10 @@ public class UsuarioArquivo extends Arquivo {
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
                     usuario.setLogin(valoresEntreVirgulas[1]);
                     usuario.setSenha(valoresEntreVirgulas[2]);
-                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[3]));
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[4]));
 
                     usuarios.add(usuario);
 

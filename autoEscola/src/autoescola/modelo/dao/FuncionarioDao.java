@@ -22,24 +22,24 @@ import javax.swing.JOptionPane;
  * @author Lucca
  */
 public class FuncionarioDao {
+
     public boolean cadastrarFuncionario(Funcionario func) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO funcionario (codLogin, codEndereco, rg, nome, cpf, dataNasc, tel, cel, horaEntra, horaSai, status, tipo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setInt(1, func.getUsuario().getCodLogin());
-            stmt.setInt(2, func.getEndereco().getCodEndereco());
-            stmt.setString(3, func.getRg());
-            stmt.setString(4, func.getNome());
-            stmt.setString(5, func.getCpf());
-            stmt.setString(6, func.getDatanasc());
-            stmt.setString(7, func.getTelefone());
+            stmt = con.prepareStatement("INSERT INTO funcionario (codEndereco, rg, nome, cpf, dataNasc, tel, cel, horaEntra, horaSai, status, tipo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setInt(1, func.getEndereco().getCodEndereco());
+            stmt.setString(2, func.getRg());
+            stmt.setString(3, func.getNome());
+            stmt.setString(4, func.getCpf());
+            stmt.setString(5, func.getDatanasc());
+            stmt.setString(6, func.getTelefone());
             stmt.setString(8, func.getCelular());
-            stmt.setString(9, func.getHora_entra());
-            stmt.setString(10, func.getHora_sai());
-            stmt.setBoolean(11, func.getStatus());
-            stmt.setString(12, func.getTipo());
+            stmt.setString(7, func.getHora_entra());
+            stmt.setString(8, func.getHora_sai());
+            stmt.setBoolean(9, func.getStatus());
+            stmt.setString(10, func.getTipo());
 
             stmt.executeUpdate();
 
@@ -52,7 +52,7 @@ public class FuncionarioDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
+
     public List<Funcionario> consultarFuncionario() {
 
         Connection con = ConnectionFactory.getConnection();
@@ -71,7 +71,6 @@ public class FuncionarioDao {
                 Endereco endereco = new Endereco();
 
                 func.setCodigoFuncionario(rs.getInt("codFunc"));
-                login.setCodLogin(rs.getInt("codLogin"));
                 endereco.setCodEndereco(rs.getInt("codEndereco"));
                 func.setRg(rs.getString("rg"));
                 func.setNome(rs.getString("nome"));
@@ -83,7 +82,8 @@ public class FuncionarioDao {
                 func.setHora_sai(rs.getString("horaSai"));
                 func.setStatus(rs.getBoolean("status"));
                 func.setTipo(rs.getString("tipo"));
-                      
+                login.setFucionario(func);
+
                 funcs.add(func);
             }
             JOptionPane.showMessageDialog(null, "Consulta concluida!");
@@ -96,7 +96,7 @@ public class FuncionarioDao {
 
         return funcs;
     }
-    
+
     public boolean consutarFuncExiste(int codFunc) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -119,7 +119,7 @@ public class FuncionarioDao {
         }
         return false;
     }
-    
+
     public boolean alterarFunc(Funcionario func) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -149,8 +149,8 @@ public class FuncionarioDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-     public boolean excluirFunc(Funcionario func) {
+
+    public boolean excluirFunc(Funcionario func) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 

@@ -20,7 +20,6 @@ public class Funcionario {
     private String celular;
     private String hora_entra;
     private String hora_sai;
-    private Usuario usuario;
     private String tipo;
     private boolean status;
     private Endereco endereco;
@@ -208,20 +207,6 @@ public class Funcionario {
      */
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    /**
-     * @return the usuario
-     */
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    /**
-     * @param usuario the usuario to set
-     */
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
     
 }

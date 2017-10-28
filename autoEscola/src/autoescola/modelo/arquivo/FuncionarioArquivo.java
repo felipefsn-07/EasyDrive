@@ -54,23 +54,20 @@ public class FuncionarioArquivo extends Arquivo {
                 if (valoresEntreVirgulas[0] != null) {
                     Funcionario funcionario = new Funcionario();
                     funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
-                    Usuario usuario = new Usuario();
-                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
-                    funcionario.setUsuario(usuario);
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[2]));
+                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setEndereco(endereco);
-                    funcionario.setRg(valoresEntreVirgulas[3]);
-                    funcionario.setNome(valoresEntreVirgulas[4]);
-                    funcionario.setCpf(valoresEntreVirgulas[5]);
-                    funcionario.setDatanasc(valoresEntreVirgulas[6]);
-                    funcionario.setTelefone(valoresEntreVirgulas[7]);
-                    funcionario.setCelular(valoresEntreVirgulas[8]);
-                    funcionario.setHora_entra(valoresEntreVirgulas[9]);
-                    funcionario.setHora_sai(valoresEntreVirgulas[10]);
-                    funcionario.setTipo(valoresEntreVirgulas[11]);
+                    funcionario.setRg(valoresEntreVirgulas[2]);
+                    funcionario.setNome(valoresEntreVirgulas[3]);
+                    funcionario.setCpf(valoresEntreVirgulas[4]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[5]);
+                    funcionario.setTelefone(valoresEntreVirgulas[6]);
+                    funcionario.setCelular(valoresEntreVirgulas[7]);
+                    funcionario.setHora_entra(valoresEntreVirgulas[8]);
+                    funcionario.setHora_sai(valoresEntreVirgulas[9]);
+                    funcionario.setTipo(valoresEntreVirgulas[10]);
                     boolean status;
-                    status = valoresEntreVirgulas[12].equals("true");
+                    status = valoresEntreVirgulas[11].equals("true");
                     funcionario.setStatus(status);
                     funcionarios.add(funcionario);
 
@@ -115,23 +112,20 @@ public class FuncionarioArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == codigofuncionario) {
                     funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
-                    Usuario usuario = new Usuario();
-                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
-                    funcionario.setUsuario(usuario);
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[2]));
+                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setEndereco(endereco);
-                    funcionario.setRg(valoresEntreVirgulas[3]);
-                    funcionario.setNome(valoresEntreVirgulas[4]);
-                    funcionario.setCpf(valoresEntreVirgulas[5]);
-                    funcionario.setDatanasc(valoresEntreVirgulas[6]);
-                    funcionario.setTelefone(valoresEntreVirgulas[7]);
-                    funcionario.setCelular(valoresEntreVirgulas[8]);
-                    funcionario.setHora_entra(valoresEntreVirgulas[9]);
-                    funcionario.setHora_sai(valoresEntreVirgulas[10]);
-                    funcionario.setTipo(valoresEntreVirgulas[11]);
+                    funcionario.setRg(valoresEntreVirgulas[2]);
+                    funcionario.setNome(valoresEntreVirgulas[3]);
+                    funcionario.setCpf(valoresEntreVirgulas[4]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[5]);
+                    funcionario.setTelefone(valoresEntreVirgulas[6]);
+                    funcionario.setCelular(valoresEntreVirgulas[7]);
+                    funcionario.setHora_entra(valoresEntreVirgulas[8]);
+                    funcionario.setHora_sai(valoresEntreVirgulas[9]);
+                    funcionario.setTipo(valoresEntreVirgulas[10]);
                     boolean status;
-                    status = valoresEntreVirgulas[12].equals("true");
+                    status = valoresEntreVirgulas[11].equals("true");
                     funcionario.setStatus(status);
                 }
             }
@@ -183,7 +177,6 @@ public class FuncionarioArquivo extends Arquivo {
                     linhasDoArquivo += valoresEntreVirgulas[8] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[9] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[10] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[11] + ",";
                     linhasDoArquivo += "false";
 
                 }
@@ -244,7 +237,6 @@ public class FuncionarioArquivo extends Arquivo {
                     linhasDoArquivo += valoresEntreVirgulas[8] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[9] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[10] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[11] + ",";
                     linhasDoArquivo += "true";
 
                 }
@@ -296,7 +288,6 @@ public class FuncionarioArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == funcionario.getCodigoFuncionario()) {
                     linhasDoArquivo = String.valueOf(funcionario.getCodigoFuncionario()) + ",";
-                    linhasDoArquivo += String.valueOf(funcionario.getUsuario().getCodLogin()) + ",";
                     linhasDoArquivo += String.valueOf(funcionario.getEndereco().getCodEndereco()) + ",";
                     linhasDoArquivo += funcionario.getRg() + ",";
                     linhasDoArquivo += funcionario.getNome() + ",";
@@ -336,7 +327,7 @@ public class FuncionarioArquivo extends Arquivo {
      * @param funcionario
      * @return false or true
      */
-    public boolean cadastrarfuncionario(Funcionario funcionario) {
+    public int cadastrarfuncionario(Funcionario funcionario) {
 
         int idFuncionario = autoIncremento(tabela);
         try {
@@ -346,8 +337,6 @@ public class FuncionarioArquivo extends Arquivo {
             BufferedWriter conexao = new BufferedWriter(fw);
             if (idFuncionario != 0) {
                 conexao.write(String.valueOf(idFuncionario));
-                conexao.write(',');
-                conexao.write(String.valueOf(funcionario.getUsuario().getCodLogin()));
                 conexao.write(',');
                 conexao.write(String.valueOf(funcionario.getEndereco().getCodEndereco()));
                 conexao.write(',');
@@ -373,14 +362,14 @@ public class FuncionarioArquivo extends Arquivo {
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return idFuncionario;
             } else {
-                return false;
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 
@@ -423,23 +412,20 @@ public class FuncionarioArquivo extends Arquivo {
                 if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
                     Funcionario funcionario = new Funcionario();
                     funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
-                    Usuario usuario = new Usuario();
-                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[1]));
-                    funcionario.setUsuario(usuario);
                     EnderecoArquivo endArq = new EnderecoArquivo();
-                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[2]));
+                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[1]));
                     funcionario.setEndereco(endereco);
-                    funcionario.setRg(valoresEntreVirgulas[3]);
-                    funcionario.setNome(valoresEntreVirgulas[4]);
-                    funcionario.setCpf(valoresEntreVirgulas[5]);
-                    funcionario.setDatanasc(valoresEntreVirgulas[6]);
-                    funcionario.setTelefone(valoresEntreVirgulas[7]);
-                    funcionario.setCelular(valoresEntreVirgulas[8]);
-                    funcionario.setHora_entra(valoresEntreVirgulas[9]);
-                    funcionario.setHora_sai(valoresEntreVirgulas[10]);
-                    funcionario.setTipo(valoresEntreVirgulas[11]);
+                    funcionario.setRg(valoresEntreVirgulas[2]);
+                    funcionario.setNome(valoresEntreVirgulas[3]);
+                    funcionario.setCpf(valoresEntreVirgulas[4]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[5]);
+                    funcionario.setTelefone(valoresEntreVirgulas[6]);
+                    funcionario.setCelular(valoresEntreVirgulas[7]);
+                    funcionario.setHora_entra(valoresEntreVirgulas[8]);
+                    funcionario.setHora_sai(valoresEntreVirgulas[9]);
+                    funcionario.setTipo(valoresEntreVirgulas[10]);
                     boolean status;
-                    status = valoresEntreVirgulas[12].equals("true");
+                    status = valoresEntreVirgulas[11].equals("true");
                     funcionario.setStatus(status);
                     funcionarios.add(funcionario);
 

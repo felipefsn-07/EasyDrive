@@ -1,9 +1,7 @@
-codFunc,codLogin,codEndereco,rg,nome,cpf,dataNasc,telefone,celular,horaEntra,horaSai,tipo,status
-1,1,1,342342342,Felipe Silva do Nascimento,34234234,04/07/1996,112341314,1123413,11:11, 12:12,Gerente,true
-2,0,0,24.234.234-2,Marta,324.324.234-23,23/43/2432,(34) 2342-3443,(32) 42342-3423,42:34,23:42,Recepcionista,true
-3,0,0,23.423.423-4,Felipe Silva do Nascimento,234.234.234-23,03/23/2342,(23) 4234-2342,(11) 12312-3123,23:12,22:12,Instrutor,true
-4,0,0,43.242.342-3,Lucca Di Bastiani,234.234.234-24,23/42/3423,(23) 4234-2342,(  )      -    ,23:42,32:42,Recepcionista,true
-5,0,0,24.236.454-6,Marcos da Silva Rodrigues,345.345.353-64,02/42/3423,(23) 4242-3424,(21) 21312-3123,12:31,24:23,Recepcionista,true
-6,0,0,23.423.423-4,Larissa Pereira,345.354.745-74,34/23/4242,(23) 4234-2344,(23) 42343-2423,24:23,24:23,Recepcionista,true
-7,0,0,25.243.523-4,Carlos da Silva Pereira,124.123.413-41,23/42/3432,(23) 4324-3242,(23) 42342-3423,24:23,23:42,Recepcionista,true
-8,0,0,24.234.234-2,Felipe Silva do Nascimento,234.234.234-23,23/42/3423,(23) 4234-2342,(23) 42342-3423,24:23,23:42,Recepcionista,true
+codFunc,codEndereco,rg,nome,cpf,dataNasc,telefone,celular,horaEntra,horaSai,tipo,status
+1,1,45.727.288-0,Felipe Silva do Nascimento,342.342.342-34,23/43/2432,(32) 4324-3242,(32) 43243-2432,23:42,32:42,Recepcionista,true
+2,2,34.255.695-3,Gabriel Paulo Turato,234.864.456-33,01/01/1998,(11) 2312-3123,(12) 31231-2312,07:00,16:00,Instrutor,true
+3,0,24.532.452-3,teste,234.243.523-46,26/48/5687,(12) 3456-7899,(24) 13267-8988,14:43,13:23,Gerente,true
+4,0,42.424.223-4,Felipe ,324.234.234-23,23/42/3423,(23) 4242-3423,(23) 42342-3423,23:42,43:24,Instrutor,true
+5,0,42.424.223-4,Felipe ,324.234.234-23,23/42/3423,(23) 4242-3423,(23) 42342-3423,23:42,43:24,Instrutor,true
+6,0,57.884.646-4,TEste,347.876.453-57,03/45/3453,(23) 4234-2504,(20) 32159-2342,29:33,39:50,Gerente,true

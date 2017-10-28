@@ -50,6 +50,14 @@ public class Tabela extends JTable {
         if (ativo == false) {
 
             Component.setForeground(Color.RED);
+        } else {
+             if (isRowSelected(row)) {
+            Component.setForeground(Color.WHITE);
+             }else{
+                         Component.setForeground(Color.black);
+
+             }
+
         }
 
         return Component;

@@ -7,7 +7,10 @@ package autoescola.view;
 
 import autoescola.controle.ControleFuncionario;
 import autoescola.controle.ControleLogin;
-import java.awt.Color;
+import autoescola.modelo.bean.Endereco;
+import autoescola.modelo.bean.Funcionario;
+import autoescola.modelo.bean.Instrutor;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,16 +24,46 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private final ControleLogin controleLogin = new ControleLogin();
     private final ControleFuncionario controleFuncionario = new ControleFuncionario();
 
-    public TelaCadastroFuncionario() {
+    public TelaCadastroFuncionario(int id) {
         initComponents();
-        verificarTela();
-        if (controleFuncionario.verificarSeUsuario()) {
-            txtLogin.setText(controleFuncionario.valorUsuario(0));
-
-        }
-
-        txtSenha.setText(controleFuncionario.valorUsuario(1));
         jpInstrutor.setVisible(false);
+
+        controleFuncionario.consultar(id);
+        if (controleFuncionario.verificarSeFuncinario()) {
+            lblCadastrarEditar.setText("Editar funcionário");
+            Funcionario funcionario = controleFuncionario.getFuncionario();
+            txtLogin.setText(controleFuncionario.valorUsuario(0));
+            txtNome.setText(funcionario.getNome());
+            txtRg.setText(funcionario.getRg());
+            txtCpf.setText(funcionario.getCpf());
+            txtDataNasc.setText(funcionario.getDatanasc());
+            txtTelefone.setText(funcionario.getTelefone());
+            txtCelular.setText(funcionario.getCelular());
+            txtHoraEntra.setText(funcionario.getHora_entra());
+            txtHoraSai.setText(funcionario.getHora_sai());
+            jcTipo.setSelectedItem(funcionario.getTipo());
+            txtSenha.setText(controleFuncionario.valorUsuario(1));
+            txtLogin.setText(controleFuncionario.valorUsuario(0));
+            if (funcionario.getEndereco().getCodEndereco() != 0) {
+                txtLogradura.setText(funcionario.getEndereco().getLogradouro());
+                txtCidade.setText(funcionario.getEndereco().getCidade());
+                txtEstado.setText(funcionario.getEndereco().getEstado());
+                txtBairro.setText(funcionario.getEndereco().getBairro());
+                txtCep.setText(funcionario.getEndereco().getCep());
+                txtNumero.setText(funcionario.getEndereco().getNum());
+                lblCadastrarEndereco.setText("Editar Endereço");
+            }
+            if (funcionario.getTipo().equals("Instrutor")) {
+                Instrutor instrutor = controleFuncionario.getInstrutor();
+                txtCarteiraMotorista.setText(instrutor.getNumCarteira());
+                jcCategoria.setSelectedItem(instrutor.getCategoria());
+                jpInstrutor.setVisible(true);
+
+            }
+
+        } else {
+            txtSenha.setText(controleFuncionario.valorUsuario(1));
+        }
 
     }
 
@@ -102,8 +135,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         txtNumero = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
-        bntCadastrarUsuario1 = new javax.swing.JPanel();
-        lblBotao1 = new javax.swing.JLabel();
+        bntCadastrarEndereco = new javax.swing.JPanel();
+        lblCadastrarEndereco = new javax.swing.JLabel();
         jpUsuario = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtLogin = new javax.swing.JTextField();
@@ -674,28 +707,33 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jLabel33.setText("Bairro:");
 
-        bntCadastrarUsuario1.setBackground(new java.awt.Color(28, 181, 165));
-        bntCadastrarUsuario1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bntCadastrarEndereco.setBackground(new java.awt.Color(28, 181, 165));
+        bntCadastrarEndereco.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bntCadastrarEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntCadastrarEnderecoMouseClicked(evt);
+            }
+        });
 
-        lblBotao1.setBackground(new java.awt.Color(254, 254, 254));
-        lblBotao1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        lblBotao1.setForeground(new java.awt.Color(254, 254, 254));
-        lblBotao1.setText("Cadastrar Endereço");
+        lblCadastrarEndereco.setBackground(new java.awt.Color(254, 254, 254));
+        lblCadastrarEndereco.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        lblCadastrarEndereco.setForeground(new java.awt.Color(254, 254, 254));
+        lblCadastrarEndereco.setText("Cadastrar Endereço");
 
-        javax.swing.GroupLayout bntCadastrarUsuario1Layout = new javax.swing.GroupLayout(bntCadastrarUsuario1);
-        bntCadastrarUsuario1.setLayout(bntCadastrarUsuario1Layout);
-        bntCadastrarUsuario1Layout.setHorizontalGroup(
-            bntCadastrarUsuario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bntCadastrarUsuario1Layout.createSequentialGroup()
+        javax.swing.GroupLayout bntCadastrarEnderecoLayout = new javax.swing.GroupLayout(bntCadastrarEndereco);
+        bntCadastrarEndereco.setLayout(bntCadastrarEnderecoLayout);
+        bntCadastrarEnderecoLayout.setHorizontalGroup(
+            bntCadastrarEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bntCadastrarEnderecoLayout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(lblBotao1)
+                .addComponent(lblCadastrarEndereco)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        bntCadastrarUsuario1Layout.setVerticalGroup(
-            bntCadastrarUsuario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bntCadastrarUsuario1Layout.createSequentialGroup()
+        bntCadastrarEnderecoLayout.setVerticalGroup(
+            bntCadastrarEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bntCadastrarEnderecoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblBotao1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCadastrarEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -729,7 +767,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 .addContainerGap(263, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bntCadastrarUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bntCadastrarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -768,7 +806,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 .addGap(23, 295, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bntCadastrarUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bntCadastrarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -952,7 +990,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-
+        TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
+        form2.setVisible(true);
+        form2.setLocationRelativeTo(null);
+        dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
@@ -992,37 +1033,46 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_panelSairMouseClicked
 
     private void bntGerarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntGerarSenhaMouseClicked
-        txtSenha.setText(controleFuncionario.gerarSenha());
 
-        controleFuncionario.alterarSenha();
+        if (controleFuncionario.isBotao()) {
+            txtSenha.setText(controleFuncionario.gerarSenha());
+            char[] chars = txtSenha.getPassword();
+            String password = String.valueOf(chars);
+            controleFuncionario.alterarSenha(password);
+        } else {
+            JOptionPane.showMessageDialog(null, "Cadastre o funcionário primeiro", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
 
     }//GEN-LAST:event_bntGerarSenhaMouseClicked
 
     private void bntCadastrarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntCadastrarFuncionarioMouseClicked
 
-        if (txtNome.isEditable()) {
-            boolean res = controleFuncionario.cadastrarFuncionario(txtNome.getText(), txtRg.getText(), txtCpf.getText(), txtDataNasc.getText(), txtTelefone.getText(), txtCelular.getText(), txtHoraEntra.getText(), txtHoraSai.getText(), String.valueOf(jcTipo.getSelectedItem()), txtCarteiraMotorista.getText(), String.valueOf(jcCategoria.getSelectedItem()));
+        if (!controleFuncionario.verificarSeFuncinario()) {
+            char[] chars = txtSenha.getPassword();
+            String password = String.valueOf(chars);
+            boolean res = controleFuncionario.cadastrarFuncionario(txtNome.getText(), txtRg.getText(), txtCpf.getText(), txtDataNasc.getText(), txtTelefone.getText(), txtCelular.getText(), txtHoraEntra.getText(), txtHoraSai.getText(), String.valueOf(jcTipo.getSelectedItem()), txtCarteiraMotorista.getText(), String.valueOf(jcCategoria.getSelectedItem()), password);
             if (res) {
-                txtNome.setEditable(false);
-                txtRg.setEditable(false);
-                txtRg.setEditable(false);
-                txtCpf.setEditable(false);
-                txtDataNasc.setEditable(false);
-                txtTelefone.setEditable(false);
-                txtCelular.setEditable(false);
-                txtHoraEntra.setEditable(false);
-                txtHoraSai.setEditable(false);
-                jcTipo.setEditable(false);
-                txtCarteiraMotorista.setEditable(false);
-                jcCategoria.setEditable(false);
+
                 lblCadastrarEditar.setText("Editar funcionário");
                 txtLogin.setText(controleFuncionario.valorUsuario(0));
 
-                verificarTela();
+                //verificarTela();
+            }
+        } else {
+            char[] chars = txtSenha.getPassword();
+            String password = String.valueOf(chars);
+            boolean res = controleFuncionario.editarFuncionario(txtNome.getText(), txtRg.getText(), txtCpf.getText(), txtDataNasc.getText(), txtTelefone.getText(), txtCelular.getText(), txtHoraEntra.getText(), txtHoraSai.getText(), String.valueOf(jcTipo.getSelectedItem()), txtCarteiraMotorista.getText(), String.valueOf(jcCategoria.getSelectedItem()), password);
+            if (res) {
 
+                lblCadastrarEditar.setText("Editar funcionário");
+                txtLogin.setText(controleFuncionario.valorUsuario(0));
+
+                //verificarTela();
             } else {
 
             }
+
         }
     }//GEN-LAST:event_bntCadastrarFuncionarioMouseClicked
 
@@ -1070,6 +1120,29 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jtUsarioMouseClicked
 
+    private void bntCadastrarEnderecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntCadastrarEnderecoMouseClicked
+        Endereco endereco = new Endereco();
+        endereco.setBairro(txtBairro.getText());
+        endereco.setCidade(txtCidade.getText());
+        endereco.setCep(txtCep.getText());
+        endereco.setEstado(txtEstado.getText());
+        endereco.setLogradouro(txtLogradura.getText());
+        endereco.setNum(txtNumero.getText());
+        endereco.setStatus(1);
+
+        if (controleFuncionario.verificarSeEndereco()) {
+            controleFuncionario.editarEndereco(endereco);
+
+        } else {
+            if (controleFuncionario.cadastrarEndereco(endereco)) {
+
+                lblCadastrarEndereco.setText("Editar Endereço");
+            }
+
+        }
+
+    }//GEN-LAST:event_bntCadastrarEnderecoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1101,14 +1174,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroFuncionario().setVisible(true);
+                new TelaCadastroFuncionario(0).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bntCadastrarEndereco;
     private javax.swing.JPanel bntCadastrarFuncionario;
-    private javax.swing.JPanel bntCadastrarUsuario1;
     private javax.swing.JPanel bntGerarSenha;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
@@ -1157,8 +1230,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel jpInstrutor;
     private javax.swing.JPanel jpUsuario;
     private javax.swing.JTabbedPane jtUsario;
-    private javax.swing.JLabel lblBotao1;
     private javax.swing.JLabel lblCadastrarEditar;
+    private javax.swing.JLabel lblCadastrarEndereco;
     private javax.swing.JPanel panelSair;
     private javax.swing.JPanel psConfigUsuario;
     private javax.swing.JTextField txtBairro;
