@@ -7,7 +7,7 @@ package autoescola.modelo.dao;
 
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Exame;
-import autoescola.modelo.bean.Instrutor;
+import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,7 +61,7 @@ public class ExameDao {
             while (rs.next()) {
                 Exame exame = new Exame();
                 Veiculo veiculo = new Veiculo();
-                Instrutor instrutor = new Instrutor();
+                Funcionario instrutor = new Funcionario();
 
                 exame.setCodigoExame(rs.getInt("codExame"));
                 exame.setDataExame(rs.getString("dataExame"));

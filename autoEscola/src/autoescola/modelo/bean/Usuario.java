@@ -15,6 +15,7 @@ public class Usuario {
     private String login;
     private String senha;
     private int status;
+    private Funcionario fucionario;
 
     /**
      * @return the login
@@ -70,5 +71,19 @@ public class Usuario {
      */
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    /**
+     * @return the fucionario
+     */
+    public Funcionario getFucionario() {
+        return fucionario;
+    }
+
+    /**
+     * @param fucionario the fucionario to set
+     */
+    public void setFucionario(Funcionario fucionario) {
+        this.fucionario = fucionario;
     }
 }

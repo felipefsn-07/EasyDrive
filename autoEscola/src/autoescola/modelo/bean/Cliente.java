@@ -15,7 +15,7 @@ public class Cliente {
 
     private int codCliente;
     private Endereco endereco;
-    private int status;
+    private boolean status;
     private String nome;
     private String rg;
     private String cpf;
@@ -54,7 +54,7 @@ public class Cliente {
         this.celular = celular;
         this.numLADV = numLADV;
         this.categoria = categoria;
-        this.status = 1;
+        this.status = true;
     }
 
     /**
@@ -194,14 +194,14 @@ public class Cliente {
     /**
      * @return the status
      */
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

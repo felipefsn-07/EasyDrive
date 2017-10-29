@@ -6,7 +6,7 @@
 package autoescola.modelo.arquivo;
 
 import autoescola.modelo.bean.Exame;
-import autoescola.modelo.bean.Instrutor;
+import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -58,7 +58,7 @@ public class ExameArquivo extends Arquivo {
                     Veiculo veiculo = new Veiculo();
                     veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
                     exame.setVeiculo(veiculo);
-                    Instrutor instrutor = new Instrutor();
+                    Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
                     exame.setInstrutor(instrutor);
                     exame.setStatus(parseInt(valoresEntreVirgulas[5]));
@@ -109,7 +109,7 @@ public class ExameArquivo extends Arquivo {
                     Veiculo veiculo = new Veiculo();
                     veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
                     exame.setVeiculo(veiculo);
-                    Instrutor instrutor = new Instrutor();
+                    Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
                     exame.setInstrutor(instrutor);
                     exame.setStatus(parseInt(valoresEntreVirgulas[5]));
@@ -315,7 +315,7 @@ public class ExameArquivo extends Arquivo {
                     Veiculo veiculo = new Veiculo();
                     veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
                     exame.setVeiculo(veiculo);
-                    Instrutor instrutor = new Instrutor();
+                    Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
                     exame.setInstrutor(instrutor);
                     exame.setStatus(parseInt(valoresEntreVirgulas[5]));

@@ -6,7 +6,7 @@
 package autoescola.modelo.arquivo;
 
 import autoescola.modelo.bean.Aula;
-import autoescola.modelo.bean.Instrutor;
+import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -56,9 +56,9 @@ public class AulasArquivo extends Arquivo{
                     Veiculo veiculo = new Veiculo();
                     veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
                     aula.setCodVeiculo(veiculo);
-                    Instrutor instrutor = new Instrutor();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
-                    aula.setInstrutor(instrutor);
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
+                    aula.setInstrutor(funcionario);
                     aula.setStatusAula(valoresEntreVirgulas[5]);
                     
                     aulas.add(aula);
@@ -108,7 +108,7 @@ public class AulasArquivo extends Arquivo{
                     Veiculo veiculo = new Veiculo();
                     veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
                     aula.setCodVeiculo(veiculo);
-                    Instrutor instrutor = new Instrutor();
+                    Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
                     aula.setInstrutor(instrutor);
                     aula.setStatusAula(valoresEntreVirgulas[5]);
@@ -315,7 +315,7 @@ public class AulasArquivo extends Arquivo{
                     Veiculo veiculo = new Veiculo();
                     veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
                     aula.setCodVeiculo(veiculo);
-                    Instrutor instrutor = new Instrutor();
+                    Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
                     aula.setInstrutor(instrutor);
                     aula.setStatusAula(valoresEntreVirgulas[5]);

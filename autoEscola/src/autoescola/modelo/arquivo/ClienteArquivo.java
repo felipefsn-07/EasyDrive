@@ -20,12 +20,12 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class ClienteArquivo extends Arquivo{
+public class ClienteArquivo extends Arquivo {
 
     private final String tabela = "tabelas/cliente.csv";
 
     /**
-     * 
+     *
      * @return the ArrayList of Cliente
      */
     public ArrayList<Cliente> consultarClientes() {
@@ -59,7 +59,9 @@ public class ClienteArquivo extends Arquivo{
                     cliente.setRg(valoresEntreVirgulas[5]);
                     cliente.setCpf(valoresEntreVirgulas[6]);
                     cliente.setNumLADV(valoresEntreVirgulas[7]);
-                    cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
+                    boolean status = valoresEntreVirgulas[8].equals("true");
+
+                    cliente.setStatus(status);
                     cliente.setCategoria(valoresEntreVirgulas[9]);
                     Endereco endereco;
                     EnderecoArquivo endArq = new EnderecoArquivo();
@@ -79,7 +81,7 @@ public class ClienteArquivo extends Arquivo{
     }
 
     /**
-     * 
+     *
      * @param codigoCliente
      * @return Cliente
      */
@@ -114,7 +116,9 @@ public class ClienteArquivo extends Arquivo{
                     cliente.setRg(valoresEntreVirgulas[5]);
                     cliente.setCpf(valoresEntreVirgulas[6]);
                     cliente.setNumLADV(valoresEntreVirgulas[7]);
-                    cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
+                    boolean status = valoresEntreVirgulas[8].equals("true");
+
+                    cliente.setStatus(status);
                     cliente.setCategoria(valoresEntreVirgulas[9]);
                     Endereco endereco;
                     EnderecoArquivo endArq = new EnderecoArquivo();
@@ -132,8 +136,42 @@ public class ClienteArquivo extends Arquivo{
     }
 
     
+    public boolean consultarRg(String rg) {
+        File arquivoCSV = new File(tabela);
+        Cliente cliente = new Cliente();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[5].equals(rg)) {
+                     return true;
+                }
+            }
+            return false;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
     /**
-     * 
+     *
      * @param codigoCliente
      * @return false or true
      */
@@ -167,7 +205,61 @@ public class ClienteArquivo extends Arquivo{
                     linhasDoArquivo += valoresEntreVirgulas[5] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[6] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[7] + ",";
-                    linhasDoArquivo += "0,";
+                    linhasDoArquivo += "false,";
+                    linhasDoArquivo += valoresEntreVirgulas[9] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[10];
+
+                }
+                todo += linhasDoArquivo + "\n";
+
+            }
+            try {
+                FileWriter fw = new FileWriter(tabela);
+                BufferedWriter conexao = new BufferedWriter(fw);
+                conexao.write(todo);
+                conexao.close();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+            //return true;
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
+    public boolean ativar(int codigoCliente) {
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+            String todo = "";
+            //ignora a primeira linha do arquivo
+            todo += leitor.nextLine() + "\n";
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == codigoCliente) {
+                    linhasDoArquivo = valoresEntreVirgulas[0] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[1] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[2] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[4] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[5] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[6] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[7] + ",";
+                    linhasDoArquivo += "true,";
                     linhasDoArquivo += valoresEntreVirgulas[9] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[10];
 
@@ -193,7 +285,7 @@ public class ClienteArquivo extends Arquivo{
     }
 
     /**
-     * 
+     *
      * @param cliente
      * @return false or true
      */
@@ -252,11 +344,11 @@ public class ClienteArquivo extends Arquivo{
     }
 
     /**
-     * 
+     *
      * @param cliente
-     * @return false or true 
+     * @return false or true
      */
-    public boolean cadastrarCliente(Cliente cliente) {
+    public int cadastrarCliente(Cliente cliente) {
 
         int idCliente = autoIncremento(tabela);
         try {
@@ -281,6 +373,7 @@ public class ClienteArquivo extends Arquivo{
                 conexao.write(',');
                 conexao.write(cliente.getNumLADV());
                 conexao.write(',');
+
                 conexao.write(String.valueOf(cliente.getStatus()));
                 conexao.write(',');
                 conexao.write(cliente.getCategoria());
@@ -289,14 +382,14 @@ public class ClienteArquivo extends Arquivo{
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return idCliente;
             } else {
-                return false;
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 
@@ -344,7 +437,9 @@ public class ClienteArquivo extends Arquivo{
                     cliente.setRg(valoresEntreVirgulas[5]);
                     cliente.setCpf(valoresEntreVirgulas[6]);
                     cliente.setNumLADV(valoresEntreVirgulas[7]);
-                    cliente.setStatus(parseInt(valoresEntreVirgulas[8]));
+                    boolean status = valoresEntreVirgulas[8].equals("true");
+
+                    cliente.setStatus(status);
                     cliente.setCategoria(valoresEntreVirgulas[9]);
                     Endereco endereco;
                     EnderecoArquivo endArq = new EnderecoArquivo();

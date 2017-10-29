@@ -10,7 +10,7 @@ package autoescola.modelo.bean;
  * @author felipe
  */
 public class Funcionario {
-  
+
     private int codigoFuncionario;
     private String nome;
     private String rg;
@@ -20,15 +20,16 @@ public class Funcionario {
     private String celular;
     private String hora_entra;
     private String hora_sai;
-    private Usuario usuario;
     private String tipo;
-    private int status;
+    private boolean status;
     private Endereco endereco;
+    private String categoria;
+    private String numCarteira;
 
-    public Funcionario(){
+    public Funcionario() {
     }
-    
-    public Funcionario (String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, int status){
+
+    public Funcionario(String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, boolean status, String categoria, String numCarteira) {
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
@@ -39,9 +40,11 @@ public class Funcionario {
         this.hora_entra = hora_entra;
         this.hora_sai = hora_sai;
         this.tipo = tipo;
-        this.status = status;    
+        this.status = status;
+        this.numCarteira = numCarteira;
+        this.categoria = categoria;
     }
-    
+
     /**
      * @return the codigoFuncionario
      */
@@ -199,29 +202,43 @@ public class Funcionario {
     /**
      * @return the status
      */
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
     /**
-     * @return the usuario
+     * @return the categoria
      */
-    public Usuario getUsuario() {
-        return usuario;
+    public String getCategoria() {
+        return categoria;
     }
 
     /**
-     * @param usuario the usuario to set
+     * @param categoria the categoria to set
      */
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
-    
+
+    /**
+     * @return the numCarteira
+     */
+    public String getNumCarteira() {
+        return numCarteira;
+    }
+
+    /**
+     * @param numCarteira the numCarteira to set
+     */
+    public void setNumCarteira(String numCarteira) {
+        this.numCarteira = numCarteira;
+    }
+
 }
