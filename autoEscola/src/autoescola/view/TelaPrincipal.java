@@ -397,6 +397,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jpFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpFuncionarioMouseClicked
         TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         dispose();
 
@@ -409,13 +412,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         TelaConsultaAluno form2 = new TelaConsultaAluno();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
+
         dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jpVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpVeiculoMouseClicked
         TelaConsultaVeiculo form2 = new TelaConsultaVeiculo();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_jpVeiculoMouseClicked
@@ -431,6 +441,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void panelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSairMouseClicked
         TelaLogin telaLogin = new TelaLogin();
         telaLogin.setVisible(true);
+
         telaLogin.setLocationRelativeTo(null);
         controleLogin.sair();
         dispose();
@@ -441,6 +452,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void psConfigUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_psConfigUsuarioMouseClicked
         TelaConfiguraUsuario telaConfig = new TelaConfiguraUsuario();
         telaConfig.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            telaConfig.setExtendedState(telaConfig.getExtendedState() | telaConfig.MAXIMIZED_BOTH);
+        }
         telaConfig.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_psConfigUsuarioMouseClicked

@@ -745,16 +745,14 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setBounds(0, 0, 1071, 673);
     }// </editor-fold>//GEN-END:initComponents
 
     private void editar(int id) {
@@ -795,6 +793,9 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         TelaPrincipal form2 = new TelaPrincipal();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jPanel3MouseClicked
@@ -802,6 +803,9 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
     private void jpFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpFuncionarioMouseClicked
         TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_jpFuncionarioMouseClicked
@@ -809,6 +813,9 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         TelaConsultaAluno form2 = new TelaConsultaAluno();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
@@ -816,12 +823,18 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
     private void jpVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpVeiculoMouseClicked
         TelaConsultaVeiculo form2 = new TelaConsultaVeiculo();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
     }//GEN-LAST:event_jpVeiculoMouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         TelaConsultaAula tcf = new TelaConsultaAula();
         tcf.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
         tcf.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_jPanel7MouseClicked
@@ -830,6 +843,9 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         TelaConsultaExame tcf = new TelaConsultaExame();
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
         dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
 
@@ -837,6 +853,10 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         TelaConfiguraUsuario telaConfig = new TelaConfiguraUsuario();
         telaConfig.setVisible(true);
         telaConfig.setLocationRelativeTo(null);
+        telaConfig.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            telaConfig.setExtendedState(telaConfig.getExtendedState() | telaConfig.MAXIMIZED_BOTH);
+        }
         dispose();
     }//GEN-LAST:event_psConfigUsuarioMouseClicked
 

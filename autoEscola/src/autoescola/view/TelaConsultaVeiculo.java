@@ -472,7 +472,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setBounds(0, 0, 1188, 645);
     }// </editor-fold>//GEN-END:initComponents
     private void usuario() {
         if (!controleLogin.isGerente()) {
@@ -492,12 +492,20 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
         form2.setVisible(true);
         form2.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
+
         dispose();
     }//GEN-LAST:event_jpFuncionarioMouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         TelaConsultaAluno form2 = new TelaConsultaAluno();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
+
         form2.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
@@ -505,6 +513,10 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         TelaConsultaAula tcf = new TelaConsultaAula();
         tcf.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
+
         tcf.setLocationRelativeTo(null);
         dispose();
 
@@ -514,12 +526,18 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         TelaConsultaExame tcf = new TelaConsultaExame();
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
         dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void psConfigUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_psConfigUsuarioMouseClicked
         TelaConfiguraUsuario telaConfig = new TelaConfiguraUsuario();
         telaConfig.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            telaConfig.setExtendedState(telaConfig.getExtendedState() | telaConfig.MAXIMIZED_BOTH);
+        }
         telaConfig.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_psConfigUsuarioMouseClicked
@@ -584,6 +602,9 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(0);
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
         dispose();
     }//GEN-LAST:event_jLabel15MouseClicked
 
@@ -591,6 +612,9 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(0);
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
         dispose();
 
     }//GEN-LAST:event_btnCadastrarVeiculoMouseClicked

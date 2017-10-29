@@ -39,7 +39,10 @@ public class ControleAluno extends Controle {
 
         return endereco != null;
     }
-
+/**
+ * 
+ * @return 
+ */
     public TableModel consultarAlunos() {
 
         ClienteArquivo arqCli = new ClienteArquivo();

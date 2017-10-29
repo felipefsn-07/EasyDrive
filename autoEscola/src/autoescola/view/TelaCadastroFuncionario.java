@@ -955,7 +955,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtUsario, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtUsario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -972,7 +972,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setBounds(0, 0, 1086, 667);
     }// </editor-fold>//GEN-END:initComponents
 
     private void verificarTela() {
@@ -998,12 +998,19 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         TelaPrincipal form2 = new TelaPrincipal();
         form2.setVisible(true);
         form2.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         this.dispose();
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jpFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpFuncionarioMouseClicked
         TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
+
         form2.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_jpFuncionarioMouseClicked
@@ -1011,6 +1018,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         TelaConsultaAluno form2 = new TelaConsultaAluno();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
@@ -1019,6 +1029,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         TelaConsultaAula tcf = new TelaConsultaAula();
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
         dispose();
     }//GEN-LAST:event_jPanel7MouseClicked
 
@@ -1026,6 +1039,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         TelaConsultaExame tcf = new TelaConsultaExame();
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
         dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
 

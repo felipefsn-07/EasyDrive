@@ -477,7 +477,7 @@ public class TelaConfiguraUsuario extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(583, 488));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void usuario() {
@@ -491,12 +491,18 @@ public class TelaConfiguraUsuario extends javax.swing.JFrame {
         TelaPrincipal form2 = new TelaPrincipal();
         form2.setVisible(true);
         form2.setLocationRelativeTo(null);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         this.dispose();
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jpFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpFuncionarioMouseClicked
         TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_jpFuncionarioMouseClicked
@@ -504,6 +510,9 @@ public class TelaConfiguraUsuario extends javax.swing.JFrame {
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         TelaConsultaAluno form2 = new TelaConsultaAluno();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
@@ -511,6 +520,9 @@ public class TelaConfiguraUsuario extends javax.swing.JFrame {
     private void jpVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpVeiculoMouseClicked
         TelaConsultaVeiculo form2 = new TelaConsultaVeiculo();
         form2.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
+        }
         form2.setLocationRelativeTo(null);
         dispose();    }//GEN-LAST:event_jpVeiculoMouseClicked
 
