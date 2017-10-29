@@ -1,5 +1,5 @@
 codFunc,codEndereco,rg,nome,cpf,dataNasc,telefone,celular,horaEntra,horaSai,tipo,numCarteira,categoria,status
-1,1,45.727.288-0,Felipe Silva do Nascimento,234.234.234-23,42/34/2342,(23) 4324-3242,(23) 23423-4234,32:44,23:42,Gerente,null,null,true
+1,0,45.727.288-0,Felipe Silva do Nascimento,234.234.234-23,42/34/2342,(23) 4324-3242,(23) 23423-4234,32:44,23:42,Recepcionista,null,null,true
 2,2,33.432.234-3,Felipe,434.234.234-23,43/42/3423,(34) 3242-3423,(23) 43242-3423,34:23,32:42,Gerente,null,null,true
 3,0,42.342.342-3,Maria das Graças Silva do Nascimento,234.234.234-23,42/34/2342,(42) 3423-4234,(42) 34234-2342,42:34,23:43,Instrutor,24324234233,C,true
 4,0,23.423.432-4,23423,324.234.234-32,23/43/2423,(23) 4234-2342,(23) 42342-3423,32:43,23:42,Recepcionista,null,null,true

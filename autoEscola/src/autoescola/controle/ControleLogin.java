@@ -30,6 +30,15 @@ public class ControleLogin {
         ControleLogin.usuario = usuario;
 
     }
+    
+    public boolean isGerente(){
+        FuncionarioArquivo arq = new FuncionarioArquivo();
+        Funcionario funcionario = arq.consultar(usuario.getFucionario().getCodigoFuncionario());
+        
+        return "Gerente".equals(funcionario.getTipo()) || usuario.getFucionario().getCodigoFuncionario()==0;
+
+        
+    }
 
     /**
      * @return the Usuario
@@ -59,7 +68,7 @@ public class ControleLogin {
     }
 
     public String nome() {
-        Funcionario funcionario = new Funcionario();
+        Funcionario funcionario;
         if (usuario.getCodLogin() == 1) {
             FuncionarioArquivo arqFun = new FuncionarioArquivo();
             funcionario = arqFun.consultar(usuario.getCodLogin());
