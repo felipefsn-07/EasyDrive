@@ -8,13 +8,11 @@ package autoescola.controle;
 import static java.lang.Integer.parseInt;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-import java.util.Properties;
-import javax.swing.table.TableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -124,11 +122,11 @@ public class ControleCalendario {
         }
     }
 
-    private int[][] getMes() {
+    protected int[][] getMesCalendario() {
         return this.calendario;
     }
 
-    private void setMesPreviousNext(int day, int month, int year) {
+    protected void setMesPreviousNext(int day, int month, int year) {
         Date start = getFirstDayOfMonth(year, month, day);
         Date end = getLastDayOfMonth(year, month, day);
         Date previousMonth = getLastDayOfMonth(year, month, 1);

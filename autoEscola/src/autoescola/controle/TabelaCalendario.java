@@ -52,9 +52,11 @@ public class TabelaCalendario extends JTable {
 
         if (row == 0 && column <= 7 && linhaCol > 1) {
             component.setBackground(Color.LIGHT_GRAY);
-            component.setForeground(Color.WHITE);
             component.setEnabled(false);
+
             this.setCellSelectionEnabled(false);
+            component.setForeground(Color.WHITE);
+
         } else if (row >= 4 && column <= 7 && linhaCol == 1) {
             linha = row;
             coluna = column;
@@ -79,13 +81,14 @@ public class TabelaCalendario extends JTable {
                 component.setForeground(Color.WHITE);
             } else {
                 if (linhaCol == calendario.getHoje()[0]) {
-                    Color color = new Color(61, 180, 162);
+                    Color color = new Color(112, 226, 209);
                     component.setBackground(color);
                     component.setForeground(Color.WHITE);
                 } else {
                     Color color = new Color(144, 180, 242);
+                    component.setForeground(Color.black);
 
-                    component.setBackground(color);
+                    component.setBackground(Color.white);
 
                 }
             }
