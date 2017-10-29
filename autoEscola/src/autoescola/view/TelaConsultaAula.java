@@ -7,12 +7,12 @@ package autoescola.view;
 
 /**
  *
- * @author felipe
+ * @author kaiqu
  */
 public class TelaConsultaAula extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaConsultaAula
+     * Creates new form TelaConsultaAula1
      */
     public TelaConsultaAula() {
         initComponents();
@@ -68,6 +68,7 @@ public class TelaConsultaAula extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaConsultaAula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
