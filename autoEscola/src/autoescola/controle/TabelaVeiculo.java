@@ -14,11 +14,10 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author felipe
  */
-public class Tabela extends JTable {
-
-    @Override
+public class TabelaVeiculo extends JTable {
+      @Override
     public boolean isCellEditable(int row, int column) {
-        return column == 6;
+        return column == 5;
     }
 
     @Override
@@ -31,7 +30,7 @@ public class Tabela extends JTable {
 
         Component Component = super.prepareRenderer(renderer, row, column);
         int linha = convertRowIndexToModel(row);
-        boolean ativo = (boolean) getModel().getValueAt(linha, 6);
+        boolean ativo = (boolean) getModel().getValueAt(linha, 5);
         Component.setForeground(Color.BLACK);
 
         if (isRowSelected(row)) {

@@ -31,7 +31,7 @@ public class VeicDao {
             stmt.setString(2, veic.getAno());
             stmt.setString(3, veic.getModelo());
             stmt.setFloat(4, veic.getCapacidade());
-            stmt.setInt(5, veic.getStatus());
+            stmt.setBoolean(5, veic.getStatus());
             stmt.setString(6, veic.getTipo());
 
             stmt.executeUpdate();
@@ -65,7 +65,7 @@ public class VeicDao {
                 veic.setAno(rs.getString("ano"));
                 veic.setModelo(rs.getString("modelo"));
                 veic.setCapacidade(rs.getInt("capacidade"));
-                veic.setStatus(rs.getInt("status"));
+                veic.setStatus(rs.getBoolean("status"));
                 veic.setCodVeiculo(rs.getInt("codVeiculo"));
                 veic.setTipo(rs.getString("tipo"));
 
@@ -116,7 +116,7 @@ public class VeicDao {
             stmt.setString(2, veic.getAno());
             stmt.setString(3, veic.getModelo());
             stmt.setFloat(3, veic.getCapacidade());
-            stmt.setInt(4, veic.getStatus());
+            stmt.setBoolean(4, veic.getStatus());
             stmt.setString(5, veic.getTipo());
             stmt.setInt(6, veic.getCodVeiculo());
 

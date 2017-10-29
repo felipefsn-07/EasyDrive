@@ -6,33 +6,20 @@
 package autoescola.view;
 
 import autoescola.controle.ControleLogin;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Toolkit;
-import javax.swing.JComponent;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.MenuElement;
-import javax.swing.plaf.basic.BasicMenuBarUI;
 
 /**
  *
- * @author kaiqu
+ * @author felipe
  */
-public class TelaPrincipal extends javax.swing.JFrame {
+public class JITelaPrincipal extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form TelaPrincipal
+     * Creates new form JITelaPrincipal
      */
     private final ControleLogin controleLogin = new ControleLogin();
 
-    public TelaPrincipal() {
-
+    public JITelaPrincipal() {
         initComponents();
-        setIcon();
     }
 
     /**
@@ -64,10 +51,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle(controleLogin.login() + " - "+ "Tela Principal");
-        setBackground(new java.awt.Color(254, 254, 254));
 
         jPanel1.setBackground(new java.awt.Color(144, 180, 242));
 
@@ -247,8 +230,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel6.getAccessibleContext().setAccessibleName("jlExame");
-
         panelSair.setBackground(new java.awt.Color(97, 212, 195));
         panelSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panelSair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -342,8 +323,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.getAccessibleContext().setAccessibleName("jpFuncionario");
-
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(254, 254, 254));
         jLabel7.setText("Bem vindo ao sistema Easy Drive");
@@ -391,20 +370,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-       TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
-        form2.setVisible(true);
-        form2.setLocationRelativeTo(null);
-        dispose();
-      
-    }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
 
     }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
+        form2.setVisible(true);
+        form2.setLocationRelativeTo(null);
+        dispose();
+
+    }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         TelaConsultaAluno form2 = new TelaConsultaAluno();
@@ -435,7 +413,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         controleLogin.sair();
         dispose();
 
-
     }//GEN-LAST:event_panelSairMouseClicked
 
     private void psConfigUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_psConfigUsuarioMouseClicked
@@ -445,46 +422,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_psConfigUsuarioMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        ControleLogin controleLogin = new ControleLogin();
-        if (controleLogin.verificarLogado() == false) {
-            TelaLogin telaLogin = new TelaLogin();
-            telaLogin.setVisible(true);
-            telaLogin.setLocationRelativeTo(null);
-            controleLogin.sair();
-
-        } else {
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(() -> {
-                new TelaPrincipal().setVisible(true);
-            });
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -508,7 +445,4 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelSair;
     private javax.swing.JPanel psConfigUsuario;
     // End of variables declaration//GEN-END:variables
-    private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("imagens/icon-volante.png")));
-    }
 }

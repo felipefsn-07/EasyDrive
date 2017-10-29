@@ -28,7 +28,7 @@ public class FuncionarioDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO funcionario (codEndereco, rg, nome, cpf, dataNasc, tel, cel, horaEntra, horaSai, status, tipo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO funcionario (codEndereco, rg, nome, cpf, dataNasc, tel, cel, horaEntra, horaSai, status, tipo, numCarteira, categoria) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setInt(1, func.getEndereco().getCodEndereco());
             stmt.setString(2, func.getRg());
             stmt.setString(3, func.getNome());
@@ -40,6 +40,8 @@ public class FuncionarioDao {
             stmt.setString(8, func.getHora_sai());
             stmt.setBoolean(9, func.getStatus());
             stmt.setString(10, func.getTipo());
+            stmt.setString(11, func.getNumCarteira());
+            stmt.setString(12, func.getCategoria());
 
             stmt.executeUpdate();
 
@@ -83,6 +85,8 @@ public class FuncionarioDao {
                 func.setStatus(rs.getBoolean("status"));
                 func.setTipo(rs.getString("tipo"));
                 login.setFucionario(func);
+                func.setCategoria("categoria");
+                func.setNumCarteira("numCarteira");
 
                 funcs.add(func);
             }
@@ -136,7 +140,10 @@ public class FuncionarioDao {
             stmt.setString(8, func.getHora_sai());
             stmt.setBoolean(9, func.getStatus());
             stmt.setString(10, func.getTipo());
-            stmt.setInt(11, func.getCodigoFuncionario());
+            stmt.setInt(11, func.getCodigoFuncionario());           
+            stmt.setString(11, func.getNumCarteira());
+            stmt.setString(12, func.getCategoria());
+            
 
             stmt.executeUpdate();
 

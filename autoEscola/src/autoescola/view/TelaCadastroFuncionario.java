@@ -9,7 +9,6 @@ import autoescola.controle.ControleFuncionario;
 import autoescola.controle.ControleLogin;
 import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Funcionario;
-import autoescola.modelo.bean.Instrutor;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,6 +43,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             jcTipo.setSelectedItem(funcionario.getTipo());
             txtSenha.setText(controleFuncionario.valorUsuario(1));
             txtLogin.setText(controleFuncionario.valorUsuario(0));
+            txtCarteiraMotorista.setText(funcionario.getNumCarteira());
+            jcCategoria.setSelectedItem(funcionario.getCategoria());
             if (funcionario.getEndereco().getCodEndereco() != 0) {
                 txtLogradura.setText(funcionario.getEndereco().getLogradouro());
                 txtCidade.setText(funcionario.getEndereco().getCidade());
@@ -54,9 +55,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 lblCadastrarEndereco.setText("Editar Endereço");
             }
             if (funcionario.getTipo().equals("Instrutor")) {
-                Instrutor instrutor = controleFuncionario.getInstrutor();
-                txtCarteiraMotorista.setText(instrutor.getNumCarteira());
-                jcCategoria.setSelectedItem(instrutor.getCategoria());
+
                 jpInstrutor.setVisible(true);
 
             }
@@ -244,6 +243,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(97, 212, 195));
         jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(254, 254, 254));
@@ -1142,6 +1146,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_bntCadastrarEnderecoMouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        TelaConsultaVeiculo form2 = new TelaConsultaVeiculo();
+        form2.setVisible(true);
+        form2.setLocationRelativeTo(null);
+        dispose();    }//GEN-LAST:event_jPanel6MouseClicked
 
     /**
      * @param args the command line arguments

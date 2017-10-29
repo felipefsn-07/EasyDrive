@@ -2,14 +2,11 @@ package autoescola.view;
 
 import autoescola.controle.ControleFuncionario;
 import autoescola.controle.ControleLogin;
-import autoescola.controle.Tabela;
+import autoescola.controle.TabelaFuncionario;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.Toolkit;
 import static java.lang.Integer.parseInt;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 /*
@@ -29,7 +26,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     ImageIcon imageEditar = new ImageIcon("imagens/icon-volante");
     private final ControleLogin controleLogin = new ControleLogin();
     private final ControleFuncionario controleFuncionario = new ControleFuncionario();
-    private final Tabela tabela = new Tabela();
+    private final TabelaFuncionario tabela = new TabelaFuncionario();
 
     public TelaConsultaFuncionario() {
         tabela.setBackground(Color.WHITE);
@@ -175,6 +172,11 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(97, 212, 195));
         jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(254, 254, 254));
@@ -391,7 +393,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jLabel11.setText("Pesquisar:");
 
         jComboBox1.setBackground(new java.awt.Color(254, 254, 254));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "rg", "nome", "cpf", "telefone", "celelular" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "rg", "nome", "cpf", "telefone", "celelular", "tipo" }));
         jComboBox1.setBorder(null);
 
         btnCadastrar.setBackground(new java.awt.Color(61, 180, 162));
@@ -487,32 +489,32 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        jTableFuncionario.setModel(controleFuncionario.consultaFuncionario(jTextField2, jComboBox1));
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionarioLike(jTextField2, jComboBox1));
         jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        jTableFuncionario.setModel(controleFuncionario.consultaFuncionario(jTextField2, jComboBox1));
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionarioLike(jTextField2, jComboBox1));
         jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
 
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
 
-        jTableFuncionario.setModel(controleFuncionario.consultaFuncionario(jTextField2, jComboBox1));
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionarioLike(jTextField2, jComboBox1));
         jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
 
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextField2InputMethodTextChanged
-        jTableFuncionario.setModel(controleFuncionario.consultaFuncionario(jTextField2, jComboBox1));
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionarioLike(jTextField2, jComboBox1));
         jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
 
     }//GEN-LAST:event_jTextField2InputMethodTextChanged
@@ -553,7 +555,6 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     private void jTableFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionarioMouseClicked
 
         int row = jTableFuncionario.getSelectedRow();
-
 
         //int id = (int) jTableFuncionario.getValueAt(row, 0);
         if (jTableFuncionario.isCellSelected(row, 6)) {
@@ -610,6 +611,14 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        TelaConsultaVeiculo form2 = new TelaConsultaVeiculo();
+        form2.setVisible(true);
+        form2.setLocationRelativeTo(null);
+        dispose();
+
+     }//GEN-LAST:event_jPanel6MouseClicked
 
     /**
      * @param args the command line arguments

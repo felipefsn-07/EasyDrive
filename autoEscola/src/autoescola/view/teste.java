@@ -5,34 +5,35 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleAluno;
 import autoescola.controle.ControleFuncionario;
 import autoescola.controle.ControleLogin;
-import autoescola.controle.TabelaAluno;
+import autoescola.controle.TabelaFuncionario;
 import java.awt.Color;
+import java.awt.Toolkit;
 import static java.lang.Integer.parseInt;
+import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
+import javax.swing.JFrame;
 
 /**
  *
  * @author felipe
  */
-public class TelaConsultaAluno extends javax.swing.JFrame {
+public class teste extends javax.swing.JPanel {
 
     /**
-     * Creates new form TelaConsultaAluno1
+     * Creates new form teste
      */
+    ImageIcon imageEditar = new ImageIcon("imagens/icon-volante");
     private final ControleLogin controleLogin = new ControleLogin();
-    private final ControleAluno controleAluno = new ControleAluno();
+    private final ControleFuncionario controleFuncionario = new ControleFuncionario();
+    private final TabelaFuncionario tabela = new TabelaFuncionario();
 
-    private final TabelaAluno tabela = new TabelaAluno();
-
-    public TelaConsultaAluno() {
-        initComponents();
+    public teste() {
         tabela.setBackground(Color.WHITE);
         tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        initComponents();
         tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
-
     }
 
     /**
@@ -48,7 +49,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPFuncionario = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -63,16 +64,13 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         panelSair = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAluno = tabela;
+        jTableFuncionario = tabela;
         jTextField2 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         btnCadastrar = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle(controleLogin.login() + " - "+ "Alunos");
 
         jPanel1.setBackground(new java.awt.Color(144, 180, 242));
 
@@ -108,11 +106,11 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPFuncionario.setBackground(new java.awt.Color(97, 212, 195));
-        jPFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel4.setBackground(new java.awt.Color(112, 226, 209));
+        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPFuncionarioMouseClicked(evt);
+                jPanel4MouseClicked(evt);
             }
         });
 
@@ -120,24 +118,24 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(254, 254, 254));
         jLabel2.setText("Funcionários");
 
-        javax.swing.GroupLayout jPFuncionarioLayout = new javax.swing.GroupLayout(jPFuncionario);
-        jPFuncionario.setLayout(jPFuncionarioLayout);
-        jPFuncionarioLayout.setHorizontalGroup(
-            jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPFuncionarioLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPFuncionarioLayout.setVerticalGroup(
-            jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPFuncionarioLayout.createSequentialGroup()
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(112, 226, 209));
+        jPanel5.setBackground(new java.awt.Color(97, 212, 195));
         jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -316,7 +314,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -330,7 +328,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -346,14 +344,14 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTableAluno.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jTableAluno.setModel(controleAluno.consultarAlunos());
-        jTableAluno.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableFuncionario.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jTableFuncionario.setModel(controleFuncionario.consultarFuncionarios());
+        jTableFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableAlunoMouseClicked(evt);
+                jTableFuncionarioMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableAluno);
+        jScrollPane1.setViewportView(jTableFuncionario);
 
         jTextField2.setBackground(new java.awt.Color(254, 254, 254));
         jTextField2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -386,7 +384,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         jLabel11.setText("Pesquisar:");
 
         jComboBox1.setBackground(new java.awt.Color(254, 254, 254));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "nome", "telefone", "celular", "data de nascimento", "rg", "cpf", "numero do Ladv" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "rg", "nome", "cpf", "telefone", "celelular", "tipo" }));
         jComboBox1.setBorder(null);
 
         btnCadastrar.setBackground(new java.awt.Color(61, 180, 162));
@@ -425,7 +423,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 20)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(254, 254, 254));
-        jLabel9.setText("Para consultas detalhadas ou para editar os dados do  aluno de um click duplo no aluno selecionado.");
+        jLabel9.setText("Para consultas detalhadas ou para editar os dados do  funcionario de um click duplo no funcionario selecionado.");
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel9MouseClicked(evt);
@@ -461,7 +459,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -474,8 +472,8 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -484,30 +482,29 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         TelaPrincipal form2 = new TelaPrincipal();
         form2.setVisible(true);
         form2.setLocationRelativeTo(null);
-        this.dispose();
     }//GEN-LAST:event_jPanel3MouseClicked
 
-    private void jPFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPFuncionarioMouseClicked
-        TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
-        form2.setVisible(true);
-        form2.setLocationRelativeTo(null);
-        dispose();
-    }//GEN-LAST:event_jPFuncionarioMouseClicked
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+
+    }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         TelaConsultaAluno form2 = new TelaConsultaAluno();
         form2.setVisible(true);
         form2.setLocationRelativeTo(null);
-        this.dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        TelaConsultaVeiculo form2 = new TelaConsultaVeiculo();
+        form2.setVisible(true);
+        form2.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jPanel6MouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         TelaConsultaAula tcf = new TelaConsultaAula();
@@ -519,14 +516,12 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         TelaConsultaExame tcf = new TelaConsultaExame();
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
-        dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void psConfigUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_psConfigUsuarioMouseClicked
         TelaConfiguraUsuario telaConfig = new TelaConfiguraUsuario();
         telaConfig.setVisible(true);
         telaConfig.setLocationRelativeTo(null);
-        dispose();
     }//GEN-LAST:event_psConfigUsuarioMouseClicked
 
     private void panelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSairMouseClicked
@@ -534,35 +529,61 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         telaLogin.setVisible(true);
         telaLogin.setLocationRelativeTo(null);
         controleLogin.sair();
-        dispose();
     }//GEN-LAST:event_panelSairMouseClicked
 
+    private void jTableFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionarioMouseClicked
+
+        int row = jTableFuncionario.getSelectedRow();
+
+        //int id = (int) jTableFuncionario.getValueAt(row, 0);
+        if (jTableFuncionario.isCellSelected(row, 6)) {
+            // controleFuncionario.alterarStatus(true, id);
+            String id = String.valueOf(jTableFuncionario.getValueAt(row, 0));
+            boolean anterior = (boolean) jTableFuncionario.getValueAt(row, 6);
+            controleFuncionario.alterarStatus(anterior, id);
+
+        }
+
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+
+            //int id = (int) jTableFuncionario.getValueAt(row, 0);
+            if (jTableFuncionario.isCellSelected(row, 0)) {
+                // controleFuncionario.alterarStatus(true, id);
+                String id = String.valueOf(jTableFuncionario.getValueAt(row, 0));
+                controleFuncionario.consultar(parseInt(id));
+                TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(parseInt(id));
+                tcf.setVisible(true);
+                tcf.setLocationRelativeTo(null);
+
+            }
+        }
+    }//GEN-LAST:event_jTableFuncionarioMouseClicked
+
     private void jTextField2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextField2InputMethodTextChanged
-        jTableAluno.setModel(controleAluno.consultaAlunoLike(jTextField2, jComboBox1));
-        jTableAluno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionarioLike(jTextField2, jComboBox1));
+        jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2InputMethodTextChanged
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
 
-        jTableAluno.setModel(controleAluno.consultaAlunoLike(jTextField2, jComboBox1));
-        jTableAluno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionarioLike(jTextField2, jComboBox1));
+        jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        jTableAluno.setModel(controleAluno.consultaAlunoLike(jTextField2, jComboBox1));
-        jTableAluno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionarioLike(jTextField2, jComboBox1));
+        jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        jTableAluno.setModel(controleAluno.consultaAlunoLike(jTextField2, jComboBox1));
-        jTableAluno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTableFuncionario.setModel(controleFuncionario.consultaFuncionarioLike(jTextField2, jComboBox1));
+        jTableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0);
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
-        dispose();
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
@@ -575,77 +596,6 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel9MouseClicked
 
-    private void jTableAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlunoMouseClicked
-
-        int row = jTableAluno.getSelectedRow();
-
-        //int id = (int) jTableFuncionario.getValueAt(row, 0);
-        if (jTableAluno.isCellSelected(row, 7)) {
-            // controleFuncionario.alterarStatus(true, id);
-            String id = String.valueOf(jTableAluno.getValueAt(row, 0));
-            boolean anterior = (boolean) jTableAluno.getValueAt(row, 7);
-            controleAluno.alterarStatus(anterior, id);
-
-        }
-
-        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
-
-            //int id = (int) jTableFuncionario.getValueAt(row, 0);
-            /*if (jTableAluno.isCellSelected(row, 0)) {
-                // controleFuncionario.alterarStatus(true, id);
-                String id = String.valueOf(jTableAluno.getValueAt(row, 0));
-                controleFuncionario.consultar(parseInt(id));
-                TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(parseInt(id));
-                tcf.setVisible(true);
-                tcf.setLocationRelativeTo(null);
-                dispose();
-
-            }*/
-        }
-    }//GEN-LAST:event_jTableAlunoMouseClicked
-
-    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        TelaConsultaVeiculo form2 = new TelaConsultaVeiculo();
-        form2.setVisible(true);
-        form2.setLocationRelativeTo(null);
-        dispose();
-    }//GEN-LAST:event_jPanel6MouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaConsultaAluno().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCadastrar;
@@ -661,18 +611,20 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPFuncionario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableAluno;
+    private javax.swing.JTable jTableFuncionario;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel panelSair;
     private javax.swing.JPanel psConfigUsuario;
     // End of variables declaration//GEN-END:variables
+
+
 }

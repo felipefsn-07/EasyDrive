@@ -66,8 +66,10 @@ public class FuncionarioArquivo extends Arquivo {
                     funcionario.setHora_entra(valoresEntreVirgulas[8]);
                     funcionario.setHora_sai(valoresEntreVirgulas[9]);
                     funcionario.setTipo(valoresEntreVirgulas[10]);
+                    funcionario.setNumCarteira(valoresEntreVirgulas[11]);
+                    funcionario.setCategoria(valoresEntreVirgulas[12]);
                     boolean status;
-                    status = valoresEntreVirgulas[11].equals("true");
+                    status = valoresEntreVirgulas[13].equals("true");
                     funcionario.setStatus(status);
                     funcionarios.add(funcionario);
 
@@ -124,8 +126,11 @@ public class FuncionarioArquivo extends Arquivo {
                     funcionario.setHora_entra(valoresEntreVirgulas[8]);
                     funcionario.setHora_sai(valoresEntreVirgulas[9]);
                     funcionario.setTipo(valoresEntreVirgulas[10]);
+                    funcionario.setNumCarteira(valoresEntreVirgulas[11]);
+                    funcionario.setCategoria(valoresEntreVirgulas[12]);
+
                     boolean status;
-                    status = valoresEntreVirgulas[11].equals("true");
+                    status = valoresEntreVirgulas[13].equals("true");
                     funcionario.setStatus(status);
                 }
             }
@@ -177,6 +182,8 @@ public class FuncionarioArquivo extends Arquivo {
                     linhasDoArquivo += valoresEntreVirgulas[8] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[9] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[10] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[11] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[12] + ",";
                     linhasDoArquivo += "false";
 
                 }
@@ -199,6 +206,40 @@ public class FuncionarioArquivo extends Arquivo {
 
         }
     }
+    
+       public boolean consultarRg(String rg) {
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[2].equals(rg)) {
+                    return true;
+                }
+            }
+            return false;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
 
     /**
      *
@@ -237,6 +278,8 @@ public class FuncionarioArquivo extends Arquivo {
                     linhasDoArquivo += valoresEntreVirgulas[8] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[9] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[10] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[11] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[12] + ",";
                     linhasDoArquivo += "true";
 
                 }
@@ -298,6 +341,8 @@ public class FuncionarioArquivo extends Arquivo {
                     linhasDoArquivo += funcionario.getHora_entra() + ",";
                     linhasDoArquivo += funcionario.getHora_sai() + ",";
                     linhasDoArquivo += funcionario.getTipo() + ",";
+                    linhasDoArquivo += funcionario.getNumCarteira() + ",";
+                    linhasDoArquivo += funcionario.getCategoria() + ",";
                     linhasDoArquivo += String.valueOf(funcionario.getStatus());
 
                 }
@@ -357,6 +402,10 @@ public class FuncionarioArquivo extends Arquivo {
                 conexao.write(funcionario.getHora_sai());
                 conexao.write(',');
                 conexao.write(funcionario.getTipo());
+                conexao.write(',');
+                conexao.write(funcionario.getNumCarteira());
+                conexao.write(',');
+                conexao.write(funcionario.getCategoria());
                 conexao.write(',');
                 conexao.write(String.valueOf(funcionario.getStatus()));
                 conexao.newLine();
@@ -424,8 +473,10 @@ public class FuncionarioArquivo extends Arquivo {
                     funcionario.setHora_entra(valoresEntreVirgulas[8]);
                     funcionario.setHora_sai(valoresEntreVirgulas[9]);
                     funcionario.setTipo(valoresEntreVirgulas[10]);
+                    funcionario.setNumCarteira(valoresEntreVirgulas[11]);
+                    funcionario.setCategoria(valoresEntreVirgulas[12]);
                     boolean status;
-                    status = valoresEntreVirgulas[11].equals("true");
+                    status = valoresEntreVirgulas[13].equals("true");
                     funcionario.setStatus(status);
                     funcionarios.add(funcionario);
 

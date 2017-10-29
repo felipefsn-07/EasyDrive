@@ -21,12 +21,14 @@ import java.util.Scanner;
  * @author felipe
  */
 public class VeiculoArquivo extends Arquivo {
-    
+
     private final String tabela = "tabelas/veiculo.csv";
-/**
- * Consulta e retorna todos os veiculos cadastrados
- * @return the ArrayList of Veiculo
- */
+
+    /**
+     * Consulta e retorna todos os veiculos cadastrados
+     *
+     * @return the ArrayList of Veiculo
+     */
     public ArrayList<Veiculo> consultarVeiculos() {
         File arquivoCSV = new File(tabela);
         ArrayList<Veiculo> veiculos = new ArrayList();
@@ -55,7 +57,8 @@ public class VeiculoArquivo extends Arquivo {
                     veiculo.setAno(valoresEntreVirgulas[2]);
                     veiculo.setModelo(valoresEntreVirgulas[3]);
                     veiculo.setCapacidade(parseFloat(valoresEntreVirgulas[4]));
-                    veiculo.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    boolean status = "true".equals(valoresEntreVirgulas[5]);
+                    veiculo.setStatus(status);
                     veiculos.add(veiculo);
 
                 }
@@ -71,6 +74,7 @@ public class VeiculoArquivo extends Arquivo {
 
     /**
      * Consultar e retorn veiculo a partir do código do veiculo
+     *
      * @param codVeiculo
      * @return the Veiculo
      */
@@ -102,7 +106,8 @@ public class VeiculoArquivo extends Arquivo {
                     veiculo.setAno(valoresEntreVirgulas[2]);
                     veiculo.setModelo(valoresEntreVirgulas[3]);
                     veiculo.setCapacidade(parseFloat(valoresEntreVirgulas[4]));
-                    veiculo.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    boolean status = "true".equals(valoresEntreVirgulas[5]);
+                    veiculo.setStatus(status);
 
                 }
             }
@@ -116,7 +121,8 @@ public class VeiculoArquivo extends Arquivo {
     }
 
     /**
-     * Desativar veiculo a partir do código Veiculo 
+     * Desativar veiculo a partir do código Veiculo
+     *
      * @param codVeiculo
      * @return false or true
      */
@@ -147,7 +153,57 @@ public class VeiculoArquivo extends Arquivo {
                     linhasDoArquivo += valoresEntreVirgulas[2] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[3] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[4] + ",";
-                    linhasDoArquivo += "0";
+                    linhasDoArquivo += "false";
+
+                }
+                todo += linhasDoArquivo + "\n";
+
+            }
+            try {
+                FileWriter fw = new FileWriter(tabela);
+                BufferedWriter conexao = new BufferedWriter(fw);
+                conexao.write(todo);
+                conexao.close();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+
+            //return true;
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
+    public boolean ativar(int codVeiculo) {
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+            String todo = "";
+            //ignora a primeira linha do arquivo
+            todo += leitor.nextLine() + "\n";
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == codVeiculo) {
+                    linhasDoArquivo = valoresEntreVirgulas[0] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[1] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[2] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[4] + ",";
+                    linhasDoArquivo += "true";
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -173,6 +229,7 @@ public class VeiculoArquivo extends Arquivo {
 
     /**
      * Alterar veiculo
+     *
      * @param veiculo
      * @return false or true
      */
@@ -198,10 +255,10 @@ public class VeiculoArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == veiculo.getCodVeiculo()) {
                     linhasDoArquivo = String.valueOf(veiculo.getCodVeiculo()) + ",";
-                    linhasDoArquivo += veiculo.getPlaca()+ ",";
-                    linhasDoArquivo += veiculo.getAno()+ ",";
-                    linhasDoArquivo += veiculo.getModelo()+ ",";
-                    linhasDoArquivo += String.valueOf(veiculo.getCapacidade())+ ",";
+                    linhasDoArquivo += veiculo.getPlaca() + ",";
+                    linhasDoArquivo += veiculo.getAno() + ",";
+                    linhasDoArquivo += veiculo.getModelo() + ",";
+                    linhasDoArquivo += String.valueOf(veiculo.getCapacidade()) + ",";
                     linhasDoArquivo += String.valueOf(veiculo.getStatus());
 
                 }
@@ -227,6 +284,7 @@ public class VeiculoArquivo extends Arquivo {
 
     /**
      * Cadastrar veiculo
+     *
      * @param veiculo
      * @return false or true
      */
@@ -266,7 +324,9 @@ public class VeiculoArquivo extends Arquivo {
     }
 
     /**
-     *  Função para consultar veiculos a partir do campo e um valor que pode ser encontrado nessa coluna
+     * Função para consultar veiculos a partir do campo e um valor que pode ser
+     * encontrado nessa coluna
+     *
      * @param campo
      * @param valor
      * @return ArrayList of Veiculo
@@ -305,7 +365,8 @@ public class VeiculoArquivo extends Arquivo {
                     veiculo.setAno(valoresEntreVirgulas[2]);
                     veiculo.setModelo(valoresEntreVirgulas[3]);
                     veiculo.setCapacidade(parseFloat(valoresEntreVirgulas[4]));
-                    veiculo.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    boolean status = "true".equals(valoresEntreVirgulas[5]);
+                    veiculo.setStatus(status);
 
                     veiculos.add(veiculo);
 

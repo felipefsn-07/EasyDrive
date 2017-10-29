@@ -16,7 +16,7 @@ public class Exame {
     private String dataExame;
     private String horarioExame;
     private Veiculo veiculo;
-    private Instrutor instrutor;
+    private Funcionario instrutor;
     private int status;
     private ArrayList<ExameClientes> exames;
 
@@ -80,14 +80,14 @@ public class Exame {
     /**
      * @return the instrutor
      */
-    public Instrutor getInstrutor() {
+    public Funcionario getInstrutor() {
         return instrutor;
     }
 
     /**
      * @param instrutor the instrutor to set
      */
-    public void setInstrutor(Instrutor instrutor) {
+    public void setInstrutor(Funcionario instrutor) {
         this.instrutor = instrutor;
     }
 

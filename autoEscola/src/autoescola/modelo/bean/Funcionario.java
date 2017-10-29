@@ -10,7 +10,7 @@ package autoescola.modelo.bean;
  * @author felipe
  */
 public class Funcionario {
-  
+
     private int codigoFuncionario;
     private String nome;
     private String rg;
@@ -23,11 +23,13 @@ public class Funcionario {
     private String tipo;
     private boolean status;
     private Endereco endereco;
+    private String categoria;
+    private String numCarteira;
 
-    public Funcionario(){
+    public Funcionario() {
     }
-    
-    public Funcionario (String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, boolean status){
+
+    public Funcionario(String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, boolean status, String categoria, String numCarteira) {
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
@@ -38,9 +40,11 @@ public class Funcionario {
         this.hora_entra = hora_entra;
         this.hora_sai = hora_sai;
         this.tipo = tipo;
-        this.status = status;    
+        this.status = status;
+        this.numCarteira = numCarteira;
+        this.categoria = categoria;
     }
-    
+
     /**
      * @return the codigoFuncionario
      */
@@ -208,5 +212,33 @@ public class Funcionario {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
+    /**
+     * @return the categoria
+     */
+    public String getCategoria() {
+        return categoria;
+    }
+
+    /**
+     * @param categoria the categoria to set
+     */
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    /**
+     * @return the numCarteira
+     */
+    public String getNumCarteira() {
+        return numCarteira;
+    }
+
+    /**
+     * @param numCarteira the numCarteira to set
+     */
+    public void setNumCarteira(String numCarteira) {
+        this.numCarteira = numCarteira;
+    }
+
 }

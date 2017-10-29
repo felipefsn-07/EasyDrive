@@ -7,11 +7,9 @@ package autoescola.controle;
 
 import autoescola.modelo.arquivo.EnderecoArquivo;
 import autoescola.modelo.arquivo.FuncionarioArquivo;
-import autoescola.modelo.arquivo.InstrutorArquivo;
 import autoescola.modelo.arquivo.UsuarioArquivo;
 import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Funcionario;
-import autoescola.modelo.bean.Instrutor;
 import autoescola.modelo.bean.Usuario;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
@@ -27,12 +25,11 @@ import javax.swing.table.TableModel;
  *
  * @author felipe
  */
-public class ControleFuncionario {
+public class ControleFuncionario extends Controle{
 
     private Usuario usuario;
     private Funcionario funcionario;
     private Endereco endereco;
-    private Instrutor instrutor;
     private boolean botao = false;
 
     public TableModel consultarFuncionarios() {
@@ -88,11 +85,6 @@ public class ControleFuncionario {
             } else {
                 this.endereco = null;
             }
-
-            if ("Instrutor".equals(funcionario.getTipo())) {
-                InstrutorArquivo arq = new InstrutorArquivo();
-                this.instrutor = arq.consultar(id);
-            }
         }
 
     }
@@ -102,27 +94,8 @@ public class ControleFuncionario {
         return funcionario;
     }
 
-    public Instrutor getInstrutor() {
-        this.setBotao(true);
-        return instrutor;
-    }
 
-    protected boolean isDigit(String s) {
-        char ch = s.charAt(0);
-        return (ch >= 48 && ch <= 57);
-    }
-
-    protected String pegarNumero(String variavel) {
-        String a = "";
-        for (int i = 0; i < variavel.length(); i++) {
-            if (variavel.charAt(i) >= 48 && variavel.charAt(i) <= 57) {
-                a += variavel.charAt(i);
-            }
-        }
-        return a;
-    }
-
-    public TableModel consultaFuncionario(JTextField id, JComboBox tipo) {
+    public TableModel consultaFuncionarioLike(JTextField id, JComboBox tipo) {
         FuncionarioArquivo arqFunc = new FuncionarioArquivo();
         DefaultTableModel jTable1 = new DefaultTableModel();
 
@@ -178,6 +151,13 @@ public class ControleFuncionario {
 
     }
 
+    /**
+     * 
+     * @param anterior
+     * @param idStr
+     * @return 
+     */
+    @Override
     public boolean alterarStatus(boolean anterior, String idStr) {
 
         FuncionarioArquivo arq = new FuncionarioArquivo();
@@ -243,100 +223,68 @@ public class ControleFuncionario {
 
     public boolean cadastrarFuncionario(String nome, String rg, String cpf, String dataNasc, String telefone, String celular, String horaEntra, String horaSai, String tipo, String carteira, String categoria, String senha) {
         FuncionarioArquivo arq = new FuncionarioArquivo();
-        UsuarioArquivo arqUser = new UsuarioArquivo();
+
+        if (!arq.consultarRg(rg)) {
+            UsuarioArquivo arqUser = new UsuarioArquivo();
             usuario = new Usuario();
             funcionario = new Funcionario();
             Endereco novoEndereco = new Endereco();
-            instrutor = new Instrutor();
             if (!"".equals(nome) && !"  .   .   - ".equals(rg) && !"   .   .   -  ".equals(cpf) && !"  /  /    ".equals(dataNasc) && !"(  )     -    ".equals(telefone) && !"".equals(celular) && !"  :  ".equals(horaEntra) && !"  :  ".equals(horaSai) && !"".equals(senha)) {
-                switch (tipo) {
-                    case "Gerente":
-                    case "Recepcionista":
-                        funcionario.setNome(nome);
-                        funcionario.setRg(rg);
-                        funcionario.setCpf(cpf);
-                        funcionario.setDatanasc(dataNasc);
-                        funcionario.setTelefone(telefone);
-                        funcionario.setCelular(celular);
-                        funcionario.setHora_entra(horaEntra);
-                        funcionario.setHora_sai(horaSai);
-                        funcionario.setTipo(tipo);
-                        funcionario.setStatus(true);
-                        usuario.setLogin(pegarNumero(rg));
-                        usuario.setSenha(senha);
-                        novoEndereco.setCodEndereco(0);
-                        novoEndereco.setStatus(1);
-                        funcionario.setEndereco(novoEndereco);
-                        int res = arq.cadastrarfuncionario(funcionario);
-                        if (res != 0) {
+                funcionario.setNome(nome);
+                funcionario.setRg(rg);
+                funcionario.setCpf(cpf);
+                funcionario.setDatanasc(dataNasc);
+                funcionario.setTelefone(telefone);
+                funcionario.setCelular(celular);
+                funcionario.setHora_entra(horaEntra);
+                funcionario.setHora_sai(horaSai);
+                funcionario.setTipo(tipo);
+                funcionario.setStatus(true);
+                funcionario.setNumCarteira("null");
+                funcionario.setCategoria("null");
+                if (tipo.equals("Instrutor")) {
+                    if (!"".equals(carteira) && !"".equals(categoria)) {
 
-                            funcionario.setCodigoFuncionario(res);
-                            usuario.setFucionario(funcionario);
-                            usuario.setStatus(1);
-                            arqUser.cadastrarUsuario(usuario);
-                            setBotao(true);
+                        funcionario.setNumCarteira(carteira);
+                        funcionario.setCategoria(categoria);
 
-                            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                            return true;
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Não foi cadastrado!");
-                            return false;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
 
-                        }
-                    case "Instrutor":
-                        if (!"".equals(carteira) && !"".equals(categoria)) {
-
-                            instrutor.setNome(nome);
-                            instrutor.setRg(rg);
-                            instrutor.setCpf(cpf);
-                            instrutor.setDatanasc(dataNasc);
-                            instrutor.setTelefone(telefone);
-                            instrutor.setCelular(celular);
-                            instrutor.setHora_entra(horaEntra);
-                            instrutor.setHora_sai(horaSai);
-                            instrutor.setTipo(tipo);
-                            instrutor.setNumCarteira(carteira);
-                            instrutor.setCategoria(categoria);
-                            instrutor.setStatus(true);
-                            usuario.setLogin(pegarNumero(rg));
-                            usuario.setSenha(senha);
-                            novoEndereco.setCodEndereco(0);
-                            novoEndereco.setStatus(1);
-
-                            funcionario.setEndereco(novoEndereco);
-                            instrutor.setEndereco(novoEndereco);
-
-                            InstrutorArquivo arqInstrutor = new InstrutorArquivo();
-                            res = arq.cadastrarfuncionario(instrutor);
-                            if (res != 0) {
-                                instrutor.setCodigoFuncionario(res);
-                                usuario.setFucionario(instrutor);
-                                usuario.setStatus(1);
-                                arqInstrutor.cadastrarInstrutor(instrutor);
-                                arqUser.cadastrarUsuario(usuario);
-                                setBotao(true);
-                                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                                return true;
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Não foi cadastrado!");
-                                return false;
-
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
-                            return false;
-
-                        }
-                    default:
-                        JOptionPane.showMessageDialog(null, "Opção invalida!");
                         return false;
+                    }
+
+                }
+                usuario.setLogin(pegarNumero(rg));
+                usuario.setSenha(senha);
+                novoEndereco.setCodEndereco(0);
+                novoEndereco.setStatus(1);
+                funcionario.setEndereco(novoEndereco);
+                int res = arq.cadastrarfuncionario(funcionario);
+                if (res != 0) {
+                    funcionario.setCodigoFuncionario(res);
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(1);
+                    arqUser.cadastrarUsuario(usuario);
+                    setBotao(true);
+
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi cadastrado!");
+                    return false;
                 }
             } else {
 
                 JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
                 return false;
             }
-       
+        } else {
+            JOptionPane.showMessageDialog(null, "Funcionário já cadastrado!");
+            return false;
+
+        }
+
     }
 
     public void alterarSenha(String senha) {
@@ -360,104 +308,66 @@ public class ControleFuncionario {
 
     public boolean editarFuncionario(String nome, String rg, String cpf, String dataNasc, String telefone, String celular, String horaEntra, String horaSai, String tipo, String carteira, String categoria, String senha) {
         FuncionarioArquivo arq = new FuncionarioArquivo();
-        UsuarioArquivo arqUser = new UsuarioArquivo();
-        if (!"".equals(nome) && !"  .   .   - ".equals(rg) && !"   .   .   -  ".equals(cpf) && !"  /  /    ".equals(dataNasc) && !"(  )     -    ".equals(telefone) && !"".equals(celular) && !"  :  ".equals(horaEntra) && !"  :  ".equals(horaSai) && !"".equals(senha)) {
-            switch (tipo) {
-                case "Gerente":
-                case "Recepcionista":
-                    funcionario.setNome(nome);
-                    funcionario.setRg(rg);
-                    funcionario.setCpf(cpf);
-                    funcionario.setDatanasc(dataNasc);
-                    funcionario.setTelefone(telefone);
-                    funcionario.setCelular(celular);
-                    funcionario.setHora_entra(horaEntra);
-                    funcionario.setHora_sai(horaSai);
-                    funcionario.setTipo(tipo);
-                    funcionario.setStatus(true);
+        if (!arq.consultarRg(rg) || funcionario.getRg().equals(rg)) {
 
-                    if (arq.alterarfuncionario(funcionario)) {
-                        usuario.setLogin(pegarNumero(rg));
-                        usuario.setSenha(senha);
-                        usuario.setLogin(pegarNumero(rg));
-                        usuario.setSenha(senha);
-                        usuario.setFucionario(funcionario);
-                        arqUser.alterarUsuario(usuario);
-                        JOptionPane.showMessageDialog(null, "Editado com sucesso!");
-                        return true;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Não foi Editado!");
-                        return false;
-
-                    }
-                case "Instrutor":
+            UsuarioArquivo arqUser = new UsuarioArquivo();
+            usuario = new Usuario();
+            Endereco novoEndereco = new Endereco();
+            if (!"".equals(nome) && !"  .   .   - ".equals(rg) && !"   .   .   -  ".equals(cpf) && !"  /  /    ".equals(dataNasc) && !"(  )     -    ".equals(telefone) && !"".equals(celular) && !"  :  ".equals(horaEntra) && !"  :  ".equals(horaSai) && !"".equals(senha)) {
+                funcionario.setNome(nome);
+                funcionario.setRg(rg);
+                funcionario.setCpf(cpf);
+                funcionario.setDatanasc(dataNasc);
+                funcionario.setTelefone(telefone);
+                funcionario.setCelular(celular);
+                funcionario.setHora_entra(horaEntra);
+                funcionario.setHora_sai(horaSai);
+                funcionario.setTipo(tipo);
+                funcionario.setStatus(true);
+                funcionario.setNumCarteira("null");
+                funcionario.setCategoria("null");
+                if (tipo.equals("Instrutor")) {
                     if (!"".equals(carteira) && !"".equals(categoria)) {
-                        instrutor.setCodigoFuncionario(funcionario.getCodigoFuncionario());
-                        instrutor.setNome(nome);
-                        instrutor.setRg(rg);
-                        instrutor.setCpf(cpf);
-                        instrutor.setDatanasc(dataNasc);
-                        instrutor.setTelefone(telefone);
-                        instrutor.setCelular(celular);
-                        instrutor.setHora_entra(horaEntra);
-                        instrutor.setHora_sai(horaSai);
-                        instrutor.setTipo(tipo);
-                        instrutor.setNumCarteira(carteira);
-                        instrutor.setCategoria(categoria);
-                        instrutor.setStatus(true);
 
-                        InstrutorArquivo arqInstrutor = new InstrutorArquivo();
-                        if (arqInstrutor.consultar(this.funcionario.getCodigoFuncionario()) != null) {
-
-                            if (arqInstrutor.alterarInstrutor(instrutor)) {
-                                usuario.setLogin(pegarNumero(rg));
-                                usuario.setSenha(senha);
-                                usuario.setLogin(pegarNumero(rg));
-                                usuario.setSenha(senha);
-                                usuario.setFucionario(funcionario);
-                                arqUser.alterarUsuario(usuario);
-
-                                JOptionPane.showMessageDialog(null, "Editado com sucesso!");
-                                return true;
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Não foi Editado!");
-                                return false;
-
-                            }
-
-                        } else {
-
-                            if (arqInstrutor.cadastrarInstrutor(instrutor) != 0) {
-                                usuario.setLogin(pegarNumero(rg));
-                                usuario.setSenha(senha);
-                                usuario.setLogin(pegarNumero(rg));
-                                usuario.setSenha(senha);
-                                usuario.setFucionario(funcionario);
-                                arqUser.alterarUsuario(usuario);
-
-                                JOptionPane.showMessageDialog(null, "Editado com sucesso!");
-                                return true;
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Não foi Editado!");
-                                return false;
-
-                            }
-                        }
+                        funcionario.setNumCarteira(carteira);
+                        funcionario.setCategoria(categoria);
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
-                        return false;
 
+                        JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
+
+                        return false;
                     }
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção invalida!");
+
+                }
+                usuario.setLogin(pegarNumero(rg));
+                usuario.setSenha(senha);
+                novoEndereco.setCodEndereco(0);
+                novoEndereco.setStatus(1);
+                funcionario.setEndereco(novoEndereco);
+                if (arq.alterarfuncionario(funcionario)) {
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(1);
+                    arqUser.alterarUsuario(usuario);
+                    setBotao(true);
+
+                    JOptionPane.showMessageDialog(null, "Editado com sucesso!");
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi Editado!");
                     return false;
+                }
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
+                return false;
             }
         } else {
-
-            JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
+            JOptionPane.showMessageDialog(null, "Funcionário já cadastrado!");
             return false;
+
         }
+
     }
 
     public boolean verificarSeFuncinario() {

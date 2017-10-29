@@ -383,7 +383,7 @@ public class UsuarioArquivo extends Arquivo {
                 conexao.write(',');
                 conexao.write(usuario.getSenha());
                 conexao.write(',');
-                conexao.write(usuario.getFucionario().getCodigoFuncionario());
+                conexao.write(String.valueOf(usuario.getFucionario().getCodigoFuncionario()));
                 conexao.write(',');
                 conexao.write(String.valueOf(usuario.getStatus()));
                 conexao.newLine();

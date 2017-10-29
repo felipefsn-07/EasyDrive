@@ -1,7 +1,5 @@
-codFunc,codEndereco,rg,nome,cpf,dataNasc,telefone,celular,horaEntra,horaSai,tipo,status
-1,1,45.727.288-0,Felipe Silva do Nascimento,342.342.342-34,23/43/2432,(32) 4324-3242,(32) 43243-2432,23:42,32:42,Recepcionista,true
-2,2,34.255.695-3,Gabriel Paulo Turato,234.864.456-33,01/01/1998,(11) 2312-3123,(12) 31231-2312,07:00,16:00,Instrutor,true
-3,0,24.532.452-3,teste,234.243.523-46,26/48/5687,(12) 3456-7899,(24) 13267-8988,14:43,13:23,Gerente,true
-4,0,42.424.223-4,Felipe ,324.234.234-23,23/42/3423,(23) 4242-3423,(23) 42342-3423,23:42,43:24,Instrutor,true
-5,0,42.424.223-4,Felipe ,324.234.234-23,23/42/3423,(23) 4242-3423,(23) 42342-3423,23:42,43:24,Instrutor,true
-6,0,57.884.646-4,TEste,347.876.453-57,03/45/3453,(23) 4234-2504,(20) 32159-2342,29:33,39:50,Gerente,true
+codFunc,codEndereco,rg,nome,cpf,dataNasc,telefone,celular,horaEntra,horaSai,tipo,numCarteira,categoria,status
+1,1,45.727.288-0,Felipe Silva do Nascimento,234.234.234-23,42/34/2342,(23) 4324-3242,(23) 23423-4234,32:44,23:42,Gerente,null,null,true
+2,2,33.432.234-3,Felipe,434.234.234-23,43/42/3423,(34) 3242-3423,(23) 43242-3423,34:23,32:42,Gerente,null,null,true
+3,0,42.342.342-3,Maria das Graças Silva do Nascimento,234.234.234-23,42/34/2342,(42) 3423-4234,(42) 34234-2342,42:34,23:43,Instrutor,24324234233,C,true
+4,0,23.423.432-4,23423,324.234.234-32,23/43/2423,(23) 4234-2342,(23) 42342-3423,32:43,23:42,Recepcionista,null,null,true
