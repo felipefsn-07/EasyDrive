@@ -5,11 +5,14 @@
  */
 package autoescola.controle;
 
+import autoescola.modelo.arquivo.EnderecoArquivo;
 import autoescola.modelo.arquivo.ClienteArquivo;
 import autoescola.modelo.bean.Cliente;
+import autoescola.modelo.bean.Endereco;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -22,11 +25,25 @@ import javax.swing.table.TableModel;
 public class ControleAluno extends Controle {
 
     private Cliente cliente;
+    private Endereco endereco;
+    private boolean editar = false;
+    
+    public boolean verificarSeCliente() {
+
+        return cliente != null;
+    }
+
+    
+    
+    public boolean verificarSeEndereco() {
+
+        return endereco != null;
+    }
 
     public TableModel consultarAlunos() {
 
-        ClienteArquivo arqFunc = new ClienteArquivo();
-        ArrayList<Cliente> clientes = arqFunc.consultarClientes();
+        ClienteArquivo arqCli = new ClienteArquivo();
+        ArrayList<Cliente> clientes = arqCli.consultarClientes();
         DefaultTableModel jTable1 = new DefaultTableModel();
 
         if (clientes != null) {
@@ -47,8 +64,7 @@ public class ControleAluno extends Controle {
             JTable table = new JTable();
             table.setModel(new javax.swing.table.DefaultTableModel(
                     new Object[][]{
-                        {null, null, null, null, null, null, null},
-                    },
+                        {null, null, null, null, null, null, null},},
                     new String[]{
                         "Codigo Funcionário", "Nome", "Rg", "Cpf", "Telefone", "Celular", "numero do Ladv", "Ativo"
                     }
@@ -133,5 +149,168 @@ public class ControleAluno extends Controle {
         }
 
     }
+
+    public boolean cadastrarEndereco(Endereco endereco) {
+        if (!endereco.getBairro().equals("") && !endereco.getCep().equals("     -   ") && !endereco.getCidade().equals("") && !endereco.getEstado().equals("") && !endereco.getLogradouro().equals("") && !endereco.getNum().equals("")) {
+            if (verificarSeCliente()) {
+                endereco.setStatus(cliente.getEndereco().getStatus());
+                EnderecoArquivo arqEnd = new EnderecoArquivo();
+                ClienteArquivo arqCli = new ClienteArquivo();
+                int res = arqEnd.cadastrarEndereco(endereco);
+                if (res != 0) {
+                    this.endereco = endereco;
+                    cliente.setEndereco(arqEnd.consultar(res));
+                    endereco.setCodEndereco(res);
+                    arqCli.alterarCliente(cliente);
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao cadastrar", "Error", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Cadastre o funcionário primeiro", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+
+        }
+    }
+
+    public void editarEndereco(Endereco endereco) {
+        if (!endereco.getBairro().equals("") && !endereco.getCep().equals("     -   ") && !endereco.getCidade().equals("") && !endereco.getEstado().equals("") && !endereco.getLogradouro().equals("") && !endereco.getNum().equals("")) {
+
+            if (verificarSeCliente()) {
+                if (verificarSeEndereco()) {
+                    EnderecoArquivo arqEnd = new EnderecoArquivo();
+                    ClienteArquivo arqCli = new ClienteArquivo();
+                    endereco.setCodEndereco(this.endereco.getCodEndereco());
+
+                    if (arqEnd.alterarEndereco(endereco)) {
+                        endereco.setStatus(cliente.getEndereco().getStatus());
+                        endereco.setStatus(this.endereco.getStatus());
+                        this.endereco = arqEnd.consultar(endereco.getCodEndereco());
+                        cliente.setEndereco(arqEnd.consultar(endereco.getCodEndereco()));
+                        arqCli.alterarCliente(cliente);
+                        JOptionPane.showMessageDialog(null, "Editado com sucesso");
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao editar", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao editar", "Error", JOptionPane.ERROR_MESSAGE);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Cadastre o funcionário primeiro", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }
+    /**
+     * @return the editar
+     */
+    public boolean isEditar() {
+        return editar;
+    }
+
+    /**
+     * @param editar the editar to set
+     */
+    private void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+    public boolean cadastrarAluno(Cliente aluno) {
+
+        ClienteArquivo arqCliente = new ClienteArquivo();
+        if (!"".equals(aluno.getNome()) && !"  .   .   - ".equals(aluno.getRg()) && !"   .   .   -  ".equals(aluno.getCpf()) && !"  /  /    ".equals(aluno.getDatanasc()) && !"(  )     -    ".equals(aluno.getTelefone()) && !"(  )      -    ".equals(aluno.getCelular()) && !"".equals(aluno.getCategoria()) && !"".equals(aluno.getNumLADV())) {
+
+            if (!arqCliente.consultarRg(aluno.getRg())) {
+                Endereco enderecoNovo = new Endereco();
+                enderecoNovo.setCodEndereco(0);
+                aluno.setEndereco(enderecoNovo);
+                int res = arqCliente.cadastrarCliente(aluno);
+                if (res != 0) {
+                    cliente = new Cliente();
+                    this.cliente = aluno;
+                    this.cliente.setCodCliente(res);
+                    JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso!");
+                    setEditar(true);
+                    return true;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro!");
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Aluno já cadastrado!");
+            }
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+
+        }
+        return false;
+    }
+
+    public boolean editarAluno(Cliente aluno) {
+
+        ClienteArquivo arqCliente = new ClienteArquivo();
+        if (!"".equals(aluno.getNome()) && !"  .   .   - ".equals(aluno.getRg()) && !"   .   .   -  ".equals(aluno.getCpf()) && !"  /  /    ".equals(aluno.getDatanasc()) && !"(  )     -    ".equals(aluno.getTelefone()) && !"(  )      -    ".equals(aluno.getCelular()) && !"".equals(aluno.getCategoria()) && !"".equals(aluno.getNumLADV())) {
+
+            if (!arqCliente.consultarRg(aluno.getRg()) || cliente.getRg().equals(aluno.getRg())) {
+                Endereco enderecoNovo = new Endereco();
+                enderecoNovo.setCodEndereco(0);
+                aluno.setEndereco(enderecoNovo);
+                aluno.setStatus(cliente.getStatus());  
+                aluno.setCodCliente(this.cliente.getCodCliente());
+                if (arqCliente.alterarCliente(aluno)) {
+                    this.cliente = aluno;
+                    
+                    JOptionPane.showMessageDialog(null, "Aluno editado com sucesso!");
+                    return true;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro!");
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Aluno já cadastrado!");
+            }
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+
+        }
+        return false;
+
+    }
+
+
+    public Cliente cliente(int id){
+        ClienteArquivo arq = new ClienteArquivo();
+        setEditar(true);
+        this.cliente = arq.consultar(id);
+        return arq.consultar(id);
+    }
+        public Endereco endereco(int id){
+        EnderecoArquivo arq = new EnderecoArquivo();
+        this.endereco = arq.consultar(id);
+        return endereco;
+    }
+    
+    
 
 }

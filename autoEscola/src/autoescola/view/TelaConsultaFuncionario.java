@@ -70,7 +70,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        btnCadastrar = new javax.swing.JPanel();
+        btnCadastrarFuncionario = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
@@ -396,11 +396,11 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "rg", "nome", "cpf", "telefone", "celelular", "tipo" }));
         jComboBox1.setBorder(null);
 
-        btnCadastrar.setBackground(new java.awt.Color(61, 180, 162));
-        btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCadastrarFuncionario.setBackground(new java.awt.Color(61, 180, 162));
+        btnCadastrarFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrarFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCadastrarMouseClicked(evt);
+                btnCadastrarFuncionarioMouseClicked(evt);
             }
         });
 
@@ -413,18 +413,18 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout btnCadastrarLayout = new javax.swing.GroupLayout(btnCadastrar);
-        btnCadastrar.setLayout(btnCadastrarLayout);
-        btnCadastrarLayout.setHorizontalGroup(
-            btnCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCadastrarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnCadastrarFuncionarioLayout = new javax.swing.GroupLayout(btnCadastrarFuncionario);
+        btnCadastrarFuncionario.setLayout(btnCadastrarFuncionarioLayout);
+        btnCadastrarFuncionarioLayout.setHorizontalGroup(
+            btnCadastrarFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCadastrarFuncionarioLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel15)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
-        btnCadastrarLayout.setVerticalGroup(
-            btnCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCadastrarLayout.createSequentialGroup()
+        btnCadastrarFuncionarioLayout.setVerticalGroup(
+            btnCadastrarFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCadastrarFuncionarioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
@@ -454,7 +454,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -467,7 +467,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -588,11 +588,12 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel15MouseClicked
 
-    private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
+    private void btnCadastrarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioMouseClicked
         TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0);
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
-        dispose();    }//GEN-LAST:event_btnCadastrarMouseClicked
+        
+        dispose();    }//GEN-LAST:event_btnCadastrarFuncionarioMouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         TelaConsultaAula tcf = new TelaConsultaAula();
@@ -657,7 +658,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnCadastrar;
+    private javax.swing.JPanel btnCadastrarFuncionario;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

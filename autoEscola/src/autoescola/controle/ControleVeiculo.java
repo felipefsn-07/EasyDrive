@@ -10,6 +10,7 @@ import autoescola.modelo.bean.Veiculo;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +23,21 @@ import javax.swing.table.TableModel;
 public class ControleVeiculo extends Controle {
 
     private Veiculo veiculo;
+    private boolean editar = false;
+
+    /**
+     * @return the editar
+     */
+    public boolean isEditar() {
+        return editar;
+    }
+
+    /**
+     * @param editar the editar to set
+     */
+    private void setEditar(boolean editar) {
+        this.editar = editar;
+    }
 
     public TableModel consultarVeiculos() {
 
@@ -124,6 +140,78 @@ public class ControleVeiculo extends Controle {
             }
         }
 
+    }
+
+    public boolean cadastrarVeiculo(Veiculo veiculo) {
+
+        VeiculoArquivo arqVeiculo = new VeiculoArquivo();
+        if (!"".equals(veiculo.getAno()) && !"   -    ".equals(veiculo.getPlaca()) && !"".equals(veiculo.getModelo()) && !"0".equals(veiculo.getCapacidade())) {
+
+            if (!arqVeiculo.consultarPlaca(veiculo.getPlaca())) {
+                veiculo.setStatus(true);
+                int res = arqVeiculo.cadastrarVeiculo(veiculo);
+                if (res != 0) {
+                    veiculo = new Veiculo();
+                    this.veiculo = veiculo;
+                    this.veiculo.setCodVeiculo(res);
+
+                    JOptionPane.showMessageDialog(null, "Veiculo cadastrado com sucesso!");
+                    setEditar(true);
+                    return true;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro!");
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Veiculo já cadastrado!");
+            }
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+
+        }
+        return false;
+    }
+
+    public boolean editarVeiculo(Veiculo veiculo) {
+
+        VeiculoArquivo arqVeiculo = new VeiculoArquivo();
+        if (!"".equals(veiculo.getAno()) && !"   -    ".equals(veiculo.getPlaca()) && !"".equals(veiculo.getModelo()) && !"0".equals(veiculo.getCapacidade())) {
+
+            if (!arqVeiculo.consultarPlaca(veiculo.getPlaca()) || this.veiculo.getPlaca().equals(veiculo.getPlaca())) {
+                veiculo.setStatus(this.veiculo.getStatus());
+                veiculo.setCodVeiculo(this.veiculo.getCodVeiculo());
+                if (arqVeiculo.alterarVeiculo(veiculo)) {
+                    this.veiculo = veiculo;
+                    JOptionPane.showMessageDialog(null, "Veiculo editado com sucesso!");
+                    return true;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro!");
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Veiculo já cadastrado!");
+            }
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+
+        }
+        return false;
+
+    }
+
+    public Veiculo getVeiculo(int id) {
+        VeiculoArquivo arq = new VeiculoArquivo();
+        this.veiculo = arq.consultar(id);
+        setEditar(true);
+        return this.veiculo;
     }
 
 }

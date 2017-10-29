@@ -120,6 +120,41 @@ public class VeiculoArquivo extends Arquivo {
         }
     }
 
+        public boolean consultarPlaca(String placa) {
+        File arquivoCSV = new File(tabela);
+        Veiculo veiculo = new Veiculo();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[1].equals(placa)) {
+                    return true;
+
+                }
+            }
+            return false;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
     /**
      * Desativar veiculo a partir do código Veiculo
      *
@@ -288,7 +323,7 @@ public class VeiculoArquivo extends Arquivo {
      * @param veiculo
      * @return false or true
      */
-    public boolean cadastrarVeiculo(Veiculo veiculo) {
+    public int cadastrarVeiculo(Veiculo veiculo) {
 
         int codVeiculo = autoIncremento(tabela);
         try {
@@ -297,7 +332,7 @@ public class VeiculoArquivo extends Arquivo {
             FileWriter fw = new FileWriter(tabela, true);
             BufferedWriter conexao = new BufferedWriter(fw);
             if (codVeiculo != 0) {
-                conexao.write(String.valueOf(veiculo.getCodVeiculo()));
+                conexao.write(String.valueOf(codVeiculo));
                 conexao.write(',');
                 conexao.write(veiculo.getPlaca());
                 conexao.write(',');
@@ -311,15 +346,15 @@ public class VeiculoArquivo extends Arquivo {
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return codVeiculo;
             } else {
                 //msg erro no incremento codVeiculo == 0
-                return false;
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 

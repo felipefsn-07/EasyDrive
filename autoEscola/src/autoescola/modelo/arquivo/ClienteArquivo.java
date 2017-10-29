@@ -135,6 +135,41 @@ public class ClienteArquivo extends Arquivo {
         }
     }
 
+    
+    public boolean consultarRg(String rg) {
+        File arquivoCSV = new File(tabela);
+        Cliente cliente = new Cliente();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[5].equals(rg)) {
+                     return true;
+                }
+            }
+            return false;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
     /**
      *
      * @param codigoCliente
@@ -194,6 +229,7 @@ public class ClienteArquivo extends Arquivo {
 
         }
     }
+
     public boolean ativar(int codigoCliente) {
         File arquivoCSV = new File(tabela);
         try {
@@ -312,7 +348,7 @@ public class ClienteArquivo extends Arquivo {
      * @param cliente
      * @return false or true
      */
-    public boolean cadastrarCliente(Cliente cliente) {
+    public int cadastrarCliente(Cliente cliente) {
 
         int idCliente = autoIncremento(tabela);
         try {
@@ -337,7 +373,7 @@ public class ClienteArquivo extends Arquivo {
                 conexao.write(',');
                 conexao.write(cliente.getNumLADV());
                 conexao.write(',');
-                
+
                 conexao.write(String.valueOf(cliente.getStatus()));
                 conexao.write(',');
                 conexao.write(cliente.getCategoria());
@@ -346,14 +382,14 @@ public class ClienteArquivo extends Arquivo {
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return idCliente;
             } else {
-                return false;
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 

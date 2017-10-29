@@ -559,16 +559,17 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0);
+        TelaCadastroAluno tcf = new TelaCadastroAluno(0);
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
-        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0);
+        TelaCadastroAluno tcf = new TelaCadastroAluno(0);
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
+        dispose();
     }//GEN-LAST:event_btnCadastrarMouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -590,17 +591,16 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
 
         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
 
-            //int id = (int) jTableFuncionario.getValueAt(row, 0);
-            /*if (jTableAluno.isCellSelected(row, 0)) {
+            //int id = (int) jTableAluno.getValueAt(row, 0);
+            if (jTableAluno.isCellSelected(row, 0)) {
                 // controleFuncionario.alterarStatus(true, id);
                 String id = String.valueOf(jTableAluno.getValueAt(row, 0));
-                controleFuncionario.consultar(parseInt(id));
-                TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(parseInt(id));
+                TelaCadastroAluno tcf = new TelaCadastroAluno(parseInt(id));
                 tcf.setVisible(true);
                 tcf.setLocationRelativeTo(null);
                 dispose();
 
-            }*/
+            }
         }
     }//GEN-LAST:event_jTableAlunoMouseClicked
 

@@ -9,12 +9,10 @@ package autoescola.view;
  *
  * @author felipe
  */
-
 import autoescola.controle.ControleVeiculo;
 import autoescola.controle.ControleLogin;
 import autoescola.controle.TabelaVeiculo;
-
-
+import static java.lang.Integer.parseInt;
 
 public class TelaConsultaVeiculo extends javax.swing.JFrame {
 
@@ -25,7 +23,6 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
     private final ControleVeiculo controleVeiculo = new ControleVeiculo();
     private final TabelaVeiculo tabela = new TabelaVeiculo();
 
-    
     public TelaConsultaVeiculo() {
         initComponents();
     }
@@ -62,7 +59,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        btnCadastrar = new javax.swing.JPanel();
+        btnCadastrarVeiculo = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
@@ -378,11 +375,11 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo do veiculo", "placa", "ano", "modelo", "capacidade" }));
         jComboBox1.setBorder(null);
 
-        btnCadastrar.setBackground(new java.awt.Color(61, 180, 162));
-        btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCadastrarVeiculo.setBackground(new java.awt.Color(61, 180, 162));
+        btnCadastrarVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrarVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCadastrarMouseClicked(evt);
+                btnCadastrarVeiculoMouseClicked(evt);
             }
         });
 
@@ -395,18 +392,18 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout btnCadastrarLayout = new javax.swing.GroupLayout(btnCadastrar);
-        btnCadastrar.setLayout(btnCadastrarLayout);
-        btnCadastrarLayout.setHorizontalGroup(
-            btnCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCadastrarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnCadastrarVeiculoLayout = new javax.swing.GroupLayout(btnCadastrarVeiculo);
+        btnCadastrarVeiculo.setLayout(btnCadastrarVeiculoLayout);
+        btnCadastrarVeiculoLayout.setHorizontalGroup(
+            btnCadastrarVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCadastrarVeiculoLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel15)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
-        btnCadastrarLayout.setVerticalGroup(
-            btnCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCadastrarLayout.createSequentialGroup()
+        btnCadastrarVeiculoLayout.setVerticalGroup(
+            btnCadastrarVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCadastrarVeiculoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
@@ -436,7 +433,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCadastrarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -449,7 +446,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCadastrarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -502,6 +499,8 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         TelaConsultaAula tcf = new TelaConsultaAula();
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
+        dispose();
+
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
@@ -542,16 +541,14 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
 
             //int id = (int) jTableFuncionario.getValueAt(row, 0);
-            /*if (jTableAluno.isCellSelected(row, 0)) {
-                // controleFuncionario.alterarStatus(true, id);
-                String id = String.valueOf(jTableAluno.getValueAt(row, 0));
-                controleFuncionario.consultar(parseInt(id));
-                TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(parseInt(id));
+            if (jTableVeiculo.isCellSelected(row, 0)) {
+                String id = String.valueOf(jTableVeiculo.getValueAt(row, 0));
+                TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(parseInt(id));
                 tcf.setVisible(true);
                 tcf.setLocationRelativeTo(null);
                 dispose();
 
-            }*/
+            }
         }
     }//GEN-LAST:event_jTableVeiculoMouseClicked
 
@@ -577,17 +574,19 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0);
+        TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(0);
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_jLabel15MouseClicked
 
-    private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
-        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0);
+    private void btnCadastrarVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarVeiculoMouseClicked
+        TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(0);
         tcf.setVisible(true);
         tcf.setLocationRelativeTo(null);
-    }//GEN-LAST:event_btnCadastrarMouseClicked
+        dispose();
+
+    }//GEN-LAST:event_btnCadastrarVeiculoMouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
@@ -630,7 +629,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnCadastrar;
+    private javax.swing.JPanel btnCadastrarVeiculo;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
