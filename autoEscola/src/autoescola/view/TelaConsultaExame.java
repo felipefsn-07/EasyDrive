@@ -6,7 +6,7 @@
 package autoescola.view;
 
 import autoescola.controle.ControleAluno;
-import autoescola.controle.ControleExame;
+import autoescola.controle.ControleCalendario;
 import autoescola.controle.ControleLogin;
 import autoescola.controle.TabelaCalendario;
 import static java.lang.Integer.parseInt;
@@ -21,11 +21,12 @@ public class TelaConsultaExame extends javax.swing.JFrame {
      * Creates new form TelaConsultaExame
      */
     private final ControleLogin controleLogin = new ControleLogin();
-    private final ControleExame controleExame = new ControleExame();
-    private final TabelaCalendario tabela = new TabelaCalendario();
+    private final ControleCalendario controleExame = new ControleCalendario();
+    private TabelaCalendario tabela = new TabelaCalendario(controleExame);
 
     public TelaConsultaExame() {
         initComponents();
+        lblMes.setText(controleExame.mesAnteriorProximo());
 
     }
 
@@ -65,9 +66,11 @@ public class TelaConsultaExame extends javax.swing.JFrame {
         bntAnteriorMes = new javax.swing.JLabel();
         lblMes = new javax.swing.JLabel();
         bntProximoMes = new javax.swing.JLabel();
-        bntAnoAnterio = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        bntAnoAnterior = new javax.swing.JLabel();
+        lblAno = new javax.swing.JLabel();
         bntProximoAno = new javax.swing.JLabel();
+        btnHoje = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         btnCadastrar1 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -430,22 +433,60 @@ public class TelaConsultaExame extends javax.swing.JFrame {
             }
         });
 
-        bntAnoAnterio.setBackground(new java.awt.Color(254, 254, 254));
-        bntAnoAnterio.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        bntAnoAnterio.setForeground(new java.awt.Color(254, 254, 254));
-        bntAnoAnterio.setText("<");
-        bntAnoAnterio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bntAnoAnterior.setBackground(new java.awt.Color(254, 254, 254));
+        bntAnoAnterior.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        bntAnoAnterior.setForeground(new java.awt.Color(254, 254, 254));
+        bntAnoAnterior.setText("<");
+        bntAnoAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bntAnoAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntAnoAnteriorMouseClicked(evt);
+            }
+        });
 
-        jLabel16.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(254, 254, 254));
-        jLabel16.setText("2017");
+        lblAno.setBackground(new java.awt.Color(254, 254, 254));
+        lblAno.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        lblAno.setForeground(new java.awt.Color(254, 254, 254));
+        lblAno.setText("2017");
 
         bntProximoAno.setBackground(new java.awt.Color(254, 254, 254));
         bntProximoAno.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         bntProximoAno.setForeground(new java.awt.Color(254, 254, 254));
         bntProximoAno.setText(">");
         bntProximoAno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bntProximoAno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntProximoAnoMouseClicked(evt);
+            }
+        });
+
+        btnHoje.setBackground(new java.awt.Color(97, 212, 195));
+        btnHoje.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHoje.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHojeMouseClicked(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel18.setText("   Hoje");
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel18MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnHojeLayout = new javax.swing.GroupLayout(btnHoje);
+        btnHoje.setLayout(btnHojeLayout);
+        btnHojeLayout.setHorizontalGroup(
+            btnHojeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+        );
+        btnHojeLayout.setVerticalGroup(
+            btnHojeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -454,35 +495,35 @@ public class TelaConsultaExame extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(bntAnteriorMes, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblMes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(bntProximoMes, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bntAnoAnterio, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bntAnoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblAno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bntProximoAno, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntProximoAno, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnHoje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+            .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bntAnoAnterio)
-                            .addComponent(bntProximoAno))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel16)
-                            .addGap(1, 1, 1)))
                     .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bntAnteriorMes)
+                        .addComponent(bntProximoAno)
+                        .addComponent(lblAno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bntAnoAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bntProximoMes)
                         .addComponent(lblMes)
-                        .addComponent(bntProximoMes)))
-                .addContainerGap())
+                        .addComponent(bntAnteriorMes))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(btnHoje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -548,19 +589,19 @@ public class TelaConsultaExame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(0, 89, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(0, 89, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(21, 21, 21))
         );
         jPanel4Layout.setVerticalGroup(
@@ -706,6 +747,8 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void bntAnteriorMesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntAnteriorMesMouseClicked
+        //jtCalendario = tabela;
+
         jtCalendario.setModel(controleExame.calendarioMesAnterior());
         lblMes.setText(controleExame.mesAnteriorProximo());
 
@@ -713,8 +756,38 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     }//GEN-LAST:event_bntAnteriorMesMouseClicked
 
     private void bntProximoMesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntProximoMesMouseClicked
+        //jtCalendario = new TabelaCalendario();
         jtCalendario.setModel(controleExame.calendarioProximoMes());
-        lblMes.setText(controleExame.mesAnteriorProximo());    }//GEN-LAST:event_bntProximoMesMouseClicked
+        lblMes.setText(controleExame.mesAnteriorProximo());
+
+
+    }//GEN-LAST:event_bntProximoMesMouseClicked
+
+    private void bntAnoAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntAnoAnteriorMouseClicked
+        jtCalendario.setModel(controleExame.calendarioAnoAnterior());
+        lblAno.setText(String.valueOf(controleExame.getAno()));
+
+    }//GEN-LAST:event_bntAnoAnteriorMouseClicked
+
+    private void bntProximoAnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntProximoAnoMouseClicked
+        jtCalendario.setModel(controleExame.calendarioProximoAno());
+        lblAno.setText(String.valueOf(controleExame.getAno()));
+
+    }//GEN-LAST:event_bntProximoAnoMouseClicked
+
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+        jtCalendario.setModel(controleExame.calendarioAtual());
+        lblAno.setText(String.valueOf(controleExame.getAno()));
+        lblMes.setText(controleExame.mesAnteriorProximo());    }//GEN-LAST:event_jLabel18MouseClicked
+
+    private void btnHojeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHojeMouseClicked
+
+        jtCalendario.setModel(controleExame.calendarioAtual());
+        lblAno.setText(String.valueOf(controleExame.getAno()));
+        lblMes.setText(controleExame.mesAnteriorProximo());
+
+
+    }//GEN-LAST:event_btnHojeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -752,18 +825,19 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bntAnoAnterio;
+    private javax.swing.JLabel bntAnoAnterior;
     private javax.swing.JLabel bntAnteriorMes;
     private javax.swing.JLabel bntProximoAno;
     private javax.swing.JLabel bntProximoMes;
     private javax.swing.JPanel btnCadastrar;
     private javax.swing.JPanel btnCadastrar1;
+    private javax.swing.JPanel btnHoje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -787,6 +861,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     private javax.swing.JPanel jpFuncionario;
     private javax.swing.JPanel jpVeiculo;
     private javax.swing.JTable jtCalendario;
+    private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblMes;
     private javax.swing.JPanel panelSair;
     private javax.swing.JPanel psConfigUsuario;
