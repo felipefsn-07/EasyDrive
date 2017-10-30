@@ -80,6 +80,7 @@ public class TabelaCalendario extends JTable {
                 }
 
                 if (isCellSelected(row, column)) {
+                    controle.setDia(linhaCol);
                     Color color = new Color(61, 180, 162);
                     component.setBackground(color);
                     component.setForeground(Color.WHITE);

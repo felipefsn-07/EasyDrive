@@ -23,8 +23,7 @@ public class ControleCalendario extends Calendario {
     private int mes;
     private int ano;
     private int dia;
-
-
+    private String diaMesAno;
 
     /**
      *
@@ -62,7 +61,7 @@ public class ControleCalendario extends Calendario {
     /**
      * @param dia the dia to set
      */
-    private void setDia(int dia) {
+    protected void setDia(int dia) {
         this.dia = dia;
     }
 
@@ -280,4 +279,14 @@ public class ControleCalendario extends Calendario {
 
     }
 
+    /**
+     * @return the diaMesAno
+     */
+    protected String getDiaMesAno() {
+        String diaS = dia < 10 ? "0" : "";
+        String mesS = mes < 10 ? "0" : "";
+
+        return diaS+String.valueOf(dia) + "/" + mesS+String.valueOf(mes) + "/" + String.valueOf(ano);
+
+    }
 }

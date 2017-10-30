@@ -81,7 +81,8 @@ public class ExameArquivo extends Arquivo {
      * @param codExame
      * @return tje Exame
      */
-    public Exame consultarExame(int codExame) {
+    @Override
+    public Exame consultar(int codExame) {
         File arquivoCSV = new File(tabela);
         Exame exame = new Exame();
         try {
@@ -125,6 +126,54 @@ public class ExameArquivo extends Arquivo {
         }
     }
 
+       public ArrayList<Exame> consultarData(String data){
+        File arquivoCSV = new File(tabela);
+        ArrayList<Exame> exames = new ArrayList();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[1].equals(data)) {
+                    Exame exame = new Exame();
+                    exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
+                    exame.setDataExame(valoresEntreVirgulas[1]);
+                    exame.setHorarioExame(valoresEntreVirgulas[2]);
+                    Veiculo veiculo = new Veiculo();
+                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
+                    exame.setVeiculo(veiculo);
+                    Funcionario instrutor = new Funcionario();
+                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
+                    exame.setInstrutor(instrutor);
+                    exame.setStatus(parseInt(valoresEntreVirgulas[5]));
+
+                    exames.add(exame);
+
+                }
+            }
+            return exames;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
+    
     /**
      * Desativar o exame cadastrado a partir do codigo do Exame
      * @param codExame

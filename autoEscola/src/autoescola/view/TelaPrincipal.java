@@ -435,8 +435,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel8MouseClicked
+        TelaConsultaExame tcf = new TelaConsultaExame();
+        tcf.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
+        tcf.setLocationRelativeTo(null);
+        dispose();    }//GEN-LAST:event_jPanel8MouseClicked
 
     private void panelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSairMouseClicked
         TelaLogin telaLogin = new TelaLogin();
