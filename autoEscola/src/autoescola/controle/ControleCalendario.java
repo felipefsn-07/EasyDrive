@@ -282,7 +282,7 @@ public class ControleCalendario extends Calendario {
     /**
      * @return the diaMesAno
      */
-    protected String getDiaMesAno() {
+    public String getDiaMesAno() {
         String diaS = dia < 10 ? "0" : "";
         String mesS = mes < 10 ? "0" : "";
 

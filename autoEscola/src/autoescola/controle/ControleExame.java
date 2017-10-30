@@ -24,7 +24,6 @@ public class ControleExame {
         this.calendario = calendario;
     }
 
-
     public TableModel consultarExames() {
 
         ExameArquivo arqExame = new ExameArquivo();
@@ -33,9 +32,11 @@ public class ControleExame {
 
         if (exames != null) {
             jTable1.addColumn("Codigo Exame");
-            jTable1.addColumn("Hora");
+            jTable1.addColumn("Horario Inicio");
+            jTable1.addColumn("Horario fim");
+
             for (Exame exame : exames) {
-                jTable1.addRow(new Object[]{exame.getCodigoExame(), exame.getHorarioExame()});
+                jTable1.addRow(new Object[]{exame.getCodigoExame(), exame.getHorarioInicio(), exame.getHorarioFim()});
             }
             return jTable1;
         } else {
@@ -44,7 +45,7 @@ public class ControleExame {
                     new Object[][]{
                         {null, null, null, null, null, null},},
                     new String[]{
-                        "Codigo Exame", "Hora"
+                        "Codigo Exame", "Horario Inicio", "Horario fim"
                     }
             ));
             return table.getModel();

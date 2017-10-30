@@ -27,6 +27,7 @@ public class ExameArquivo extends Arquivo {
 
     /**
      * Consulta e retorna todos os Exames cadastrados
+     *
      * @return the ArrayList of Exame
      */
     public ArrayList<Exame> consultarExames() {
@@ -54,14 +55,16 @@ public class ExameArquivo extends Arquivo {
                     Exame exame = new Exame();
                     exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
                     exame.setDataExame(valoresEntreVirgulas[1]);
-                    exame.setHorarioExame(valoresEntreVirgulas[2]);
+                    exame.setHorarioInicio(valoresEntreVirgulas[2]);
+                    exame.setHorarioFim(valoresEntreVirgulas[3]);
+
                     Veiculo veiculo = new Veiculo();
-                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
+                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[4]));
                     exame.setVeiculo(veiculo);
                     Funcionario instrutor = new Funcionario();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
+                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
                     exame.setInstrutor(instrutor);
-                    exame.setStatus(parseInt(valoresEntreVirgulas[5]));
+                    exame.setStatus(parseInt(valoresEntreVirgulas[6]));
 
                     exames.add(exame);
 
@@ -77,7 +80,8 @@ public class ExameArquivo extends Arquivo {
     }
 
     /**
-     *Consulta e retorna o exame a partir do código do Exame 
+     * Consulta e retorna o exame a partir do código do Exame
+     *
      * @param codExame
      * @return tje Exame
      */
@@ -106,14 +110,16 @@ public class ExameArquivo extends Arquivo {
                 if (parseInt(valoresEntreVirgulas[0]) == codExame) {
                     exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
                     exame.setDataExame(valoresEntreVirgulas[1]);
-                    exame.setHorarioExame(valoresEntreVirgulas[2]);
+                    exame.setHorarioInicio(valoresEntreVirgulas[2]);
+                    exame.setHorarioFim(valoresEntreVirgulas[3]);
+
                     Veiculo veiculo = new Veiculo();
-                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
+                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[4]));
                     exame.setVeiculo(veiculo);
                     Funcionario instrutor = new Funcionario();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
+                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
                     exame.setInstrutor(instrutor);
-                    exame.setStatus(parseInt(valoresEntreVirgulas[5]));
+                    exame.setStatus(parseInt(valoresEntreVirgulas[6]));
 
                 }
             }
@@ -126,7 +132,7 @@ public class ExameArquivo extends Arquivo {
         }
     }
 
-       public ArrayList<Exame> consultarData(String data){
+    public ArrayList<Exame> consultarData(String data) {
         File arquivoCSV = new File(tabela);
         ArrayList<Exame> exames = new ArrayList();
         try {
@@ -151,15 +157,15 @@ public class ExameArquivo extends Arquivo {
                     Exame exame = new Exame();
                     exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
                     exame.setDataExame(valoresEntreVirgulas[1]);
-                    exame.setHorarioExame(valoresEntreVirgulas[2]);
+                    exame.setHorarioInicio(valoresEntreVirgulas[2]);
+                    exame.setHorarioFim(valoresEntreVirgulas[3]);
                     Veiculo veiculo = new Veiculo();
-                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
+                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[4]));
                     exame.setVeiculo(veiculo);
                     Funcionario instrutor = new Funcionario();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
+                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
                     exame.setInstrutor(instrutor);
-                    exame.setStatus(parseInt(valoresEntreVirgulas[5]));
-
+                    exame.setStatus(parseInt(valoresEntreVirgulas[6]));
                     exames.add(exame);
 
                 }
@@ -173,9 +179,9 @@ public class ExameArquivo extends Arquivo {
         }
     }
 
-    
     /**
      * Desativar o exame cadastrado a partir do codigo do Exame
+     *
      * @param codExame
      * @return false or true
      */
@@ -206,6 +212,8 @@ public class ExameArquivo extends Arquivo {
                     linhasDoArquivo += valoresEntreVirgulas[2] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[3] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[4] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[5] + ",";
+
                     linhasDoArquivo += "0";
 
                 }
@@ -232,6 +240,7 @@ public class ExameArquivo extends Arquivo {
 
     /**
      * Alterar dados do Exame
+     *
      * @param exame
      * @return false or true
      */
@@ -257,10 +266,11 @@ public class ExameArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == exame.getCodigoExame()) {
                     linhasDoArquivo = String.valueOf(exame.getCodigoExame()) + ",";
-                    linhasDoArquivo += exame.getDataExame()+ ",";
-                    linhasDoArquivo += exame.getHorarioExame()+ ",";
-                    linhasDoArquivo += String.valueOf(exame.getVeiculo().getCodVeiculo())+ ",";
-                    linhasDoArquivo += String.valueOf(exame.getInstrutor().getCodigoFuncionario()) + ",";                 
+                    linhasDoArquivo += exame.getDataExame() + ",";
+                    linhasDoArquivo += exame.getHorarioInicio() + ",";
+                    linhasDoArquivo += exame.getHorarioFim() + ",";
+                    linhasDoArquivo += String.valueOf(exame.getVeiculo().getCodVeiculo()) + ",";
+                    linhasDoArquivo += String.valueOf(exame.getInstrutor().getCodigoFuncionario()) + ",";
                     linhasDoArquivo += String.valueOf(exame.getStatus());
 
                 }
@@ -283,8 +293,10 @@ public class ExameArquivo extends Arquivo {
 
         }
     }
+
     /**
      * Função para cadastrar exame
+     *
      * @param exame
      * @return false or true
      */
@@ -301,7 +313,9 @@ public class ExameArquivo extends Arquivo {
                 conexao.write(',');
                 conexao.write(exame.getDataExame());
                 conexao.write(',');
-                conexao.write(exame.getHorarioExame());
+                conexao.write(exame.getHorarioInicio());
+                conexao.write(',');
+                conexao.write(exame.getHorarioFim());
                 conexao.write(',');
                 conexao.write(String.valueOf(exame.getVeiculo().getCodVeiculo()));
                 conexao.write(',');
@@ -324,7 +338,9 @@ public class ExameArquivo extends Arquivo {
     }
 
     /**
-     * Função para consultar Exame a partir do campo e um valor que pode ser encontrado nessa coluna
+     * Função para consultar Exame a partir do campo e um valor que pode ser
+     * encontrado nessa coluna
+     *
      * @param campo
      * @param valor
      * @return the ArrayList of Exame
@@ -360,14 +376,16 @@ public class ExameArquivo extends Arquivo {
                     Exame exame = new Exame();
                     exame.setCodigoExame(parseInt(valoresEntreVirgulas[0]));
                     exame.setDataExame(valoresEntreVirgulas[1]);
-                    exame.setHorarioExame(valoresEntreVirgulas[2]);
+                    exame.setHorarioInicio(valoresEntreVirgulas[2]);
+                    exame.setHorarioFim(valoresEntreVirgulas[3]);
+
                     Veiculo veiculo = new Veiculo();
-                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
+                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[4]));
                     exame.setVeiculo(veiculo);
                     Funcionario instrutor = new Funcionario();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
+                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
                     exame.setInstrutor(instrutor);
-                    exame.setStatus(parseInt(valoresEntreVirgulas[5]));
+                    exame.setStatus(parseInt(valoresEntreVirgulas[6]));
 
                     exames.add(exame);
 
