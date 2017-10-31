@@ -5,11 +5,12 @@
  */
 package autoescola.controle;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author felipe
  */
-public class FuncionarioControle {
-    
+public class TabelaExame extends JTable{
     
 }

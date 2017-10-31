@@ -16,13 +16,13 @@ public class Veiculo {
     private String ano;
     private float capacidade;
     private String tipo;
-    private int status;
+    private boolean status;
     
     public Veiculo(){
         
     }
     
-    public Veiculo(String placa, String modelo, String ano, float capacidade, String tipo, int status){
+    public Veiculo(String placa, String modelo, String ano, float capacidade, String tipo, boolean status){
         this.placa = placa;
         this.modelo = modelo;
         this.ano = ano;
@@ -109,14 +109,14 @@ public class Veiculo {
     /**
      * @return the status
      */
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
     

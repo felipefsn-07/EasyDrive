@@ -37,7 +37,7 @@ public class CliDao {
             stmt.setString(5, cli.getRg());
             stmt.setString(6, cli.getCpf());
             stmt.setString(7, cli.getNumLADV());
-            stmt.setInt(8, cli.getStatus());
+            stmt.setBoolean(8, cli.getStatus());
             stmt.setString(9, cli.getCategoria());
             stmt.setInt(10, cli.getEndereco().getCodEndereco());
 
@@ -77,7 +77,7 @@ public class CliDao {
                 cli.setRg(rs.getString("rg"));
                 cli.setCpf(rs.getString("cpf"));
                 cli.setNumLADV(rs.getString("numLadv"));
-                cli.setStatus(rs.getInt("status"));
+                cli.setStatus(rs.getBoolean("status"));
                 cli.setCategoria(rs.getString("categoria"));
                 endereco.setCodEndereco(rs.getInt("codEndereco"));
 
@@ -123,7 +123,7 @@ public class CliDao {
                 cli.setRg(rs.getString("rg"));
                 cli.setCpf(rs.getString("cpf"));
                 cli.setNumLADV(rs.getString("numLadv"));
-                cli.setStatus(rs.getInt("status"));
+                cli.setStatus(rs.getBoolean("status"));
                 cli.setCategoria(rs.getString("categoria"));
                 endereco.setCodEndereco(rs.getInt("codEndereco"));
 
@@ -176,7 +176,7 @@ public class CliDao {
             stmt.setString(5, cli.getRg());
             stmt.setString(6, cli.getCpf());
             stmt.setString(7, cli.getNumLADV());
-            stmt.setInt(8, cli.getStatus());
+            stmt.setBoolean(8, cli.getStatus());
             stmt.setString(9, cli.getCategoria());
             stmt.setInt(10, cli.getCodCliente());
 
@@ -198,7 +198,7 @@ public class CliDao {
 
         try {
             stmt = con.prepareStatement("UPDATE cliente SET status = ? WHERE codCliente = ?");
-            stmt.setInt(1, cli.getStatus());
+            stmt.setBoolean(1, cli.getStatus());
             stmt.setInt(2, cli.getCodCliente());
 
             stmt.executeUpdate();

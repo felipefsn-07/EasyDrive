@@ -5,6 +5,7 @@
  */
 package autoescola.modelo.arquivo;
 
+import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Usuario;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,11 +20,13 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class UsuarioArquivo extends Arquivo{
+public class UsuarioArquivo extends Arquivo {
+
     private final String tabela = "tabelas/usuario.csv";
-    
+
     /**
      * Consulta e retorna todos os usuarios cadastrados
+     *
      * @return ArrayList of Usuario
      */
     public ArrayList<Usuario> consultarUsuarios() {
@@ -52,7 +55,11 @@ public class UsuarioArquivo extends Arquivo{
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
                     usuario.setLogin(valoresEntreVirgulas[1]);
                     usuario.setSenha(valoresEntreVirgulas[2]);
-                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[3]));
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[4]));
+
                     usuarios.add(usuario);
 
                 }
@@ -68,6 +75,7 @@ public class UsuarioArquivo extends Arquivo{
 
     /**
      * Consultar usuario a partir do código do usuario
+     *
      * @param codUsuario
      * @return the Usuario
      */
@@ -97,7 +105,51 @@ public class UsuarioArquivo extends Arquivo{
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
                     usuario.setLogin(valoresEntreVirgulas[1]);
                     usuario.setSenha(valoresEntreVirgulas[2]);
-                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[3]));
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[4]));
+
+                }
+            }
+            return usuario;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
+    public Usuario consultarFuncionarioUsuario (int codigoFuncionario) {
+        File arquivoCSV = new File(tabela);
+        Usuario usuario = new Usuario();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[3]) == codigoFuncionario) {
+                    usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
+                    usuario.setLogin(valoresEntreVirgulas[1]);
+                    usuario.setSenha(valoresEntreVirgulas[2]);
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[3]));
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[4]));
 
                 }
             }
@@ -110,8 +162,49 @@ public class UsuarioArquivo extends Arquivo{
         }
     }
     
+    public int consultarUsuario(String login, String senha, int tipo) {
+
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (tipo == 1) {
+                    if (valoresEntreVirgulas[1].equals(login) && valoresEntreVirgulas[2].equals(senha)) {
+                        return parseInt(valoresEntreVirgulas[0]);
+
+                    }
+                } else if (tipo == 2 && valoresEntreVirgulas[1].equals(login)) {
+                    return 0;
+
+                }
+            }
+            return 0;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return 0;
+
+        }
+    }
+
     /**
      * Desativar usuario a partir do código do usuario
+     *
      * @param codUsuario
      * @return false or true
      */
@@ -140,6 +233,7 @@ public class UsuarioArquivo extends Arquivo{
                     linhasDoArquivo = valoresEntreVirgulas[0] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[1] + ",";
                     linhasDoArquivo += valoresEntreVirgulas[2] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
                     linhasDoArquivo += "0";
 
                 }
@@ -155,7 +249,56 @@ public class UsuarioArquivo extends Arquivo{
             } catch (IOException e) {
                 return false;
             }
-            
+
+            //return true;
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
+       public boolean ativar(int codUsuario) {
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+            String todo = "";
+            //ignora a primeira linha do arquivo
+            todo += leitor.nextLine() + "\n";
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == codUsuario) {
+                    linhasDoArquivo = valoresEntreVirgulas[0] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[1] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[2] + ",";
+                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
+                    linhasDoArquivo += "1";
+
+                }
+                todo += linhasDoArquivo + "\n";
+
+            }
+            try {
+                FileWriter fw = new FileWriter(tabela);
+                BufferedWriter conexao = new BufferedWriter(fw);
+                conexao.write(todo);
+                conexao.close();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+
             //return true;
         } catch (FileNotFoundException e) {
             //log de erro
@@ -166,6 +309,7 @@ public class UsuarioArquivo extends Arquivo{
 
     /**
      * Alterar o usuario
+     *
      * @param usuario
      * @return false or true
      */
@@ -191,8 +335,10 @@ public class UsuarioArquivo extends Arquivo{
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == usuario.getCodLogin()) {
                     linhasDoArquivo = String.valueOf(usuario.getCodLogin()) + ",";
-                    linhasDoArquivo += usuario.getLogin()+ ",";
-                    linhasDoArquivo += usuario.getSenha()+ ",";
+                    linhasDoArquivo += usuario.getLogin() + ",";
+                    linhasDoArquivo += usuario.getSenha() + ",";
+                    linhasDoArquivo += String.valueOf(usuario.getFucionario().getCodigoFuncionario()) + ",";
+
                     linhasDoArquivo += String.valueOf(usuario.getStatus());
 
                 }
@@ -218,10 +364,11 @@ public class UsuarioArquivo extends Arquivo{
 
     /**
      * Cadastrar usuario
+     *
      * @param usuario
      * @return false or true
      */
-    public boolean cadastrarUsuario(Usuario usuario) {
+    public int cadastrarUsuario(Usuario usuario) {
 
         int codUsuario = autoIncremento(tabela);
         try {
@@ -232,30 +379,33 @@ public class UsuarioArquivo extends Arquivo{
             if (codUsuario != 0) {
                 conexao.write(String.valueOf(codUsuario));
                 conexao.write(',');
-                conexao.write(usuario.getCodLogin());
-                conexao.write(',');
                 conexao.write(usuario.getLogin());
                 conexao.write(',');
                 conexao.write(usuario.getSenha());
-                conexao.write(',');                
+                conexao.write(',');
+                conexao.write(String.valueOf(usuario.getFucionario().getCodigoFuncionario()));
+                conexao.write(',');
                 conexao.write(String.valueOf(usuario.getStatus()));
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return codUsuario;
             } else {
                 //msg erro no incremento codUsuario == 0
-                return false;
+
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 
     /**
-     *  Função para consultar usuario a partir do campo e um valor que pode ser encontrado nessa coluna
+     * Função para consultar usuario a partir do campo e um valor que pode ser
+     * encontrado nessa coluna
+     *
      * @param campo
      * @param valor
      * @return the ArrayList of Usuario
@@ -292,7 +442,10 @@ public class UsuarioArquivo extends Arquivo{
                     usuario.setCodLogin(parseInt(valoresEntreVirgulas[0]));
                     usuario.setLogin(valoresEntreVirgulas[1]);
                     usuario.setSenha(valoresEntreVirgulas[2]);
-                    usuario.setStatus(parseInt(valoresEntreVirgulas[3]));
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[3]));
+                    usuario.setFucionario(funcionario);
+                    usuario.setStatus(parseInt(valoresEntreVirgulas[4]));
 
                     usuarios.add(usuario);
 
@@ -306,5 +459,5 @@ public class UsuarioArquivo extends Arquivo{
 
         }
     }
-    
+
 }

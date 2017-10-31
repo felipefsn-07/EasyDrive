@@ -12,14 +12,16 @@ import java.util.ArrayList;
  * @author felipe
  */
 public class Exame {
+
     private int codigoExame;
     private String dataExame;
-    private String horarioExame;
+    private String horarioInicio;
+    private String horarioFim;
+
     private Veiculo veiculo;
-    private Instrutor instrutor;
+    private Funcionario instrutor;
     private int status;
     private ArrayList<ExameClientes> exames;
-
 
     /**
      * @return the codigoExame
@@ -50,20 +52,6 @@ public class Exame {
     }
 
     /**
-     * @return the horarioExame
-     */
-    public String getHorarioExame() {
-        return horarioExame;
-    }
-
-    /**
-     * @param horarioExame the horarioExame to set
-     */
-    public void setHorarioExame(String horarioExame) {
-        this.horarioExame = horarioExame;
-    }
-
-    /**
      * @return the veiculo
      */
     public Veiculo getVeiculo() {
@@ -80,14 +68,14 @@ public class Exame {
     /**
      * @return the instrutor
      */
-    public Instrutor getInstrutor() {
+    public Funcionario getInstrutor() {
         return instrutor;
     }
 
     /**
      * @param instrutor the instrutor to set
      */
-    public void setInstrutor(Instrutor instrutor) {
+    public void setInstrutor(Funcionario instrutor) {
         this.instrutor = instrutor;
     }
 
@@ -118,9 +106,33 @@ public class Exame {
     public void setStatus(int status) {
         this.status = status;
     }
-    
-    
-    
-    
-    
+
+    /**
+     * @return the horarioInicio
+     */
+    public String getHorarioInicio() {
+        return horarioInicio;
+    }
+
+    /**
+     * @param horarioInicio the horarioInicio to set
+     */
+    public void setHorarioInicio(String horarioInicio) {
+        this.horarioInicio = horarioInicio;
+    }
+
+    /**
+     * @return the horarioFim
+     */
+    public String getHorarioFim() {
+        return horarioFim;
+    }
+
+    /**
+     * @param horarioFim the horarioFim to set
+     */
+    public void setHorarioFim(String horarioFim) {
+        this.horarioFim = horarioFim;
+    }
+
 }

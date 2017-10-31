@@ -7,7 +7,7 @@ package autoescola.modelo.dao;
 
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Exame;
-import autoescola.modelo.bean.Instrutor;
+import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +29,7 @@ public class ExameDao {
         try {
             stmt = con.prepareStatement("INSERT INTO exame (dataExame, horaExame, codVeiculo, numCarteira, status) VALUES(?, ?, ?, ?, ?)");
             stmt.setString(1, exame.getDataExame());
-            stmt.setString(2, exame.getHorarioExame());
+            stmt.setString(2, exame.getHorarioInicio());
             stmt.setInt(3, exame.getVeiculo().getCodVeiculo());
             stmt.setString(4, exame.getInstrutor().getNumCarteira());
             stmt.setInt(5, exame.getStatus());
@@ -61,11 +61,11 @@ public class ExameDao {
             while (rs.next()) {
                 Exame exame = new Exame();
                 Veiculo veiculo = new Veiculo();
-                Instrutor instrutor = new Instrutor();
+                Funcionario instrutor = new Funcionario();
 
                 exame.setCodigoExame(rs.getInt("codExame"));
                 exame.setDataExame(rs.getString("dataExame"));
-                exame.setHorarioExame(rs.getString("horaExame"));
+                exame.setHorarioInicio(rs.getString("horaExame"));
                 veiculo.setCodVeiculo(rs.getInt("codVeiculo"));
                 instrutor.setNumCarteira("numCarteira");
                 exame.setStatus(rs.getInt("status"));
@@ -113,7 +113,7 @@ public class ExameDao {
         try {
             stmt = con.prepareStatement("UPDATE exame SET dataExame = ?, horaExame = ?, codVeiculo = ?, numCarteira = ?, status = ? WHERE codExame = ?");
             stmt.setString(1, exame.getDataExame());
-            stmt.setString(2, exame.getHorarioExame());
+            stmt.setString(2, exame.getHorarioInicio());
             stmt.setInt(3, exame.getVeiculo().getCodVeiculo());
             stmt.setString(4, exame.getInstrutor().getNumCarteira());
             stmt.setInt(5, exame.getStatus());

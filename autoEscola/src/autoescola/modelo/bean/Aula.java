@@ -15,7 +15,7 @@ public class Aula {
     private int codAulas;
     private String dataAula;
     private String horarioAula;
-    private Instrutor instrutor;
+    private Funcionario instrutor;
     private Veiculo codVeiculo;
     private String statusAula;//Ativa, cancelada, realizada, adiada, desativada
     private ArrayList<AulasClientes> aulas;
@@ -71,14 +71,14 @@ public class Aula {
     /**
      * @return the instrutor
      */
-    public Instrutor getInstrutor() {
+    public Funcionario getInstrutor() {
         return instrutor;
     }
 
     /**
      * @param instrutor the instrutor to set
      */
-    public void setInstrutor(Instrutor instrutor) {
+    public void setInstrutor(Funcionario instrutor) {
         this.instrutor = instrutor;
     }
 
