@@ -5,14 +5,8 @@
  */
 package autoescola.controle;
 
-import autoescola.modelo.arquivo.FuncionarioArquivo;
-import autoescola.modelo.bean.Cliente;
-import autoescola.modelo.bean.Funcionario;
-import java.util.ArrayList;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +17,6 @@ public class ControleCalendario extends Calendario {
     private int mes;
     private int ano;
     private int dia;
-    private String diaMesAno;
 
     /**
      *

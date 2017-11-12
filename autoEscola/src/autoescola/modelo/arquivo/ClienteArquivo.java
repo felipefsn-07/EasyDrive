@@ -80,6 +80,63 @@ public class ClienteArquivo extends Arquivo {
         }
     }
 
+    
+       /**
+     *
+     * @return the ArrayList of Cliente
+     */
+    public ArrayList<Cliente> consultarClientesAtivos() {
+        File arquivoCSV = new File(tabela);
+        ArrayList<Cliente> clientes = new ArrayList();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[8].equals("true")) {
+                    Cliente cliente = new Cliente();
+                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[0]));
+                    cliente.setNome(valoresEntreVirgulas[1]);
+                    cliente.setTelefone(valoresEntreVirgulas[2]);
+                    cliente.setCelular(valoresEntreVirgulas[3]);
+                    cliente.setDatanasc(valoresEntreVirgulas[4]);
+                    cliente.setRg(valoresEntreVirgulas[5]);
+                    cliente.setCpf(valoresEntreVirgulas[6]);
+                    cliente.setNumLADV(valoresEntreVirgulas[7]);
+                    boolean status = valoresEntreVirgulas[8].equals("true");
+
+                    cliente.setStatus(status);
+                    cliente.setCategoria(valoresEntreVirgulas[9]);
+                    Endereco endereco;
+                    EnderecoArquivo endArq = new EnderecoArquivo();
+                    endereco = endArq.consultar(parseInt(valoresEntreVirgulas[10]));
+                    cliente.setEndereco(endereco);
+                    clientes.add(cliente);
+
+                }
+            }
+            return clientes;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
     /**
      *
      * @param codigoCliente

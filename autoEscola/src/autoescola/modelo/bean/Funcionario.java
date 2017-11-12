@@ -27,6 +27,7 @@ public class Funcionario {
     private String numCarteira;
 
     public Funcionario() {
+        this.codigoFuncionario = 0;
     }
 
     public Funcionario(String nome, String rg, String cpf, String datanasc, String telefone, String celular, Endereco endereco, String hora_entra, String hora_sai, String login, String senha, String tipo, boolean status, String categoria, String numCarteira) {

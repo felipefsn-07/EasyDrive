@@ -30,6 +30,62 @@ public class FuncionarioArquivo extends Arquivo {
      *
      * @return the ArrayList of Funcionario
      */
+    public ArrayList<Funcionario> consultarInstrutores(){
+     File arquivoCSV = new File(tabela);
+        ArrayList<Funcionario> funcionarios = new ArrayList();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[10].equals("Instrutor")) {
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
+                    EnderecoArquivo endArq = new EnderecoArquivo();
+                    Endereco endereco = endArq.consultar(parseInt(valoresEntreVirgulas[1]));
+                    funcionario.setEndereco(endereco);
+                    funcionario.setRg(valoresEntreVirgulas[2]);
+                    funcionario.setNome(valoresEntreVirgulas[3]);
+                    funcionario.setCpf(valoresEntreVirgulas[4]);
+                    funcionario.setDatanasc(valoresEntreVirgulas[5]);
+                    funcionario.setTelefone(valoresEntreVirgulas[6]);
+                    funcionario.setCelular(valoresEntreVirgulas[7]);
+                    funcionario.setHora_entra(valoresEntreVirgulas[8]);
+                    funcionario.setHora_sai(valoresEntreVirgulas[9]);
+                    funcionario.setTipo(valoresEntreVirgulas[10]);
+                    funcionario.setNumCarteira(valoresEntreVirgulas[11]);
+                    funcionario.setCategoria(valoresEntreVirgulas[12]);
+                    boolean status;
+                    status = valoresEntreVirgulas[13].equals("true");
+                    funcionario.setStatus(status);
+                    funcionarios.add(funcionario);
+
+                }
+            }
+            return funcionarios;
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+            //log de erro
+            return null;
+
+        }
+    }
+    
+    
     public ArrayList<Funcionario> consultarFuncionario() {
         File arquivoCSV = new File(tabela);
         ArrayList<Funcionario> funcionarios = new ArrayList();
@@ -78,6 +134,7 @@ public class FuncionarioArquivo extends Arquivo {
             return funcionarios;
 
         } catch (FileNotFoundException e) {
+            System.out.println(e);
             //log de erro
             return null;
 

@@ -19,6 +19,7 @@ public class Veiculo {
     private boolean status;
     
     public Veiculo(){
+        this.codVeiculo = 0;
         
     }
     

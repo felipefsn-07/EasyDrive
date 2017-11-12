@@ -27,12 +27,11 @@ public class ExameDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO exame (dataExame, horaExame, codVeiculo, numCarteira, status) VALUES(?, ?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO exame (dataExame, horaExame, codVeiculo, numCarteira) VALUES(?, ?, ?, ?)");
             stmt.setString(1, exame.getDataExame());
             stmt.setString(2, exame.getHorarioInicio());
             stmt.setInt(3, exame.getVeiculo().getCodVeiculo());
             stmt.setString(4, exame.getInstrutor().getNumCarteira());
-            stmt.setInt(5, exame.getStatus());
 
             stmt.executeUpdate();
 
@@ -68,7 +67,6 @@ public class ExameDao {
                 exame.setHorarioInicio(rs.getString("horaExame"));
                 veiculo.setCodVeiculo(rs.getInt("codVeiculo"));
                 instrutor.setNumCarteira("numCarteira");
-                exame.setStatus(rs.getInt("status"));
 
                 exames.add(exame);
             }
@@ -111,12 +109,11 @@ public class ExameDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE exame SET dataExame = ?, horaExame = ?, codVeiculo = ?, numCarteira = ?, status = ? WHERE codExame = ?");
+            stmt = con.prepareStatement("UPDATE exame SET dataExame = ?, horaExame = ?, codVeiculo = ?, numCarteira = ? WHERE codExame = ?");
             stmt.setString(1, exame.getDataExame());
             stmt.setString(2, exame.getHorarioInicio());
             stmt.setInt(3, exame.getVeiculo().getCodVeiculo());
             stmt.setString(4, exame.getInstrutor().getNumCarteira());
-            stmt.setInt(5, exame.getStatus());
             stmt.setInt(6, exame.getCodigoExame());
 
             stmt.executeUpdate();
@@ -131,13 +128,12 @@ public class ExameDao {
         }
     }
     
-    public boolean excluirExame(Exame exame) {
+   /* public boolean excluirExame(Exame exame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE exame SET status = ? WHERE codExame = ?");
-            stmt.setInt(1, exame.getStatus());
+            stmt = con.prepareStatement("UPDATE exame WHERE codExame = ?");
             stmt.setInt(2, exame.getCodigoExame());
 
             stmt.executeUpdate();
@@ -150,5 +146,5 @@ public class ExameDao {
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
-    }
+    }*/
 }

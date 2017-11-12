@@ -30,6 +30,7 @@ public class Endereco {
     }
 
     public Endereco() {
+        this.codEndereco = 0;
     }
 
     /**

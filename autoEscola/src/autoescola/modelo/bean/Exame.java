@@ -17,12 +17,15 @@ public class Exame {
     private String dataExame;
     private String horarioInicio;
     private String horarioFim;
-
     private Veiculo veiculo;
     private Funcionario instrutor;
-    private int status;
-    private ArrayList<ExameClientes> exames;
+    private ArrayList<ExameClientes> alunos;
 
+    
+    public Exame(){
+        this.codigoExame = 0;
+    }
+    
     /**
      * @return the codigoExame
      */
@@ -80,34 +83,6 @@ public class Exame {
     }
 
     /**
-     * @return the exames
-     */
-    public ArrayList<ExameClientes> getExames() {
-        return exames;
-    }
-
-    /**
-     * @param exames the exames to set
-     */
-    public void setExames(ArrayList<ExameClientes> exames) {
-        this.exames = exames;
-    }
-
-    /**
-     * @return the status
-     */
-    public int getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    /**
      * @return the horarioInicio
      */
     public String getHorarioInicio() {
@@ -133,6 +108,20 @@ public class Exame {
      */
     public void setHorarioFim(String horarioFim) {
         this.horarioFim = horarioFim;
+    }
+
+    /**
+     * @return the alunos
+     */
+    public ArrayList<ExameClientes> getAlunos() {
+        return alunos;
+    }
+
+    /**
+     * @param alunos the alunos to set
+     */
+    public void setAlunos(ArrayList<ExameClientes> alunos) {
+        this.alunos = alunos;
     }
 
 }

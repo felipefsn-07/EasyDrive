@@ -6,6 +6,7 @@
 package autoescola.modelo.arquivo;
 
 import autoescola.modelo.bean.Exame;
+import autoescola.modelo.bean.ExameClientes;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
 import java.io.BufferedWriter;
@@ -64,7 +65,6 @@ public class ExameArquivo extends Arquivo {
                     Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
                     exame.setInstrutor(instrutor);
-                    exame.setStatus(parseInt(valoresEntreVirgulas[6]));
 
                     exames.add(exame);
 
@@ -118,8 +118,10 @@ public class ExameArquivo extends Arquivo {
                     exame.setVeiculo(veiculo);
                     Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
+                    ClienteExameArquivo arqEc = new ClienteExameArquivo();
+                    ArrayList<ExameClientes> ec = arqEc.consultarClientesPorExame(codExame);
+                    exame.setAlunos(ec);
                     exame.setInstrutor(instrutor);
-                    exame.setStatus(parseInt(valoresEntreVirgulas[6]));
 
                 }
             }
@@ -165,7 +167,6 @@ public class ExameArquivo extends Arquivo {
                     Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
                     exame.setInstrutor(instrutor);
-                    exame.setStatus(parseInt(valoresEntreVirgulas[6]));
                     exames.add(exame);
 
                 }
@@ -185,8 +186,7 @@ public class ExameArquivo extends Arquivo {
      * @param codExame
      * @return false or true
      */
-    @Override
-    public boolean desativar(int codExame) {
+    public boolean apagar(int codExame) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -207,17 +207,14 @@ public class ExameArquivo extends Arquivo {
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == codExame) {
-                    linhasDoArquivo = valoresEntreVirgulas[0] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[1] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[2] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[4] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[5] + ",";
-
-                    linhasDoArquivo += "0";
+                    linhasDoArquivo = "";
+                    ClienteExameArquivo arqEC = new ClienteExameArquivo();
+                    arqEC.apagarExame(codExame);
 
                 }
-                todo += linhasDoArquivo + "\n";
+                if (!linhasDoArquivo.equals("")) {
+                    todo += linhasDoArquivo + "\n";
+                }
 
             }
             try {
@@ -270,8 +267,7 @@ public class ExameArquivo extends Arquivo {
                     linhasDoArquivo += exame.getHorarioInicio() + ",";
                     linhasDoArquivo += exame.getHorarioFim() + ",";
                     linhasDoArquivo += String.valueOf(exame.getVeiculo().getCodVeiculo()) + ",";
-                    linhasDoArquivo += String.valueOf(exame.getInstrutor().getCodigoFuncionario()) + ",";
-                    linhasDoArquivo += String.valueOf(exame.getStatus());
+                    linhasDoArquivo += String.valueOf(exame.getInstrutor().getCodigoFuncionario());
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -300,7 +296,7 @@ public class ExameArquivo extends Arquivo {
      * @param exame
      * @return false or true
      */
-    public boolean cadastrarExame(Exame exame) {
+    public int cadastrarExame(Exame exame) {
 
         int codExame = autoIncremento(tabela);
         try {
@@ -309,7 +305,7 @@ public class ExameArquivo extends Arquivo {
             FileWriter fw = new FileWriter(tabela, true);
             BufferedWriter conexao = new BufferedWriter(fw);
             if (codExame != 0) {
-                conexao.write(String.valueOf(exame.getCodigoExame()));
+                conexao.write(String.valueOf(codExame));
                 conexao.write(',');
                 conexao.write(exame.getDataExame());
                 conexao.write(',');
@@ -320,20 +316,18 @@ public class ExameArquivo extends Arquivo {
                 conexao.write(String.valueOf(exame.getVeiculo().getCodVeiculo()));
                 conexao.write(',');
                 conexao.write(String.valueOf(exame.getInstrutor().getCodigoFuncionario()));
-                conexao.write(',');
-                conexao.write(String.valueOf(exame.getStatus()));
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return codExame;
             } else {
                 //msg erro no incremento codExame == 0
-                return false;
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
 
@@ -385,7 +379,6 @@ public class ExameArquivo extends Arquivo {
                     Funcionario instrutor = new Funcionario();
                     instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
                     exame.setInstrutor(instrutor);
-                    exame.setStatus(parseInt(valoresEntreVirgulas[6]));
 
                     exames.add(exame);
 

@@ -601,6 +601,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
             tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
         }
         dispose();
+        
     }//GEN-LAST:event_btnCadastrarMouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -619,9 +620,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
             controleAluno.alterarStatus(anterior, id);
 
         }
-
         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
-
             //int id = (int) jTableAluno.getValueAt(row, 0);
             if (jTableAluno.isCellSelected(row, 0)) {
                 // controleFuncionario.alterarStatus(true, id);
@@ -630,7 +629,6 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
                 tcf.setVisible(true);
                 tcf.setLocationRelativeTo(null);
                 dispose();
-
             }
         }
     }//GEN-LAST:event_jTableAlunoMouseClicked

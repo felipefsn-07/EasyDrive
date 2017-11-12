@@ -9,8 +9,9 @@ import autoescola.controle.ControleAluno;
 import autoescola.controle.ControleCalendario;
 import autoescola.controle.ControleExame;
 import autoescola.controle.ControleLogin;
+import autoescola.controle.Tabela;
 import autoescola.controle.TabelaCalendario;
-import autoescola.controle.TabelaExame;
+import autoescola.modelo.bean.Exame;
 import static java.lang.Integer.parseInt;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,7 +29,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     private final ControleCalendario controleCalendario = new ControleCalendario();
     private final ControleExame controleExame = new ControleExame(controleCalendario);
     private TabelaCalendario tabela = new TabelaCalendario(controleCalendario);
-    private TabelaExame tabelaExame = new TabelaExame();
+    private Tabela tabelaExame = new Tabela();
 
     public TelaConsultaExame() {
         initComponents();
@@ -67,7 +68,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         btnCadastrar1 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
+        lblAgendar = new javax.swing.JLabel();
         lblDataExame = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -83,11 +84,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jtCalendario1 = tabelaExame;
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtConsultarExames = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jtExames = tabelaExame;
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -389,12 +386,12 @@ public class TelaConsultaExame extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(254, 254, 254));
-        jLabel17.setText("Agendar");
-        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAgendar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        lblAgendar.setForeground(new java.awt.Color(254, 254, 254));
+        lblAgendar.setText("Agendar");
+        lblAgendar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel17MouseClicked(evt);
+                lblAgendarMouseClicked(evt);
             }
         });
 
@@ -404,12 +401,12 @@ public class TelaConsultaExame extends javax.swing.JFrame {
             btnCadastrar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnCadastrar1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblAgendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btnCadastrar1Layout.setVerticalGroup(
             btnCadastrar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+            .addComponent(lblAgendar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
         );
 
         lblDataExame.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -439,13 +436,11 @@ public class TelaConsultaExame extends javax.swing.JFrame {
             .addGroup(btnCadastrarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(btnCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(btnCadastrarLayout.createSequentialGroup()
-                        .addComponent(btnCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(btnCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
                         .addComponent(lblDataExame)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel12.setBackground(new java.awt.Color(61, 180, 162));
@@ -454,7 +449,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
-                jtCalendario1.setModel(controleExame.consultarExames());
+                jtExames.setModel(controleExame.consultarExames());
             }
         });
         jtCalendario.setModel(controleCalendario.calendarioAtual());
@@ -622,63 +617,31 @@ public class TelaConsultaExame extends javax.swing.JFrame {
 
         jPanel14.setBackground(new java.awt.Color(61, 180, 162));
 
-        jtCalendario1.setModel(controleExame.consultarExames());
-        jtCalendario1.setColumnSelectionAllowed(true);
-        jtCalendario1.getTableHeader().setResizingAllowed(false);
-        jtCalendario1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jtCalendario1);
-        jtCalendario1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
-        jPanel1.setBackground(new java.awt.Color(254, 254, 254));
-
-        jLabel1.setText("Instrutor:");
-
-        jComboBox1.setBackground(new java.awt.Color(254, 254, 254));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "nome", "rg", "cpf", "numero", "numero da carteira" }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtConsultarExames)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(4, 4, 4)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtConsultarExames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jtExames.setModel(controleExame.consultarExames());
+        jtExames.getTableHeader().setResizingAllowed(false);
+        jtExames.getTableHeader().setReorderingAllowed(false);
+        jtExames.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtExamesMouseClicked(evt);
+            }
+        });
+        jtExames.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtExamesKeyReleased(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jtExames);
+        jtExames.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 20)); // NOI18N
@@ -833,12 +796,30 @@ public class TelaConsultaExame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCadastrarMouseClicked
 
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel17MouseClicked
+    private void lblAgendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgendarMouseClicked
+        Exame exame = new Exame();
+        exame.setCodigoExame(0);
+        exame.setDataExame(lblDataExame.getText());
+        TelaAgendarExame ae = new TelaAgendarExame(this, true, exame);
+        ae.setLocationRelativeTo(null);
+        ae.setVisible(true);
+        // jtCalendario.setModel(controleCalendario.calendarioAtual());
+        jtExames.setModel(controleExame.consultarExames());
+
+
+    }//GEN-LAST:event_lblAgendarMouseClicked
 
     private void btnCadastrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrar1MouseClicked
-        // TODO add your handling code here:
+        Exame exame = new Exame();
+        exame.setCodigoExame(0);
+        exame.setDataExame(lblDataExame.getText());
+        TelaAgendarExame ae = new TelaAgendarExame(this, true, exame);
+        ae.setLocationRelativeTo(null);
+        ae.setVisible(true);
+        //jtCalendario.setModel(controleCalendario.calendarioAtual());
+        jtExames.setModel(controleExame.consultarExames());
+
+
     }//GEN-LAST:event_btnCadastrar1MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -878,7 +859,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
         jtCalendario.setModel(controleCalendario.calendarioAtual());
         lblAno.setText(String.valueOf(controleCalendario.getAno()));
         lblDataExame.setText(controleCalendario.getDiaMesAno());
-        jtCalendario1.setModel(controleExame.consultarExames());
+        jtExames.setModel(controleExame.consultarExames());
 
         lblMes.setText(controleCalendario.mesAnteriorProximo());    }//GEN-LAST:event_jLabel18MouseClicked
 
@@ -887,24 +868,33 @@ public class TelaConsultaExame extends javax.swing.JFrame {
         jtCalendario.setModel(controleCalendario.calendarioAtual());
         lblAno.setText(String.valueOf(controleCalendario.getAno()));
         lblMes.setText(controleCalendario.mesAnteriorProximo());
-        jtCalendario1.setModel(controleExame.consultarExames());
+        jtExames.setModel(controleExame.consultarExames());
 
 
     }//GEN-LAST:event_btnHojeMouseClicked
 
     private void jtCalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCalendarioMouseClicked
-        jtCalendario1.setModel(controleExame.consultarExames());
+        jtExames.setModel(controleExame.consultarExames());
         lblDataExame.setText(controleCalendario.getDiaMesAno());
 
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+
+            Exame exame = new Exame();
+            exame.setCodigoExame(0);
+            exame.setDataExame(lblDataExame.getText());
+            TelaAgendarExame ae = new TelaAgendarExame(this, true, exame);
+            ae.setLocationRelativeTo(null);
+
+            ae.setVisible(true);
+        }
 
     }//GEN-LAST:event_jtCalendarioMouseClicked
 
     private void jtCalendarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCalendarioKeyPressed
-        //jtCalendario1.setModel(controleExame.consultarExames());
     }//GEN-LAST:event_jtCalendarioKeyPressed
 
     private void jtCalendarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCalendarioKeyReleased
-        jtCalendario1.setModel(controleExame.consultarExames());
+        jtExames.setModel(controleExame.consultarExames());
         lblDataExame.setText(controleCalendario.getDiaMesAno());
 
     }//GEN-LAST:event_jtCalendarioKeyReleased
@@ -914,7 +904,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtCalendarioMouseEntered
 
     private void jtCalendarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCalendarioMouseReleased
-        // jtCalendario1.setModel(controleExame.consultarExames());
+
     }//GEN-LAST:event_jtCalendarioMouseReleased
 
     private void jtCalendarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCalendarioMousePressed
@@ -922,8 +912,32 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtCalendarioMousePressed
 
     private void lblDataExameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDataExameMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_lblDataExameMouseClicked
+
+    private void jtExamesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtExamesKeyReleased
+
+
+    }//GEN-LAST:event_jtExamesKeyReleased
+
+    private void jtExamesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtExamesMouseClicked
+
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+            int row = jtExames.getSelectedRow();
+
+            Exame exame = new Exame();
+            exame.setCodigoExame(0);
+            exame.setDataExame(lblDataExame.getText());
+            String id = String.valueOf(jtExames.getValueAt(row, 0));
+            exame.setCodigoExame(parseInt(id));
+            TelaAgendarExame ae = new TelaAgendarExame(this, true, exame);
+            ae.setLocationRelativeTo(null);
+            ae.setVisible(true);
+            //jtCalendario.setModel(controleCalendario.calendarioAtual());
+            jtExames.setModel(controleExame.consultarExames());
+        }
+
+    }//GEN-LAST:event_jtExamesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -968,12 +982,9 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     private javax.swing.JPanel btnCadastrar;
     private javax.swing.JPanel btnCadastrar1;
     private javax.swing.JPanel btnHoje;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -982,7 +993,6 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -997,12 +1007,12 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     private javax.swing.JPanel jpFuncionario;
     private javax.swing.JPanel jpVeiculo;
     private javax.swing.JTable jtCalendario;
-    private javax.swing.JTable jtCalendario1;
+    private javax.swing.JTable jtExames;
+    private javax.swing.JLabel lblAgendar;
     private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblDataExame;
     private javax.swing.JLabel lblMes;
     private javax.swing.JPanel panelSair;
     private javax.swing.JPanel psConfigUsuario;
-    private javax.swing.JTextField txtConsultarExames;
     // End of variables declaration//GEN-END:variables
 }

@@ -537,7 +537,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         TelaConfiguraUsuario telaConfig = new TelaConfiguraUsuario();
         telaConfig.setVisible(true);
         telaConfig.setLocationRelativeTo(null);
-                if (this.getExtendedState() != 0) {
+        if (this.getExtendedState() != 0) {
             telaConfig.setExtendedState(telaConfig.getExtendedState() | telaConfig.MAXIMIZED_BOTH);
         }
         dispose();
@@ -587,35 +587,37 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
                 // controleFuncionario.alterarStatus(true, id);
                 String id = String.valueOf(jTableFuncionario.getValueAt(row, 0));
                 controleFuncionario.consultar(parseInt(id));
-                TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(parseInt(id));
-                tcf.setVisible(true);
+                TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(parseInt(id), this, true);
                 tcf.setLocationRelativeTo(null);
-                dispose();
+                tcf.setVisible(true);
+                //if (tcf.isVisible() == false) {
+                jTableFuncionario.setModel(controleFuncionario.consultarFuncionarios());
+                //}
 
             }
         }
     }//GEN-LAST:event_jTableFuncionarioMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0);
-        tcf.setVisible(true);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
+        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0, this, true);
         tcf.setLocationRelativeTo(null);
+        tcf.setVisible(true);
+        if (tcf.isVisible() == false) {
+            jTableFuncionario.setModel(controleFuncionario.consultarFuncionarios());
+        }
+        //tcf.setLocationRelativeTo(null);
 
-        dispose();
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void btnCadastrarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioMouseClicked
-        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0);
-        tcf.setVisible(true);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
+        TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(0, this, true);
         tcf.setLocationRelativeTo(null);
+        tcf.setVisible(true);
+        if (tcf.isVisible() == false) {
+            jTableFuncionario.setModel(controleFuncionario.consultarFuncionarios());
+        }
 
-        dispose();    }//GEN-LAST:event_btnCadastrarFuncionarioMouseClicked
+       }//GEN-LAST:event_btnCadastrarFuncionarioMouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         TelaConsultaAula tcf = new TelaConsultaAula();
@@ -624,7 +626,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         if (this.getExtendedState() != 0) {
             tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
         }
-        dispose();     }//GEN-LAST:event_jPanel7MouseClicked
+           }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
         TelaConsultaExame tcf = new TelaConsultaExame();
