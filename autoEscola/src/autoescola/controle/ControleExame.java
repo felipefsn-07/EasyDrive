@@ -41,94 +41,15 @@ public class ControleExame extends Controle {
         clientes = new ArrayList();
 
     }
-
+    /**
+     * 
+     */
     public ControleExame() {
         ClienteArquivo arqCli = new ClienteArquivo();
         clientes = arqCli.consultarClientesAtivos();
 
     }
-
-    /**
-     *
-     * @return
-     */
-    public TableModel consultarAlunos() {
-        // ClienteArquivo arqCli = new ClienteArquivo();
-
-        //clientes = arqCli.consultarClientesAtivos();
-
-        DefaultTableModel jTable1 = new DefaultTableModel();
-
-        if (clientes != null) {
-            jTable1.addColumn("Codigo aluno");
-            jTable1.addColumn("Nome");
-            jTable1.addColumn("Rg");
-            jTable1.addColumn("Cpf");
-            jTable1.addColumn("Telefone");
-            jTable1.addColumn("Celular");
-            jTable1.addColumn("numero do Ladv");
-
-            for (Cliente cliente : clientes) {
-
-                if (exame.getAlunos() != null) {
-                    for (ExameClientes clienteExame : exame.getAlunos()) {
-                        if (cliente.getCodCliente() != clienteExame.getCliente().getCodCliente()) {
-                            jTable1.addRow(new Object[]{String.valueOf(cliente.getCodCliente()), cliente.getNome(), cliente.getRg(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getNumLADV()});
-
-                        }
-
-                    }
-                } else {
-                    jTable1.addRow(new Object[]{String.valueOf(cliente.getCodCliente()), cliente.getNome(), cliente.getRg(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getNumLADV()});
-
-                }
-
-            }
-            return jTable1;
-
-        }
-        JTable table = new JTable();
-        table.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "Codigo do aluno", "Nome", "Rg", "Cpf", "Telefone", "Celular", "numero do Ladv"
-                }
-        ));
-        return table.getModel();
-
-    }
-
-    /**
-     *
-     * @return
-     */
-    public TableModel consultarAlunosExame() {
-
-        DefaultTableModel jTable1 = new DefaultTableModel();
-       
-        if ( exame.getAlunos() != null) {
-            jTable1.addColumn("Codigo aluno");
-            jTable1.addColumn("Nome");
-
-            for (Cliente cliente : clientesExames) {
-                //Cliente cliente = exameClientes.getCliente();
-                jTable1.addRow(new Object[]{String.valueOf(cliente.getCodCliente()), cliente.getNome()});
-
-            }
-            return jTable1;
-        } else {
-            JTable table = new JTable();
-            table.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{},
-                    new String[]{
-                        "Codigo do aluno", "Nome"
-                    }
-            ));
-            return table.getModel();
-        }
-
-    }
-
+    
     /**
      *
      * @return
@@ -161,6 +82,188 @@ public class ControleExame extends Controle {
 
     }
 
+    /**
+     * 
+     * @param exame
+     * @return 
+     */
+    public boolean agendarExame(Exame exame) {
+        ExameArquivo ea = new ExameArquivo();
+        exame.setInstrutor(new Funcionario());
+        exame.setVeiculo(new Veiculo());
+        if (!exame.getDataExame().equals("") && !("").equals(exame.getHorarioFim()) && !("").equals(exame.getHorarioInicio())) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                Date horaInicio = sdf.parse(exame.getHorarioInicio());
+                Date horaFim = sdf.parse(exame.getHorarioFim());
+                if (horaFim.getTime() > horaInicio.getTime()) {
+                    int res = ea.cadastrarExame(exame);
+                    if (res != 0) {
+                        exame.setCodigoExame(res);
+                        this.exame = exame;
+
+                        JOptionPane.showMessageDialog(null, "Agendado com sucesso!");
+                        return true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro verifque o log de erro!");
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Horário fora do limite!");
+
+                }
+
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
+        }
+        return false;
+
+    }
+
+    /**
+     * 
+     * @param aluno
+     * @return 
+     */
+    public boolean deletarAluno(Cliente aluno) {
+        ClienteExameArquivo eca = new ClienteExameArquivo();
+
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir?", "Excluir aluno", JOptionPane.YES_NO_OPTION);
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            ExameClientes ec = new ExameClientes();
+            ec.setCliente(aluno);
+            ec.setExame(exame);
+            //Usuário clicou em Sim. Executar o código correspondente.
+            if (eca.apagarAlunosExame(ec)) {
+                JOptionPane.showMessageDialog(null, "Deletado com sucesso");
+                removerAluno(aluno);
+                ClienteArquivo ca = new ClienteArquivo();
+                clientes.add(ca.consultar(aluno.getCodCliente()));
+                return true;
+            }
+
+        } else if (resposta == JOptionPane.NO_OPTION) {
+            //Usuário clicou em não. Executar o código correspondente.
+            return false;
+        }
+        return false;
+
+    }
+
+    /**
+     * 
+     * @param aluno 
+     */
+    private void removerAlunoJaCadastrado(Cliente aluno) {
+        if (aluno != null) {
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getCodCliente() == aluno.getCodCliente()) {
+                    clientes.remove(i);
+
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 
+     * @param aluno 
+     */
+    private void removerAluno(Cliente aluno) {
+        if (aluno != null) {
+            for (int i = 0; i < clientesExames.size(); i++) {
+                if (clientesExames.get(i).getCodCliente() == aluno.getCodCliente()) {
+                    clientesExames.remove(i);
+
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 
+     * @param codigoAluno
+     * @return 
+     */
+    public boolean adicionarAlunoExame(int codigoAluno) {
+        ClienteArquivo arqAluno = new ClienteArquivo();
+        Cliente aluno = arqAluno.consultar(codigoAluno);
+        ExameClientes ec = new ExameClientes();
+        ec.setExame(exame);
+        ec.setCliente(aluno);
+        ClienteExameArquivo arq = new ClienteExameArquivo();
+
+        if (arq.cadastrarExameClientes(ec)) {
+            removerAlunoJaCadastrado(aluno);
+            clientesExames.add(aluno);
+            exame.getAlunos().add(ec);
+            return true;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public TableModel consultarAlunos() {
+        // ClienteArquivo arqCli = new ClienteArquivo();
+
+        //clientes = arqCli.consultarClientesAtivos();
+        DefaultTableModel jTable1 = new DefaultTableModel();
+
+        if (clientes != null) {
+            jTable1.addColumn("Codigo aluno");
+            jTable1.addColumn("Nome");
+            jTable1.addColumn("Rg");
+            jTable1.addColumn("Cpf");
+            jTable1.addColumn("Telefone");
+            jTable1.addColumn("Celular");
+            jTable1.addColumn("numero do Ladv");
+
+            for (Cliente cliente : clientes) {
+
+                if (exame.getAlunos() != null) {
+                    for (ExameClientes clienteExame : exame.getAlunos()) {
+                        if (cliente.getCodCliente() != clienteExame.getCliente().getCodCliente()) {
+                            jTable1.addRow(new Object[]{String.valueOf(cliente.getCodCliente()), cliente.getNome(), cliente.getRg(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getNumLADV()});
+                        }
+
+                    }
+                } else {
+                    jTable1.addRow(new Object[]{String.valueOf(cliente.getCodCliente()), cliente.getNome(), cliente.getRg(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getNumLADV()});
+                }
+
+            }
+            return jTable1;
+
+        }
+        JTable table = new JTable();
+        table.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Codigo do aluno", "Nome", "Rg", "Cpf", "Telefone", "Celular", "numero do Ladv"
+                }
+        ));
+        return table.getModel();
+
+    }
+
+    /**
+     * 
+     * @param id
+     * @param tipo
+     * @return 
+     */
     public TableModel consultaAlunoLikeExame(JTextField id, JComboBox tipo) {
         DefaultTableModel jTable1 = new DefaultTableModel();
 
@@ -248,125 +351,62 @@ public class ControleExame extends Controle {
         return consultarAlunos();
     }
 
-    public boolean agendarExame(Exame exame) {
-        ExameArquivo ea = new ExameArquivo();
-        exame.setInstrutor(new Funcionario());
-        exame.setVeiculo(new Veiculo());
-        if (!exame.getDataExame().equals("") && !("").equals(exame.getHorarioFim()) && !("").equals(exame.getHorarioInicio())) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                Date horaInicio = sdf.parse(exame.getHorarioInicio());
-                Date horaFim = sdf.parse(exame.getHorarioFim());
-                if (horaFim.getTime() > horaInicio.getTime()) {
-                    int res = ea.cadastrarExame(exame);
-                    if (res != 0) {
-                        exame.setCodigoExame(res);
-                        this.exame = exame;
+    /**
+     *
+     * @return
+     */
+    public TableModel consultarAlunosExame() {
 
-                        JOptionPane.showMessageDialog(null, "Agendado com sucesso!");
-                        return true;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Erro verifque o log de erro!");
+        DefaultTableModel jTable1 = new DefaultTableModel();
+      
+        if (exame.getAlunos() != null) {
+            jTable1.addColumn("Codigo aluno");
+            jTable1.addColumn("Nome");
 
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Horário fora do limite!");
-
-                }
-
-            } catch (ParseException e) {
-                JOptionPane.showMessageDialog(null, e);
+            for (Cliente cliente : clientesExames) {
+                //Cliente cliente = exameClientes.getCliente();
+                jTable1.addRow(new Object[]{String.valueOf(cliente.getCodCliente()), cliente.getNome()});
             }
-
+            return jTable1;
         } else {
-            JOptionPane.showMessageDialog(null, "Preeencha todos os campos!");
-        }
-        return false;
-
-    }
-
-    public boolean deletarAluno(Cliente aluno) {
-        ClienteExameArquivo eca = new ClienteExameArquivo();
-
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir?", "Excluir aluno", JOptionPane.YES_NO_OPTION);
-
-        if (resposta == JOptionPane.YES_OPTION) {
-            ExameClientes ec = new ExameClientes();
-            ec.setCliente(aluno);
-            ec.setExame(exame);
-            //Usuário clicou em Sim. Executar o código correspondente.
-            if (eca.apagarAlunosExame(ec)) {
-                JOptionPane.showMessageDialog(null, "Deletado com sucesso");
-                removerAluno(aluno);
-                ClienteArquivo ca = new ClienteArquivo();
-
-                clientes.add(ca.consultar(aluno.getCodCliente()));
-                return true;
-            }
-
-        } else if (resposta == JOptionPane.NO_OPTION) {
-            //Usuário clicou em não. Executar o código correspondente.
-            return false;
-        }
-        return false;
-
-    }
-
-    private void removerAlunoJaCadastrado(Cliente aluno) {
-        if (aluno != null) {
-            for (int i = 0; i < clientes.size(); i++) {
-                if (clientes.get(i).getCodCliente() == aluno.getCodCliente()) {
-                    clientes.remove(i);
-
-                }
-            }
+            JTable table = new JTable();
+            table.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{},
+                    new String[]{
+                        "Codigo do aluno", "Nome"
+                    }
+            ));
+            return table.getModel();
         }
 
     }
 
-    private void removerAluno(Cliente aluno) {
-        if (aluno != null) {
-            for (int i = 0; i < clientesExames.size(); i++) {
-                if (clientesExames.get(i).getCodCliente() == aluno.getCodCliente()) {
-                    clientesExames.remove(i);
-
-                }
-            }
-        }
-
-    }
-
-    public boolean adicionarAlunoExame(int codigoAluno) {
-        ClienteArquivo arqAluno = new ClienteArquivo();
-        Cliente aluno = arqAluno.consultar(codigoAluno);
-        ExameClientes ec = new ExameClientes();
-        ec.setExame(exame);
-        ec.setCliente(aluno);
-        ClienteExameArquivo arq = new ClienteExameArquivo();
-
-        if (arq.cadastrarExameClientes(ec)) {
-            removerAlunoJaCadastrado(aluno);
-           // clientesExames.add(aluno);
-            exame.getAlunos().add(ec);
-
-            return true;
-        }
-
-        return false;
-
-    }
-
+    /**
+     * 
+     * @param anterior
+     * @param idStr
+     * @return 
+     */
     @Override
     public boolean alterarStatus(boolean anterior, String idStr) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public Exame exameEditar(int id) {
         ExameArquivo ea = new ExameArquivo();
         exame = ea.consultar(id);
         return exame;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean temExame() {
 
         return exame.getCodigoExame() != 0;
