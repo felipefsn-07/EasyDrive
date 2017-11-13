@@ -5,10 +5,16 @@
  */
 package autoescola.controle;
 
+import autoescola.modelo.arquivo.AulasClientesArquivo;
 import autoescola.modelo.arquivo.EnderecoArquivo;
 import autoescola.modelo.arquivo.ClienteArquivo;
+import autoescola.modelo.arquivo.ClienteExameArquivo;
+import autoescola.modelo.bean.Aula;
+import autoescola.modelo.bean.AulasClientes;
 import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Endereco;
+import autoescola.modelo.bean.Exame;
+import autoescola.modelo.bean.ExameClientes;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -27,22 +33,21 @@ public class ControleAluno extends Controle {
     private Cliente cliente;
     private Endereco endereco;
     private boolean editar = false;
-    
+
     public boolean verificarSeCliente() {
 
         return cliente != null;
     }
 
-    
-    
     public boolean verificarSeEndereco() {
 
         return endereco != null;
     }
-/**
- * 
- * @return 
- */
+
+    /**
+     *
+     * @return
+     */
     public TableModel consultarAlunos() {
 
         ClienteArquivo arqCli = new ClienteArquivo();
@@ -153,8 +158,6 @@ public class ControleAluno extends Controle {
 
     }
 
-     
-    
     public boolean cadastrarEndereco(Endereco endereco) {
         if (!endereco.getBairro().equals("") && !endereco.getCep().equals("     -   ") && !endereco.getCidade().equals("") && !endereco.getEstado().equals("") && !endereco.getLogradouro().equals("") && !endereco.getNum().equals("")) {
             if (verificarSeCliente()) {
@@ -220,7 +223,7 @@ public class ControleAluno extends Controle {
 
         }
     }
-    
+
     /**
      * @return the editar
      */
@@ -234,6 +237,7 @@ public class ControleAluno extends Controle {
     private void setEditar(boolean editar) {
         this.editar = editar;
     }
+
     public boolean cadastrarAluno(Cliente aluno) {
 
         ClienteArquivo arqCliente = new ClienteArquivo();
@@ -278,11 +282,11 @@ public class ControleAluno extends Controle {
                 Endereco enderecoNovo = new Endereco();
                 enderecoNovo.setCodEndereco(0);
                 aluno.setEndereco(enderecoNovo);
-                aluno.setStatus(cliente.getStatus());  
+                aluno.setStatus(cliente.getStatus());
                 aluno.setCodCliente(this.cliente.getCodCliente());
                 if (arqCliente.alterarCliente(aluno)) {
                     this.cliente = aluno;
-                    
+
                     JOptionPane.showMessageDialog(null, "Aluno editado com sucesso!");
                     return true;
 
@@ -304,19 +308,84 @@ public class ControleAluno extends Controle {
 
     }
 
-
-    public Cliente cliente(int id){
+    public Cliente cliente(int id) {
         ClienteArquivo arq = new ClienteArquivo();
         setEditar(true);
         this.cliente = arq.consultar(id);
         return arq.consultar(id);
     }
-        public Endereco endereco(int id){
+
+    public Endereco endereco(int id) {
         EnderecoArquivo arq = new EnderecoArquivo();
         this.endereco = arq.consultar(id);
         return endereco;
     }
-    
-    
+
+    public TableModel consultarExamesCliente() {
+
+        DefaultTableModel jTable1 = new DefaultTableModel();
+        ArrayList<ExameClientes> ec = new ArrayList();
+        ClienteExameArquivo cea = new ClienteExameArquivo();
+        ec = cea.consultarExamePorClientes(cliente.getCodCliente());
+        if (ec != null) {
+            jTable1.addColumn("Codigo do exame");
+            jTable1.addColumn("Data");
+            jTable1.addColumn("Hora inicio");
+            jTable1.addColumn("Hora fim");
+            for (ExameClientes exameClientes : ec) {
+                Exame exame = exameClientes.getExame();
+                jTable1.addRow(new Object[]{String.valueOf(exame.getCodigoExame()), exame.getDataExame(), exame.getHorarioInicio(), exame.getHorarioFim()});
+
+            }
+            return jTable1;
+        } else {
+            JTable table = new JTable();
+            table.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{},
+                    new String[]{
+                        "Codigo do exame", "Data", "Hora inicio", "Hora fim"
+                    }
+            ));
+            return table.getModel();
+        }
+
+    }
+
+    public TableModel consultarAulaCliente() {
+
+        DefaultTableModel jTable1 = new DefaultTableModel();
+        ArrayList<AulasClientes> ac = new ArrayList();
+        AulasClientesArquivo cea = new AulasClientesArquivo();
+        ac = cea.consultarClientesAula(cliente.getCodCliente());
+        if (ac != null) {
+            jTable1.addColumn("Codigo da aula");
+            jTable1.addColumn("Data");
+            jTable1.addColumn("Hora inicio");
+            jTable1.addColumn("Hora fim");
+            jTable1.addColumn("Presença");
+
+            for (AulasClientes aulasClientes : ac) {
+                Aula aula = aulasClientes.getAulas();
+                if (aulasClientes.isPresenca()) {
+                    jTable1.addRow(new Object[]{String.valueOf(aula.getCodAulas()), aula.getDataAula(), aula.getHorarioAulaInicio(), aula.getHorarioAulaFim(), "Presente"});
+                } else {
+                    jTable1.addRow(new Object[]{String.valueOf(aula.getCodAulas()), aula.getDataAula(), aula.getHorarioAulaInicio(), aula.getHorarioAulaFim(), ""});
+
+                }
+
+            }
+            return jTable1;
+        } else {
+            JTable table = new JTable();
+            table.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{},
+                    new String[]{
+                        "Codigo do aula", "Data", "Hora inicio", "Hora fim", "Presença"
+                    }
+            ));
+            return table.getModel();
+        }
+
+    }
 
 }

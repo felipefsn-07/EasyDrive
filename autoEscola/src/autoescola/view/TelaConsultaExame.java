@@ -34,6 +34,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
         initComponents();
         lblMes.setText(controleCalendario.mesAnteriorProximo());
         lblDataExame.setText(controleCalendario.getDiaMesAno());
+        usuario();
 
     }
 
@@ -702,7 +703,13 @@ public class TelaConsultaExame extends javax.swing.JFrame {
 
         setBounds(0, 0, 1302, 633);
     }// </editor-fold>//GEN-END:initComponents
+    private void usuario() {
+        if (!controleLogin.isGerente()) {
+            jpFuncionario.setVisible(false);
+            jpVeiculo.setVisible(false);
+        }
 
+    }
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         TelaPrincipal form2 = new TelaPrincipal();
         form2.setVisible(true);
@@ -756,13 +763,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
-        TelaConsultaExame tcf = new TelaConsultaExame();
-        tcf.setVisible(true);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
-        tcf.setLocationRelativeTo(null);
-        dispose();
+   
     }//GEN-LAST:event_jPanel9MouseClicked
 
     private void psConfigUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_psConfigUsuarioMouseClicked
@@ -785,13 +786,7 @@ public class TelaConsultaExame extends javax.swing.JFrame {
     }//GEN-LAST:event_panelSairMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        TelaCadastroAluno tcf = new TelaCadastroAluno(0);
-        tcf.setVisible(true);
-        tcf.setLocationRelativeTo(null);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
-        dispose();
+
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked

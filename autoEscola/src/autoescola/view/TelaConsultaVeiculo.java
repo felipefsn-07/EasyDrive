@@ -568,10 +568,11 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
             //int id = (int) jTableFuncionario.getValueAt(row, 0);
             if (jTableVeiculo.isCellSelected(row, 0)) {
                 String id = String.valueOf(jTableVeiculo.getValueAt(row, 0));
-                TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(parseInt(id));
-                tcf.setVisible(true);
+                TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(this, true, parseInt(id));
                 tcf.setLocationRelativeTo(null);
-                dispose();
+
+                tcf.setVisible(true);
+                jTableVeiculo.setModel(controleVeiculo.consultarVeiculos());
 
             }
         }
@@ -599,23 +600,19 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(0);
-        tcf.setVisible(true);
+        TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(this, true, 0);
         tcf.setLocationRelativeTo(null);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
-        dispose();
+
+        tcf.setVisible(true);
+        jTableVeiculo.setModel(controleVeiculo.consultarVeiculos());
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void btnCadastrarVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarVeiculoMouseClicked
-        TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(0);
-        tcf.setVisible(true);
+        TelaCadastroVeiculo tcf = new TelaCadastroVeiculo(this, true, 0);
         tcf.setLocationRelativeTo(null);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
-        dispose();
+
+        tcf.setVisible(true);
+        jTableVeiculo.setModel(controleVeiculo.consultarVeiculos());
 
     }//GEN-LAST:event_btnCadastrarVeiculoMouseClicked
 

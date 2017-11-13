@@ -527,11 +527,26 @@ public class TelaConfiguraUsuario extends javax.swing.JFrame {
         dispose();    }//GEN-LAST:event_jpVeiculoMouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
-        // TODO add your handling code here:
+
+        TelaConsultaAula tcf = new TelaConsultaAula();
+        tcf.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
+        tcf.setLocationRelativeTo(null);
+        dispose();
+
+
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
-        // TODO add your handling code here:
+              TelaConsultaExame tcf = new TelaConsultaExame();
+        tcf.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
+        tcf.setLocationRelativeTo(null);
+        dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void panelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSairMouseClicked

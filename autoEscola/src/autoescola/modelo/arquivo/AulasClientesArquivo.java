@@ -78,10 +78,9 @@ public class AulasClientesArquivo extends Arquivo {
      * @param codCliente
      * @return the AulasClientes
      */
-    @Override
-    public AulasClientes consultar(int codCliente) {
+    public ArrayList<AulasClientes> consultarClientesAula(int codCliente) {
         File arquivoCSV = new File(tabela);
-        AulasClientes aulaCliente = new AulasClientes();
+        ArrayList<AulasClientes> aulaClientes = new ArrayList();
         try {
 
             //cria um scanner para ler o arquivo
@@ -101,18 +100,21 @@ public class AulasClientesArquivo extends Arquivo {
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[1]) == codCliente) {
-                    Aula aula = new Aula();
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
+                    AulasClientes aulaCliente = new AulasClientes();
+                    AulasArquivo aa = new AulasArquivo();
+
+                    Aula aula = aa.consultar(parseInt(valoresEntreVirgulas[0]));
                     aulaCliente.setAulas(aula);
                     Cliente cliente = new Cliente();
                     cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
-                    boolean status = valoresEntreVirgulas[1].equals("true");
+                    boolean status = valoresEntreVirgulas[2].equals("true");
                     aulaCliente.setPresenca(status);
                     aulaCliente.setAluno(cliente);
+                    aulaClientes.add(aulaCliente);
 
                 }
             }
-            return aulaCliente;
+            return aulaClientes;
 
         } catch (FileNotFoundException e) {
             //log de erro
@@ -374,7 +376,7 @@ public class AulasClientesArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == aulasClientes.getAulas().getCodAulas() && parseInt(valoresEntreVirgulas[1]) == aulasClientes.getAluno().getCodCliente()) {
                     linhasDoArquivo = String.valueOf(aulasClientes.getAulas().getCodAulas()) + ",";
-                    linhasDoArquivo += String.valueOf(aulasClientes.getAluno().getCodCliente())+",";
+                    linhasDoArquivo += String.valueOf(aulasClientes.getAluno().getCodCliente()) + ",";
                     linhasDoArquivo += String.valueOf(aulasClientes.isPresenca());
 
                 }

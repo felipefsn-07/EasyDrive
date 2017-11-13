@@ -21,7 +21,7 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         initComponents();
         setIcon();
-        
+
     }
 
     /**
@@ -181,7 +181,8 @@ public class TelaLogin extends javax.swing.JFrame {
             TelaPrincipal form2 = new TelaPrincipal();
             form2.setVisible(true);
             form2.setLocationRelativeTo(null);
-            dispose();
+            this.dispose();
+
         } else {
             JOptionPane.showMessageDialog(null, "Senha ou usuário estão incorretos ou não cadastrados!");
         }

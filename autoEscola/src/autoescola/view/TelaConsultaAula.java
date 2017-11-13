@@ -35,6 +35,7 @@ public class TelaConsultaAula extends javax.swing.JFrame {
         initComponents();
         lblMes.setText(controleCalendario.mesAnteriorProximo());
         lblDataAula.setText(controleCalendario.getDiaMesAno());
+        usuario();
     }
 
     /**
@@ -768,7 +769,13 @@ public class TelaConsultaAula extends javax.swing.JFrame {
 
         setBounds(0, 0, 1327, 614);
     }// </editor-fold>//GEN-END:initComponents
+    private void usuario() {
+        if (!controleLogin.isGerente()) {
+            jpFuncionario.setVisible(false);
+            jpVeiculo.setVisible(false);
+        }
 
+    }
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
         TelaPrincipal form2 = new TelaPrincipal();
         form2.setVisible(true);
@@ -810,13 +817,7 @@ public class TelaConsultaAula extends javax.swing.JFrame {
     }//GEN-LAST:event_jpVeiculoMouseClicked
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
-        TelaConsultaAula tcf = new TelaConsultaAula();
-        tcf.setVisible(true);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
-        tcf.setLocationRelativeTo(null);
-        dispose();
+
 
     }//GEN-LAST:event_jPanel11MouseClicked
 
@@ -850,13 +851,7 @@ public class TelaConsultaAula extends javax.swing.JFrame {
     }//GEN-LAST:event_panelSairMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        TelaCadastroAluno tcf = new TelaCadastroAluno(0);
-        tcf.setVisible(true);
-        tcf.setLocationRelativeTo(null);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
-        dispose();
+  
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void lblAgendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgendarMouseClicked

@@ -103,6 +103,9 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
         lblCadastrarEditar = new javax.swing.JLabel();
         txtHoraEntra = new javax.swing.JFormattedTextField();
         txtHoraSai = new javax.swing.JFormattedTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtLogradura = new javax.swing.JTextField();
@@ -276,6 +279,15 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
 
         txtHoraSai.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
 
+        jLabel35.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel35.setText("Formato exemplo: 10/05/2017");
+
+        jLabel36.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel36.setText("Formato exemplo: 11:10");
+
+        jLabel37.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel37.setText("Formato exemplo: 11:10");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -294,6 +306,7 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
                             .addComponent(jLabel23)
                             .addComponent(txtDataNasc, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNome)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -301,15 +314,17 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
                                         .addComponent(jLabel19)
                                         .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                                         .addComponent(txtHoraEntra))
-                                    .addComponent(jLabel21))
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel35)
+                                    .addComponent(jLabel36))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel37)
                                     .addComponent(jLabel20)
                                     .addComponent(txtCpf)
                                     .addComponent(txtCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                                     .addComponent(txtHoraSai)
-                                    .addComponent(jLabel22)))
-                            .addComponent(txtNome))
+                                    .addComponent(jLabel22))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jpInstrutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3))
@@ -340,7 +355,9 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jpInstrutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
@@ -356,6 +373,10 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHoraSai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtHoraEntra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel37))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel23)
                 .addGap(18, 18, 18)
@@ -507,7 +528,7 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
                         .addComponent(jLabel33)
                         .addGap(18, 18, 18)
                         .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 261, Short.MAX_VALUE))
+                .addGap(23, 305, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bntCadastrarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -619,7 +640,7 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
                 .addComponent(jLabel28)
                 .addGap(34, 34, 34)
                 .addComponent(jLabel27)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addComponent(bntGerarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -839,6 +860,9 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

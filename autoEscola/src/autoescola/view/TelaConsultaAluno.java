@@ -531,6 +531,8 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
             tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
         }
         tcf.setLocationRelativeTo(null);
+        dispose();
+        
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
@@ -584,24 +586,22 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        TelaCadastroAluno tcf = new TelaCadastroAluno(0);
-        tcf.setVisible(true);
+        TelaCadastroAluno tcf = new TelaCadastroAluno(this, true, 0);
         tcf.setLocationRelativeTo(null);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
-        dispose();
+
+        tcf.setVisible(true);
+        jTableAluno.setModel(controleAluno.consultarAlunos());
+
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
-        TelaCadastroAluno tcf = new TelaCadastroAluno(0);
-        tcf.setVisible(true);
+        TelaCadastroAluno tcf = new TelaCadastroAluno(this, true, 0);
         tcf.setLocationRelativeTo(null);
-        if (this.getExtendedState() != 0) {
-            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
-        }
-        dispose();
-        
+
+        tcf.setVisible(true);
+        jTableAluno.setModel(controleAluno.consultarAlunos());
+
+
     }//GEN-LAST:event_btnCadastrarMouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -625,10 +625,11 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
             if (jTableAluno.isCellSelected(row, 0)) {
                 // controleFuncionario.alterarStatus(true, id);
                 String id = String.valueOf(jTableAluno.getValueAt(row, 0));
-                TelaCadastroAluno tcf = new TelaCadastroAluno(parseInt(id));
-                tcf.setVisible(true);
+                TelaCadastroAluno tcf = new TelaCadastroAluno(this, true, parseInt(id));
                 tcf.setLocationRelativeTo(null);
-                dispose();
+
+                tcf.setVisible(true);
+                jTableAluno.setModel(controleAluno.consultarAlunos());
             }
         }
     }//GEN-LAST:event_jTableAlunoMouseClicked

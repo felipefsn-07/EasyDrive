@@ -396,12 +396,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jpFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpFuncionarioMouseClicked
         TelaConsultaFuncionario form2 = new TelaConsultaFuncionario();
+
         form2.setVisible(true);
+
         if (this.getExtendedState() != 0) {
             form2.setExtendedState(form2.getExtendedState() | form2.MAXIMIZED_BOTH);
         }
         form2.setLocationRelativeTo(null);
-        dispose();
+        this.dispose();
 
     }//GEN-LAST:event_jpFuncionarioMouseClicked
 
@@ -431,7 +433,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jpVeiculoMouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
-        // TODO add your handling code here:
+        TelaConsultaAula tcf = new TelaConsultaAula();
+        tcf.setVisible(true);
+        if (this.getExtendedState() != 0) {
+            tcf.setExtendedState(tcf.getExtendedState() | tcf.MAXIMIZED_BOTH);
+        }
+        tcf.setLocationRelativeTo(null);
+        dispose();
+
+
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
