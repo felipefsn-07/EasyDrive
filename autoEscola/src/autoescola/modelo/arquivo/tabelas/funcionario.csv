@@ -1,8 +1,0 @@
-codFunc,codEndereco,rg,nome,cpf,dataNasc,telefone,celular,horaEntra,horaSai,tipo,numero da carteira,categoria,status
-1,0,45.727.288-0,Felipe Silva do Nascimento,234.234.234-23,42/34/2342,(23) 4324-3242,(23) 23423-4234,08:44,23:42,Recepcionista,null,null,false
-2,0,33.432.234-3,Felipe Silva do Nascimento,434.234.234-23,43/42/3423,(34) 3242-3423,(23) 43242-3423,10:23,12:42,Gerente,null,null,false
-3,0,42.342.342-3,Maria,234.234.234-23,42/34/2342,(42) 3423-4234,(42) 34234-2342,18:34,19:43,Instrutor,24324234233,C,true
-4,0,23.423.432-4,Pedro Silva,324.234.234-32,23/43/2423,(23) 4234-2342,(23) 42342-3423,08:43,23:42,Recepcionista,null,null,true
-5,0,23.464.434-3,Jessica Rossi,332.342.343-24,04/05/1994,(11) 2312-3121,(11) 98823-1212,11:00,18:00,Instrutor,43234524336,A,true
-6,0,32.323.432-4,Lucca Di Bastianni do Amaral,234.234.234-23,25/01/1999,(23) 1231-2321,(23) 12312-3123,12:31,21:31,Instrutor,34234234324,A,true
-7,0,23.423.425-2,Gabriel Paulo Turato,234.234.234-32,43/23/4234,(23) 4234-2342,(23) 23423-4324,34:23,23:42,Gerente,null,null,true

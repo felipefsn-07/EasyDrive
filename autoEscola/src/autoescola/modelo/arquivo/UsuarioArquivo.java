@@ -15,6 +15,7 @@ import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -195,8 +196,11 @@ public class UsuarioArquivo extends Arquivo {
             }
             return 0;
 
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | NullPointerException e) {
             //log de erro
+            
+            inicializarArquivos();
+            JOptionPane.showMessageDialog(null, "Tente agora!");
             return 0;
 
         }
