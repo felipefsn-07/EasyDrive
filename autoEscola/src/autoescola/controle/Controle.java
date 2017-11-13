@@ -10,14 +10,16 @@ package autoescola.controle;
  *
  * @author felipe
  */
-public abstract class Controle {
+public abstract class Controle implements Numero {
     
-    protected boolean isDigit(String s) {
+    @Override
+    public boolean isDigit(String s) {
         char ch = s.charAt(0);
         return (ch >= 48 && ch <= 57);
     }
 
-    protected String pegarNumero(String variavel) {
+    @Override
+    public String pegarNumero(String variavel) {
         String a = "";
         for (int i = 0; i < variavel.length(); i++) {
             if (variavel.charAt(i) >= 48 && variavel.charAt(i) <= 57) {
