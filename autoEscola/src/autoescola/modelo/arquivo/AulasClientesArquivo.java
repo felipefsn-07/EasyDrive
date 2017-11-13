@@ -22,13 +22,15 @@ import java.util.Scanner;
  * @author felipe
  */
 public class AulasClientesArquivo extends Arquivo {
+
     private final String tabela = "tabelas/clienteaula.csv";
 
     /**
-     * 
+     *
+     * @param codigoAula
      * @return the ArrayList of AulasClientes
      */
-    public ArrayList<AulasClientes> consultarAulasClientes() {
+    public ArrayList<AulasClientes> consultarAulasClientes(int codigoAula) {
         File arquivoCSV = new File(tabela);
         ArrayList<AulasClientes> aulaClientes = new ArrayList();
         try {
@@ -49,14 +51,15 @@ public class AulasClientesArquivo extends Arquivo {
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (valoresEntreVirgulas[0] != null) {
+                if (parseInt(valoresEntreVirgulas[0]) == codigoAula) {
                     AulasClientes aulaCliente = new AulasClientes();
                     Aula aula = new Aula();
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aulaCliente.setAulas(aula);
-                    Cliente cliente = new Cliente();
-                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
-                    aulaCliente.setAluno(cliente);
+                    ClienteArquivo c = new ClienteArquivo();
+                    aulaCliente.setAluno(c.consultar(parseInt(valoresEntreVirgulas[1])));
+                    boolean status = valoresEntreVirgulas[2].equals("true");
+                    aulaCliente.setPresenca(status);
                     aulaClientes.add(aulaCliente);
 
                 }
@@ -71,7 +74,7 @@ public class AulasClientesArquivo extends Arquivo {
     }
 
     /**
-     * 
+     *
      * @param codCliente
      * @return the AulasClientes
      */
@@ -103,6 +106,8 @@ public class AulasClientesArquivo extends Arquivo {
                     aulaCliente.setAulas(aula);
                     Cliente cliente = new Cliente();
                     cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
+                    boolean status = valoresEntreVirgulas[1].equals("true");
+                    aulaCliente.setPresenca(status);
                     aulaCliente.setAluno(cliente);
 
                 }
@@ -117,54 +122,7 @@ public class AulasClientesArquivo extends Arquivo {
     }
 
     /**
-     * 
-     * @param codAula
-     * @return AulasClientes
-     */
-    
-    public AulasClientes consultarClientesPorAula(int codAula) {
-        File arquivoCSV = new File(tabela);
-        AulasClientes aulacliente = new AulasClientes();
-        try {
-
-            //cria um scanner para ler o arquivo
-            Scanner leitor = new Scanner(arquivoCSV);
-
-            //variavel que armazenara as linhas do arquivo
-            String linhasDoArquivo = null;
-
-            //ignora a primeira linha do arquivo
-            leitor.nextLine();
-            //percorre todo o arquivo
-            while (leitor.hasNext()) {
-                //recebe cada linha do arquivo
-                linhasDoArquivo = leitor.nextLine();
-
-                //separa os campos entre as virgulas de cada linha
-                //imprime a coluna que quiser
-                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codAula) {
-                    AulasClientes aulaCliente = new AulasClientes();
-                    Aula aula = new Aula();
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
-                    aulaCliente.setAulas(aula);
-                    Cliente cliente = new Cliente();
-                    cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
-                    aulaCliente.setAluno(cliente);
-
-                }
-            }
-            return aulacliente;
-
-        } catch (FileNotFoundException e) {
-            //log de erro
-            return null;
-
-        }
-    }
-    
-    /**
-     * 
+     *
      * @param aulaCliente
      * @return false or true
      */
@@ -190,7 +148,9 @@ public class AulasClientesArquivo extends Arquivo {
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == aulaCliente.getAulas().getCodAulas() && parseInt(valoresEntreVirgulas[1]) == aulaCliente.getAluno().getCodCliente()) {
                     linhasDoArquivo = String.valueOf(aulaCliente.getAulas().getCodAulas()) + ",";
-                    linhasDoArquivo += String.valueOf(aulaCliente.getAluno().getCodCliente()) ;
+                    linhasDoArquivo += String.valueOf(aulaCliente.getAluno().getCodCliente());
+                    linhasDoArquivo += String.valueOf(aulaCliente.isPresenca());
+
                 }
                 todo += linhasDoArquivo + "\n";
 
@@ -213,7 +173,7 @@ public class AulasClientesArquivo extends Arquivo {
     }
 
     /**
-     * 
+     *
      * @param aulaCliente
      * @return false or true
      */
@@ -229,6 +189,8 @@ public class AulasClientesArquivo extends Arquivo {
                 conexao.write(String.valueOf(aulaCliente.getAulas().getCodAulas()));
                 conexao.write(',');
                 conexao.write(String.valueOf(aulaCliente.getAluno().getCodCliente()));
+                conexao.write(',');
+                conexao.write(String.valueOf(aulaCliente.isPresenca()));
                 conexao.newLine();
                 conexao.close();
 
@@ -243,9 +205,9 @@ public class AulasClientesArquivo extends Arquivo {
             return false;
         }
     }
-    
+
     /**
-     * 
+     *
      * @param campo
      * @param valor
      * @return the ArrayList of AulasClientes
@@ -285,6 +247,8 @@ public class AulasClientesArquivo extends Arquivo {
                     Cliente cliente = new Cliente();
                     cliente.setCodCliente(parseInt(valoresEntreVirgulas[1]));
                     aulaCliente.setAluno(cliente);
+                    boolean status = valoresEntreVirgulas[1].equals("true");
+                    aulaCliente.setPresenca(status);
                     aulaClientes.add(aulaCliente);
 
                 }
@@ -297,5 +261,141 @@ public class AulasClientesArquivo extends Arquivo {
 
         }
     }
-    
+
+    /**
+     *
+     * @param codigoAula
+     * @return
+     */
+    public boolean apagarAula(int codigoAula) {
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+            String todo = "";
+            //ignora a primeira linha do arquivo
+            todo += leitor.nextLine() + "\n";
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == codigoAula) {
+                    linhasDoArquivo = "";
+
+                }
+                if (!linhasDoArquivo.equals("")) {
+                    todo += linhasDoArquivo + "\n";
+                }
+
+            }
+            try {
+                FileWriter fw = new FileWriter(tabela);
+                BufferedWriter conexao = new BufferedWriter(fw);
+                conexao.write(todo);
+                conexao.close();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+
+            //return true;
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+    }
+
+    public ArrayList<Cliente> trazerClientes(int codigoAula) {
+        File arquivoCSV = new File(tabela);
+        ArrayList<Cliente> clientes = new ArrayList();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas != null & parseInt(valoresEntreVirgulas[0]) == codigoAula) {
+                    ClienteArquivo c = new ClienteArquivo();
+                    Cliente cliente = c.consultar(parseInt(valoresEntreVirgulas[1]));
+
+                    clientes.add(cliente);
+
+                }
+            }
+            return clientes;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
+    public boolean presenca(AulasClientes aulasClientes) {
+        File arquivoCSV = new File(tabela);
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+            String todo = "";
+            //ignora a primeira linha do arquivo
+            todo += leitor.nextLine() + "\n";
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == aulasClientes.getAulas().getCodAulas() && parseInt(valoresEntreVirgulas[1]) == aulasClientes.getAluno().getCodCliente()) {
+                    linhasDoArquivo = String.valueOf(aulasClientes.getAulas().getCodAulas()) + ",";
+                    linhasDoArquivo += String.valueOf(aulasClientes.getAluno().getCodCliente())+",";
+                    linhasDoArquivo += String.valueOf(aulasClientes.isPresenca());
+
+                }
+                todo += linhasDoArquivo + "\n";
+
+            }
+            try {
+                FileWriter fw = new FileWriter(tabela);
+                BufferedWriter conexao = new BufferedWriter(fw);
+                conexao.write(todo);
+                conexao.close();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+            //return true;
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return false;
+
+        }
+
+    }
 }

@@ -6,13 +6,13 @@
 package autoescola.controle;
 
 import autoescola.modelo.arquivo.ClienteArquivo;
-import autoescola.modelo.arquivo.ClienteExameArquivo;
-import autoescola.modelo.arquivo.ExameArquivo;
+import autoescola.modelo.arquivo.AulasArquivo;
+import autoescola.modelo.arquivo.AulasClientesArquivo;
 import autoescola.modelo.arquivo.FuncionarioArquivo;
 import autoescola.modelo.arquivo.VeiculoArquivo;
 import autoescola.modelo.bean.Cliente;
-import autoescola.modelo.bean.Exame;
-import autoescola.modelo.bean.ExameClientes;
+import autoescola.modelo.bean.Aula;
+import autoescola.modelo.bean.AulasClientes;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
 import static java.lang.Float.parseFloat;
@@ -32,38 +32,37 @@ import javax.swing.table.TableModel;
  *
  * @author felipe
  */
-public class ControleExame extends Controle {
-
+public class ControleAula extends Controle {
     private ControleCalendario calendario;
-    private Exame exame = new Exame();
+    private Aula aula = new Aula();
     private ArrayList<Cliente> clientes = null;
-    private ArrayList<Cliente> clientesExames = null;
+    private ArrayList<Cliente> clientesAulas = null;
     private ArrayList<Funcionario> instrutores = null;
     private ArrayList<Veiculo> veiculos = null;
-
-    public ControleExame(ControleCalendario calendario) {
+    
+    public ControleAula(ControleCalendario calendario) {
         this.calendario = calendario;
 
     }
-
-    public ControleExame(Exame exame) {
-        ExameArquivo ea = new ExameArquivo();
-        this.exame = ea.consultar(exame.getCodigoExame());
-        inicializarClientesCadastradoExame();
-        inicializarClientesNaoCadastradoExame();
+    
+       public ControleAula(Aula aula) {
+        AulasArquivo ea = new AulasArquivo();
+        this.aula = ea.consultar(aula.getCodAulas());
+        inicializarClientesCadastradoAula();
+        inicializarClientesNaoCadastradoAula();
         inicializarInstrutoresAtivos();
         incializarVeiculoAtivo();
     }
 
-    private void inicializarClientesCadastradoExame() {
-        ClienteExameArquivo cea = new ClienteExameArquivo();
-        this.clientesExames = cea.trazerClientes(exame.getCodigoExame());
+    private void inicializarClientesCadastradoAula() {
+        AulasClientesArquivo cea = new AulasClientesArquivo();
+        this.clientesAulas = cea.trazerClientes(aula.getCodAulas());
     }
 
-    private void inicializarClientesNaoCadastradoExame() {
+    private void inicializarClientesNaoCadastradoAula() {
         ClienteArquivo cea = new ClienteArquivo();
         this.clientes = cea.consultarClientesAtivos();
-        for (Cliente cliente : clientesExames) {
+        for (Cliente cliente : clientesAulas) {
 
             for (int i = 0; i < clientes.size(); i++) {
                 if (cliente.getCodCliente() == clientes.get(i).getCodCliente()) {
@@ -250,11 +249,11 @@ public class ControleExame extends Controle {
     }
 
     public boolean adicionarVeiculo(int codigoVeiculo) {
-        if (temExame()) {
-            ExameArquivo ea = new ExameArquivo();
+        if (temAula()) {
+            AulasArquivo ea = new AulasArquivo();
             VeiculoArquivo va = new VeiculoArquivo();
-            exame.setVeiculo(va.consultar(codigoVeiculo));
-            if (ea.alterarExame(exame)) {
+            aula.setVeiculo(va.consultar(codigoVeiculo));
+            if (ea.alterar(aula)) {
                 JOptionPane.showMessageDialog(null, "Veiculo inserido com sucesso!");
                 return true;
             } else {
@@ -262,18 +261,18 @@ public class ControleExame extends Controle {
                 return false;
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Agende o exame primeiro!");
+            JOptionPane.showMessageDialog(null, "Agende a aula primeiro!");
 
             return false;
         }
     }
 
     public boolean adicionarInstrutor(int codigoFuncionario) {
-        if (temExame()) {
-            ExameArquivo ea = new ExameArquivo();
+        if (temAula()) {
+            AulasArquivo ea = new AulasArquivo();
             FuncionarioArquivo fa = new FuncionarioArquivo();
-            exame.setInstrutor(fa.consultar(codigoFuncionario));
-            if (ea.alterarExame(exame)) {
+            aula.setInstrutor(fa.consultar(codigoFuncionario));
+            if (ea.alterar(aula)) {
                 JOptionPane.showMessageDialog(null, "Instrutor inserido com sucesso!");
 
                 return true;
@@ -284,37 +283,34 @@ public class ControleExame extends Controle {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Agende o exame primeiro!");
+            JOptionPane.showMessageDialog(null, "Agende a aula primeiro!");
 
             return false;
         }
     }
 
     public Funcionario getInstrutor() {
-        return exame.getInstrutor();
+        return aula.getInstrutor();
     }
 
     public Veiculo getVeiculo() {
-        return exame.getVeiculo();
+        return aula.getVeiculo();
     }
+    
+    
+    public TableModel consultarAulas() {
 
-    /**
-     *
-     * @return
-     */
-    public TableModel consultarExames() {
-
-        ExameArquivo arqExame = new ExameArquivo();
-        ArrayList<Exame> exames = arqExame.consultarData(calendario.getDiaMesAno());
+        AulasArquivo arqAula = new AulasArquivo();
+        ArrayList<Aula> aulas = arqAula.consultarData(calendario.getDiaMesAno());
         DefaultTableModel jTable1 = new DefaultTableModel();
 
-        if (exames != null) {
-            jTable1.addColumn("Codigo Exame");
+        if (aulas != null) {
+            jTable1.addColumn("Codigo Aula");
             jTable1.addColumn("Horario Inicio");
             jTable1.addColumn("Horario fim");
 
-            for (Exame exame : exames) {
-                jTable1.addRow(new Object[]{exame.getCodigoExame(), exame.getHorarioInicio(), exame.getHorarioFim()});
+            for (Aula aula : aulas) {
+                jTable1.addRow(new Object[]{aula.getCodAulas(), aula.getHorarioAulaInicio(), aula.getHorarioAulaFim()});
             }
             return jTable1;
         } else {
@@ -322,33 +318,51 @@ public class ControleExame extends Controle {
             table.setModel(new javax.swing.table.DefaultTableModel(
                     new Object[][]{},
                     new String[]{
-                        "Codigo Exame", "Horario Inicio", "Horario fim"
+                        "Codigo Aula", "Horario Inicio", "Horario fim"
                     }
             ));
             return table.getModel();
         }
 
     }
-
+    
+    
     /**
      *
-     * @param exame
      * @return
      */
-    public boolean agendarExame(Exame exame) {
-        ExameArquivo ea = new ExameArquivo();
-        exame.setInstrutor(new Funcionario());
-        exame.setVeiculo(new Veiculo());
-        if (!exame.getDataExame().equals("") && !("").equals(exame.getHorarioFim()) && !("").equals(exame.getHorarioInicio())) {
+    public boolean temAula() {
+        return aula.getCodAulas()!= 0;
+    }
+    
+    
+    
+    
+    
+    @Override
+    public boolean alterarStatus(boolean anterior, String idStr) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+        /**
+     *
+     * @param aula
+     * @return
+     */
+    public boolean agendarAula(Aula aula) {
+        AulasArquivo ea = new AulasArquivo();
+        aula.setInstrutor(new Funcionario());
+        aula.setVeiculo(new Veiculo());
+        if (!aula.getDataAula().equals("") && !("").equals(aula.getHorarioAulaFim()) && !("").equals(aula.getHorarioAulaInicio())) {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                Date horaInicio = sdf.parse(exame.getHorarioInicio());
-                Date horaFim = sdf.parse(exame.getHorarioFim());
+                Date horaInicio = sdf.parse(aula.getHorarioAulaInicio());
+                Date horaFim = sdf.parse(aula.getHorarioAulaFim());
                 if (horaFim.getTime() > horaInicio.getTime()) {
-                    int res = ea.cadastrarExame(exame);
+                    int res = ea.cadastrarAulas(aula);
                     if (res != 0) {
-                        exame.setCodigoExame(res);
-                        this.exame = exame;
+                        aula.setCodAulas(res);
+                        this.aula = aula;
 
                         JOptionPane.showMessageDialog(null, "Agendado com sucesso!");
                         return true;
@@ -372,22 +386,22 @@ public class ControleExame extends Controle {
 
     }
 
-    public boolean alterarExame(Exame exame) {
+    public boolean alterarAula(Aula aula) {
 
-        ExameArquivo ea = new ExameArquivo();
-        exame.setInstrutor(this.exame.getInstrutor());
-        exame.setVeiculo(this.exame.getVeiculo());
-        exame.setCodigoExame(this.exame.getCodigoExame());
+        AulasArquivo ea = new AulasArquivo();
+        aula.setInstrutor(this.aula.getInstrutor());
+        aula.setVeiculo(this.aula.getVeiculo());
+        aula.setCodAulas(this.aula.getCodAulas());
 
-        if (!exame.getDataExame().equals("") && !("").equals(exame.getHorarioFim()) && !("").equals(exame.getHorarioInicio())) {
+        if (!aula.getDataAula().equals("") && !("").equals(aula.getHorarioAulaInicio()) && !("").equals(aula.getHorarioAulaFim())) {
             try {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                Date horaInicio = sdf.parse(exame.getHorarioInicio());
-                Date horaFim = sdf.parse(exame.getHorarioFim());
+                Date horaInicio = sdf.parse(aula.getHorarioAulaInicio());
+                Date horaFim = sdf.parse(aula.getHorarioAulaFim());
                 if (horaFim.getTime() > horaInicio.getTime()) {
-                    if (ea.alterarExame(exame)) {
-                        this.exame = exame;
+                    if (ea.alterar(aula)) {
+                        this.aula = aula;
 
                         JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
                         return true;
@@ -417,18 +431,18 @@ public class ControleExame extends Controle {
      * @return
      */
     public boolean deletarAluno(Cliente aluno) {
-        ClienteExameArquivo eca = new ClienteExameArquivo();
+        AulasClientesArquivo eca = new AulasClientesArquivo();
 
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente remover o aluno do exame?", "Remover o aluno do exame", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente remover o aluno da aula?", "Remover o aluno da aula", JOptionPane.YES_NO_OPTION);
 
         if (resposta == JOptionPane.YES_OPTION) {
-            ExameClientes ec = new ExameClientes();
-            ec.setCliente(aluno);
-            ec.setExame(exame);
+            AulasClientes ec = new AulasClientes();
+            ec.setAluno(aluno);
+            ec.setAulas(aula);
             //Usuário clicou em Sim. Executar o código correspondente.
-            if (eca.apagarAlunosExame(ec)) {
-                JOptionPane.showMessageDialog(null, "Removido do exame com sucesso");
-                tirarAlunoMemoria(clientesExames, aluno);
+            if (eca.apagarAula(ec.getAulas().getCodAulas())) {
+                JOptionPane.showMessageDialog(null, "Removido da aula com sucesso");
+                tirarAlunoMemoria(clientesAulas, aluno);
                 ClienteArquivo ca = new ClienteArquivo();
                 clientes.add(ca.consultar(aluno.getCodCliente()));
                 return true;
@@ -455,24 +469,24 @@ public class ControleExame extends Controle {
      * @param codigoAluno
      * @return
      */
-    public boolean adicionarAlunoExame(int codigoAluno) {
-        if (temExame()) {
+    public boolean adicionarAlunoAula(int codigoAluno) {
+        if (temAula()) {
             ClienteArquivo arqAluno = new ClienteArquivo();
             Cliente aluno = arqAluno.consultar(codigoAluno);
-            ExameClientes ec = new ExameClientes();
-            ec.setExame(exame);
-            ec.setCliente(aluno);
-            ClienteExameArquivo arq = new ClienteExameArquivo();
+            AulasClientes ec = new AulasClientes();
+            ec.setAulas(aula);
+            ec.setAluno(aluno);
+            AulasClientesArquivo arq = new AulasClientesArquivo();
 
-            if (arq.cadastrarExameClientes(ec)) {
-                clientesExames.add(aluno);
+            if (arq.cadastrarAulasClientes(ec)) {
+                clientesAulas.add(aluno);
                 tirarAlunoMemoria(clientes, aluno);
                 return true;
             } else {
                 return false;
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Agende o exame primeiro!");
+            JOptionPane.showMessageDialog(null, "Agende a aula primeiro!");
 
             return false;
         }
@@ -508,12 +522,12 @@ public class ControleExame extends Controle {
 
     }
 
-    public TableModel consultarAlunosExame() {
+    public TableModel consultarAlunosAula() {
         DefaultTableModel jTable1 = new DefaultTableModel();
-        if (clientesExames != null) {
+        if (clientesAulas != null) {
             jTable1.addColumn("Codigo aluno");
             jTable1.addColumn("Nome");;
-            for (Cliente cliente : clientesExames) {
+            for (Cliente cliente : clientesAulas) {
 
                 jTable1.addRow(new Object[]{String.valueOf(cliente.getCodCliente()), cliente.getNome()});
 
@@ -532,7 +546,7 @@ public class ControleExame extends Controle {
 
     }
 
-    public TableModel consultaAlunoLikeExame(JTextField id, JComboBox tipo) {
+    public TableModel consultaAlunoLikeAula(JTextField id, JComboBox tipo) {
         DefaultTableModel jTable1 = new DefaultTableModel();
 
         jTable1.addColumn("Codigo aluno");
@@ -611,30 +625,10 @@ public class ControleExame extends Controle {
 
     /**
      *
-     * @param anterior
-     * @param idStr
-     * @return
-     */
-    @Override
-    public boolean alterarStatus(boolean anterior, String idStr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     *
      * @param id
      * @return
      */
-    public Exame exameEditar() {
-        return exame;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean temExame() {
-
-        return exame.getCodigoExame() != 0;
+    public Aula aulaEditar() {
+        return aula;
     }
 }

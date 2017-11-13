@@ -112,12 +112,13 @@ public class ExameArquivo extends Arquivo {
                     exame.setDataExame(valoresEntreVirgulas[1]);
                     exame.setHorarioInicio(valoresEntreVirgulas[2]);
                     exame.setHorarioFim(valoresEntreVirgulas[3]);
+                    VeiculoArquivo va = new VeiculoArquivo();
 
-                    Veiculo veiculo = new Veiculo();
-                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[4]));
+                    Veiculo veiculo = va.consultar(parseInt(valoresEntreVirgulas[4]));
                     exame.setVeiculo(veiculo);
-                    Funcionario instrutor = new Funcionario();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
+
+                    FuncionarioArquivo fa = new FuncionarioArquivo();
+                    Funcionario instrutor = fa.consultar(parseInt(valoresEntreVirgulas[5]));
                     ClienteExameArquivo arqEc = new ClienteExameArquivo();
                     ArrayList<ExameClientes> ec = arqEc.consultarClientesPorExame(codExame);
                     exame.setAlunos(ec);

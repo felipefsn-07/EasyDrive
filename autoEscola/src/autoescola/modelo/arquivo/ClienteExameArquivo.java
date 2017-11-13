@@ -425,10 +425,10 @@ public class ClienteExameArquivo extends Arquivo {
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codExame) {
+                if (valoresEntreVirgulas != null & parseInt(valoresEntreVirgulas[0]) == codExame) {
                     ClienteArquivo c = new ClienteArquivo();
-                    Cliente cliente = c.consultar(parseInt(valoresEntreVirgulas[1]) );
-                  
+                    Cliente cliente = c.consultar(parseInt(valoresEntreVirgulas[1]));
+
                     clientes.add(cliente);
 
                 }
@@ -441,4 +441,6 @@ public class ClienteExameArquivo extends Arquivo {
 
         }
     }
+
+ 
 }

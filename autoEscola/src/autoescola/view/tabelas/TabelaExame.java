@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package autoescola.controle;
+package autoescola.view.tabelas;
 
 import javax.swing.JTable;
 

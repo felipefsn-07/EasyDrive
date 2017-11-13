@@ -7,7 +7,7 @@ package autoescola.view;
 
 import autoescola.controle.ControleAluno;
 import autoescola.controle.ControleLogin;
-import autoescola.controle.TabelaAluno;
+import autoescola.view.tabelas.TabelaAluno;
 import java.awt.Color;
 import static java.lang.Integer.parseInt;
 import javax.swing.ListSelectionModel;

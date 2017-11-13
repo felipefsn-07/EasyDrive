@@ -5,45 +5,48 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleExame;
+import autoescola.controle.ControleAula;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.view.tabelas.Tabela;
 import autoescola.modelo.bean.Cliente;
-import autoescola.modelo.bean.Exame;
+import autoescola.modelo.bean.Aula;
 import autoescola.modelo.bean.Veiculo;
 import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author felipe
  */
-public class TelaAgendarExame extends javax.swing.JDialog {
+public class TelaAgendarAula extends javax.swing.JDialog {
 
-    /**
-     * Creates new form TelaAgendarExame
-     */
-    //private final ControleLogin controleLogin = new ControleLogin();
-    private final ControleExame controleExame;
+    private final ControleAula controleAula;
     private final Tabela tabelaAluno = new Tabela();
     private final Tabela tabelaInstrutor = new Tabela();
-    private final Tabela tabelaClienteExame = new Tabela();
+    private final Tabela tabelaClienteAula = new Tabela();
     private final Tabela tabelaVeiculo = new Tabela();
 
-    public TelaAgendarExame(java.awt.Frame parent, boolean modal, Exame exame) {
+    /**
+     * Creates new form TelaAgendarAula
+     * @param parent
+     * @param modal
+     * @param aula
+     */
+    public TelaAgendarAula(java.awt.Frame parent, boolean modal, Aula aula) {
         super(parent, modal);
-        controleExame = new ControleExame(exame);
+        controleAula = new ControleAula(aula);
 
         initComponents();
-        if (!exame.getDataExame().equals("") && exame.getCodigoExame() == 0) {
-            txtDataExame.setText(exame.getDataExame());
+        if (!aula.getDataAula().equals("") && aula.getCodAulas()== 0) {
+            txtDataAula.setText(aula.getDataAula());
         }
-        if (exame.getCodigoExame() != 0) {
-            Exame e = controleExame.exameEditar();
-            txtDataExame.setText(e.getDataExame());
-            txtHoraInicio.setText(e.getHorarioInicio());
-            txtHoraFim.setText(e.getHorarioFim());
-            lblAgendarExame.setText("Editar exame");
+        if (aula.getCodAulas()!= 0) {
+            Aula e = controleAula.aulaEditar();
+            txtDataAula.setText(e.getDataAula());
+            txtHoraInicio.setText(e.getHorarioAulaInicio());
+            txtHoraFim.setText(e.getHorarioAulaFim());
+            lblAgendarAula.setText("Editar aula");
             inicializarInstrutor();
             inicializarVeiculo();
         }
@@ -67,10 +70,10 @@ public class TelaAgendarExame extends javax.swing.JDialog {
         txtHoraInicio = new javax.swing.JFormattedTextField();
         jLabel34 = new javax.swing.JLabel();
         txtHoraFim = new javax.swing.JFormattedTextField();
-        txtDataExame = new javax.swing.JFormattedTextField();
+        txtDataAula = new javax.swing.JFormattedTextField();
         jLabel27 = new javax.swing.JLabel();
-        bntCadastrarAlterarExame = new javax.swing.JPanel();
-        lblAgendarExame = new javax.swing.JLabel();
+        bntCadastrarAlterarAula = new javax.swing.JPanel();
+        lblAgendarAula = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
@@ -78,7 +81,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
         bntAdicionarAluno = new javax.swing.JPanel();
         lblCadastrarEndereco = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAlunosExame = tabelaClienteExame;
+        jTableAlunosAula = tabelaClienteAula;
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAluno = tabelaAluno;
         txtPesquisarAluno = new javax.swing.JTextField();
@@ -141,7 +144,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(254, 254, 254));
-        jLabel7.setText("Exame");
+        jLabel7.setText("Aula");
 
         jtAlunos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -151,45 +154,45 @@ public class TelaAgendarExame extends javax.swing.JDialog {
 
         jpUsuario.setBackground(new java.awt.Color(254, 254, 254));
 
-        jLabel25.setText("Hora fim do exame:");
+        jLabel25.setText("Hora fim da aula:");
 
         txtHoraInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
 
-        jLabel34.setText("Hora inicio do exame:");
+        jLabel34.setText("Hora inicio da aula:");
 
         txtHoraFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
 
-        txtDataExame.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtDataAula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
-        jLabel27.setText("Data do exame:");
+        jLabel27.setText("Data da aula:");
 
-        bntCadastrarAlterarExame.setBackground(new java.awt.Color(28, 181, 165));
-        bntCadastrarAlterarExame.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bntCadastrarAlterarExame.addMouseListener(new java.awt.event.MouseAdapter() {
+        bntCadastrarAlterarAula.setBackground(new java.awt.Color(28, 181, 165));
+        bntCadastrarAlterarAula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bntCadastrarAlterarAula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bntCadastrarAlterarExameMouseClicked(evt);
+                bntCadastrarAlterarAulaMouseClicked(evt);
             }
         });
 
-        lblAgendarExame.setBackground(new java.awt.Color(254, 254, 254));
-        lblAgendarExame.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        lblAgendarExame.setForeground(new java.awt.Color(254, 254, 254));
-        lblAgendarExame.setText("Agendar Exame");
+        lblAgendarAula.setBackground(new java.awt.Color(254, 254, 254));
+        lblAgendarAula.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        lblAgendarAula.setForeground(new java.awt.Color(254, 254, 254));
+        lblAgendarAula.setText("Agendar Exame");
 
-        javax.swing.GroupLayout bntCadastrarAlterarExameLayout = new javax.swing.GroupLayout(bntCadastrarAlterarExame);
-        bntCadastrarAlterarExame.setLayout(bntCadastrarAlterarExameLayout);
-        bntCadastrarAlterarExameLayout.setHorizontalGroup(
-            bntCadastrarAlterarExameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bntCadastrarAlterarExameLayout.createSequentialGroup()
+        javax.swing.GroupLayout bntCadastrarAlterarAulaLayout = new javax.swing.GroupLayout(bntCadastrarAlterarAula);
+        bntCadastrarAlterarAula.setLayout(bntCadastrarAlterarAulaLayout);
+        bntCadastrarAlterarAulaLayout.setHorizontalGroup(
+            bntCadastrarAlterarAulaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bntCadastrarAlterarAulaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblAgendarExame)
+                .addComponent(lblAgendarAula)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        bntCadastrarAlterarExameLayout.setVerticalGroup(
-            bntCadastrarAlterarExameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bntCadastrarAlterarExameLayout.createSequentialGroup()
+        bntCadastrarAlterarAulaLayout.setVerticalGroup(
+            bntCadastrarAlterarAulaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bntCadastrarAlterarAulaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblAgendarExame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblAgendarAula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -211,11 +214,11 @@ public class TelaAgendarExame extends javax.swing.JDialog {
                 .addGroup(jpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUsuarioLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(bntCadastrarAlterarExame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bntCadastrarAlterarAula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpUsuarioLayout.createSequentialGroup()
                         .addGroup(jpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtDataExame)
+                                .addComponent(txtDataAula)
                                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jpUsuarioLayout.createSequentialGroup()
                                     .addGroup(jpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,7 +241,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDataExame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDataAula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel35)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -253,12 +256,12 @@ public class TelaAgendarExame extends javax.swing.JDialog {
                 .addGroup(jpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel36)
                     .addComponent(jLabel37))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
-                .addComponent(bntCadastrarAlterarExame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 330, Short.MAX_VALUE)
+                .addComponent(bntCadastrarAlterarAula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jtAlunos.addTab("Exame", jpUsuario);
+        jtAlunos.addTab("Aula", jpUsuario);
 
         jPanel11.setBackground(new java.awt.Color(254, 254, 254));
 
@@ -292,17 +295,17 @@ public class TelaAgendarExame extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jTableAlunosExame.setModel(controleExame.consultarAlunosExame() );
-        jTableAlunosExame.getTableHeader().setReorderingAllowed(false);
-        jTableAlunosExame.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTableAlunosAula.setModel(controleAula.consultarAlunosAula());
+        jTableAlunosAula.getTableHeader().setReorderingAllowed(false);
+        jTableAlunosAula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTableAlunosExameKeyPressed(evt);
+                jTableAlunosAulaKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableAlunosExame);
+        jScrollPane1.setViewportView(jTableAlunosAula);
 
         jTableAluno.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jTableAluno.setModel(controleExame.consultarAlunos());
+        jTableAluno.setModel(controleAula.consultarAlunos());
         jTableAluno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableAlunoMouseClicked(evt);
@@ -462,7 +465,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
 
         jPanel7.setBackground(new java.awt.Color(61, 180, 162));
 
-        jTableVeiculo.setModel(controleExame.consultarVeiculosAtivos());
+        jTableVeiculo.setModel(controleAula.consultarVeiculosAtivos());
         jScrollPane4.setViewportView(jTableVeiculo);
 
         bntAdicionarInstrutor2.setBackground(new java.awt.Color(97, 212, 195));
@@ -544,8 +547,8 @@ public class TelaAgendarExame extends javax.swing.JDialog {
                             .addComponent(txtPesquisarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(bntAdicionarInstrutor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         txtCapacidade.setEnabled(false);
@@ -586,7 +589,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -614,7 +617,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
 
         jPanel5.setBackground(new java.awt.Color(61, 180, 162));
 
-        jTableInstrutor.setModel(controleExame.consultarInstrutoresAtivos());
+        jTableInstrutor.setModel(controleAula.consultarInstrutoresAtivos());
         jScrollPane2.setViewportView(jTableInstrutor);
 
         jbInstrutor.setBackground(new java.awt.Color(254, 254, 254));
@@ -866,7 +869,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHoraEntra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtHoraSai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(29, 29, 29))
         );
@@ -928,72 +931,44 @@ public class TelaAgendarExame extends javax.swing.JDialog {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(0, 0, 975, 684);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bntCadastrarAlterarAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntCadastrarAlterarAulaMouseClicked
+        Aula aula = new Aula();
+        aula.setDataAula(txtDataAula.getText());
+        aula.setHorarioAulaInicio(txtHoraInicio.getText());
+        aula.setHorarioAulaFim(txtHoraFim.getText());
+        if (!controleAula.temAula()) {
+
+            if (controleAula.agendarAula(aula)) {
+                jTableAluno.setModel(controleAula.consultarAlunos());
+            }
+        } else {
+            if (controleAula.alterarAula(aula)) {
+                // jTableAluno.setModel(controleAula.consultarAlunos());
+            }
+        }
+    }//GEN-LAST:event_bntCadastrarAlterarAulaMouseClicked
 
     private void bntAdicionarAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntAdicionarAlunoMouseClicked
         int row = jTableAluno.getSelectedRow();
         if (row != -1) {
             String id = String.valueOf(jTableAluno.getValueAt(row, 0));
 
-            if (controleExame.adicionarAlunoExame(parseInt(id))) {
-                jTableAluno.setModel(controleExame.consultarAlunos());
+            if (controleAula.adicionarAlunoAula(parseInt(id))) {
+                jTableAluno.setModel(controleAula.consultarAlunos());
 
-                jTableAlunosExame.setModel(controleExame.consultarAlunosExame());
+                jTableAlunosAula.setModel(controleAula.consultarAlunosAula());
             }
         } else {
             JOptionPane.showMessageDialog(null, "Não existem alunos selecionados!");
 
         }
-
     }//GEN-LAST:event_bntAdicionarAlunoMouseClicked
 
-    private void jTableAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlunoMouseClicked
-
-    }//GEN-LAST:event_jTableAlunoMouseClicked
-
-    private void txtPesquisarAlunoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtPesquisarAlunoInputMethodTextChanged
-
-    }//GEN-LAST:event_txtPesquisarAlunoInputMethodTextChanged
-
-    private void txtPesquisarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarAlunoActionPerformed
-
-    }//GEN-LAST:event_txtPesquisarAlunoActionPerformed
-
-    private void txtPesquisarAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarAlunoKeyPressed
-        //jTableAluno.setModel(controleExame.consultaAlunoLikeExame(txtPesquisarAluno, jComboBox1));
-    }//GEN-LAST:event_txtPesquisarAlunoKeyPressed
-
-    private void txtPesquisarAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarAlunoKeyReleased
-        jTableAluno.setModel(controleExame.consultaAlunoLikeExame(txtPesquisarAluno, jComboBox1));
-
-
-    }//GEN-LAST:event_txtPesquisarAlunoKeyReleased
-
-    private void jtAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAlunosMouseClicked
-
-    }//GEN-LAST:event_jtAlunosMouseClicked
-
-
-    private void bntCadastrarAlterarExameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntCadastrarAlterarExameMouseClicked
-        Exame exame = new Exame();
-        exame.setDataExame(txtDataExame.getText());
-        exame.setHorarioInicio(txtHoraInicio.getText());
-        exame.setHorarioFim(txtHoraFim.getText());
-        if (!controleExame.temExame()) {
-
-            if (controleExame.agendarExame(exame)) {
-                jTableAluno.setModel(controleExame.consultarAlunos());
-            }
-        } else {
-            if (controleExame.alterarExame(exame)) {
-                // jTableAluno.setModel(controleExame.consultarAlunos());
-            }
-        }
-    }//GEN-LAST:event_bntCadastrarAlterarExameMouseClicked
-
-    private void inicializarInstrutor() {
-        Funcionario funcionario = controleExame.getInstrutor();
+      private void inicializarInstrutor() {
+        Funcionario funcionario = controleAula.getInstrutor();
         if (funcionario.getCodigoFuncionario() != 0) {
             txtNome.setText(funcionario.getNome());
             txtRg.setText(funcionario.getRg());
@@ -1010,7 +985,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
     }
 
     private void inicializarVeiculo() {
-        Veiculo veiculo = controleExame.getVeiculo();
+        Veiculo veiculo = controleAula.getVeiculo();
         if (veiculo.getCodVeiculo() != 0) {
             txtPlaca.setText(veiculo.getPlaca());
             txtModelo.setText(veiculo.getModelo());
@@ -1021,55 +996,55 @@ public class TelaAgendarExame extends javax.swing.JDialog {
 
     }
 
-
-    private void bntAdicionarInstrutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntAdicionarInstrutorMouseClicked
-        // controleExame.adicionarInstrutor(
-        int row = jTableInstrutor.getSelectedRow();
-        if (row != -1) {
-            String id = String.valueOf(jTableInstrutor.getValueAt(row, 0));
-
-            if (controleExame.adicionarInstrutor(parseInt(id))) {
-                inicializarInstrutor();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Não existem instrutor selecionado!");
-
-        }
-
-
-    }//GEN-LAST:event_bntAdicionarInstrutorMouseClicked
-
-    private void txtPesquisarInstrutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarInstrutorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPesquisarInstrutorActionPerformed
-
-    private void jTableAlunosExameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableAlunosExameKeyPressed
+    
+    private void jTableAlunosAulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableAlunosAulaKeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_DELETE) {
 
-            int row = jTableAlunosExame.getSelectedRow();
-            int id = parseInt(jTableAlunosExame.getValueAt(row, 0).toString());
+            int row = jTableAlunosAula.getSelectedRow();
+            int id = parseInt(jTableAlunosAula.getValueAt(row, 0).toString());
             Cliente cli = new Cliente();
             cli.setCodCliente(id);
-            if (controleExame.deletarAluno(cli)) {
+            if (controleAula.deletarAluno(cli)) {
 
-                jTableAlunosExame.setModel(controleExame.consultarAlunosExame());
-                jTableAluno.setModel(controleExame.consultarAlunos());
+                jTableAlunosAula.setModel(controleAula.consultarAlunosAula());
+                jTableAluno.setModel(controleAula.consultarAlunos());
             } else {
 
             }
         }
-    }//GEN-LAST:event_jTableAlunosExameKeyPressed
+    }//GEN-LAST:event_jTableAlunosAulaKeyPressed
+
+    private void jTableAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlunoMouseClicked
+
+    }//GEN-LAST:event_jTableAlunoMouseClicked
+
+    private void txtPesquisarAlunoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtPesquisarAlunoInputMethodTextChanged
+
+    }//GEN-LAST:event_txtPesquisarAlunoInputMethodTextChanged
+
+    private void txtPesquisarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarAlunoActionPerformed
+
+    }//GEN-LAST:event_txtPesquisarAlunoActionPerformed
+
+    private void txtPesquisarAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarAlunoKeyPressed
+        //jTableAluno.setModel(controleAula.consultaAlunoLikeAula(txtPesquisarAluno, jComboBox1));
+    }//GEN-LAST:event_txtPesquisarAlunoKeyPressed
+
+    private void txtPesquisarAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarAlunoKeyReleased
+        jTableAluno.setModel(controleAula.consultaAlunoLikeAula(txtPesquisarAluno, jComboBox1));
+
+    }//GEN-LAST:event_txtPesquisarAlunoKeyReleased
 
     private void bntRemoverAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntRemoverAlunoMouseClicked
-        int row = jTableAlunosExame.getSelectedRow();
+        int row = jTableAlunosAula.getSelectedRow();
         if (row != -1) {
-            int id = parseInt(jTableAlunosExame.getValueAt(row, 0).toString());
+            int id = parseInt(jTableAlunosAula.getValueAt(row, 0).toString());
             Cliente cli = new Cliente();
             cli.setCodCliente(id);
-            if (controleExame.deletarAluno(cli)) {
+            if (controleAula.deletarAluno(cli)) {
 
-                jTableAlunosExame.setModel(controleExame.consultarAlunosExame());
-                jTableAluno.setModel(controleExame.consultarAlunos());
+                jTableAlunosAula.setModel(controleAula.consultarAlunosAula());
+                jTableAluno.setModel(controleAula.consultarAlunos());
             } else {
 
             }
@@ -1079,33 +1054,54 @@ public class TelaAgendarExame extends javax.swing.JDialog {
 
         }
 
-
     }//GEN-LAST:event_bntRemoverAlunoMouseClicked
-
-    private void txtPesquisarInstrutorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarInstrutorKeyReleased
-        jTableInstrutor.setModel(controleExame.consultaFuncionarioLike(txtPesquisarInstrutor, jbInstrutor));
-    }//GEN-LAST:event_txtPesquisarInstrutorKeyReleased
 
     private void bntAdicionarInstrutor2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntAdicionarInstrutor2MouseClicked
         int row = jTableVeiculo.getSelectedRow();
         if (row != -1) {
             String id = String.valueOf(jTableVeiculo.getValueAt(row, 0));
 
-            if (controleExame.adicionarVeiculo(parseInt(id))) {
+            if (controleAula.adicionarVeiculo(parseInt(id))) {
                 inicializarVeiculo();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Não existem veiculos selecionados!");
 
         }
-
     }//GEN-LAST:event_bntAdicionarInstrutor2MouseClicked
 
     private void txtPesquisarVeiculoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarVeiculoKeyReleased
 
-        jTableVeiculo.setModel(controleExame.consultaVeiculoLike(txtPesquisarVeiculo, jbVeiculo));
-
+        jTableVeiculo.setModel(controleAula.consultaVeiculoLike(txtPesquisarVeiculo, jbVeiculo));
     }//GEN-LAST:event_txtPesquisarVeiculoKeyReleased
+
+    private void txtPesquisarInstrutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarInstrutorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisarInstrutorActionPerformed
+
+    private void txtPesquisarInstrutorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarInstrutorKeyReleased
+        jTableInstrutor.setModel(controleAula.consultaFuncionarioLike(txtPesquisarInstrutor, jbInstrutor));
+    }//GEN-LAST:event_txtPesquisarInstrutorKeyReleased
+
+    private void bntAdicionarInstrutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntAdicionarInstrutorMouseClicked
+        // controleAula.adicionarInstrutor(
+        int row = jTableInstrutor.getSelectedRow();
+        if (row != -1) {
+            String id = String.valueOf(jTableInstrutor.getValueAt(row, 0));
+
+            if (controleAula.adicionarInstrutor(parseInt(id))) {
+                inicializarInstrutor();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Não existem instrutor selecionado!");
+
+        }
+
+    }//GEN-LAST:event_bntAdicionarInstrutorMouseClicked
+
+    private void jtAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAlunosMouseClicked
+
+    }//GEN-LAST:event_jtAlunosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1124,22 +1120,21 @@ public class TelaAgendarExame extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAgendarExame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAgendarAula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAgendarExame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAgendarAula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAgendarExame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAgendarAula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAgendarExame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAgendarAula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Exame exame = new Exame();
-                TelaAgendarExame dialog = new TelaAgendarExame(new javax.swing.JFrame(), true, exame);
+                Aula aula = new Aula();
+                TelaAgendarAula dialog = new TelaAgendarAula(new javax.swing.JFrame(), true, aula);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1155,7 +1150,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
     private javax.swing.JPanel bntAdicionarAluno;
     private javax.swing.JPanel bntAdicionarInstrutor;
     private javax.swing.JPanel bntAdicionarInstrutor2;
-    private javax.swing.JPanel bntCadastrarAlterarExame;
+    private javax.swing.JPanel bntCadastrarAlterarAula;
     private javax.swing.JPanel bntRemoverAluno;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -1196,7 +1191,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTableAluno;
-    private javax.swing.JTable jTableAlunosExame;
+    private javax.swing.JTable jTableAlunosAula;
     private javax.swing.JTable jTableInstrutor;
     private javax.swing.JTable jTableVeiculo;
     private javax.swing.JComboBox<String> jbInstrutor;
@@ -1204,7 +1199,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jcCategoria;
     private javax.swing.JPanel jpUsuario;
     private javax.swing.JTabbedPane jtAlunos;
-    private javax.swing.JLabel lblAgendarExame;
+    private javax.swing.JLabel lblAgendarAula;
     private javax.swing.JLabel lblCadastrarEndereco;
     private javax.swing.JLabel lblCadastrarEndereco1;
     private javax.swing.JLabel lblCadastrarInstrutor;
@@ -1214,7 +1209,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField txtCarteiraMotorista;
     private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JFormattedTextField txtCpf;
-    private javax.swing.JFormattedTextField txtDataExame;
+    private javax.swing.JFormattedTextField txtDataAula;
     private javax.swing.JFormattedTextField txtHoraEntra;
     private javax.swing.JFormattedTextField txtHoraFim;
     private javax.swing.JFormattedTextField txtHoraInicio;

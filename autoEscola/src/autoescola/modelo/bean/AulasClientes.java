@@ -10,9 +10,28 @@ package autoescola.modelo.bean;
  * @author felipe
  */
 public class AulasClientes {
-   
-   private Cliente aluno;
-   private Aula aulas;
+
+    private Cliente aluno;
+    private Aula aulas;
+    private boolean presenca;
+
+    public AulasClientes(){
+        this.presenca = false;
+    }
+    
+    /**
+     * @return the presenca
+     */
+    public boolean isPresenca() {
+        return presenca;
+    }
+
+    /**
+     * @param presenca the presenca to set
+     */
+    public void setPresenca(boolean presenca) {
+        this.presenca = presenca;
+    }
 
     /**
      * @return the aluno
@@ -41,5 +60,5 @@ public class AulasClientes {
     public void setAulas(Aula aulas) {
         this.aulas = aulas;
     }
-   
- }
+
+}

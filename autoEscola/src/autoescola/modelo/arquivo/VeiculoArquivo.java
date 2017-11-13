@@ -73,6 +73,52 @@ public class VeiculoArquivo extends Arquivo {
     }
 
     /**
+     *
+     * @return
+     */
+    public ArrayList<Veiculo> consultarVeiculosAtivo() {
+        File arquivoCSV = new File(tabela);
+        ArrayList<Veiculo> veiculos = new ArrayList();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[5].equals("true")) {
+                    Veiculo veiculo = new Veiculo();
+                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[0]));
+                    veiculo.setPlaca(valoresEntreVirgulas[1]);
+                    veiculo.setAno(valoresEntreVirgulas[2]);
+                    veiculo.setModelo(valoresEntreVirgulas[3]);
+                    veiculo.setCapacidade(parseFloat(valoresEntreVirgulas[4]));
+                    veiculo.setStatus(true);
+                    veiculos.add(veiculo);
+
+                }
+            }
+            return veiculos;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
+    /**
      * Consultar e retorn veiculo a partir do código do veiculo
      *
      * @param codVeiculo
@@ -120,7 +166,7 @@ public class VeiculoArquivo extends Arquivo {
         }
     }
 
-        public boolean consultarPlaca(String placa) {
+    public boolean consultarPlaca(String placa) {
         File arquivoCSV = new File(tabela);
         Veiculo veiculo = new Veiculo();
         try {

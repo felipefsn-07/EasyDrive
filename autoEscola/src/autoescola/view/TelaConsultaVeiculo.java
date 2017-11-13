@@ -11,7 +11,7 @@ package autoescola.view;
  */
 import autoescola.controle.ControleVeiculo;
 import autoescola.controle.ControleLogin;
-import autoescola.controle.TabelaVeiculo;
+import autoescola.view.tabelas.TabelaVeiculo;
 import static java.lang.Integer.parseInt;
 
 public class TelaConsultaVeiculo extends javax.swing.JFrame {

@@ -3,35 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package autoescola.controle;
+package autoescola.view.tabelas;
 
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author felipe
  */
-public class Tabela extends JTable {
+public class TabelaChamada extends  JTable {
 
-    public Tabela() {
-        
-        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
-
-    //Bloquear para que o usuário não edite a cécula da tabela
     @Override
     public boolean isCellEditable(int row, int column) {
-        return false;
+        return column == 2;
+    }
+
+    @Override
+    public Class getColumnClass(int columnIndex) {
+        return getValueAt(0, columnIndex).getClass();
     }
 
     @Override
     public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 
         Component Component = super.prepareRenderer(renderer, row, column);
+        int linha = convertRowIndexToModel(row);
+        boolean ativo = (boolean) getModel().getValueAt(linha, 2);
+        Component.setForeground(Color.BLACK);
 
         if (isRowSelected(row)) {
             Color color = new Color(61, 180, 162);
@@ -42,8 +43,20 @@ public class Tabela extends JTable {
         } else {
 
             Component.setBackground(Color.white);
-            Component.setForeground(Color.BLACK);
             Component.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+
+        }
+
+        if (ativo == false) {
+
+            Component.setForeground(Color.RED);
+        } else {
+            if (isRowSelected(row)) {
+                Component.setForeground(Color.WHITE);
+            } else {
+                Component.setForeground(Color.black);
+
+            }
 
         }
 

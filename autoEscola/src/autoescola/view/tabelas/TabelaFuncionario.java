@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package autoescola.controle;
+package autoescola.view.tabelas;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,10 +14,11 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author felipe
  */
-public class TabelaVeiculo extends JTable {
-      @Override
+public class TabelaFuncionario extends JTable {
+
+    @Override
     public boolean isCellEditable(int row, int column) {
-        return column == 5;
+        return column == 6;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class TabelaVeiculo extends JTable {
 
         Component Component = super.prepareRenderer(renderer, row, column);
         int linha = convertRowIndexToModel(row);
-        boolean ativo = (boolean) getModel().getValueAt(linha, 5);
+        boolean ativo = (boolean) getModel().getValueAt(linha, 6);
         Component.setForeground(Color.BLACK);
 
         if (isRowSelected(row)) {

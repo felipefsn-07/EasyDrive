@@ -54,7 +54,7 @@ public class ControleCalendario extends Calendario {
     /**
      * @param dia the dia to set
      */
-    protected void setDia(int dia) {
+    public void setDia(int dia) {
         this.dia = dia;
     }
 

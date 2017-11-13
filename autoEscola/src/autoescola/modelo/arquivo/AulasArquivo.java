@@ -6,6 +6,9 @@
 package autoescola.modelo.arquivo;
 
 import autoescola.modelo.bean.Aula;
+import autoescola.modelo.bean.Aula;
+import autoescola.modelo.bean.AulasClientes;
+import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
 import java.io.BufferedWriter;
@@ -21,12 +24,13 @@ import java.util.Scanner;
  *
  * @author felipe
  */
-public class AulasArquivo extends Arquivo{
-    
+public class AulasArquivo extends Arquivo {
+
     private final String tabela = "tabelas/aula.csv";
-/**
- * @return the ArrayList of Aula
- */
+
+    /**
+     * @return the ArrayList of Aula
+     */
     public ArrayList<Aula> consultarAulas() {
         File arquivoCSV = new File(tabela);
         ArrayList<Aula> aulas = new ArrayList();
@@ -50,17 +54,17 @@ public class AulasArquivo extends Arquivo{
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null) {
                     Aula aula = new Aula();
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));                   
+                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aula.setDataAula(valoresEntreVirgulas[1]);
-                    aula.setHorarioAula(valoresEntreVirgulas[2]);
+                    aula.setHorarioAulaInicio(valoresEntreVirgulas[2]);
+                    aula.setHorarioAulaFim(valoresEntreVirgulas[3]);
                     Veiculo veiculo = new Veiculo();
-                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
-                    aula.setCodVeiculo(veiculo);
+                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[4]));
+                    aula.setVeiculo(veiculo);
                     Funcionario funcionario = new Funcionario();
-                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
                     aula.setInstrutor(funcionario);
-                    aula.setStatusAula(valoresEntreVirgulas[5]);
-                    
+
                     aulas.add(aula);
 
                 }
@@ -74,7 +78,6 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
-    
     @Override
     /**
      * @param codAulas
@@ -102,16 +105,16 @@ public class AulasArquivo extends Arquivo{
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == codAulas) {
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));                   
+                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aula.setDataAula(valoresEntreVirgulas[1]);
-                    aula.setHorarioAula(valoresEntreVirgulas[2]);
-                    Veiculo veiculo = new Veiculo();
-                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
-                    aula.setCodVeiculo(veiculo);
-                    Funcionario instrutor = new Funcionario();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
-                    aula.setInstrutor(instrutor);
-                    aula.setStatusAula(valoresEntreVirgulas[5]);
+                    aula.setHorarioAulaInicio(valoresEntreVirgulas[2]);
+                    aula.setHorarioAulaFim(valoresEntreVirgulas[3]);
+                    VeiculoArquivo va = new VeiculoArquivo();       
+                    Veiculo veiculo =va.consultar(parseInt(valoresEntreVirgulas[4]));
+                    aula.setVeiculo(veiculo);
+                    FuncionarioArquivo fa = new FuncionarioArquivo();             
+                    Funcionario funcionario = fa.consultar(parseInt(valoresEntreVirgulas[5]));
+                    aula.setInstrutor(funcionario);
                 }
             }
             return aula;
@@ -122,14 +125,64 @@ public class AulasArquivo extends Arquivo{
 
         }
     }
+
+    
+      public Aula consultarChamada(int codAulas) {
+        File arquivoCSV = new File(tabela);
+        Aula aula = new Aula();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (parseInt(valoresEntreVirgulas[0]) == codAulas) {
+                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
+                    aula.setDataAula(valoresEntreVirgulas[1]);
+                    aula.setHorarioAulaInicio(valoresEntreVirgulas[2]);
+                    aula.setHorarioAulaFim(valoresEntreVirgulas[3]);
+                    VeiculoArquivo va = new VeiculoArquivo();       
+                    Veiculo veiculo =va.consultar(parseInt(valoresEntreVirgulas[4]));
+                    aula.setVeiculo(veiculo);
+                    FuncionarioArquivo fa = new FuncionarioArquivo();             
+                    Funcionario funcionario = fa.consultar(parseInt(valoresEntreVirgulas[5]));
+                    AulasClientesArquivo aca = new AulasClientesArquivo();
+                    ArrayList<AulasClientes> alunos = aca.consultarAulasClientes(codAulas);
+                    aula.setAulas(alunos);
+                    aula.setInstrutor(funcionario);
+                   
+                    break;
+                }
+            }
+            return aula;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
     
     /**
-     * 
-     * @param codigoAulas
-     * @return false or true
+     *
+     * @param codigoAula
+     * @param codAula
+     * @return
      */
-    @Override
-    public boolean desativar(int codigoAulas) {
+    public boolean apagar(int codigoAula) {
         File arquivoCSV = new File(tabela);
         try {
 
@@ -149,15 +202,15 @@ public class AulasArquivo extends Arquivo{
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (parseInt(valoresEntreVirgulas[0]) == codigoAulas) {
-                    linhasDoArquivo = valoresEntreVirgulas[0] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[1] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[2] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[3] + ",";
-                    linhasDoArquivo += valoresEntreVirgulas[4]+ ",";
-                    linhasDoArquivo += "desativada";
+                if (parseInt(valoresEntreVirgulas[0]) == codigoAula) {
+                    linhasDoArquivo = "";
+                    AulasClientesArquivo arqEC = new AulasClientesArquivo();
+                    arqEC.apagarAula(codigoAula);
+
                 }
-                todo += linhasDoArquivo + "\n";
+                if (!linhasDoArquivo.equals("")) {
+                    todo += linhasDoArquivo + "\n";
+                }
 
             }
             try {
@@ -169,6 +222,7 @@ public class AulasArquivo extends Arquivo{
             } catch (IOException e) {
                 return false;
             }
+
             //return true;
         } catch (FileNotFoundException e) {
             //log de erro
@@ -177,14 +231,16 @@ public class AulasArquivo extends Arquivo{
         }
     }
 
+    
+    
     /**
-     * 
+     *
      * @param aula
      * @return false or true
      */
     public boolean alterar(Aula aula) {
-                
-                File arquivoCSV = new File(tabela);
+
+        File arquivoCSV = new File(tabela);
         try {
 
             //cria um scanner para ler o arquivo
@@ -205,11 +261,11 @@ public class AulasArquivo extends Arquivo{
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (parseInt(valoresEntreVirgulas[0]) == aula.getCodAulas()) {
                     linhasDoArquivo = String.valueOf(aula.getCodAulas()) + ",";
-                    linhasDoArquivo +=aula.getDataAula()+ ",";
-                    linhasDoArquivo += aula.getHorarioAula()+ ",";
-                    linhasDoArquivo += String.valueOf(aula.getCodVeiculo().getCodVeiculo())+ ",";
-                    linhasDoArquivo += String.valueOf(aula.getInstrutor().getCodigoFuncionario())+ ",";
-                    linhasDoArquivo += String.valueOf(aula.getStatusAula());
+                    linhasDoArquivo += aula.getDataAula() + ",";
+                    linhasDoArquivo += aula.getHorarioAulaInicio() + ",";
+                    linhasDoArquivo += aula.getHorarioAulaFim() + ",";
+                    linhasDoArquivo += String.valueOf(aula.getVeiculo().getCodVeiculo()) + ",";
+                    linhasDoArquivo += String.valueOf(aula.getInstrutor().getCodigoFuncionario());
 
                 }
                 todo += linhasDoArquivo + "\n";
@@ -233,12 +289,11 @@ public class AulasArquivo extends Arquivo{
     }
 
     /**
-     * 
+     *
      * @param aula
      * @return false or true
      */
-    
-    public boolean cadastrarAulas(Aula aula) {
+    public int cadastrarAulas(Aula aula) {
 
         int idAulas = autoIncremento(tabela);
         try {
@@ -251,34 +306,33 @@ public class AulasArquivo extends Arquivo{
                 conexao.write(',');
                 conexao.write(aula.getDataAula());
                 conexao.write(',');
-                conexao.write(aula.getHorarioAula());
+                conexao.write(aula.getHorarioAulaInicio());
                 conexao.write(',');
-                conexao.write(String.valueOf(aula.getCodVeiculo().getCodVeiculo()));
+                conexao.write(aula.getHorarioAulaFim());
+                conexao.write(',');
+                conexao.write(String.valueOf(aula.getVeiculo().getCodVeiculo()));
                 conexao.write(',');
                 conexao.write(String.valueOf(aula.getInstrutor().getCodigoFuncionario()));
-                conexao.write(',');
-                conexao.write(aula.getStatusAula());
                 conexao.newLine();
                 conexao.close();
 
-                return true;
+                return idAulas;
             } else {
-                return false;
+                return 0;
             }
 
         } catch (IOException e) {
             //criar arquivo para salvar os erros 
-            return false;
+            return 0;
         }
     }
-    
+
     /**
-     * 
+     *
      * @param campo
      * @param valor
      * @return the ArrayList of Aula
      */
-
     public ArrayList<Aula> consultarAulassLike(String campo, String valor) {
         File arquivoCSV = new File(tabela);
         ArrayList<Aula> aulas = new ArrayList();
@@ -309,16 +363,16 @@ public class AulasArquivo extends Arquivo{
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
                 if (valoresEntreVirgulas[0] != null && valoresEntreVirgulas[numCamp].contains(valor)) {
                     Aula aula = new Aula();
-                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));                   
+                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aula.setDataAula(valoresEntreVirgulas[1]);
-                    aula.setHorarioAula(valoresEntreVirgulas[2]);
+                    aula.setHorarioAulaInicio(valoresEntreVirgulas[2]);
+                    aula.setHorarioAulaFim(valoresEntreVirgulas[3]);
                     Veiculo veiculo = new Veiculo();
-                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[3]));
-                    aula.setCodVeiculo(veiculo);
-                    Funcionario instrutor = new Funcionario();
-                    instrutor.setCodigoFuncionario(parseInt(valoresEntreVirgulas[4]));
-                    aula.setInstrutor(instrutor);
-                    aula.setStatusAula(valoresEntreVirgulas[5]);
+                    veiculo.setCodVeiculo(parseInt(valoresEntreVirgulas[4]));
+                    aula.setVeiculo(veiculo);
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[5]));
+                    aula.setInstrutor(funcionario);
                     aulas.add(aula);
 
                 }
@@ -331,5 +385,45 @@ public class AulasArquivo extends Arquivo{
 
         }
     }
-    
+
+     public ArrayList<Aula> consultarData(String data) {
+        File arquivoCSV = new File(tabela);
+        ArrayList<Aula> aulas = new ArrayList();
+        try {
+
+            //cria um scanner para ler o arquivo
+            Scanner leitor = new Scanner(arquivoCSV);
+
+            //variavel que armazenara as linhas do arquivo
+            String linhasDoArquivo = null;
+
+            //ignora a primeira linha do arquivo
+            leitor.nextLine();
+            //percorre todo o arquivo
+            while (leitor.hasNext()) {
+                //recebe cada linha do arquivo
+                linhasDoArquivo = leitor.nextLine();
+
+                //separa os campos entre as virgulas de cada linha
+                //imprime a coluna que quiser
+                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+                if (valoresEntreVirgulas[1].equals(data)) {
+                    Aula aula = new Aula();
+                    aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
+                    aula.setDataAula(valoresEntreVirgulas[1]);
+                    aula.setHorarioAulaInicio(valoresEntreVirgulas[2]);
+                    aula.setHorarioAulaFim(valoresEntreVirgulas[3]);
+                    aulas.add(aula);
+
+                }
+            }
+            return aulas;
+
+        } catch (FileNotFoundException e) {
+            //log de erro
+            return null;
+
+        }
+    }
+
 }

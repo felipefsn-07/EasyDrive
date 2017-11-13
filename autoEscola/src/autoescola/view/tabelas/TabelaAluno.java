@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package autoescola.controle;
+package autoescola.view.tabelas;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,11 +14,11 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author felipe
  */
-public class TabelaFuncionario extends JTable {
+public class TabelaAluno extends JTable {
 
     @Override
     public boolean isCellEditable(int row, int column) {
-        return column == 6;
+        return column == 7;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class TabelaFuncionario extends JTable {
 
         Component Component = super.prepareRenderer(renderer, row, column);
         int linha = convertRowIndexToModel(row);
-        boolean ativo = (boolean) getModel().getValueAt(linha, 6);
+        boolean ativo = (boolean) getModel().getValueAt(linha, 7);
         Component.setForeground(Color.BLACK);
 
         if (isRowSelected(row)) {
@@ -51,12 +51,12 @@ public class TabelaFuncionario extends JTable {
 
             Component.setForeground(Color.RED);
         } else {
-             if (isRowSelected(row)) {
-            Component.setForeground(Color.WHITE);
-             }else{
-                         Component.setForeground(Color.black);
+            if (isRowSelected(row)) {
+                Component.setForeground(Color.WHITE);
+            } else {
+                Component.setForeground(Color.black);
 
-             }
+            }
 
         }
 
@@ -70,4 +70,5 @@ public class TabelaFuncionario extends JTable {
         this.cellSelectionEnabled = cellSelectionEnabled;
         firePropertyChange("cellSelectionEnabled", old, cellSelectionEnabled);
     }
+
 }

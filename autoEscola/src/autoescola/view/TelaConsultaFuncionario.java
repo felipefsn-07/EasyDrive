@@ -2,7 +2,7 @@ package autoescola.view;
 
 import autoescola.controle.ControleFuncionario;
 import autoescola.controle.ControleLogin;
-import autoescola.controle.TabelaFuncionario;
+import autoescola.view.tabelas.TabelaFuncionario;
 import java.awt.Color;
 import java.awt.Toolkit;
 import static java.lang.Integer.parseInt;

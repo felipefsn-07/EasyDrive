@@ -7,7 +7,6 @@ package autoescola.modelo.arquivo;
 
 import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Funcionario;
-import autoescola.modelo.bean.Usuario;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,7 +29,7 @@ public class FuncionarioArquivo extends Arquivo {
      *
      * @return the ArrayList of Funcionario
      */
-    public ArrayList<Funcionario> consultarInstrutores(){
+    public ArrayList<Funcionario> consultarInstrutoresAtivos(){
      File arquivoCSV = new File(tabela);
         ArrayList<Funcionario> funcionarios = new ArrayList();
         try {
@@ -51,7 +50,7 @@ public class FuncionarioArquivo extends Arquivo {
                 //separa os campos entre as virgulas de cada linha
                 //imprime a coluna que quiser
                 String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-                if (valoresEntreVirgulas[10].equals("Instrutor")) {
+                if (valoresEntreVirgulas[10].equals("Instrutor") && valoresEntreVirgulas != null && valoresEntreVirgulas[13].equals("true")) {
                     Funcionario funcionario = new Funcionario();
                     funcionario.setCodigoFuncionario(parseInt(valoresEntreVirgulas[0]));
                     EnderecoArquivo endArq = new EnderecoArquivo();

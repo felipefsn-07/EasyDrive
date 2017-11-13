@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class Aula {
     private int codAulas;
     private String dataAula;
-    private String horarioAula;
+    private String horarioAulaInicio;
+    private String horarioAulaFim;
     private Funcionario instrutor;
-    private Veiculo codVeiculo;
-    private String statusAula;//Ativa, cancelada, realizada, adiada, desativada
+    private Veiculo veiculo;
     private ArrayList<AulasClientes> aulas;
     
     
@@ -53,21 +53,6 @@ public class Aula {
     public void setDataAula(String dataAula) {
         this.dataAula = dataAula;
     }
-
-    /**
-     * @return the horarioAula
-     */
-    public String getHorarioAula() {
-        return horarioAula;
-    }
-
-    /**
-     * @param horarioAula the horarioAula to set
-     */
-    public void setHorarioAula(String horarioAula) {
-        this.horarioAula = horarioAula;
-    }
-
     /**
      * @return the instrutor
      */
@@ -96,31 +81,46 @@ public class Aula {
         this.aulas = aulas;
     }
 
+  
     /**
-     * @return the statusAula
+     * @return the veiculo
      */
-    public String getStatusAula() {
-        return statusAula;
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
     /**
-     * @param statusAula the statusAula to set
+     * @param codVeiculo the veiculo to set
      */
-    public void setStatusAula(String statusAula) {
-        this.statusAula = statusAula;
+    public void setVeiculo(Veiculo codVeiculo) {
+        this.veiculo = codVeiculo;
     }
 
     /**
-     * @return the codVeiculo
+     * @return the horarioAulaInicio
      */
-    public Veiculo getCodVeiculo() {
-        return codVeiculo;
+    public String getHorarioAulaInicio() {
+        return horarioAulaInicio;
     }
 
     /**
-     * @param codVeiculo the codVeiculo to set
+     * @param horarioAulaInicio the horarioAulaInicio to set
      */
-    public void setCodVeiculo(Veiculo codVeiculo) {
-        this.codVeiculo = codVeiculo;
+    public void setHorarioAulaInicio(String horarioAulaInicio) {
+        this.horarioAulaInicio = horarioAulaInicio;
+    }
+
+    /**
+     * @return the horarioAulaFim
+     */
+    public String getHorarioAulaFim() {
+        return horarioAulaFim;
+    }
+
+    /**
+     * @param horarioAulaFim the horarioAulaFim to set
+     */
+    public void setHorarioAulaFim(String horarioAulaFim) {
+        this.horarioAulaFim = horarioAulaFim;
     }
 }

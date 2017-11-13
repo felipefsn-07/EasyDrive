@@ -29,10 +29,9 @@ public class AulaDao {
         try {
             stmt = con.prepareStatement("INSERT INTO aula (dataAula, horarioAula, codVeiculo, numCarteira, status) VALUES(?, ?, ?, ?, ?)");
             stmt.setString(1, aula.getDataAula());
-            stmt.setString(2, aula.getHorarioAula());
-            stmt.setInt(3, aula.getCodVeiculo().getCodVeiculo());
+            stmt.setString(2, aula.getHorarioAulaInicio());
+            stmt.setInt(3, aula.getVeiculo().getCodVeiculo());
             stmt.setString(4, aula.getInstrutor().getNumCarteira());
-            stmt.setString(5, aula.getStatusAula());
 
             stmt.executeUpdate();
 
@@ -65,10 +64,9 @@ public class AulaDao {
 
                 aula.setCodAulas(rs.getInt("codAula"));
                 aula.setDataAula(rs.getString("dataAula"));
-                aula.setHorarioAula(rs.getString("horarioAula"));
+                aula.setHorarioAulaInicio(rs.getString("horarioAula"));
                 veiculo.setCodVeiculo(rs.getInt("codVeiculo"));
                 instrutor.setNumCarteira(rs.getString("numCarteira"));
-                aula.setStatusAula(rs.getString("status"));
                       
                 aulas.add(aula);
             }
@@ -111,12 +109,11 @@ public class AulaDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE aula SET dataAula = ?, horarioAula = ?, codVeiculo = ?, numCarteira = ?, status = ? WHERE codAula = ?");
+            stmt = con.prepareStatement("UPDATE aula SET dataAula = ?, horarioAula = ?, codVeiculo = ?, numCarteira = ? WHERE codAula = ?");
             stmt.setString(1, aula.getDataAula());
-            stmt.setString(2, aula.getHorarioAula());
-            stmt.setInt(3, aula.getCodVeiculo().getCodVeiculo());
+            stmt.setString(2, aula.getHorarioAulaInicio());
+            stmt.setInt(3, aula.getVeiculo().getCodVeiculo());
             stmt.setString(4, aula.getInstrutor().getNumCarteira());
-            stmt.setString(5, aula.getStatusAula());
             stmt.setInt(6, aula.getCodAulas());
 
             stmt.executeUpdate();
@@ -136,8 +133,7 @@ public class AulaDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE aula SET status = ? WHERE codAula = ?");
-            stmt.setString(1, aula.getStatusAula());
+            stmt = con.prepareStatement("UPDATE aula  WHERE codAula = ?");
             stmt.setInt(2, aula.getCodAulas());
 
             stmt.executeUpdate();
