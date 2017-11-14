@@ -196,15 +196,12 @@ public class UsuarioArquivo extends Arquivo {
             }
             return 0;
 
-        } catch (NullPointerException e) {            
+        } catch (NullPointerException  | FileNotFoundException e) {            
             inicializarArquivos();
-            JOptionPane.showMessageDialog(null, "Bem vindo ao sisteme! Tente realizar o login agora!");
+            JOptionPane.showMessageDialog(null, "Bem vindo ao sistema! Alguns arquivos foram inicializados, tente realizar o login agora!");
             return 2;
 
-        }catch (FileNotFoundException e){
-       
-            return 0;
-        } 
+        }
     }
 
     /**
