@@ -25,7 +25,7 @@ import javax.swing.table.TableModel;
  *
  * @author felipe
  */
-public class ControleFuncionario extends Controle{
+public class ControleFuncionario extends Controle {
 
     private Usuario usuario;
     private Funcionario funcionario;
@@ -59,8 +59,7 @@ public class ControleFuncionario extends Controle{
         } else {
             JTable table = new JTable();
             table.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                        {null, null, null, null, null, null},},
+                    new Object[][]{},
                     new String[]{
                         "Codigo Funcionário", "Nome", "Rg", "Cpf", "Telefone", "Celular", "Ativo"
                     }
@@ -94,15 +93,13 @@ public class ControleFuncionario extends Controle{
         return funcionario;
     }
 
-
     public TableModel consultaFuncionarioLike(JTextField id, JComboBox tipo) {
         FuncionarioArquivo arqFunc = new FuncionarioArquivo();
         DefaultTableModel jTable1 = new DefaultTableModel();
 
         if (tipo.getSelectedItem().toString().equals("codigo") && !"".equals(id.getText()) && isDigit(id.getText())) {
-            Funcionario funcionario = arqFunc.consultar(parseInt(id.getText()));
-
-            if (funcionario != null) {
+            ArrayList<Funcionario> funcionarios = arqFunc.consultarfuncionariosLike(tipo.getSelectedItem().toString(), id.getText());
+            if (funcionarios != null) {
                 jTable1.addColumn("Codigo Funcionário");
                 jTable1.addColumn("Nome");
                 jTable1.addColumn("Rg");
@@ -111,51 +108,52 @@ public class ControleFuncionario extends Controle{
                 jTable1.addColumn("Celular");
                 jTable1.addColumn("Ativo");
 
-                jTable1.addRow(new Object[]{String.valueOf(funcionario.getCodigoFuncionario()), funcionario.getNome(), funcionario.getRg(), funcionario.getCpf(), funcionario.getTelefone(), funcionario.getCelular(), funcionario.getStatus()});
+                for (Funcionario funcionarioCons : funcionarios) {
+                    jTable1.addRow(new Object[]{String.valueOf(funcionarioCons.getCodigoFuncionario()), funcionarioCons.getNome(), funcionarioCons.getRg(), funcionarioCons.getCpf(), funcionarioCons.getTelefone(), funcionarioCons.getCelular(), funcionarioCons.getStatus()});
+                    break;
+                }
                 return jTable1;
 
-            } else {
-                return consultarFuncionarios();
-
             }
 
-        } else {
-            if (!"".equals(id.getText()) && !"".equals(tipo.getSelectedItem().toString())) {
-                ArrayList<Funcionario> funcionarios = arqFunc.consultarfuncionariosLike(tipo.getSelectedItem().toString(), id.getText());
+        } else if (!"".equals(id.getText()) && !"".equals(tipo.getSelectedItem().toString())) {
+            ArrayList<Funcionario> funcionarios = arqFunc.consultarfuncionariosLike(tipo.getSelectedItem().toString(), id.getText());
 
-                if (funcionarios != null) {
-                    jTable1.addColumn("Codigo Funcionário");
-                    jTable1.addColumn("Nome");
-                    jTable1.addColumn("Rg");
-                    jTable1.addColumn("Cpf");
-                    jTable1.addColumn("Telefone");
-                    jTable1.addColumn("Celular");
-                    jTable1.addColumn("Ativo");
+            if (funcionarios != null) {
+                jTable1.addColumn("Codigo Funcionário");
+                jTable1.addColumn("Nome");
+                jTable1.addColumn("Rg");
+                jTable1.addColumn("Cpf");
+                jTable1.addColumn("Telefone");
+                jTable1.addColumn("Celular");
+                jTable1.addColumn("Ativo");
 
-                    for (Funcionario funcionario : funcionarios) {
-                        jTable1.addRow(new Object[]{String.valueOf(funcionario.getCodigoFuncionario()), funcionario.getNome(), funcionario.getRg(), funcionario.getCpf(), funcionario.getTelefone(), funcionario.getCelular(), funcionario.getStatus()});
-                    }
-
-                    return jTable1;
-
-                } else {
-
-                    return consultarFuncionarios();
-
+                for (Funcionario funcionarioCons : funcionarios) {
+                    jTable1.addRow(new Object[]{String.valueOf(funcionarioCons.getCodigoFuncionario()), funcionarioCons.getNome(), funcionarioCons.getRg(), funcionarioCons.getCpf(), funcionarioCons.getTelefone(), funcionarioCons.getCelular(), funcionarioCons.getStatus()});
                 }
-            } else {
 
-                return consultarFuncionarios();
+                return jTable1;
+
             }
+        } else if ("".equals(id.getText())) {
+            return consultarFuncionarios();
         }
 
+        JTable table = new JTable();
+        table.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Codigo Funcionário", "Nome", "Rg", "Cpf", "Telefone", "Celular", "Ativo"
+                }
+        ));
+        return table.getModel();
     }
 
     /**
-     * 
+     *
      * @param anterior
      * @param idStr
-     * @return 
+     * @return
      */
     @Override
     public boolean alterarStatus(boolean anterior, String idStr) {

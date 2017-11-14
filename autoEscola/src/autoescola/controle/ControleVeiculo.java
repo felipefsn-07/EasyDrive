@@ -96,17 +96,19 @@ public class ControleVeiculo extends Controle {
         VeiculoArquivo arqVeic = new VeiculoArquivo();
         DefaultTableModel jTable1 = new DefaultTableModel();
         if (tipo.getSelectedItem().toString().equals("codigo do veiculo") && !"".equals(id.getText()) && isDigit(id.getText())) {
-            veiculo = arqVeic.consultar(parseInt(id.getText()));
+            ArrayList<Veiculo> veiculos = arqVeic.consultarVeiculosLike(tipo.getSelectedItem().toString(), id.getText());
 
-            if (veiculo != null) {
+            if (veiculos != null) {
                 jTable1.addColumn("Codigo veiculo");
                 jTable1.addColumn("placa");
                 jTable1.addColumn("ano");
                 jTable1.addColumn("modelo");
                 jTable1.addColumn("capacidade");
                 jTable1.addColumn("Ativo");
-                jTable1.addRow(new Object[]{String.valueOf(veiculo.getCodVeiculo()), veiculo.getPlaca(), veiculo.getAno(), veiculo.getModelo(), veiculo.getCapacidade(), veiculo.getStatus()});
-
+                for (Veiculo veiculoCons : veiculos) {
+                    jTable1.addRow(new Object[]{String.valueOf(veiculoCons.getCodVeiculo()), veiculoCons.getPlaca(), veiculoCons.getAno(), veiculoCons.getModelo(), veiculoCons.getCapacidade(), veiculoCons.getStatus()});
+                    break;
+                }
                 return jTable1;
             } else {
 

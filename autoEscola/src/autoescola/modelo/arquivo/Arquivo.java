@@ -196,7 +196,7 @@ public abstract class Arquivo {
             // arquivo.
             FileWriter fw = new FileWriter("tabelas/funcionario.csv");
             BufferedWriter conexao = new BufferedWriter(fw);
-            conexao.write("codFunc,codEndereco,rg,nome,cpf,dataNasc,telefone,celular,horaEntra,horaSai,tipo,numero da carteira,categoria,status");
+            conexao.write("codigo,codEndereco,rg,nome,cpf,dataNasc,telefone,celular,horaEntra,horaSai,tipo,numero da carteira,categoria,status");
             conexao.newLine();
             conexao.close();
 

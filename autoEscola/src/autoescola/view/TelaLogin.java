@@ -177,13 +177,14 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         ControleLogin crl = new ControleLogin();
-        if (crl.verificarLogin(txtLogin, txtSenha) != 0) {
+        int res = crl.verificarLogin(txtLogin, txtSenha);
+        if (res == 1) {
             TelaPrincipal form2 = new TelaPrincipal();
             form2.setVisible(true);
             form2.setLocationRelativeTo(null);
             this.dispose();
 
-        } else {
+        } else if (res==0){
             JOptionPane.showMessageDialog(null, "Senha ou usuário estão incorretos ou não cadastrados!");
         }
     }//GEN-LAST:event_button1ActionPerformed

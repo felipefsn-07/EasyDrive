@@ -71,8 +71,7 @@ public class ControleAluno extends Controle {
         } else {
             JTable table = new JTable();
             table.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                        {null, null, null, null, null, null, null},},
+                    new Object[][]{},
                     new String[]{
                         "Codigo Funcionário", "Nome", "Rg", "Cpf", "Telefone", "Celular", "numero do Ladv", "Ativo"
                     }
@@ -106,10 +105,10 @@ public class ControleAluno extends Controle {
     public TableModel consultaAlunoLike(JTextField id, JComboBox tipo) {
         ClienteArquivo arqClie = new ClienteArquivo();
         DefaultTableModel jTable1 = new DefaultTableModel();
-        if (tipo.getSelectedItem().toString().equals("codigo") && !"".equals(id.getText()) && isDigit(id.getText())) {
-            cliente = arqClie.consultar(parseInt(id.getText()));
 
-            if (cliente != null) {
+        if (tipo.getSelectedItem().toString().equals("codigo") && !"".equals(id.getText()) && isDigit(id.getText())) {
+            ArrayList<Cliente> clientes = arqClie.consultarClientesLike(tipo.getSelectedItem().toString(), id.getText());
+            if (clientes != null) {
                 jTable1.addColumn("Codigo aluno");
                 jTable1.addColumn("Nome");
                 jTable1.addColumn("Rg");
@@ -118,43 +117,43 @@ public class ControleAluno extends Controle {
                 jTable1.addColumn("Celular");
                 jTable1.addColumn("numero do Ladv");
                 jTable1.addColumn("Ativo");
-                jTable1.addRow(new Object[]{String.valueOf(cliente.getCodCliente()), cliente.getNome(), cliente.getRg(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getNumLADV(), cliente.getStatus()});
-
+                for (Cliente clienteCons : clientes) {
+                    jTable1.addRow(new Object[]{String.valueOf(clienteCons.getCodCliente()), clienteCons.getNome(), clienteCons.getRg(), clienteCons.getCpf(), clienteCons.getTelefone(), clienteCons.getCelular(), clienteCons.getNumLADV(), clienteCons.getStatus()});
+                    break;
+                }
                 return jTable1;
-            } else {
-                return consultarAlunos();
-
             }
+        } else if (!"".equals(id.getText()) && !"".equals(tipo.getSelectedItem().toString())) {
+            ArrayList<Cliente> clientes = arqClie.consultarClientesLike(tipo.getSelectedItem().toString(), id.getText());
 
-        } else {
-            if (!"".equals(id.getText()) && !"".equals(tipo.getSelectedItem().toString())) {
-                ArrayList<Cliente> clientes = arqClie.consultarClientesLike(tipo.getSelectedItem().toString(), id.getText());
-
-                if (clientes != null) {
-                    jTable1.addColumn("Codigo aluno");
-                    jTable1.addColumn("Nome");
-                    jTable1.addColumn("Rg");
-                    jTable1.addColumn("Cpf");
-                    jTable1.addColumn("Telefone");
-                    jTable1.addColumn("Celular");
-                    jTable1.addColumn("numero do Ladv");
-                    jTable1.addColumn("Ativo");
-                    for (Cliente clienteCons : clientes) {
-                        jTable1.addRow(new Object[]{String.valueOf(clienteCons.getCodCliente()), clienteCons.getNome(), clienteCons.getRg(), clienteCons.getCpf(), clienteCons.getTelefone(), clienteCons.getCelular(), clienteCons.getNumLADV(), clienteCons.getStatus()});
-
-                    }
-                    return jTable1;
-
-                } else {
-
-                    return consultarAlunos();
+            if (clientes != null) {
+                jTable1.addColumn("Codigo aluno");
+                jTable1.addColumn("Nome");
+                jTable1.addColumn("Rg");
+                jTable1.addColumn("Cpf");
+                jTable1.addColumn("Telefone");
+                jTable1.addColumn("Celular");
+                jTable1.addColumn("numero do Ladv");
+                jTable1.addColumn("Ativo");
+                for (Cliente clienteCons : clientes) {
+                    jTable1.addRow(new Object[]{String.valueOf(clienteCons.getCodCliente()), clienteCons.getNome(), clienteCons.getRg(), clienteCons.getCpf(), clienteCons.getTelefone(), clienteCons.getCelular(), clienteCons.getNumLADV(), clienteCons.getStatus()});
 
                 }
-            } else {
+                return jTable1;
 
-                return consultarAlunos();
             }
+        } else if ("".equals(id.getText())) {
+            return consultarAlunos();
+
         }
+        JTable table = new JTable();
+        table.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Codigo Funcionário", "Nome", "Rg", "Cpf", "Telefone", "Celular", "numero do Ladv", "Ativo"
+                }
+        ));
+        return table.getModel();
 
     }
 
@@ -326,7 +325,10 @@ public class ControleAluno extends Controle {
         DefaultTableModel jTable1 = new DefaultTableModel();
         ArrayList<ExameClientes> ec = new ArrayList();
         ClienteExameArquivo cea = new ClienteExameArquivo();
-        ec = cea.consultarExamePorClientes(cliente.getCodCliente());
+        ec = null;
+        if (cliente != null) {
+            ec = cea.consultarExamePorClientes(cliente.getCodCliente());
+        }
         if (ec != null) {
             jTable1.addColumn("Codigo do exame");
             jTable1.addColumn("Data");
@@ -354,9 +356,11 @@ public class ControleAluno extends Controle {
     public TableModel consultarAulaCliente() {
 
         DefaultTableModel jTable1 = new DefaultTableModel();
-        ArrayList<AulasClientes> ac = new ArrayList();
+        ArrayList<AulasClientes> ac = null;
         AulasClientesArquivo cea = new AulasClientesArquivo();
-        ac = cea.consultarClientesAula(cliente.getCodCliente());
+        if (cliente != null) {
+            ac = cea.consultarClientesAula(cliente.getCodCliente());
+        }
         if (ac != null) {
             jTable1.addColumn("Codigo da aula");
             jTable1.addColumn("Data");
