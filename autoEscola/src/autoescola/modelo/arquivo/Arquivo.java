@@ -229,7 +229,7 @@ public abstract class Arquivo {
 // if the directory does not exist, create it
         if (!theDir.exists()) {
             try {
-                theDir.mkdir();
+                theDir.mkdirs();
             } catch (SecurityException se) {
                 //handle it
             }

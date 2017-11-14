@@ -99,7 +99,7 @@ public class TelaCadastroVeiculo extends javax.swing.JDialog {
         lblCadastrarEditar.setBackground(new java.awt.Color(254, 254, 254));
         lblCadastrarEditar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         lblCadastrarEditar.setForeground(new java.awt.Color(254, 254, 254));
-        lblCadastrarEditar.setText("Cadastrar aluno");
+        lblCadastrarEditar.setText("Cadastrar veiculo");
 
         javax.swing.GroupLayout bntCadastrarVeiculoLayout = new javax.swing.GroupLayout(bntCadastrarVeiculo);
         bntCadastrarVeiculo.setLayout(bntCadastrarVeiculoLayout);
