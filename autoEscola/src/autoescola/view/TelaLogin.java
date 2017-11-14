@@ -178,7 +178,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         ControleLogin crl = new ControleLogin();
         int res = crl.verificarLogin(txtLogin, txtSenha);
-        if (res == 1) {
+        if (res != -1 && res != 0) {
             TelaPrincipal form2 = new TelaPrincipal();
             form2.setVisible(true);
             form2.setLocationRelativeTo(null);

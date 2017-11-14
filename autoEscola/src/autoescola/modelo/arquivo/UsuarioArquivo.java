@@ -199,7 +199,7 @@ public class UsuarioArquivo extends Arquivo {
         } catch (NullPointerException  | FileNotFoundException e) {            
             inicializarArquivos();
             JOptionPane.showMessageDialog(null, "Bem vindo ao sistema! Alguns arquivos foram inicializados, tente realizar o login agora!");
-            return 2;
+            return -1;
 
         }
     }
