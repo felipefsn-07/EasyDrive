@@ -504,8 +504,6 @@ public class FuncionarioArquivo extends Arquivo {
                     break;
                 }
             }
-            System.out.print(numCamp);
-
             //leitor.nextLine();
             //percorre todo o arquivo
             while (leitor.hasNext()) {

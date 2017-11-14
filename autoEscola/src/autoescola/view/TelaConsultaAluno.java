@@ -577,7 +577,6 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
         jTableAluno.setModel(controleAluno.consultaAlunoLike(jTextField2, jComboBox1));
-        jTableAluno.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased

@@ -580,23 +580,19 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
 
     private void jTextField2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextField2InputMethodTextChanged
         jTableVeiculo.setModel(controleVeiculo.consultaVeiculoLike(jTextField2, jComboBox1));
-        jTableVeiculo.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2InputMethodTextChanged
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
 
         jTableVeiculo.setModel(controleVeiculo.consultaVeiculoLike(jTextField2, jComboBox1));
-        jTableVeiculo.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
         jTableVeiculo.setModel(controleVeiculo.consultaVeiculoLike(jTextField2, jComboBox1));
-        jTableVeiculo.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
         jTableVeiculo.setModel(controleVeiculo.consultaVeiculoLike(jTextField2, jComboBox1));
-        jTableVeiculo.getColumnModel().getColumn(1).setPreferredWidth(250);
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
