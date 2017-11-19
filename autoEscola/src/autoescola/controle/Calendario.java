@@ -154,9 +154,9 @@ public class Calendario {
         calendario = new int[6][7];
         calendarioAnteriorAtualProximo = new int[6][7];
         if (diaSemanaInicio == 0) {
-            diaFimMesAnterior -= 7;
+            diaFimMesAnterior -= 6;
         } else {
-            diaFimMesAnterior -= diaSemanaInicio;
+            diaFimMesAnterior -= diaSemanaInicio-1;
 
         }
         for (int i = 0; i < 6; i++) {
@@ -203,7 +203,15 @@ public class Calendario {
     protected void setMesPreviousNext(int month, int year) {
         Date start = getFirstDayOfMonth(year, month, 1);
         Date end = getLastDayOfMonth(year, month, 1);
-        Date previousMonth = getLastDayOfMonth(year, month, 1);
+        Date previousMonth;
+        if (month == 1) {
+            previousMonth = getLastDayOfMonth(year - 1, 12, 1);
+
+        } else {
+            previousMonth = getLastDayOfMonth(year, month - 1, 1);
+            System.out.print(previousMonth);
+
+        }
         String previousMonthString = mudarFormato(previousMonth);
         String endString = mudarFormato(end);
         int[] DayMonthYearFim = separarMesDiaAno(endString);

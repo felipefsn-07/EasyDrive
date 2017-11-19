@@ -8,7 +8,6 @@ package autoescola.view.tabelas;
 import autoescola.controle.ControleCalendario;
 import java.awt.Color;
 import java.awt.Component;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.ListSelectionModel;

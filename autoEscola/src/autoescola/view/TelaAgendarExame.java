@@ -1047,15 +1047,17 @@ public class TelaAgendarExame extends javax.swing.JDialog {
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_DELETE) {
 
             int row = jTableAlunosExame.getSelectedRow();
-            int id = parseInt(jTableAlunosExame.getValueAt(row, 0).toString());
-            Cliente cli = new Cliente();
-            cli.setCodCliente(id);
-            if (controleExame.deletarAluno(cli)) {
+            if (row > -1) {
+                int id = parseInt(jTableAlunosExame.getValueAt(row, 0).toString());
+                Cliente cli = new Cliente();
+                cli.setCodCliente(id);
+                if (controleExame.deletarAluno(cli)) {
 
-                jTableAlunosExame.setModel(controleExame.consultarAlunosExame());
-                jTableAluno.setModel(controleExame.consultarAlunos());
-            } else {
+                    jTableAlunosExame.setModel(controleExame.consultarAlunosExame());
+                    jTableAluno.setModel(controleExame.consultarAlunos());
+                } else {
 
+                }
             }
         }
     }//GEN-LAST:event_jTableAlunosExameKeyPressed
