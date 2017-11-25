@@ -53,7 +53,8 @@ public class ExameClienteDaoTest {
         testeCliente.setRg("30.231.492-4");
         testeExame.setCodigoExame(1);
         testeExame.setDataExame("05/01/2018");
-        testeExame.setHorarioExame("6:00");
+        testeExame.setHorarioInicio("9:00");
+        testeExame.setHorarioFim("10:00");
         ExameClientes testeExameClientes = new ExameClientes();
         testeExameClientes.setCliente(testeCliente);
         testeExameClientes.setExame(testeExame);

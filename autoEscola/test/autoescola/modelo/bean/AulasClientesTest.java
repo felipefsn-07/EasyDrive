@@ -40,7 +40,7 @@ public class AulasClientesTest {
     }
 
     /**
-     * Test of getAluno method, of class AulasClientes.
+     * Test of getAluno and setAluno method, of class AulasClientes.
      */
     @Test
     public void testGetAluno() {
@@ -51,13 +51,16 @@ public class AulasClientesTest {
         teste.setAluno(aluno);
         assertEquals("Test Get and Set Aluno, succeed",aluno,teste.getAluno());
     }
-
+    
     /**
-     * Test of setAluno method, of class AulasClientes.
+     * Test of isPresenca and setPresenca method, of class AulasClientes.
      */
     @Test
-    public void testSetAluno() {
+    public void testIsPresenca() {
+        teste.setPresenca(true);
+        assertEquals("Test Get and Set Aluno, succeed",true,teste.isPresenca());
     }
+
 
     /**
      * Test of getAulas and setAulas method, of class AulasClientes.
@@ -67,7 +70,8 @@ public class AulasClientesTest {
         Aula aula;
         aula = new Aula();
         aula.setDataAula("17/10/2017");
-        aula.setHorarioAula("7:00");
+        aula.setHorarioAulaInicio("7:00");
+        aula.setHorarioAulaFim("8:40");
         teste.setAulas(aula);
         assertEquals("Test Get and Set Aulas, succeed",aula,teste.getAulas());
     }

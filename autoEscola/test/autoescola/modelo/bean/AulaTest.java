@@ -82,9 +82,18 @@ public class AulaTest {
      * Test of getHorarioAula and setHorarioAula method, of class Aula.
      */
     @Test
-    public void testGetHorarioAula() {
-        aula1.setHorarioAula("00:00");
-        assertEquals("Test GetHorarioAula, fail","00:00",aula1.getHorarioAula());
+    public void testGetHorarioAulaInicio() {
+        aula1.setHorarioAulaInicio("00:00");
+        assertEquals("Test GetHorarioAula, fail","00:00",aula1.getHorarioAulaInicio());
+    }
+    
+    /**
+     * Test of getHorarioAulaFim and setHorarioAulaFim method, of class Aula.
+     */
+    @Test
+    public void testGetHorarioAulaFim() {
+        aula1.setHorarioAulaFim("07:40");
+        assertEquals("Test GetHorarioAula, fail","07:40",aula1.getHorarioAulaFim());
     }
 
     /**
@@ -92,8 +101,8 @@ public class AulaTest {
      */
     @Test
     public void testGetInstrutor() {
-        Instrutor instrutor;
-        instrutor= new Instrutor();
+        Funcionario instrutor;
+        instrutor= new Funcionario();
         instrutor.setNome("Gabriel");
         instrutor.setCelular("(19)11111-2222");
         aula1.setInstrutor(instrutor);
@@ -107,36 +116,31 @@ public class AulaTest {
     public void testGetAulas() {
         ArrayList<AulasClientes> teste;
         teste = null;
+        Funcionario instrutor;
+        instrutor= new Funcionario();
+        instrutor.setNome("Gabriel");
+        instrutor.setCelular("(19)11111-2222");
+        Veiculo veiculo;
+        veiculo = new Veiculo("EFL-9291","Fiesta","2007",25,"RET",true);
+        aula1.setCodAulas(1);
+        aula1.setDataAula("25/01/2017");
+        aula1.setHorarioAulaFim("7:40");
+        aula1.setHorarioAulaInicio("6:00");
+        aula1.setInstrutor(instrutor);
+        aula1.setVeiculo(veiculo);
         aula1.setAulas(teste);
         assertTrue("Test Get and Set Aulas, fail",aula1.getAulas()==teste);
-    }
-
-    /**
-     * Test of setStatusAula and getStatusAula method, of class Aula.
-     */
-    @Test
-    public void testSetStatusAula() {
-        aula1.setStatusAula("ativa");
-        assertTrue("Test Set and Get StatusAula 'ativo', fail",aula1.getStatusAula().equals("ativa"));
-        aula1.setStatusAula("cancelada");
-        assertTrue("Test Set and Get StatusAula 'cancelada', fail",aula1.getStatusAula().equals("cancelada"));
-        aula1.setStatusAula("realizada");
-        assertTrue("Test Set and Get StatusAula 'realizada', fail",aula1.getStatusAula().equals("realizada"));
-        aula1.setStatusAula("adiada");
-        assertTrue("Test Set and Get StatusAula 'adiada', fail",aula1.getStatusAula().equals("adiada"));
-        aula1.setStatusAula("desativada");
-        assertEquals("Test Set and Get StatusAula 'desativada', fail",aula1.getStatusAula().equals("desativada"));
     }
 
     /**
      * Test of getCodVeiculo and setCodVeiculo method, of class Aula.
      */
     @Test
-    public void testGetCodVeiculo() {
+    public void testsetVeiculo() {
         Veiculo teste;
-        teste = new Veiculo("EFL-9291","Fiesta","2007",25,"RET",1);
-        aula1.setCodVeiculo(teste);
-        assertEquals("Test Set and Get CodVeiculo, fail",teste,aula1.getCodVeiculo());
+        teste = new Veiculo("EFL-9291","Fiesta","2007",25,"RET",true);
+        aula1.setVeiculo(teste);
+        assertEquals("Test Set and Get CodVeiculo, fail",teste,aula1.getVeiculo());
     }
     
 }

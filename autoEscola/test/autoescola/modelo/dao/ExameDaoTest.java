@@ -40,10 +40,10 @@ public class ExameDaoTest {
         testeExame2 = new Exame();
         testeExame.setCodigoExame(1);
         testeExame.setDataExame("16/09/2017");
-        testeExame.setHorarioExame("7:00");
+        testeExame.setHorarioInicio("8:00");
         testeExame2.setCodigoExame(2);
         testeExame2.setDataExame("25/03/2018");
-        testeExame2.setHorarioExame("9:00");
+        testeExame2.setHorarioFim("10:00");
         
     }
     
@@ -92,9 +92,9 @@ public class ExameDaoTest {
     /**
      * Test of excluirExame method, of class ExameDao.
      */
-    @Test
+    /*@Test
     public void testExcluirExame() {
         assertEquals("Test excluirExame, fail",true,teste.excluirExame(testeExame));
-    }
+    }*/
     
 }

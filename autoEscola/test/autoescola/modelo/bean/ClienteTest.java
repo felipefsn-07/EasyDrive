@@ -33,7 +33,7 @@ public class ClienteTest {
     
     @Before
     public void setUp() {
-        teste = new Cliente();
+        teste = new Cliente("João da Silva","40.230.321-2","312.121.321-22","25/09/1998","(12)3568-9018","(12)99820-1213","321321","AB");
     }
     
     @After
@@ -137,8 +137,8 @@ public class ClienteTest {
      */
     @Test
     public void testGetStatus() {
-        teste.setStatus(1);
-        assertEquals("Teste Get and Set Status, succeed",1,teste.getStatus());
+        teste.setStatus(true);
+        assertEquals("Teste Get and Set Status, succeed",true,teste.getStatus());
     }
 
     /**

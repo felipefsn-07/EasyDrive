@@ -84,7 +84,7 @@ public class VeiculoTest {
      */
     @Test
     public void testGetStatus() {
-        teste.setStatus(1);
-        assertEquals("Test getStatus, fail",1,teste.getStatus());
+        teste.setStatus(true);
+        assertEquals("Test getStatus, fail",true,teste.getStatus());
     }
 }

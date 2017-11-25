@@ -130,20 +130,25 @@ public class FuncionarioTest {
      */
     @Test
     public void testGetStatus() {
-        teste.setStatus(1);
-        assertEquals("Test getStatus, fail",1,teste.getStatus());
-    }
-
-    /**
-     * Test of getUsuario and setUsuario method, of class Funcionario.
-     */
-    @Test
-    public void testGetUsuario() {
-        Usuario testUsuario = new Usuario();
-        testUsuario.setLogin("loginteste");
-        testUsuario.setSenha("12344");
-        teste.setUsuario(testUsuario);
-        assertEquals("Test getUsuario, fail",testUsuario,teste.getUsuario());
+        teste.setStatus(true);
+        assertEquals("Test getStatus, fail",true,teste.getStatus());
     }
     
+    /**
+     * Test of getCategoria and setCategoria method, of class Funcionario.
+     */
+    @Test
+    public void testGetCategoria() {
+        teste.setCategoria("Instrutor");
+        assertEquals("Test getStatus, fail","Instrutor",teste.getCategoria());
+    }
+    
+    /**
+     * Test of getNumCarteira and setNumCarteira method, of class Funcionario.
+     */
+    @Test
+    public void testGetNumCateira() {
+        teste.setNumCarteira("321312");
+        assertEquals("Test getStatus, fail","321312",teste.getNumCarteira());
+    }
 }

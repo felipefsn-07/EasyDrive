@@ -37,8 +37,8 @@ public class VeicDaoTest {
     @Before
     public void setUp() {
         teste = new VeicDao();
-        testeVeiculo = new Veiculo("DBV-0086","Gol","2005",20,"Ret",1);
-        testeVeiculo2 = new Veiculo("FLL-1209","Fox","2010",30,"Ret",1);
+        testeVeiculo = new Veiculo("DBV-0086","Gol","2005",20,"Ret",true);
+        testeVeiculo2 = new Veiculo("FLL-1209","Fox","2010",30,"Ret",true);
     }
     
     @After

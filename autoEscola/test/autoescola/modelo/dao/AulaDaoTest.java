@@ -39,10 +39,9 @@ public class AulaDaoTest {
         aulateste1=new Aula();
         aulateste2=new Aula();
         aulateste1.setDataAula("16/11/2017");
-        aulateste1.setHorarioAula("16:00");
-        aulateste1.setCodAulas(1);
+        aulateste1.setHorarioAulaInicio("7:00");
+        aulateste1.setHorarioAulaFim("8:40");
         aulateste2.setDataAula("17/11/2017");
-        aulateste2.setHorarioAula("7:00");
         aulateste2.setCodAulas(2);
     }
     
