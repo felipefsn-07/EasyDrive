@@ -5,7 +5,6 @@
  * and open the template in the editor.
  */
 package autoescola.modelo.dao;
-
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Endereco;
@@ -14,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,7 +22,7 @@ import javax.swing.JOptionPane;
 public class CliDao {
 
     //private Cliente cli;
-    public boolean cadastrarCliente(Cliente cli) {
+    public int cadastrarCliente(Cliente cli) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -44,22 +42,22 @@ public class CliDao {
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return true;
+            return cli.getCodCliente();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
-            return false;
+            return 0;
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public List<Cliente> consultarClientes() {
+    public ArrayList<Cliente> consultarClientes() {
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Cliente> clientes = new ArrayList<>();
+        ArrayList<Cliente> clientes = new ArrayList<>();
 
         try {
             stmt = con.prepareStatement("SELECT * FROM cliente");
@@ -67,7 +65,6 @@ public class CliDao {
 
             while (rs.next()) {
                 Cliente cli = new Cliente();
-                Endereco endereco = new Endereco();
 
                 cli.setCodCliente(rs.getInt("codCliente"));
                 cli.setNome(rs.getString("nome"));
@@ -79,19 +76,58 @@ public class CliDao {
                 cli.setNumLADV(rs.getString("numLadv"));
                 cli.setStatus(rs.getBoolean("status"));
                 cli.setCategoria(rs.getString("categoria"));
-                endereco.setCodEndereco(rs.getInt("codEndereco"));
+
+                EnderecoDao endDao = new EnderecoDao();
+                Endereco endereco = endDao.consultar(rs.getInt("codEndereco"));
+                cli.setEndereco(endereco);
 
                 clientes.add(cli);
             }
-            JOptionPane.showMessageDialog(null, "Consulta concluida!");
-
+            return clientes;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar! " + ex);
+            return null;
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
+    }
 
-        return clientes;
+    public ArrayList<Cliente> consultarClientesAtivos() {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE status = 1");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cliente cli = new Cliente();
+
+                cli.setCodCliente(rs.getInt("codCliente"));
+                cli.setNome(rs.getString("nome"));
+                cli.setTelefone(rs.getString("tel"));
+                cli.setCelular(rs.getString("cel"));
+                cli.setDatanasc(rs.getString("dataNasc"));
+                cli.setRg(rs.getString("rg"));
+                cli.setCpf(rs.getString("cpf"));
+                cli.setNumLADV(rs.getString("numLadv"));
+                cli.setStatus(rs.getBoolean("status"));
+                cli.setCategoria(rs.getString("categoria"));
+
+                EnderecoDao endDao = new EnderecoDao();
+                Endereco endereco = endDao.consultar(rs.getInt("codEndereco"));
+                cli.setEndereco(endereco);
+
+                clientes.add(cli);
+            }
+            return clientes;
+        } catch (SQLException ex) {
+            return null;
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
     }
 
     /**
@@ -99,21 +135,21 @@ public class CliDao {
      * @param nome
      * @return
      */
-    public List<Cliente> consultarClientesLike(String nome) {
+    public ArrayList<Cliente> consultarClientesLike(String campo, String valor) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Cliente> clientes = new ArrayList<>();
+        ArrayList<Cliente> clientes = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente WHERE nome LIKE ?");
-            stmt.setString(1, "%" + nome + "%");
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE ? LIKE ?");
+            stmt.setString(1, campo);
+            stmt.setString(2, "%" + valor + "%");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Cliente cli = new Cliente();
-                Endereco endereco = new Endereco();
 
                 cli.setCodCliente(rs.getInt("codCliente"));
                 cli.setNome(rs.getString("nome"));
@@ -125,42 +161,79 @@ public class CliDao {
                 cli.setNumLADV(rs.getString("numLadv"));
                 cli.setStatus(rs.getBoolean("status"));
                 cli.setCategoria(rs.getString("categoria"));
-                endereco.setCodEndereco(rs.getInt("codEndereco"));
+
+                EnderecoDao endDao = new EnderecoDao();
+                Endereco endereco = endDao.consultar(rs.getInt("codEndereco"));
+                cli.setEndereco(endereco);
 
                 clientes.add(cli);
             }
-            JOptionPane.showMessageDialog(null, "Consulta concluida!");
-
+            return clientes;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar! " + ex);
+            return null;
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-
-        return clientes;
     }
 
-    public boolean consutarClienteExiste(String cpf) {
+    public Cliente consutarClienteExiste(int codigoCliente) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Cliente cli = new Cliente();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE codCliente = ?");
+            stmt.setInt(1, codigoCliente);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                cli.setCodCliente(rs.getInt("codCliente"));
+                cli.setNome(rs.getString("nome"));
+                cli.setTelefone(rs.getString("tel"));
+                cli.setCelular(rs.getString("cel"));
+                cli.setDatanasc(rs.getString("dataNasc"));
+                cli.setRg(rs.getString("rg"));
+                cli.setCpf(rs.getString("cpf"));
+                cli.setNumLADV(rs.getString("numLadv"));
+                cli.setStatus(rs.getBoolean("status"));
+                cli.setCategoria(rs.getString("categoria"));
+
+                EnderecoDao endDao = new EnderecoDao();
+                Endereco endereco = endDao.consultar(rs.getInt("codEndereco"));
+                cli.setEndereco(endereco);
+            }
+            return cli;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar! " + ex);
+            return null;
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+
+    public boolean consultarRg(String rg) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente WHERE cpf = ?");
-            stmt.setString(1, cpf);
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE rg = ?");
+            stmt.setString(1, rg);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Consulta concluida!");
-                return true;
+                Cliente func = new Cliente();
+                func.setRg(rs.getString("rg"));
             }
+            return true;
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar! " + ex);
+            return false;
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return false;
     }
 
     public boolean alterarCliente(Cliente cli) {
@@ -192,14 +265,33 @@ public class CliDao {
         }
     }
 
-    public boolean excluirCliente(Cliente cli) {
+    public boolean desativar(int codigoCliente) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE cliente SET status = ? WHERE codCliente = ?");
-            stmt.setBoolean(1, cli.getStatus());
-            stmt.setInt(2, cli.getCodCliente());
+            stmt = con.prepareStatement("UPDATE cliente SET status = 0 WHERE codCliente = ?");
+            stmt.setInt(1, codigoCliente);
+
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
+            return false;
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+
+    public boolean ativar(int codigoCliente) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("UPDATE cliente SET status = 1 WHERE codCliente = ?");
+            stmt.setInt(1, codigoCliente);
 
             stmt.executeUpdate();
 

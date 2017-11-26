@@ -82,7 +82,7 @@ public class VeicDao {
         return veiculos;
     }
     
-    public boolean consutarVeiculoExiste(int codVeiculo) {
+    public Veiculo consutarVeiculoExiste(int codVeiculo) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -94,7 +94,7 @@ public class VeicDao {
 
             while (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Consulta concluida!");
-                return true;
+                return null;
             }
 
         } catch (SQLException ex) {
@@ -102,7 +102,7 @@ public class VeicDao {
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return false;
+        return null;
     }
     
     public boolean alterarVeiculo(Veiculo veic) {
