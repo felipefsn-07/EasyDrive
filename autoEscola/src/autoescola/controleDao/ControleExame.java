@@ -5,17 +5,17 @@
  */
 package autoescola.controleDao;
 
-import autoescola.modelo.arquivo.ClienteArquivo;
-import autoescola.modelo.arquivo.ClienteExameArquivo;
-import autoescola.modelo.arquivo.ExameArquivo;
-import autoescola.modelo.arquivo.FuncionarioArquivo;
-import autoescola.modelo.arquivo.VeiculoArquivo;
+
 import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Exame;
 import autoescola.modelo.bean.ExameClientes;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
+import autoescola.modelo.dao.CliDao;
+import autoescola.modelo.dao.ExameClienteDao;
 import autoescola.modelo.dao.ExameDao;
+import autoescola.modelo.dao.FuncionarioDao;
+import autoescola.modelo.dao.VeicDao;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import java.text.ParseException;
@@ -57,12 +57,12 @@ public class ControleExame extends Controle {
     }
 
     private void inicializarClientesCadastradoExame() {
-        ClienteExameArquivo cea = new ClienteExameArquivo();
+        ExameClienteDao cea = new ExameClienteDao();
         this.clientesExames = cea.trazerClientes(exame.getCodigoExame());
     }
 
     private void inicializarClientesNaoCadastradoExame() {
-        ClienteArquivo cea = new ClienteArquivo();
+        CliDao cea = new CliDao();
         this.clientes = cea.consultarClientesAtivos();
         for (Cliente cliente : clientesExames) {
 
@@ -75,13 +75,13 @@ public class ControleExame extends Controle {
     }
 
     private void inicializarInstrutoresAtivos() {
-        FuncionarioArquivo arqFunc = new FuncionarioArquivo();
+        FuncionarioDao arqFunc = new FuncionarioDao();
         instrutores = arqFunc.consultarInstrutoresAtivos();
 
     }
 
     private void incializarVeiculoAtivo() {
-        VeiculoArquivo arqVeic = new VeiculoArquivo();
+        VeicDao arqVeic = new VeicDao();
         veiculos = arqVeic.consultarVeiculos();
     }
 
@@ -253,8 +253,8 @@ public class ControleExame extends Controle {
     public boolean adicionarVeiculo(int codigoVeiculo) {
         if (temExame()) {
             ExameDao ea = new ExameDao();
-            VeiculoArquivo va = new VeiculoArquivo();
-            exame.setVeiculo(va.consultar(codigoVeiculo));
+            VeicDao va = new VeicDao();
+            exame.setVeiculo(va.consutarVeiculoExiste(codigoVeiculo));
             if (ea.alterarExame(exame)) {
                 JOptionPane.showMessageDialog(null, "Veiculo inserido com sucesso!");
                 return true;
@@ -272,8 +272,8 @@ public class ControleExame extends Controle {
     public boolean adicionarInstrutor(int codigoFuncionario) {
         if (temExame()) {
             ExameDao ea = new ExameDao();
-            FuncionarioArquivo fa = new FuncionarioArquivo();
-            exame.setInstrutor(fa.consultar(codigoFuncionario));
+            FuncionarioDao fa = new FuncionarioDao();
+            exame.setInstrutor(fa.consutarFuncExiste(codigoFuncionario));
             if (ea.alterarExame(exame)) {
                 JOptionPane.showMessageDialog(null, "Instrutor inserido com sucesso!");
 
@@ -418,7 +418,7 @@ public class ControleExame extends Controle {
      * @return
      */
     public boolean deletarAluno(Cliente aluno) {
-        ClienteExameArquivo eca = new ClienteExameArquivo();
+        ExameClienteDao eca = new ExameClienteDao();
 
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente remover o aluno do exame?", "Remover o aluno do exame", JOptionPane.YES_NO_OPTION);
 
@@ -430,8 +430,8 @@ public class ControleExame extends Controle {
             if (eca.apagarAlunosExame(ec)) {
                 JOptionPane.showMessageDialog(null, "Removido do exame com sucesso");
                 tirarAlunoMemoria(clientesExames, aluno);
-                ClienteArquivo ca = new ClienteArquivo();
-                clientes.add(ca.consultar(aluno.getCodCliente()));
+                CliDao ca = new CliDao();
+                clientes.add(ca.consutarClienteExiste(aluno.getCodCliente()));
                 return true;
             }
 
@@ -458,14 +458,14 @@ public class ControleExame extends Controle {
      */
     public boolean adicionarAlunoExame(int codigoAluno) {
         if (temExame()) {
-            ClienteArquivo arqAluno = new ClienteArquivo();
-            Cliente aluno = arqAluno.consultar(codigoAluno);
+            CliDao arqAluno = new CliDao();
+            Cliente aluno = arqAluno.consutarClienteExiste(codigoAluno);
             ExameClientes ec = new ExameClientes();
             ec.setExame(exame);
             ec.setCliente(aluno);
-            ClienteExameArquivo arq = new ClienteExameArquivo();
+            ExameClienteDao arq = new ExameClienteDao();
 
-            if (arq.cadastrarExameClientes(ec)) {
+            if (arq.cadastrarExameCliente(ec)) {
                 clientesExames.add(aluno);
                 tirarAlunoMemoria(clientes, aluno);
                 return true;

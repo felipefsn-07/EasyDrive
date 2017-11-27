@@ -5,7 +5,7 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleChamada;
+import autoescola.controleDao.ControleChamada;
 import autoescola.modelo.bean.Aula;
 import autoescola.view.tabelas.TabelaChamada;
 

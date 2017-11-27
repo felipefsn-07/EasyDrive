@@ -9,8 +9,8 @@ package autoescola.view;
  *
  * @author felipe
  */
-import autoescola.controle.ControleVeiculo;
-import autoescola.controle.ControleLogin;
+import autoescola.controleDao.ControleVeiculo;
+import autoescola.controleDao.ControleLogin;
 import autoescola.view.tabelas.TabelaVeiculo;
 import static java.lang.Integer.parseInt;
 

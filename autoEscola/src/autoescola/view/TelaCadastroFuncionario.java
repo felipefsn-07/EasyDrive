@@ -6,8 +6,8 @@
 package autoescola.view;
 
 
-import autoescola.controle.ControleFuncionario;
-import autoescola.controle.ControleLogin;
+import autoescola.controleDao.ControleFuncionario;
+import autoescola.controleDao.ControleLogin;
 import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Funcionario;
 import javax.swing.JOptionPane;

@@ -5,7 +5,7 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleAluno;
+import autoescola.controleDao.ControleAluno;
 import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Endereco;
 import autoescola.view.tabelas.Tabela;

@@ -7,6 +7,7 @@ package autoescola.modelo.dao;
 
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Exame;
+import autoescola.modelo.bean.ExameClientes;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
 import java.sql.Connection;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
  * @author Lucca
  */
 public class ExameDao {
+
     public int cadastrarExame(Exame exame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -37,7 +39,7 @@ public class ExameDao {
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return 0;
+            return exame.getCodigoExame();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
             return 0;
@@ -45,7 +47,7 @@ public class ExameDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
+
     public ArrayList<Exame> consultarExame() {
 
         Connection con = ConnectionFactory.getConnection();
@@ -67,29 +69,28 @@ public class ExameDao {
                 exame.setDataExame(rs.getString("dataExame"));
                 exame.setHorarioInicio(rs.getString("horaInicio"));
                 exame.setHorarioFim(rs.getString("horaFim"));
+
                 veiculo.setCodVeiculo(rs.getInt("codVeiculo"));
+                exame.setVeiculo(veiculo);
                 instrutor.setCodigoFuncionario(rs.getInt("codInstrutor"));
+                exame.setInstrutor(instrutor);
 
                 exames.add(exame);
             }
-            JOptionPane.showMessageDialog(null, "Consulta concluida!");
-
+            return exames;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar! " + ex);
+            return null;
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-
-        return exames;
     }
-    
+
     public Exame consutarExameExiste(int codExame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Exame exame = new Exame();
-        
-          
+
         try {
             stmt = con.prepareStatement("SELECT * FROM exame WHERE codExame = ?");
             stmt.setInt(1, codExame);
@@ -100,7 +101,7 @@ public class ExameDao {
                 exame.setDataExame(rs.getString("dataExame"));
                 exame.setHorarioInicio(rs.getString("horarioInicio"));
                 exame.setHorarioInicio(rs.getString("horarioFim"));
-                
+
                 VeicDao vd = new VeicDao();
                 Veiculo veiculo = vd.consutarVeiculoExiste(rs.getInt("codVeiculo"));
                 exame.setVeiculo(veiculo);
@@ -109,17 +110,20 @@ public class ExameDao {
                 Funcionario funcionario = fd.consutarFuncExiste(rs.getInt("codInstrutor"));
                 exame.setInstrutor(funcionario);
 
+                ExameClienteDao arqEc = new ExameClienteDao();
+                ArrayList<ExameClientes> ec = arqEc.consultarClientesPorExame(codExame);
+                exame.setAlunos(ec);
+
             }
             return exame;
-            
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar! " + ex);
+            return null;
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return null;
     }
-    
+
     public boolean alterarExame(Exame exame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -144,10 +148,9 @@ public class ExameDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    
+
     public ArrayList<Exame> consultarData(String data) {
-        
+
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -165,7 +168,7 @@ public class ExameDao {
                 exame.setDataExame(rs.getString("dataExame"));
                 exame.setHorarioInicio(rs.getString("horarioInicio"));
                 exame.setHorarioInicio(rs.getString("horarioFim"));
-                
+
                 VeicDao vd = new VeicDao();
                 Veiculo veiculo = vd.consutarVeiculoExiste(rs.getInt("codVeiculo"));
                 exame.setVeiculo(veiculo);
@@ -174,7 +177,6 @@ public class ExameDao {
                 Funcionario funcionario = fd.consutarFuncExiste(rs.getInt("codInstrutor"));
                 exame.setInstrutor(funcionario);
 
-                
                 exames.add(exame);
             }
             return exames;
@@ -184,31 +186,27 @@ public class ExameDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
+
     public boolean apagar(int codExame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-        ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM exame WHERE codExame = ?");
+            stmt = con.prepareStatement("DELETE FROM exame WHERE codExame = ?");
             stmt.setInt(1, codExame);
-            rs = stmt.executeQuery();
+            stmt.executeUpdate();
 
-            while (rs.next()) {
-                ExameClienteDao daoEC = new ExameClienteDao();
-                daoEC.apagarExame(codExame);
-            }
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
             return true;
 
         } catch (SQLException ex) {
             return false;
         } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
+            ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    public ArrayList<Exame> consultarExamesLike(String campo, String valor){
+
+    public ArrayList<Exame> consultarExamesLike(String campo, String valor) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -224,11 +222,11 @@ public class ExameDao {
             while (rs.next()) {
                 Exame exame = new Exame();
 
-               exame.setCodigoExame(rs.getInt("codExame"));
+                exame.setCodigoExame(rs.getInt("codExame"));
                 exame.setDataExame(rs.getString("dataExame"));
                 exame.setHorarioInicio(rs.getString("horarioInicio"));
                 exame.setHorarioInicio(rs.getString("horarioFim"));
-                
+
                 VeicDao vd = new VeicDao();
                 Veiculo veiculo = vd.consutarVeiculoExiste(rs.getInt("codVeiculo"));
                 exame.setVeiculo(veiculo);
@@ -237,7 +235,6 @@ public class ExameDao {
                 Funcionario funcionario = fd.consutarFuncExiste(rs.getInt("codInstrutor"));
                 exame.setInstrutor(funcionario);
 
-                
                 exames.add(exame);
             }
             return exames;
@@ -248,9 +245,9 @@ public class ExameDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    }
-    
-   /* public boolean excluirExame(Exame exame) {
+}
+
+/* public boolean excluirExame(Exame exame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -269,4 +266,3 @@ public class ExameDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }*/
-

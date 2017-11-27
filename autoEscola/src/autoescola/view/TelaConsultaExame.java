@@ -5,9 +5,9 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleCalendario;
-import autoescola.controle.ControleExame;
-import autoescola.controle.ControleLogin;
+import autoescola.controleDao.ControleCalendario;
+import autoescola.controleDao.ControleExame;
+import autoescola.controleDao.ControleLogin;
 import autoescola.view.tabelas.Tabela;
 import autoescola.view.tabelas.TabelaCalendario;
 import autoescola.modelo.bean.Exame;

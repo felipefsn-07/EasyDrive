@@ -1,7 +1,7 @@
 package autoescola.view;
 
-import autoescola.controle.ControleFuncionario;
-import autoescola.controle.ControleLogin;
+import autoescola.controleDao.ControleFuncionario;
+import autoescola.controleDao.ControleLogin;
 import autoescola.view.tabelas.TabelaFuncionario;
 import java.awt.Color;
 import java.awt.Toolkit;

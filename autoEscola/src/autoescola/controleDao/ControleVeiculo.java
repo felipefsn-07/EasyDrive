@@ -5,7 +5,6 @@
  */
 package autoescola.controleDao;
 
-import autoescola.modelo.arquivo.VeiculoArquivo;
 import autoescola.modelo.bean.Veiculo;
 import autoescola.modelo.dao.VeicDao;
 import static java.lang.Integer.parseInt;

@@ -5,17 +5,16 @@
  */
 package autoescola.controleDao;
 
-import autoescola.modelo.arquivo.AulasClientesArquivo;
-import autoescola.modelo.arquivo.EnderecoArquivo;
-import autoescola.modelo.arquivo.ClienteArquivo;
-import autoescola.modelo.arquivo.ClienteExameArquivo;
 import autoescola.modelo.bean.Aula;
 import autoescola.modelo.bean.AulasClientes;
 import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Exame;
 import autoescola.modelo.bean.ExameClientes;
+import autoescola.modelo.dao.AulaClienteDao;
 import autoescola.modelo.dao.CliDao;
+import autoescola.modelo.dao.EnderecoDao;
+import autoescola.modelo.dao.ExameClienteDao;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -162,7 +161,7 @@ public class ControleAluno extends Controle {
         if (!endereco.getBairro().equals("") && !endereco.getCep().equals("     -   ") && !endereco.getCidade().equals("") && !endereco.getEstado().equals("") && !endereco.getLogradouro().equals("") && !endereco.getNum().equals("")) {
             if (verificarSeCliente()) {
                 endereco.setStatus(cliente.getEndereco().getStatus());
-                EnderecoArquivo arqEnd = new EnderecoArquivo();
+                EnderecoDao arqEnd = new EnderecoDao();
                 CliDao arqCli = new CliDao();
                 int res = arqEnd.cadastrarEndereco(endereco);
                 if (res != 0) {
@@ -192,7 +191,7 @@ public class ControleAluno extends Controle {
 
             if (verificarSeCliente()) {
                 if (verificarSeEndereco()) {
-                    EnderecoArquivo arqEnd = new EnderecoArquivo();
+                    EnderecoDao arqEnd = new EnderecoDao();
                     CliDao arqCli = new CliDao();
                     endereco.setCodEndereco(this.endereco.getCodEndereco());
 
@@ -316,7 +315,7 @@ public class ControleAluno extends Controle {
     }
 
     public Endereco endereco(int id) {
-        EnderecoArquivo arq = new EnderecoArquivo();
+        EnderecoDao arq = new EnderecoDao();
         this.endereco = arq.consultar(id);
         return endereco;
     }
@@ -325,7 +324,7 @@ public class ControleAluno extends Controle {
 
         DefaultTableModel jTable1 = new DefaultTableModel();
         ArrayList<ExameClientes> ec = new ArrayList();
-        ClienteExameArquivo cea = new ClienteExameArquivo();
+        ExameClienteDao cea = new ExameClienteDao();
         ec = null;
         if (cliente != null) {
             ec = cea.consultarExamePorClientes(cliente.getCodCliente());
@@ -358,7 +357,7 @@ public class ControleAluno extends Controle {
 
         DefaultTableModel jTable1 = new DefaultTableModel();
         ArrayList<AulasClientes> ac = null;
-        AulasClientesArquivo cea = new AulasClientesArquivo();
+        AulaClienteDao cea = new AulaClienteDao();
         if (cliente != null) {
             ac = cea.consultarClientesAula(cliente.getCodCliente());
         }

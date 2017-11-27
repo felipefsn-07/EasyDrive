@@ -5,11 +5,10 @@
  */
 package autoescola.controleDao;
 
-import autoescola.modelo.arquivo.AulasArquivo;
-import autoescola.modelo.arquivo.AulasClientesArquivo;
 import autoescola.modelo.bean.Aula;
 import autoescola.modelo.bean.AulasClientes;
 import autoescola.modelo.bean.Cliente;
+import autoescola.modelo.dao.AulaClienteDao;
 import autoescola.modelo.dao.AulaDao;
 import static java.lang.Integer.parseInt;
 import javax.swing.JTable;
@@ -69,7 +68,7 @@ public class ControleChamada extends Controle {
     @Override
     public boolean alterarStatus(boolean anterior, String idStr) {
         if (isDigit(idStr)) {
-            AulasClientesArquivo aca = new AulasClientesArquivo();
+            AulaClienteDao aca = new AulaClienteDao();
             int id = parseInt(idStr);
             int i = 0;
             for (AulasClientes aulasClientes : aula.getAulas()) {
