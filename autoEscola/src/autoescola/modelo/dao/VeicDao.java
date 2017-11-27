@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class VeicDao {
 
-    public boolean cadastrarVeiculo(Veiculo veic) {
+    public int cadastrarVeiculo(Veiculo veic) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -37,21 +37,21 @@ public class VeicDao {
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return true;
+            return 1;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
-            return false;
+            return 0;
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public List<Veiculo> consultarVeiculos() {
+    public ArrayList<Veiculo> consultarVeiculos() {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Veiculo> veiculos = new ArrayList<>();
+        ArrayList<Veiculo> veiculos = new ArrayList<>();
 
         try {
             stmt = con.prepareStatement("SELECT * FROM automovel");
@@ -151,4 +151,23 @@ public class VeicDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-}
+     public boolean desativar(int codVeiculo) {
+        
+         return false;
+    }
+     
+      public boolean ativar(int codVeiculo) {
+        
+         return false;
+    }
+    
+      public ArrayList<Veiculo> consultarVeiculosLike(String campo, String valor) {
+          
+          return null;
+      }
+      
+      public boolean consultarPlaca(String placa) {
+          
+          return false;
+      }
+    }

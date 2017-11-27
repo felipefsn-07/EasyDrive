@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author Lucca
  */
 public class ExameDao {
-    public boolean cadastrarExame(Exame exame) {
+    public int cadastrarExame(Exame exame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -36,10 +36,10 @@ public class ExameDao {
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return true;
+            return 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
-            return false;
+            return 0;
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
@@ -81,7 +81,7 @@ public class ExameDao {
         return exames;
     }
     
-    public boolean consutarExameExiste(int codExame) {
+    public Exame consutarExameExiste(int codExame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -93,7 +93,7 @@ public class ExameDao {
 
             while (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Consulta concluida!");
-                return true;
+                return null;
             }
 
         } catch (SQLException ex) {
@@ -101,7 +101,7 @@ public class ExameDao {
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return false;
+        return null;
     }
     
     public boolean alterarExame(Exame exame) {
@@ -126,6 +126,12 @@ public class ExameDao {
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
+    }
+    
+    
+    public ArrayList<Exame> consultarData(String data) {
+        
+        return null;
     }
     
    /* public boolean excluirExame(Exame exame) {
