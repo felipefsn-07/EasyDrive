@@ -29,7 +29,6 @@ public class ControleFuncionario extends Controle {
 
     private Usuario usuario;
     private Funcionario funcionario;
-    private Endereco endereco;
     private boolean botao = false;
 
     public TableModel consultarFuncionarios() {
@@ -79,11 +78,11 @@ public class ControleFuncionario extends Controle {
             UsuarioArquivo arqUsuario = new UsuarioArquivo();
             this.funcionario = arqFuncionario.consultar(id);
             this.usuario = arqUsuario.consultarFuncionarioUsuario(id);
-            if (funcionario.getEndereco().getCodEndereco() != 0) {
-                this.endereco = funcionario.getEndereco();
-            } else {
-                this.endereco = null;
-            }
+//            if (funcionario.getEndereco().getCodEndereco() != 0) {
+//                this.endereco = funcionario.getEndereco();
+//            } else {
+//                this.endereco = null;
+//            }
         }
 
     }
@@ -375,7 +374,7 @@ public class ControleFuncionario extends Controle {
 
     public boolean verificarSeEndereco() {
 
-        return endereco != null;
+        return funcionario.getEndereco() != null;
     }
 
     public boolean verificarSeUsuario() {
@@ -405,9 +404,8 @@ public class ControleFuncionario extends Controle {
                 FuncionarioArquivo arqFunc = new FuncionarioArquivo();
                 int res = arqEnd.cadastrarEndereco(endereco);
                 if (res != 0) {
-                    this.endereco = endereco;
-                    funcionario.setEndereco(arqEnd.consultar(res));
                     endereco.setCodEndereco(res);
+                    funcionario.setEndereco(endereco);
                     arqFunc.alterarfuncionario(funcionario);
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
                     return true;
@@ -432,15 +430,10 @@ public class ControleFuncionario extends Controle {
             if (verificarSeFuncinario()) {
                 if (verificarSeEndereco()) {
                     EnderecoArquivo arqEnd = new EnderecoArquivo();
-                    FuncionarioArquivo arqFunc = new FuncionarioArquivo();
-                    endereco.setCodEndereco(this.endereco.getCodEndereco());
+                    endereco.setCodEndereco(this.funcionario.getEndereco().getCodEndereco());
 
                     if (arqEnd.alterarEndereco(endereco)) {
-                        endereco.setStatus(funcionario.getEndereco().getStatus());
-                        endereco.setStatus(this.endereco.getStatus());
-                        this.endereco = arqEnd.consultar(endereco.getCodEndereco());
-                        funcionario.setEndereco(arqEnd.consultar(endereco.getCodEndereco()));
-                        arqFunc.alterarfuncionario(funcionario);
+                        funcionario.setEndereco(endereco);
                         JOptionPane.showMessageDialog(null, "Editado com sucesso");
 
                     } else {

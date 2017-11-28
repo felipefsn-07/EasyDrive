@@ -45,7 +45,7 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
             txtLogin.setText(controleFuncionario.valorUsuario(0));
             txtCarteiraMotorista.setText(funcionario.getNumCarteira());
             jcCategoria.setSelectedItem(funcionario.getCategoria());
-            if (funcionario.getEndereco().getCodEndereco() != 0) {
+            if (funcionario.getEndereco() != null) {
                 txtLogradura.setText(funcionario.getEndereco().getLogradouro());
                 txtCidade.setText(funcionario.getEndereco().getCidade());
                 txtEstado.setText(funcionario.getEndereco().getEstado());

@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 package autoescola.modelo.dao;
+
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Endereco;
@@ -187,7 +188,7 @@ public class CliDao {
         Cliente cli = new Cliente();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente WHERE codCliente = ?");
+            stmt = con.prepareStatement("SELECT * FROM cliente INNER JOIN endereco WHERE codCliente = ?");
             stmt.setInt(1, codigoCliente);
             rs = stmt.executeQuery();
 
@@ -202,9 +203,15 @@ public class CliDao {
                 cli.setNumLADV(rs.getString("numLadv"));
                 cli.setStatus(rs.getBoolean("status"));
                 cli.setCategoria(rs.getString("categoria"));
-
-                EnderecoDao endDao = new EnderecoDao();
-                Endereco endereco = endDao.consultar(rs.getInt("codEndereco"));
+                Endereco endereco = new Endereco();
+                endereco.setCodEndereco(rs.getInt("codEndereco"));
+                endereco.setNum(rs.getString("num"));
+                endereco.setCidade(rs.getString("cidade"));
+                endereco.setEstado(rs.getString("estado"));
+                endereco.setLogradouro(rs.getString("logradouro"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setCep(rs.getString("cep"));
+                endereco.setStatus(rs.getInt("status"));
                 cli.setEndereco(endereco);
             }
             return cli;
@@ -241,7 +248,7 @@ public class CliDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE cliente SET nome = ?, tel = ?, cel = ?, dataNasc = ?, rg = ?, cpf = ?, numLadv = ?, status = ?, categoria = ? WHERE codCliente = ?");
+            stmt = con.prepareStatement("UPDATE cliente SET nome = ?, tel = ?, cel = ?, dataNasc = ?, rg = ?, cpf = ?, numLadv = ?, status = ?, categoria = ?, codEndereco= ? WHERE codCliente = ?");
             stmt.setString(1, cli.getNome());
             stmt.setString(2, cli.getTelefone());
             stmt.setString(3, cli.getCelular());
@@ -251,11 +258,11 @@ public class CliDao {
             stmt.setString(7, cli.getNumLADV());
             stmt.setBoolean(8, cli.getStatus());
             stmt.setString(9, cli.getCategoria());
-            stmt.setInt(10, cli.getCodCliente());
+            stmt.setInt(10, cli.getEndereco().getCodEndereco());
+            stmt.setInt(11, cli.getCodCliente());
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar! " + ex);
@@ -275,7 +282,6 @@ public class CliDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
@@ -295,7 +301,6 @@ public class CliDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);

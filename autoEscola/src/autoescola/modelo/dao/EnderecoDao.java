@@ -120,12 +120,11 @@ public class EnderecoDao {
             stmt = con.prepareStatement("SELECT * FROM endereco WHERE codEndereco = ?");
             stmt.setInt(1, codEndereco);
             rs = stmt.executeQuery();
-            
-            System.out.println("12 " + codEndereco);
 
+            //System.out.println("12 " + codEndereco);
             while (rs.next()) {
                 System.out.println(rs.getInt("codEdereco"));
-                
+
                 endereco.setCodEndereco(rs.getInt("codEdereco"));
                 endereco.setNum(rs.getString("num"));
                 endereco.setCidade(rs.getString("cidade"));
@@ -135,15 +134,14 @@ public class EnderecoDao {
                 endereco.setCep(rs.getString("cep"));
                 endereco.setStatus(rs.getInt("status"));
 
-                
             }
+            ConnectionFactory.closeConnection(con, stmt, rs);
+
             return endereco;
 
         } catch (SQLException ex) {
             return null;
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
+        } 
     }
 
     public boolean desativar(int codEndereco) {
