@@ -22,7 +22,7 @@ public abstract class ConnectionFactory {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost/db_autoescola";
     private static final String USER = "root";
-    private static final String PASS = "root";
+    private static final String PASS = "123456";
 
     public static Connection getConnection() {
         try {

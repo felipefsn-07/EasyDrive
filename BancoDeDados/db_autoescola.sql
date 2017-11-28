@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 28-Nov-2017 às 04:52
+-- Generation Time: 28-Nov-2017 às 08:32
 -- Versão do servidor: 5.5.54
 -- PHP Version: 7.1.9
 
@@ -30,12 +30,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `aula` (
   `codAula` int(11) NOT NULL,
-  `dataAula` date NOT NULL,
-  `horaInicio` time NOT NULL,
-  `horaFim` time NOT NULL,
-  `codVeiculo` int(11) NOT NULL,
-  `codInstrutor` int(11) NOT NULL
+  `dataAula` varchar(20) NOT NULL,
+  `horaInicio` varchar(20) NOT NULL,
+  `horaFim` varchar(20) NOT NULL,
+  `codVeiculo` int(11) DEFAULT NULL,
+  `codInstrutor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `aula`
+--
+
+INSERT INTO `aula` (`codAula`, `dataAula`, `horaInicio`, `horaFim`, `codVeiculo`, `codInstrutor`) VALUES
+(3, '30/11/2017', '11:00', '12:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -44,13 +51,22 @@ CREATE TABLE `aula` (
 --
 
 CREATE TABLE `automovel` (
-  `placa` varchar(8) NOT NULL,
-  `ano` year(4) NOT NULL,
+  `placa` varchar(15) NOT NULL,
+  `ano` varchar(10) NOT NULL,
   `modelo` varchar(25) NOT NULL,
   `capacidade` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `codVeiculo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `automovel`
+--
+
+INSERT INTO `automovel` (`placa`, `ano`, `modelo`, `capacidade`, `status`, `codVeiculo`) VALUES
+('111-1111', '1111', '1111', 1, 1, 1),
+('222-2222', '2222', '2', 1, 1, 2),
+('333-3333', '3333', '3333', 333331, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -77,7 +93,12 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`codCliente`, `codEndereco`, `nome`, `tel`, `cel`, `dataNasc`, `rg`, `cpf`, `numLadv`, `status`, `categoria`) VALUES
-(2, NULL, '00000000', '(00) 0000-0000', '(00) 00000-0000', '00/00/0000', '00.000.000-0', '000.000.000-00', '00000000000', 1, 'A');
+(2, 11, '00000000', '(00) 0000-0000', '(00) 00000-0000', '00/00/0000', '00.000.000-0', '000.000.000-00', '00000000000', 1, 'A'),
+(3, 12, 'Lucca', '(22) 2222-2222', '(22) 22222-2222', '22/22/2222', '22.222.222-2', '222.222.222-22', '22222222222', 0, 'A'),
+(4, 13, 'FELIPE', '(33) 3333-3333', '(33) 33333-3333', '33/33/3333', '33.333.333-3', '333.333.333-33', '33333333333', 1, 'A'),
+(5, NULL, '55555555', '(55) 5555-5555', '(55) 55555-5555', '55/55/5555', '55.555.555-5', '555.555.555-55', '55555555555', 1, 'A'),
+(6, NULL, '666666', '(66) 6666-6666', '(66) 66666-6666', '66/66/6666', '66.666.666-6', '666.666.666-66', '66666666666', 1, 'A'),
+(7, 15, '7777777', '(77) 7777-7777', '(77) 77777-7777', '77/77/7777', '77.777.777-7', '777.777.777-77', '77777777777', 1, 'A');
 
 -- --------------------------------------------------------
 
@@ -90,6 +111,13 @@ CREATE TABLE `clienteaula` (
   `codCliente` int(11) NOT NULL,
   `presenca` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `clienteaula`
+--
+
+INSERT INTO `clienteaula` (`codAula`, `codCliente`, `presenca`) VALUES
+(3, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -128,7 +156,13 @@ INSERT INTO `endereco` (`codEndereco`, `num`, `cidade`, `estado`, `logradouro`, 
 (7, '0000', '0000', '0000', '000000', '000000', '00000-000', 1),
 (8, '000', '0000', '0000', '0000', '000', '00000-000', 1),
 (9, '000', '000000', '000', '000', '0000000', '00000-000', 1),
-(10, '000000', '000000', '000000', '00000000', '0000000', '00000-000', 1);
+(10, '000000', '000000', '000000', '00000000', '0000000', '00000-000', 1),
+(11, '1111111111', '111111', '11111111', '11111111111111111111111', '11111111', '11111-111', 1),
+(12, '2222222', '222222222222', '22222222', '222222222', '222222222', '22222-222', 1),
+(13, '3333333', '333333333', '33333333', '33333333', '33333333', '33333-333', 1),
+(14, '44', '444444444', '4444', 'felipe', '44444', '44444-444', 1),
+(15, '777', '77777', '7777', '777777', '7777', '77777-777', 1),
+(16, '88', '8888', '888', '8888', '888', '88888-888', 1);
 
 -- --------------------------------------------------------
 
@@ -138,9 +172,9 @@ INSERT INTO `endereco` (`codEndereco`, `num`, `cidade`, `estado`, `logradouro`, 
 
 CREATE TABLE `exame` (
   `codExame` int(11) NOT NULL,
-  `dataExame` date NOT NULL,
-  `horaInicio` time NOT NULL,
-  `horaFim` time NOT NULL,
+  `dataExame` varchar(20) NOT NULL,
+  `horaInicio` varchar(20) NOT NULL,
+  `horaFim` varchar(20) NOT NULL,
   `codVeiculo` int(11) NOT NULL,
   `codInstrutor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -173,7 +207,10 @@ CREATE TABLE `funcionario` (
 --
 
 INSERT INTO `funcionario` (`codFunc`, `codEndereco`, `rg`, `nome`, `cpf`, `dataNasc`, `tel`, `cel`, `horaEntra`, `horaSai`, `status`, `tipo`, `carteira`, `categoria`) VALUES
-(10, 9, '00.000.000-0', '00000', '000.000.000-00', '30/11/0002', '(00) 0000-0000', '(00) 00000-0000', '00:00', '01:00', 1, 'Gerente', 'null', 'null');
+(10, 9, '00.000.000-0', '00000', '000.000.000-00', '30/11/0002', '(00) 0000-0000', '(00) 00000-0000', '00:00', '01:00', 0, 'Gerente', 'null', 'null'),
+(11, NULL, '11.111.111-1', 'Lucca', '111.111.111-11', '11/11/1111', '(11) 1111-1111', '(11) 11111-1111', '11:11', '12:12', 1, 'Instrutor', '12312313   ', 'A'),
+(12, 14, '44.444.444-4', 'Lucca', '444.444.444-44', '13/09/44447', '(44) 4444-4444', '(44) 44444-4444', '20:44', '21:00', 1, 'Gerente', 'null', 'null'),
+(13, 16, '88.888.888-8', 'Instrutor', '888.888.888-88', '08/04/8895', '(88) 8888-8888', '(88) 88888-8888', '17:28', '18:00', 1, 'Instrutor', '546778     ', 'A');
 
 -- --------------------------------------------------------
 
@@ -228,7 +265,10 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`codLogin`, `login`, `senha`, `status`, `codFunc`) VALUES
 (4, 'admin', 'admin', 1, NULL),
-(12, '000000000', '0tk3eCcg', 0, 10);
+(12, '000000000', '0tk3eCcg', 0, 10),
+(13, '111111111', '7CEdM33D', 0, 11),
+(14, '444444444', '0uFggRyL', 0, 12),
+(15, '888888888', 'kVvUJQti', 0, 13);
 
 -- --------------------------------------------------------
 
@@ -341,25 +381,25 @@ ALTER TABLE `recepcionista`
 -- AUTO_INCREMENT for table `aula`
 --
 ALTER TABLE `aula`
-  MODIFY `codAula` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codAula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `automovel`
 --
 ALTER TABLE `automovel`
-  MODIFY `codVeiculo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codVeiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `codCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `codEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `codEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `exame`
@@ -371,13 +411,13 @@ ALTER TABLE `exame`
 -- AUTO_INCREMENT for table `funcionario`
 --
 ALTER TABLE `funcionario`
-  MODIFY `codFunc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `codFunc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `codLogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `codLogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

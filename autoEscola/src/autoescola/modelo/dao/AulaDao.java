@@ -29,13 +29,11 @@ public class AulaDao {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "INSERT INTO aula (dataAula, horaInicio, horaFim, codVeiculo, codInstrutor) VALUES(?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO aula (dataAula, horaInicio, horaFim) VALUES(?, ?, ?)";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, aula.getDataAula());
             stmt.setString(2, aula.getHorarioAulaInicio());
             stmt.setString(3, aula.getHorarioAulaFim());
-            stmt.setInt(4, aula.getVeiculo().getCodVeiculo());
-            stmt.setInt(5, aula.getInstrutor().getCodigoFuncionario());
 
             stmt.executeUpdate();
 
