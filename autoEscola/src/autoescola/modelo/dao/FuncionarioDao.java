@@ -8,6 +8,7 @@ package autoescola.modelo.dao;
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Funcionario;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,8 @@ public class FuncionarioDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO funcionario (codEndereco, rg, nome, cpf, dataNasc, tel, cel, horaEntra, horaSai, status, tipo, carteira, categoria) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)");
+            String sql = "INSERT INTO funcionario (rg, nome, cpf, dataNasc, tel, cel, horaEntra, horaSai, status, tipo, carteira, categoria) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, func.getRg());
             stmt.setString(2, func.getNome());
             stmt.setString(3, func.getCpf());
@@ -35,14 +37,18 @@ public class FuncionarioDao {
             stmt.setString(6, func.getCelular());
             stmt.setString(7, func.getHora_entra());
             stmt.setString(8, func.getHora_sai());
-            stmt.setString(9, func.getTipo());
-            stmt.setString(10, func.getNumCarteira());
-            stmt.setString(11, func.getCategoria());
+            stmt.setBoolean(9, true);
+            stmt.setString(10, func.getTipo());
+            stmt.setString(11, func.getNumCarteira());
+            stmt.setString(12, func.getCategoria());
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return func.getCodigoFuncionario();
+            final ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
             return 0;
@@ -124,6 +130,7 @@ public class FuncionarioDao {
 
                 EnderecoDao endDao = new EnderecoDao();
                 Endereco endereco = endDao.consultar(rs.getInt("codEndereco"));
+
                 func.setEndereco(endereco);
             }
             return func;
@@ -139,7 +146,7 @@ public class FuncionarioDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE funcionario SET rg = ?, nome = ?, cpf = ?, dataNasc = ?, tel = ?, cel =  ?, horaEntra = ?, horaSai = ?, status = ?, tipo = ?, carteira = ?, categoria = ? WHERE codFunc = ?");
+            stmt = con.prepareStatement("UPDATE funcionario SET rg = ?, nome = ?, cpf = ?, dataNasc = ?, tel = ?, cel =  ?, horaEntra = ?, horaSai = ?, status = ?, tipo = ?, carteira = ?, categoria = ?, codEndereco = ? WHERE codFunc = ?");
             stmt.setString(1, func.getRg());
             stmt.setString(2, func.getNome());
             stmt.setString(3, func.getCpf());
@@ -152,11 +159,11 @@ public class FuncionarioDao {
             stmt.setString(10, func.getTipo());
             stmt.setString(11, func.getNumCarteira());
             stmt.setString(12, func.getCategoria());
-            stmt.setInt(13, func.getCodigoFuncionario());
+            stmt.setInt(13, func.getEndereco().getCodEndereco());
+            stmt.setInt(14, func.getCodigoFuncionario());
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar! " + ex);
@@ -176,7 +183,6 @@ public class FuncionarioDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
@@ -196,10 +202,9 @@ public class FuncionarioDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
             return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao ativar! " + ex);
             return false;
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
@@ -259,11 +264,7 @@ public class FuncionarioDao {
             stmt.setString(1, rg);
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                Funcionario func = new Funcionario();
-                func.setRg(rs.getString("rg"));
-            }
-            return true;
+            return rs.next();
 
         } catch (SQLException ex) {
             return false;

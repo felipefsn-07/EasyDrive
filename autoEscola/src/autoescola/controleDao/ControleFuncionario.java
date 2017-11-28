@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package autoescola.controleDao;
+
 import autoescola.modelo.bean.Endereco;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Usuario;
@@ -24,7 +25,7 @@ import javax.swing.table.TableModel;
  *
  * @author felipe
  */
-public class ControleFuncionario extends Controle{
+public class ControleFuncionario extends Controle {
 
     private Usuario usuario;
     private Funcionario funcionario;
@@ -73,12 +74,14 @@ public class ControleFuncionario extends Controle{
     }
 
     public void consultar(int id) {
+        //JOptionPane.showMessageDialog(null, id);
         if (id != 0) {
             FuncionarioDao daoFuncionario = new FuncionarioDao();
             UsuarioDao daoUsuario = new UsuarioDao();
             this.funcionario = daoFuncionario.consutarFuncExiste(id);
-            this.usuario = daoUsuario.consultarFuncionarioUsuario(id);
-            if (funcionario.getEndereco().getCodEndereco() != 0) {
+            this.usuario = daoUsuario.consultarFuncionarioUsuario(id);            
+
+            if (funcionario.getEndereco() != null) {
                 this.endereco = funcionario.getEndereco();
             } else {
                 this.endereco = null;
@@ -404,9 +407,9 @@ public class ControleFuncionario extends Controle{
                 FuncionarioDao daoFunc = new FuncionarioDao();
                 int res = daoEnd.cadastrarEndereco(endereco);
                 if (res != 0) {
-                    this.endereco = endereco;
-                    funcionario.setEndereco(daoEnd.consultar(res));
                     endereco.setCodEndereco(res);
+                    this.endereco = endereco;                    
+                    funcionario.setEndereco(endereco);
                     daoFunc.alterarFunc(funcionario);
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
                     return true;

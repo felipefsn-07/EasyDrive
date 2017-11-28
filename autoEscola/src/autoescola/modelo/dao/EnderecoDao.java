@@ -7,6 +7,7 @@ package autoescola.modelo.dao;
 
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Endereco;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,12 +20,14 @@ import javax.swing.JOptionPane;
  * @author Lucca
  */
 public class EnderecoDao {
+
     public int cadastrarEndereco(Endereco endereco) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO endereco (num, cidade, estado, logradouro, bairro, cep, status) VALUES(?, ?, ?, ?, ?, ?, 1)");
+            String sql = "INSERT INTO endereco (num, cidade, estado, logradouro, bairro, cep, status) VALUES(?, ?, ?, ?, ?, ?, 1)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, endereco.getNum());
             stmt.setString(2, endereco.getCidade());
             stmt.setString(3, endereco.getEstado());
@@ -34,8 +37,11 @@ public class EnderecoDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return endereco.getCodEndereco();
+            final ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
             return 0;
@@ -43,7 +49,7 @@ public class EnderecoDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
+
     public ArrayList<Endereco> consultarEnderecos() {
 
         Connection con = ConnectionFactory.getConnection();
@@ -77,7 +83,7 @@ public class EnderecoDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
+
     public boolean alterarEndereco(Endereco endereco) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -103,8 +109,8 @@ public class EnderecoDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    public Endereco consultar(int codEndereco){
+
+    public Endereco consultar(int codEndereco) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -114,8 +120,13 @@ public class EnderecoDao {
             stmt = con.prepareStatement("SELECT * FROM endereco WHERE codEndereco = ?");
             stmt.setInt(1, codEndereco);
             rs = stmt.executeQuery();
+            
+            System.out.println("12 " + codEndereco);
 
-            while (rs.next()) {endereco.setCodEndereco(rs.getInt("codEdereco"));
+            while (rs.next()) {
+                System.out.println(rs.getInt("codEdereco"));
+                
+                endereco.setCodEndereco(rs.getInt("codEdereco"));
                 endereco.setNum(rs.getString("num"));
                 endereco.setCidade(rs.getString("cidade"));
                 endereco.setEstado(rs.getString("estado"));
@@ -123,16 +134,19 @@ public class EnderecoDao {
                 endereco.setBairro(rs.getString("bairro"));
                 endereco.setCep(rs.getString("cep"));
                 endereco.setStatus(rs.getInt("status"));
+
+                
             }
             return endereco;
+
         } catch (SQLException ex) {
             return null;
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
-    public boolean desativar(int codEndereco){
+
+    public boolean desativar(int codEndereco) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -151,8 +165,8 @@ public class EnderecoDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    public ArrayList<Endereco> consultarEnderecosLike(String campo, String valor){
+
+    public ArrayList<Endereco> consultarEnderecosLike(String campo, String valor) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;

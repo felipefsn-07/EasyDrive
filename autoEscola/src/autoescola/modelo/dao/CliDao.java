@@ -8,6 +8,7 @@ package autoescola.modelo.dao;
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Endereco;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,8 @@ public class CliDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO cliente (nome, tel, cel, dataNasc, rg, cpf, numLadv, status, categoria, codEndereco) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            String sql = "INSERT INTO cliente (nome, tel, cel, dataNasc, rg, cpf, numLadv, status, categoria) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, cli.getNome());
             stmt.setString(2, cli.getTelefone());
             stmt.setString(3, cli.getCelular());
@@ -37,12 +39,14 @@ public class CliDao {
             stmt.setString(7, cli.getNumLADV());
             stmt.setBoolean(8, cli.getStatus());
             stmt.setString(9, cli.getCategoria());
-            stmt.setInt(10, cli.getEndereco().getCodEndereco());
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return cli.getCodCliente();
+            final ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
             return 0;
@@ -223,11 +227,7 @@ public class CliDao {
             stmt.setString(1, rg);
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                Cliente func = new Cliente();
-                func.setRg(rs.getString("rg"));
-            }
-            return true;
+            return rs.next();
 
         } catch (SQLException ex) {
             return false;

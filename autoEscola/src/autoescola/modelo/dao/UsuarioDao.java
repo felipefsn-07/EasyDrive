@@ -8,6 +8,7 @@ package autoescola.modelo.dao;
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Usuario;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,8 @@ public class UsuarioDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO login (login, senha, status, codFunc) VALUES(?, ?, ?, ?)");
+            String sql = "INSERT INTO login (login, senha, status, codFunc) VALUES(?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getLogin());
             stmt.setString(2, user.getSenha());
             stmt.setInt(3, 0);
@@ -35,8 +37,11 @@ public class UsuarioDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return user.getCodLogin();
+            final ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
             return 0;
