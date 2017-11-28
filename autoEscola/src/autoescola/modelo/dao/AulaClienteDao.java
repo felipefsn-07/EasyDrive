@@ -145,9 +145,8 @@ public class AulaClienteDao {
         ArrayList<AulasClientes> aulas = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM clienteaula WHERE ? LIKE ?");
-            stmt.setString(1, campo);
-            stmt.setString(2, "%" + valor + "%");
+            stmt = con.prepareStatement("SELECT * FROM clienteaula WHERE " + campo + " LIKE ?");
+            stmt.setString(1, "%" + valor + "%");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -218,8 +217,8 @@ public class AulaClienteDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
-    public boolean presenca(AulasClientes aulasClientes){
+
+    public boolean presenca(AulasClientes aulasClientes) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 

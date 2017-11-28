@@ -87,7 +87,7 @@ public class VeicDao {
         Veiculo veic = new Veiculo();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM automavel WHERE codVeiculo = ?");
+            stmt = con.prepareStatement("SELECT * FROM automovel WHERE codVeiculo = ?");
             stmt.setInt(1, codVeiculo);
             rs = stmt.executeQuery();
 
@@ -112,14 +112,13 @@ public class VeicDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE automovel SET placa = ?, ano = ?, modelo = ?, capacidade = ?, status = ? WHERE codVeiculo = ?");
+            stmt = con.prepareStatement("UPDATE automovel SET placa = ?, ano = ?, modelo = ?, capacidade = ? WHERE codVeiculo = ?");
 
             stmt.setString(1, veic.getPlaca());
             stmt.setString(2, veic.getAno());
             stmt.setString(3, veic.getModelo());
-            stmt.setFloat(3, veic.getCapacidade());
-            stmt.setBoolean(4, veic.getStatus());
-            stmt.setInt(6, veic.getCodVeiculo());
+            stmt.setFloat(4, veic.getCapacidade());
+            stmt.setInt(5, veic.getCodVeiculo());
 
             stmt.executeUpdate();
 
@@ -254,9 +253,8 @@ public class VeicDao {
         ArrayList<Veiculo> veiculos = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM automovel WHERE ? LIKE ?");
-            stmt.setString(1, campo);
-            stmt.setString(2, "%" + valor + "%");
+            stmt = con.prepareStatement("SELECT * FROM automovel WHERE " + campo + " LIKE ?");
+            stmt.setString(1, "%" + valor + "%");
             rs = stmt.executeQuery();
 
             while (rs.next()) {

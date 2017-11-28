@@ -140,7 +140,7 @@ public class EnderecoDao {
 
         } catch (SQLException ex) {
             return null;
-        } 
+        }
     }
 
     public boolean desativar(int codEndereco) {
@@ -170,8 +170,7 @@ public class EnderecoDao {
         ArrayList<Endereco> enderecos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM endereco WHERE ? LIKE ?");
-            stmt.setString(1, campo);
+            stmt = con.prepareStatement("SELECT * FROM endereco WHERE " + campo + " LIKE ?");
             stmt.setString(1, "%" + valor + "%");
             rs = stmt.executeQuery();
 

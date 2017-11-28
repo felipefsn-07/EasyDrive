@@ -164,9 +164,8 @@ public class ExameClienteDao {
         ArrayList<ExameClientes> exameClientes = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM clienteexame WHERE ? LIKE ?");
-            stmt.setString(1, campo);
-            stmt.setString(2, "%" + valor + "%");
+            stmt = con.prepareStatement("SELECT * FROM clienteexame WHERE " + campo + " LIKE ?");
+            stmt.setString(1, "%" + valor + "%");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -206,8 +205,8 @@ public class ExameClienteDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    public boolean apagarExame(int codigoExame){
+
+    public boolean apagarExame(int codigoExame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -224,8 +223,8 @@ public class ExameClienteDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    public ArrayList<Cliente> trazerClientes(int codExame){
+
+    public ArrayList<Cliente> trazerClientes(int codExame) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;

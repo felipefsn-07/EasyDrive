@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -217,9 +216,8 @@ public class ExameDao {
         ArrayList<Exame> exames = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM exame WHERE ? LIKE ?");
-            stmt.setString(1, campo);
-            stmt.setString(2, "%" + valor + "%");
+            stmt = con.prepareStatement("SELECT * FROM exame WHERE " + campo + " LIKE ?");
+            stmt.setString(1, "%" + valor + "%");
             rs = stmt.executeQuery();
 
             while (rs.next()) {

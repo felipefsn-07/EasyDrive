@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -291,14 +292,14 @@ public class FuncionarioDao {
         ArrayList<Funcionario> funcs = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM funcionario WHERE ? LIKE ?");
-            stmt.setString(1, campo);
-            stmt.setString(2, "%" + valor + "%");
+            stmt = con.prepareStatement("SELECT * FROM funcionario WHERE " + campo + " LIKE ?");
+            stmt.setString(1, "%" + valor + "%");
             rs = stmt.executeQuery();
 
+            //System.out.println(stmt.)
             while (rs.next()) {
-                Funcionario func = new Funcionario();
 
+                Funcionario func = new Funcionario();
                 func.setCodigoFuncionario(rs.getInt("codFunc"));
                 func.setRg(rs.getString("rg"));
                 func.setNome(rs.getString("nome"));
@@ -313,12 +314,9 @@ public class FuncionarioDao {
                 func.setNumCarteira(rs.getString("carteira"));
                 func.setCategoria(rs.getString("categoria"));
 
-                EnderecoDao endDao = new EnderecoDao();
-                Endereco endereco = endDao.consultar(rs.getInt("codEndereco"));
-                func.setEndereco(endereco);
-
                 funcs.add(func);
             }
+
             return funcs;
 
         } catch (SQLException ex) {

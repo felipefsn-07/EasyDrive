@@ -148,9 +148,8 @@ public class CliDao {
         ArrayList<Cliente> clientes = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente WHERE ? LIKE ?");
-            stmt.setString(1, campo);
-            stmt.setString(2, "%" + valor + "%");
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE " + campo + " LIKE ?");
+            stmt.setString(1, "%" + valor + "%");
             rs = stmt.executeQuery();
 
             while (rs.next()) {

@@ -110,8 +110,8 @@ public class UsuarioDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
-    public Usuario consultarFuncionarioUsuario (int codigoFuncionario){
+
+    public Usuario consultarFuncionarioUsuario(int codigoFuncionario) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -127,7 +127,7 @@ public class UsuarioDao {
                 user.setLogin(rs.getString("login"));
                 user.setSenha(rs.getString("senha"));
                 user.setStatus(rs.getInt("status"));
-                
+
                 Funcionario funcionario = new Funcionario();
                 funcionario.setCodigoFuncionario(rs.getInt("codFunc"));
                 user.setFucionario(funcionario);
@@ -180,7 +180,7 @@ public class UsuarioDao {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
+
     public boolean ativar(int codUsuario) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -228,8 +228,8 @@ public class UsuarioDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
-    public ArrayList<Usuario> consultarUsuariosLike(String campo, String valor){
+
+    public ArrayList<Usuario> consultarUsuariosLike(String campo, String valor) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -237,9 +237,8 @@ public class UsuarioDao {
         ArrayList<Usuario> users = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM login WHERE ? LIKE ?");
-            stmt.setString(1, campo);
-            stmt.setString(2, "%" + valor + "%");
+            stmt = con.prepareStatement("SELECT * FROM login WHERE " + campo + " LIKE ?");
+            stmt.setString(1, "%" + valor + "%");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -249,7 +248,7 @@ public class UsuarioDao {
                 user.setLogin(rs.getString("login"));
                 user.setSenha(rs.getString("senha"));
                 user.setStatus(rs.getInt("status"));
-                
+
                 Funcionario funcionario = new Funcionario();
                 funcionario.setCodigoFuncionario(rs.getInt("codFunc"));
                 user.setFucionario(funcionario);

@@ -367,10 +367,10 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jTextField2.setForeground(new java.awt.Color(1, 1, 1));
         jTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(144, 180, 242), 1, true));
         jTextField2.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jTextField2InputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jTextField2.addActionListener(new java.awt.event.ActionListener() {

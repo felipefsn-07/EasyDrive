@@ -92,8 +92,8 @@ public class ControleFuncionario extends Controle {
         FuncionarioDao daoFunc = new FuncionarioDao();
         DefaultTableModel jTable1 = new DefaultTableModel();
 
-        if (tipo.getSelectedItem().toString().equals("codigo") && !"".equals(id.getText()) && isDigit(id.getText())) {
-            ArrayList<Funcionario> funcionarios = daoFunc.consultarfuncionariosLike(tipo.getSelectedItem().toString(), id.getText());
+        if (tipo.getSelectedItem().toString().equals("codFunc") && !"".equals(id.getText()) && isDigit(id.getText())) {
+            ArrayList<Funcionario> funcionarios = daoFunc.consultarfuncionariosLike("codFunc", id.getText());
             if (funcionarios != null) {
                 jTable1.addColumn("Codigo Funcionário");
                 jTable1.addColumn("Nome");
