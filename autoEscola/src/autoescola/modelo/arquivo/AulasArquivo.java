@@ -153,14 +153,21 @@ public class AulasArquivo extends Arquivo {
                     aula.setDataAula(valoresEntreVirgulas[1]);
                     aula.setHorarioAulaInicio(valoresEntreVirgulas[2]);
                     aula.setHorarioAulaFim(valoresEntreVirgulas[3]);
+                    
                     VeiculoArquivo va = new VeiculoArquivo();       
                     Veiculo veiculo =va.consultar(parseInt(valoresEntreVirgulas[4]));
                     aula.setVeiculo(veiculo);
+                    
+                    
                     FuncionarioArquivo fa = new FuncionarioArquivo();             
                     Funcionario funcionario = fa.consultar(parseInt(valoresEntreVirgulas[5]));
+                    
+                    
                     AulasClientesArquivo aca = new AulasClientesArquivo();
                     ArrayList<AulasClientes> alunos = aca.consultarAulasClientes(codAulas);
                     aula.setAulas(alunos);
+                    
+                    
                     aula.setInstrutor(funcionario);
                    
                     break;

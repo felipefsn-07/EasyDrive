@@ -1,7 +1,7 @@
 package autoescola.view;
 
-import autoescola.controle.ControleFuncionario;
-import autoescola.controle.ControleLogin;
+import autoescola.controleDao.ControleFuncionario;
+import autoescola.controleDao.ControleLogin;
 import autoescola.view.tabelas.TabelaFuncionario;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -367,10 +367,10 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jTextField2.setForeground(new java.awt.Color(1, 1, 1));
         jTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(144, 180, 242), 1, true));
         jTextField2.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jTextField2InputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -393,7 +393,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
         jLabel11.setText("Pesquisar:");
 
         jComboBox1.setBackground(new java.awt.Color(254, 254, 254));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "rg", "nome", "cpf", "telefone", "celelular", "tipo" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codFunc", "rg", "nome", "cpf", "tel", "cel", "tipo" }));
         jComboBox1.setBorder(null);
 
         btnCadastrarFuncionario.setBackground(new java.awt.Color(61, 180, 162));
@@ -468,7 +468,7 @@ public class TelaConsultaFuncionario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnCadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

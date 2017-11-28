@@ -5,7 +5,7 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleAluno;
+import autoescola.controleDao.ControleAluno;
 import autoescola.modelo.bean.Cliente;
 import autoescola.modelo.bean.Endereco;
 import autoescola.view.tabelas.Tabela;
@@ -527,15 +527,13 @@ public class TelaCadastroAluno extends javax.swing.JDialog {
             txtDataNasc.setText(aluno.getDatanasc());
             txtTelefone.setText(aluno.getTelefone());
             lblCadastrarEditar.setText("Editar aluno");
-
-            if (aluno.getEndereco().getCodEndereco() != 0) {
-                Endereco endereco = controleAluno.endereco(aluno.getEndereco().getCodEndereco());
-                txtBairro.setText(endereco.getBairro());
-                txtCidade.setText(endereco.getCidade());
-                txtCep.setText(endereco.getCep());
-                txtEstado.setText(endereco.getEstado());
-                txtLogradura.setText(endereco.getLogradouro());
-                txtNumero.setText(endereco.getNum());
+            if (aluno.getEndereco() != null) {
+                txtBairro.setText(aluno.getEndereco().getBairro());
+                txtCidade.setText(aluno.getEndereco().getCidade());
+                txtCep.setText(aluno.getEndereco().getCep());
+                txtEstado.setText(aluno.getEndereco().getEstado());
+                txtLogradura.setText(aluno.getEndereco().getLogradouro());
+                txtNumero.setText(aluno.getEndereco().getNum());
                 lblCadastrarEndereco.setText("Editar Endereço");
 
             }

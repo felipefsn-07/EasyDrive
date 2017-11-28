@@ -84,7 +84,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCadastrarFuncionario" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -603,12 +603,12 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="7">
-                <StringItem index="0" value="codigo"/>
+                <StringItem index="0" value="codFunc"/>
                 <StringItem index="1" value="rg"/>
                 <StringItem index="2" value="nome"/>
                 <StringItem index="3" value="cpf"/>
-                <StringItem index="4" value="telefone"/>
-                <StringItem index="5" value="celelular"/>
+                <StringItem index="4" value="tel"/>
+                <StringItem index="5" value="cel"/>
                 <StringItem index="6" value="tipo"/>
               </StringArray>
             </Property>

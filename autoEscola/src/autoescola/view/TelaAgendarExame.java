@@ -5,7 +5,7 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleExame;
+import autoescola.controleDao.ControleExame;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.view.tabelas.Tabela;
 import autoescola.modelo.bean.Cliente;
@@ -315,10 +315,10 @@ public class TelaAgendarExame extends javax.swing.JDialog {
         txtPesquisarAluno.setForeground(new java.awt.Color(1, 1, 1));
         txtPesquisarAluno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(144, 180, 242), 1, true));
         txtPesquisarAluno.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtPesquisarAlunoInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtPesquisarAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -341,8 +341,13 @@ public class TelaAgendarExame extends javax.swing.JDialog {
         jLabel13.setText("Pesquisar:");
 
         jComboBox1.setBackground(new java.awt.Color(254, 254, 254));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "nome", "rg", "cpf", "numero do Ladv" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codCliente", "nome", "rg", "cpf", "numLadv" }));
         jComboBox1.setBorder(null);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("* É necessário que o exame esteja cadastrado");
 
@@ -618,7 +623,7 @@ public class TelaAgendarExame extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jTableInstrutor);
 
         jbInstrutor.setBackground(new java.awt.Color(254, 254, 254));
-        jbInstrutor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "rg", "cpf", "nome" }));
+        jbInstrutor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codFunc", "rg", "cpf", "nome" }));
         jbInstrutor.setBorder(null);
 
         txtPesquisarInstrutor.setBackground(new java.awt.Color(254, 254, 254));
@@ -1108,6 +1113,10 @@ public class TelaAgendarExame extends javax.swing.JDialog {
         jTableVeiculo.setModel(controleExame.consultaVeiculoLike(txtPesquisarVeiculo, jbVeiculo));
 
     }//GEN-LAST:event_txtPesquisarVeiculoKeyReleased
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

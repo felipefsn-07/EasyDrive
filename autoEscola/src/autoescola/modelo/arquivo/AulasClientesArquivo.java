@@ -54,10 +54,15 @@ public class AulasClientesArquivo extends Arquivo {
                 if (parseInt(valoresEntreVirgulas[0]) == codigoAula) {
                     AulasClientes aulaCliente = new AulasClientes();
                     Aula aula = new Aula();
+                    
                     aula.setCodAulas(parseInt(valoresEntreVirgulas[0]));
                     aulaCliente.setAulas(aula);
+                    
+                    
                     ClienteArquivo c = new ClienteArquivo();
                     aulaCliente.setAluno(c.consultar(parseInt(valoresEntreVirgulas[1])));
+                    
+                    
                     boolean status = valoresEntreVirgulas[2].equals("true");
                     aulaCliente.setPresenca(status);
                     aulaClientes.add(aulaCliente);

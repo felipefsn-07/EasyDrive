@@ -5,7 +5,7 @@
  */
 package autoescola.view.tabelas;
 
-import autoescola.controle.ControleCalendario;
+import autoescola.controleDao.ControleCalendario;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTable;

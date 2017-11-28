@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public abstract class ConnectionFactory {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/db_autoescola";
+    private static final String URL = "jdbc:mysql://localhost/db_autoescola";
     private static final String USER = "root";
     private static final String PASS = "123456";
 
@@ -28,8 +28,10 @@ public abstract class ConnectionFactory {
         try {
             Class.forName(DRIVER);
             return DriverManager.getConnection(URL, USER, PASS);
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
             throw new RuntimeException("Erro na conexão: ", ex);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Não foi possível conectar ao banco de dados!", ex);
         }
     }
 

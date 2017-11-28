@@ -5,8 +5,8 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleLogin;
-import autoescola.controle.ControleVeiculo;
+import autoescola.controleDao.ControleLogin;
+import autoescola.controleDao.ControleVeiculo;
 import autoescola.modelo.bean.Veiculo;
 
 /**

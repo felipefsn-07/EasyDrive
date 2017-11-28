@@ -41,7 +41,7 @@ public class Endereco {
     }
 
     public int getCodEndereco() {
-        return this.codEndereco;
+        return codEndereco;
     }
 
     public void setNum(String num) {

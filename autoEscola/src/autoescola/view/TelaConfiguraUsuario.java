@@ -5,7 +5,7 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleLogin;
+import autoescola.controleDao.ControleLogin;
 
 /**
  *

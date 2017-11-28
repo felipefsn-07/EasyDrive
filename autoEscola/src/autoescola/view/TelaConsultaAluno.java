@@ -5,8 +5,8 @@
  */
 package autoescola.view;
 
-import autoescola.controle.ControleAluno;
-import autoescola.controle.ControleLogin;
+import autoescola.controleDao.ControleAluno;
+import autoescola.controleDao.ControleLogin;
 import autoescola.view.tabelas.TabelaAluno;
 import java.awt.Color;
 import static java.lang.Integer.parseInt;
@@ -360,10 +360,10 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         jTextField2.setForeground(new java.awt.Color(1, 1, 1));
         jTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(144, 180, 242), 1, true));
         jTextField2.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jTextField2InputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -386,7 +386,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
         jLabel11.setText("Pesquisar:");
 
         jComboBox1.setBackground(new java.awt.Color(254, 254, 254));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "nome", "telefone", "celular", "data de nascimento", "rg", "cpf", "numero do Ladv" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codCliente", "nome", "tel", "cel", "dataNasc", "rg", "cpf", "numLadv" }));
         jComboBox1.setBorder(null);
 
         btnCadastrar.setBackground(new java.awt.Color(61, 180, 162));
@@ -461,7 +461,7 @@ public class TelaConsultaAluno extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
