@@ -109,7 +109,7 @@ public class FuncionarioDao {
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM funcionario INNER JOIN endereco WHERE codFunc = ?");
+            stmt = con.prepareStatement("SELECT * FROM funcionario LEFT JOIN endereco ON funcionario.codEndereco = endereco.codEndereco WHERE codFunc = ?");
             stmt.setInt(1, codFunc);
             rs = stmt.executeQuery();
 
@@ -128,15 +128,20 @@ public class FuncionarioDao {
                 func.setNumCarteira(rs.getString("carteira"));
                 func.setCategoria(rs.getString("categoria"));
                 Endereco endereco = new Endereco();
-                endereco.setCodEndereco(rs.getInt("codEndereco"));
-                endereco.setNum(rs.getString("num"));
-                endereco.setCidade(rs.getString("cidade"));
-                endereco.setEstado(rs.getString("estado"));
-                endereco.setLogradouro(rs.getString("logradouro"));
-                endereco.setBairro(rs.getString("bairro"));
-                endereco.setCep(rs.getString("cep"));
-                endereco.setStatus(rs.getInt("status"));
+                if (rs.getString("num") != null) {
+                    endereco.setCodEndereco(rs.getInt("codEndereco"));
+                    endereco.setNum(rs.getString("num"));
+                    endereco.setCidade(rs.getString("cidade"));
+                    endereco.setEstado(rs.getString("estado"));
+                    endereco.setLogradouro(rs.getString("logradouro"));
+                    endereco.setBairro(rs.getString("bairro"));
+                    endereco.setCep(rs.getString("cep"));
+                    endereco.setStatus(rs.getInt("status"));
+                } else {
+                    endereco = null;
+                }
                 func.setEndereco(endereco);
+
             }
             return func;
         } catch (SQLException ex) {

@@ -188,7 +188,7 @@ public class CliDao {
         Cliente cli = new Cliente();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente INNER JOIN endereco WHERE codCliente = ?");
+            stmt = con.prepareStatement("SELECT * FROM cliente LEFT JOIN endereco ON cliente.codEndereco=endereco.codEndereco WHERE codCliente = ?");
             stmt.setInt(1, codigoCliente);
             rs = stmt.executeQuery();
 
@@ -204,15 +204,20 @@ public class CliDao {
                 cli.setStatus(rs.getBoolean("status"));
                 cli.setCategoria(rs.getString("categoria"));
                 Endereco endereco = new Endereco();
-                endereco.setCodEndereco(rs.getInt("codEndereco"));
-                endereco.setNum(rs.getString("num"));
-                endereco.setCidade(rs.getString("cidade"));
-                endereco.setEstado(rs.getString("estado"));
-                endereco.setLogradouro(rs.getString("logradouro"));
-                endereco.setBairro(rs.getString("bairro"));
-                endereco.setCep(rs.getString("cep"));
-                endereco.setStatus(rs.getInt("status"));
+                if (rs.getString("num") != null) {
+                    endereco.setCodEndereco(rs.getInt("codEndereco"));
+                    endereco.setNum(rs.getString("num"));
+                    endereco.setCidade(rs.getString("cidade"));
+                    endereco.setEstado(rs.getString("estado"));
+                    endereco.setLogradouro(rs.getString("logradouro"));
+                    endereco.setBairro(rs.getString("bairro"));
+                    endereco.setCep(rs.getString("cep"));
+                    endereco.setStatus(rs.getInt("status"));
+                }else{
+                    endereco = null;
+                }
                 cli.setEndereco(endereco);
+
             }
             return cli;
 
@@ -260,7 +265,6 @@ public class CliDao {
             stmt.setString(9, cli.getCategoria());
             stmt.setInt(10, cli.getEndereco().getCodEndereco());
             stmt.setInt(11, cli.getCodCliente());
-
             stmt.executeUpdate();
 
             return true;

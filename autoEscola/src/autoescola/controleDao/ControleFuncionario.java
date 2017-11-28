@@ -29,7 +29,6 @@ public class ControleFuncionario extends Controle {
 
     private Usuario usuario;
     private Funcionario funcionario;
-    private Endereco endereco;
     private boolean botao = false;
 
     public TableModel consultarFuncionarios() {
@@ -80,12 +79,6 @@ public class ControleFuncionario extends Controle {
             UsuarioDao daoUsuario = new UsuarioDao();
             this.funcionario = daoFuncionario.consutarFuncExiste(id);
             this.usuario = daoUsuario.consultarFuncionarioUsuario(id);            
-
-            if (funcionario.getEndereco() != null) {
-                this.endereco = funcionario.getEndereco();
-            } else {
-                this.endereco = null;
-            }
         }
 
     }
@@ -377,7 +370,7 @@ public class ControleFuncionario extends Controle {
 
     public boolean verificarSeEndereco() {
 
-        return endereco != null;
+        return funcionario.getEndereco() != null;
     }
 
     public boolean verificarSeUsuario() {
@@ -402,13 +395,11 @@ public class ControleFuncionario extends Controle {
     public boolean cadastrarEndereco(Endereco endereco) {
         if (!endereco.getBairro().equals("") && !endereco.getCep().equals("     -   ") && !endereco.getCidade().equals("") && !endereco.getEstado().equals("") && !endereco.getLogradouro().equals("") && !endereco.getNum().equals("")) {
             if (verificarSeFuncinario()) {
-                endereco.setStatus(funcionario.getEndereco().getStatus());
                 EnderecoDao daoEnd = new EnderecoDao();
                 FuncionarioDao daoFunc = new FuncionarioDao();
                 int res = daoEnd.cadastrarEndereco(endereco);
                 if (res != 0) {
                     endereco.setCodEndereco(res);
-                    this.endereco = endereco;                    
                     funcionario.setEndereco(endereco);
                     daoFunc.alterarFunc(funcionario);
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
@@ -434,15 +425,11 @@ public class ControleFuncionario extends Controle {
             if (verificarSeFuncinario()) {
                 if (verificarSeEndereco()) {
                     EnderecoDao daoEnd = new EnderecoDao();
-                    FuncionarioDao daoFunc = new FuncionarioDao();
-                    endereco.setCodEndereco(this.endereco.getCodEndereco());
+                    endereco.setCodEndereco(this.funcionario.getEndereco().getCodEndereco());
 
                     if (daoEnd.alterarEndereco(endereco)) {
-                        endereco.setStatus(funcionario.getEndereco().getStatus());
-                        endereco.setStatus(this.endereco.getStatus());
-                        this.endereco = daoEnd.consultar(endereco.getCodEndereco());
+                       
                         funcionario.setEndereco(daoEnd.consultar(endereco.getCodEndereco()));
-                        daoFunc.alterarFunc(funcionario);
                         JOptionPane.showMessageDialog(null, "Editado com sucesso");
 
                     } else {

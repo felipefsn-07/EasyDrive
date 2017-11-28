@@ -159,7 +159,6 @@ public class ControleAluno extends Controle {
     public boolean cadastrarEndereco(Endereco endereco) {
         if (!endereco.getBairro().equals("") && !endereco.getCep().equals("     -   ") && !endereco.getCidade().equals("") && !endereco.getEstado().equals("") && !endereco.getLogradouro().equals("") && !endereco.getNum().equals("")) {
             if (verificarSeCliente()) {
-                endereco.setStatus(cliente.getEndereco().getStatus());
                 EnderecoDao arqEnd = new EnderecoDao();
                 CliDao arqCli = new CliDao();
                 int res = arqEnd.cadastrarEndereco(endereco);

@@ -20,7 +20,6 @@ public class TelaCadastroFuncionario extends javax.swing.JDialog {
     /**
      * Creates new form TelaCadastroFuncionario
      */
-     private final ControleLogin controleLogin = new ControleLogin();
     private final ControleFuncionario controleFuncionario = new ControleFuncionario();
 
     public TelaCadastroFuncionario(int id, java.awt.Frame parent, boolean modal) {
