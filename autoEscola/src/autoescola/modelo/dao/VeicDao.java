@@ -32,11 +32,7 @@ public class VeicDao {
             stmt.setString(2, veic.getAno());
             stmt.setString(3, veic.getModelo());
             stmt.setFloat(4, veic.getCapacidade());
-<<<<<<< HEAD
             stmt.setBoolean(5, true);
-=======
-            stmt.setBoolean(5, veic.getStatus());
->>>>>>> a0cbdd1b9776329bcfda476f2988ae03605a988b
 
             stmt.executeUpdate();
 
