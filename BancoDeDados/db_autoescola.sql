@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 10-Out-2017 às 15:20
+-- Generation Time: 28-Nov-2017 às 04:52
 -- Versão do servidor: 5.5.54
 -- PHP Version: 7.1.9
 
@@ -31,9 +31,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `aula` (
   `codAula` int(11) NOT NULL,
   `dataAula` date NOT NULL,
-  `horarioAula` time NOT NULL,
+  `horaInicio` time NOT NULL,
+  `horaFim` time NOT NULL,
   `codVeiculo` int(11) NOT NULL,
-  `numCarteira` varchar(12) NOT NULL
+  `codInstrutor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -47,7 +48,7 @@ CREATE TABLE `automovel` (
   `ano` year(4) NOT NULL,
   `modelo` varchar(25) NOT NULL,
   `capacidade` int(11) NOT NULL,
-  `status` varchar(10) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   `codVeiculo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -59,17 +60,24 @@ CREATE TABLE `automovel` (
 
 CREATE TABLE `cliente` (
   `codCliente` int(11) NOT NULL,
+  `codEndereco` int(11) DEFAULT NULL,
   `nome` varchar(50) NOT NULL,
-  `tel` varchar(14) NOT NULL,
-  `cel` varchar(14) NOT NULL,
-  `dataNasc` date NOT NULL,
-  `rg` varchar(12) NOT NULL,
-  `cpf` varchar(14) NOT NULL,
+  `tel` varchar(50) NOT NULL,
+  `cel` varchar(50) NOT NULL,
+  `dataNasc` varchar(40) NOT NULL,
+  `rg` varchar(50) NOT NULL,
+  `cpf` varchar(50) NOT NULL,
   `numLadv` varchar(25) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `categoria` char(1) NOT NULL,
-  `codEndereco` int(11) NOT NULL
+  `categoria` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `cliente`
+--
+
+INSERT INTO `cliente` (`codCliente`, `codEndereco`, `nome`, `tel`, `cel`, `dataNasc`, `rg`, `cpf`, `numLadv`, `status`, `categoria`) VALUES
+(2, NULL, '00000000', '(00) 0000-0000', '(00) 00000-0000', '00/00/0000', '00.000.000-0', '000.000.000-00', '00000000000', 1, 'A');
 
 -- --------------------------------------------------------
 
@@ -79,7 +87,8 @@ CREATE TABLE `cliente` (
 
 CREATE TABLE `clienteaula` (
   `codAula` int(11) NOT NULL,
-  `codCliente` int(11) NOT NULL
+  `codCliente` int(11) NOT NULL,
+  `presenca` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -101,13 +110,25 @@ CREATE TABLE `clienteexame` (
 
 CREATE TABLE `endereco` (
   `codEndereco` int(11) NOT NULL,
-  `num` char(6) NOT NULL,
+  `num` varchar(10) NOT NULL,
   `cidade` varchar(20) NOT NULL,
-  `estado` char(2) NOT NULL,
+  `estado` varchar(50) NOT NULL,
   `logradouro` varchar(30) NOT NULL,
   `bairro` varchar(20) NOT NULL,
-  `cep` char(8) NOT NULL
+  `cep` varchar(20) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `endereco`
+--
+
+INSERT INTO `endereco` (`codEndereco`, `num`, `cidade`, `estado`, `logradouro`, `bairro`, `cep`, `status`) VALUES
+(6, '0000000', '00000000', '000000', '0000000', '0000000000', '00000-000', 1),
+(7, '0000', '0000', '0000', '000000', '000000', '00000-000', 1),
+(8, '000', '0000', '0000', '0000', '000', '00000-000', 1),
+(9, '000', '000000', '000', '000', '0000000', '00000-000', 1),
+(10, '000000', '000000', '000000', '00000000', '0000000', '00000-000', 1);
 
 -- --------------------------------------------------------
 
@@ -118,8 +139,10 @@ CREATE TABLE `endereco` (
 CREATE TABLE `exame` (
   `codExame` int(11) NOT NULL,
   `dataExame` date NOT NULL,
-  `horaExame` time NOT NULL,
-  `codVeiculo` int(11) NOT NULL
+  `horaInicio` time NOT NULL,
+  `horaFim` time NOT NULL,
+  `codVeiculo` int(11) NOT NULL,
+  `codInstrutor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -130,17 +153,27 @@ CREATE TABLE `exame` (
 
 CREATE TABLE `funcionario` (
   `codFunc` int(11) NOT NULL,
-  `codLogin` int(11) NOT NULL,
-  `codEndereco` int(11) NOT NULL,
+  `codEndereco` int(11) DEFAULT NULL,
   `rg` varchar(12) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `cpf` varchar(14) NOT NULL,
-  `dataNasc` date NOT NULL,
+  `dataNasc` varchar(20) NOT NULL,
   `tel` varchar(14) NOT NULL,
-  `cel` varchar(14) NOT NULL,
-  `horaEntra` datetime NOT NULL,
-  `horaSai` datetime NOT NULL
+  `cel` varchar(30) NOT NULL,
+  `horaEntra` varchar(15) NOT NULL,
+  `horaSai` varchar(15) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `tipo` varchar(10) NOT NULL,
+  `carteira` varchar(20) DEFAULT NULL,
+  `categoria` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `funcionario`
+--
+
+INSERT INTO `funcionario` (`codFunc`, `codEndereco`, `rg`, `nome`, `cpf`, `dataNasc`, `tel`, `cel`, `horaEntra`, `horaSai`, `status`, `tipo`, `carteira`, `categoria`) VALUES
+(10, 9, '00.000.000-0', '00000', '000.000.000-00', '30/11/0002', '(00) 0000-0000', '(00) 00000-0000', '00:00', '01:00', 1, 'Gerente', 'null', 'null');
 
 -- --------------------------------------------------------
 
@@ -184,8 +217,18 @@ CREATE TABLE `instrutorexame` (
 CREATE TABLE `login` (
   `codLogin` int(11) NOT NULL,
   `login` varchar(25) NOT NULL,
-  `senha` varchar(25) NOT NULL
+  `senha` varchar(25) NOT NULL,
+  `status` int(11) NOT NULL,
+  `codFunc` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `login`
+--
+
+INSERT INTO `login` (`codLogin`, `login`, `senha`, `status`, `codFunc`) VALUES
+(4, 'admin', 'admin', 1, NULL),
+(12, '000000000', '0tk3eCcg', 0, 10);
 
 -- --------------------------------------------------------
 
@@ -206,8 +249,8 @@ CREATE TABLE `recepcionista` (
 --
 ALTER TABLE `aula`
   ADD PRIMARY KEY (`codAula`),
-  ADD KEY `Fk_numCarteira` (`numCarteira`),
-  ADD KEY `Fk_codVeiculo` (`codVeiculo`);
+  ADD KEY `Fk_codVeiculo` (`codVeiculo`),
+  ADD KEY `Fk_codInstrutor` (`codInstrutor`);
 
 --
 -- Indexes for table `automovel`
@@ -220,7 +263,7 @@ ALTER TABLE `automovel`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`codCliente`),
-  ADD KEY `Fk_codEndereco2` (`codEndereco`);
+  ADD KEY `Fk_endereco2` (`codEndereco`);
 
 --
 -- Indexes for table `clienteaula`
@@ -247,15 +290,15 @@ ALTER TABLE `endereco`
 --
 ALTER TABLE `exame`
   ADD PRIMARY KEY (`codExame`),
-  ADD KEY `Fk_codVeiculo2` (`codVeiculo`);
+  ADD KEY `Fk_codVeiculo2` (`codVeiculo`),
+  ADD KEY `Fk_codInstrutor2` (`codInstrutor`);
 
 --
 -- Indexes for table `funcionario`
 --
 ALTER TABLE `funcionario`
   ADD PRIMARY KEY (`codFunc`),
-  ADD KEY `FK_codLogin` (`codLogin`),
-  ADD KEY `Fk_codEndereco` (`codEndereco`);
+  ADD KEY `Fk_endereco` (`codEndereco`);
 
 --
 -- Indexes for table `gerente`
@@ -281,7 +324,8 @@ ALTER TABLE `instrutorexame`
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
-  ADD PRIMARY KEY (`codLogin`);
+  ADD PRIMARY KEY (`codLogin`),
+  ADD KEY `Fk_codFuncionario` (`codFunc`);
 
 --
 -- Indexes for table `recepcionista`
@@ -309,13 +353,13 @@ ALTER TABLE `automovel`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `codCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `codCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `codEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `codEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `exame`
@@ -327,13 +371,13 @@ ALTER TABLE `exame`
 -- AUTO_INCREMENT for table `funcionario`
 --
 ALTER TABLE `funcionario`
-  MODIFY `codFunc` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codFunc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `codLogin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codLogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -343,14 +387,14 @@ ALTER TABLE `login`
 -- Limitadores para a tabela `aula`
 --
 ALTER TABLE `aula`
-  ADD CONSTRAINT `Fk_codVeiculo` FOREIGN KEY (`codVeiculo`) REFERENCES `automovel` (`codVeiculo`),
-  ADD CONSTRAINT `Fk_numCarteira` FOREIGN KEY (`numCarteira`) REFERENCES `instrutor` (`numCarteira`);
+  ADD CONSTRAINT `Fk_codInstrutor` FOREIGN KEY (`codInstrutor`) REFERENCES `funcionario` (`codFunc`),
+  ADD CONSTRAINT `Fk_codVeiculo` FOREIGN KEY (`codVeiculo`) REFERENCES `automovel` (`codVeiculo`);
 
 --
 -- Limitadores para a tabela `cliente`
 --
 ALTER TABLE `cliente`
-  ADD CONSTRAINT `Fk_codEndereco2` FOREIGN KEY (`codEndereco`) REFERENCES `endereco` (`codEndereco`);
+  ADD CONSTRAINT `Fk_endereco2` FOREIGN KEY (`codEndereco`) REFERENCES `endereco` (`codEndereco`);
 
 --
 -- Limitadores para a tabela `clienteaula`
@@ -370,14 +414,14 @@ ALTER TABLE `clienteexame`
 -- Limitadores para a tabela `exame`
 --
 ALTER TABLE `exame`
+  ADD CONSTRAINT `Fk_codInstrutor2` FOREIGN KEY (`codInstrutor`) REFERENCES `funcionario` (`codFunc`),
   ADD CONSTRAINT `Fk_codVeiculo2` FOREIGN KEY (`codVeiculo`) REFERENCES `automovel` (`codVeiculo`);
 
 --
 -- Limitadores para a tabela `funcionario`
 --
 ALTER TABLE `funcionario`
-  ADD CONSTRAINT `Fk_codEndereco` FOREIGN KEY (`codEndereco`) REFERENCES `endereco` (`codEndereco`),
-  ADD CONSTRAINT `FK_codLogin` FOREIGN KEY (`codLogin`) REFERENCES `login` (`codLogin`);
+  ADD CONSTRAINT `Fk_endereco` FOREIGN KEY (`codEndereco`) REFERENCES `endereco` (`codEndereco`);
 
 --
 -- Limitadores para a tabela `gerente`
@@ -397,6 +441,12 @@ ALTER TABLE `instrutor`
 ALTER TABLE `instrutorexame`
   ADD CONSTRAINT `Fk_codExame2` FOREIGN KEY (`codExame`) REFERENCES `exame` (`codExame`),
   ADD CONSTRAINT `Fk_numCarteira2` FOREIGN KEY (`numCarteira`) REFERENCES `instrutor` (`numCarteira`);
+
+--
+-- Limitadores para a tabela `login`
+--
+ALTER TABLE `login`
+  ADD CONSTRAINT `Fk_codFuncionario` FOREIGN KEY (`codFunc`) REFERENCES `funcionario` (`codFunc`);
 
 --
 -- Limitadores para a tabela `recepcionista`

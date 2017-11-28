@@ -31,7 +31,6 @@ import javax.swing.table.TableModel;
 public class ControleAluno extends Controle {
 
     private Cliente cliente;
-    private Endereco endereco;
     private boolean editar = false;
 
     public boolean verificarSeCliente() {
@@ -41,7 +40,7 @@ public class ControleAluno extends Controle {
 
     public boolean verificarSeEndereco() {
 
-        return endereco != null;
+        return cliente.getEndereco() != null;
     }
 
     /**
@@ -165,9 +164,8 @@ public class ControleAluno extends Controle {
                 ClienteArquivo arqCli = new ClienteArquivo();
                 int res = arqEnd.cadastrarEndereco(endereco);
                 if (res != 0) {
-                    this.endereco = endereco;
-                    cliente.setEndereco(arqEnd.consultar(res));
                     endereco.setCodEndereco(res);
+                    cliente.setEndereco(endereco);
                     arqCli.alterarCliente(cliente);
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
                     return true;
@@ -192,15 +190,10 @@ public class ControleAluno extends Controle {
             if (verificarSeCliente()) {
                 if (verificarSeEndereco()) {
                     EnderecoArquivo arqEnd = new EnderecoArquivo();
-                    ClienteArquivo arqCli = new ClienteArquivo();
-                    endereco.setCodEndereco(this.endereco.getCodEndereco());
+                    endereco.setCodEndereco(this.cliente.getEndereco().getCodEndereco());
 
                     if (arqEnd.alterarEndereco(endereco)) {
-                        endereco.setStatus(cliente.getEndereco().getStatus());
-                        endereco.setStatus(this.endereco.getStatus());
-                        this.endereco = arqEnd.consultar(endereco.getCodEndereco());
-                        cliente.setEndereco(arqEnd.consultar(endereco.getCodEndereco()));
-                        arqCli.alterarCliente(cliente);
+                        cliente.setEndereco(endereco);
                         JOptionPane.showMessageDialog(null, "Editado com sucesso");
 
                     } else {
@@ -312,12 +305,6 @@ public class ControleAluno extends Controle {
         setEditar(true);
         this.cliente = arq.consultar(id);
         return arq.consultar(id);
-    }
-
-    public Endereco endereco(int id) {
-        EnderecoArquivo arq = new EnderecoArquivo();
-        this.endereco = arq.consultar(id);
-        return endereco;
     }
 
     public TableModel consultarExamesCliente() {
