@@ -33,7 +33,6 @@ public class ExameClienteDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
@@ -148,7 +147,6 @@ public class ExameClienteDao {
             stmt.setInt(4, exameCliente.getCliente().getCodCliente());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar! " + ex);
@@ -200,7 +198,6 @@ public class ExameClienteDao {
             stmt.setInt(2, cliente.getCliente().getCodCliente());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
@@ -219,7 +216,6 @@ public class ExameClienteDao {
             stmt.setInt(1, codigoExame);
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);

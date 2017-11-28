@@ -255,6 +255,7 @@ public class ControleFuncionario extends Controle {
                 funcionario.setEndereco(novoEndereco);
                 int res = dao.cadastrarFuncionario(funcionario);
                 if (res != 0) {
+                    funcionario.setEndereco(null);
                     funcionario.setCodigoFuncionario(res);
                     usuario.setFucionario(funcionario);
                     usuario.setStatus(1);
@@ -305,7 +306,6 @@ public class ControleFuncionario extends Controle {
 
             UsuarioDao daoUser = new UsuarioDao();
             usuario = new Usuario();
-            Endereco novoEndereco = new Endereco();
             if (!"".equals(nome) && !"  .   .   - ".equals(rg) && !"   .   .   -  ".equals(cpf) && !"  /  /    ".equals(dataNasc) && !"(  )     -    ".equals(telefone) && !"".equals(celular) && !"  :  ".equals(horaEntra) && !"  :  ".equals(horaSai) && !"".equals(senha)) {
                 funcionario.setNome(nome);
                 funcionario.setRg(rg);
@@ -335,9 +335,6 @@ public class ControleFuncionario extends Controle {
                 }
                 usuario.setLogin(pegarNumero(rg));
                 usuario.setSenha(senha);
-                novoEndereco.setCodEndereco(0);
-                novoEndereco.setStatus(1);
-                funcionario.setEndereco(novoEndereco);
                 if (dao.alterarFunc(funcionario)) {
                     usuario.setFucionario(funcionario);
                     usuario.setStatus(1);

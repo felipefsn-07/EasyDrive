@@ -318,10 +318,10 @@ public class TelaAgendarAula extends javax.swing.JDialog {
         txtPesquisarAluno.setForeground(new java.awt.Color(1, 1, 1));
         txtPesquisarAluno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(144, 180, 242), 1, true));
         txtPesquisarAluno.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtPesquisarAlunoInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtPesquisarAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -344,7 +344,7 @@ public class TelaAgendarAula extends javax.swing.JDialog {
         jLabel13.setText("Pesquisar:");
 
         jComboBox1.setBackground(new java.awt.Color(254, 254, 254));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "nome", "rg", "cpf", "numero do Ladv" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codCliente", "nome", "rg", "cpf", "numLadv" }));
         jComboBox1.setBorder(null);
 
         jLabel4.setText("* É necessário que o exame esteja cadastrado");
@@ -621,7 +621,7 @@ public class TelaAgendarAula extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jTableInstrutor);
 
         jbInstrutor.setBackground(new java.awt.Color(254, 254, 254));
-        jbInstrutor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codigo", "rg", "cpf", "nome" }));
+        jbInstrutor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "codFunc", "rg", "cpf", "nome" }));
         jbInstrutor.setBorder(null);
 
         txtPesquisarInstrutor.setBackground(new java.awt.Color(254, 254, 254));

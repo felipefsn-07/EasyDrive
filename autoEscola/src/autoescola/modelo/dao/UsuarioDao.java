@@ -72,7 +72,6 @@ public class UsuarioDao {
 
                 users.add(user);
             }
-            JOptionPane.showMessageDialog(null, "Consulta concluida!");
             return users;
 
         } catch (SQLException ex) {
@@ -154,7 +153,6 @@ public class UsuarioDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar! " + ex);
@@ -174,7 +172,6 @@ public class UsuarioDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
@@ -194,7 +191,6 @@ public class UsuarioDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
@@ -260,7 +256,6 @@ public class UsuarioDao {
 
                 users.add(user);
             }
-            JOptionPane.showMessageDialog(null, "Consulta concluida!");
             return users;
 
         } catch (SQLException ex) {

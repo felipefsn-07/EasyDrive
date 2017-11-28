@@ -518,11 +518,11 @@
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="5">
-                        <StringItem index="0" value="codigo"/>
+                        <StringItem index="0" value="codCliente"/>
                         <StringItem index="1" value="nome"/>
                         <StringItem index="2" value="rg"/>
                         <StringItem index="3" value="cpf"/>
-                        <StringItem index="4" value="numero do Ladv"/>
+                        <StringItem index="4" value="numLadv"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1021,7 +1021,7 @@
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="4">
-                            <StringItem index="0" value="codigo"/>
+                            <StringItem index="0" value="codFunc"/>
                             <StringItem index="1" value="rg"/>
                             <StringItem index="2" value="cpf"/>
                             <StringItem index="3" value="nome"/>

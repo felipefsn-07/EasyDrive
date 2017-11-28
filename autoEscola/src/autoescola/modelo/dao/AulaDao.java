@@ -10,6 +10,7 @@ import autoescola.modelo.bean.Aula;
 import autoescola.modelo.bean.AulasClientes;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,17 +29,21 @@ public class AulaDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO aula (dataAula, horaInicio, horaFim, codVeiculo, codInstrutor) VALUES(?, ?, ?, ?, ?)");
-             stmt.setString(1, aula.getDataAula());
+            String sql = "INSERT INTO aula (dataAula, horaInicio, horaFim, codVeiculo, codInstrutor) VALUES(?, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, aula.getDataAula());
             stmt.setString(2, aula.getHorarioAulaInicio());
             stmt.setString(3, aula.getHorarioAulaFim());
             stmt.setInt(4, aula.getVeiculo().getCodVeiculo());
             stmt.setInt(5, aula.getInstrutor().getCodigoFuncionario());
-            
+
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return aula.getCodAulas();
+            final ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
             return 0;
@@ -133,7 +138,6 @@ public class AulaDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar! " + ex);
@@ -204,8 +208,8 @@ public class AulaDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
-    public ArrayList<Aula> consultarAulassLike(String campo, String valor){
+
+    public ArrayList<Aula> consultarAulassLike(String campo, String valor) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -244,8 +248,8 @@ public class AulaDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
-    public ArrayList<Aula> consultarData(String data){
+
+    public ArrayList<Aula> consultarData(String data) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -263,7 +267,7 @@ public class AulaDao {
                 aula.setDataAula(rs.getString("dataAula"));
                 aula.setHorarioAulaInicio(rs.getString("horaInicio"));
                 aula.setHorarioAulaFim(rs.getString("horaFim"));
-                
+
                 aulas.add(aula);
             }
             return aulas;

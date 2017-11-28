@@ -235,12 +235,11 @@ public class ControleAluno extends Controle {
         if (!"".equals(aluno.getNome()) && !"  .   .   - ".equals(aluno.getRg()) && !"   .   .   -  ".equals(aluno.getCpf()) && !"  /  /    ".equals(aluno.getDatanasc()) && !"(  )     -    ".equals(aluno.getTelefone()) && !"(  )      -    ".equals(aluno.getCelular()) && !"".equals(aluno.getCategoria()) && !"".equals(aluno.getNumLADV())) {
 
             if (!arqCliente.consultarRg(aluno.getRg())) {
-                Endereco enderecoNovo = new Endereco();
-                enderecoNovo.setCodEndereco(0);
-                aluno.setEndereco(enderecoNovo);
                 int res = arqCliente.cadastrarCliente(aluno);
                 if (res != 0) {
+
                     cliente = new Cliente();
+                    cliente.setEndereco(null);
                     this.cliente = aluno;
                     this.cliente.setCodCliente(res);
                     JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso!");
@@ -270,9 +269,7 @@ public class ControleAluno extends Controle {
         if (!"".equals(aluno.getNome()) && !"  .   .   - ".equals(aluno.getRg()) && !"   .   .   -  ".equals(aluno.getCpf()) && !"  /  /    ".equals(aluno.getDatanasc()) && !"(  )     -    ".equals(aluno.getTelefone()) && !"(  )      -    ".equals(aluno.getCelular()) && !"".equals(aluno.getCategoria()) && !"".equals(aluno.getNumLADV())) {
 
             if (!arqCliente.consultarRg(aluno.getRg()) || cliente.getRg().equals(aluno.getRg())) {
-                Endereco enderecoNovo = new Endereco();
-                enderecoNovo.setCodEndereco(0);
-                aluno.setEndereco(enderecoNovo);
+                aluno.setEndereco(cliente.getEndereco());
                 aluno.setStatus(cliente.getStatus());
                 aluno.setCodCliente(this.cliente.getCodCliente());
                 if (arqCliente.alterarCliente(aluno)) {
@@ -305,7 +302,6 @@ public class ControleAluno extends Controle {
         this.cliente = arq.consutarClienteExiste(id);
         return this.cliente;
     }
-
 
     public TableModel consultarExamesCliente() {
 

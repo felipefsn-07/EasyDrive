@@ -96,7 +96,7 @@ public class ControleVeiculo extends Controle {
         VeicDao arqVeic = new VeicDao();
         DefaultTableModel jTable1 = new DefaultTableModel();
         if (tipo.getSelectedItem().toString().equals("codigo do veiculo") && !"".equals(id.getText()) && isDigit(id.getText())) {
-            ArrayList<Veiculo> veiculos = arqVeic.consultarVeiculosLike(tipo.getSelectedItem().toString(), id.getText());
+            ArrayList<Veiculo> veiculos = arqVeic.consultarVeiculosLike("codVeiculo", id.getText());
 
             if (veiculos != null) {
                 jTable1.addColumn("Codigo veiculo");

@@ -7,6 +7,7 @@ package autoescola.modelo.dao;
 
 import autoescola.connection.ConnectionFactory;
 import autoescola.modelo.bean.Veiculo;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +26,8 @@ public class VeicDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO automovel (placa, ano, modelo, capacidade, status) VALUES(?, ?, ?, ?, ?)");
+            String sql = "INSERT INTO automovel (placa, ano, modelo, capacidade, status) VALUES(?, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, veic.getPlaca());
             stmt.setString(2, veic.getAno());
             stmt.setString(3, veic.getModelo());
@@ -34,8 +36,11 @@ public class VeicDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return veic.getCodVeiculo();
+            final ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
             return 0;
@@ -118,7 +123,6 @@ public class VeicDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar! " + ex);
@@ -138,7 +142,6 @@ public class VeicDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! " + ex);
@@ -216,7 +219,6 @@ public class VeicDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Desativado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao desativar! " + ex);
@@ -235,8 +237,6 @@ public class VeicDao {
             stmt.setInt(1, codVeiculo);
 
             stmt.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Desativado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao desativar! " + ex);

@@ -10,6 +10,7 @@ import autoescola.modelo.bean.Exame;
 import autoescola.modelo.bean.ExameClientes;
 import autoescola.modelo.bean.Funcionario;
 import autoescola.modelo.bean.Veiculo;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,8 @@ public class ExameDao {
         PreparedStatement stmt = null;
 //dataExame, horaInicia, horaFim, codVeiculo, codInstrutor
         try {
-            stmt = con.prepareStatement("INSERT INTO exame (dataExame, horaInicio, horaFim, codVeiculo, codInstrutor) VALUES(?, ?, ?, ?, ?)");
+            String sql = "INSERT INTO exame (dataExame, horaInicio, horaFim, codVeiculo, codInstrutor) VALUES(?, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, exame.getDataExame());
             stmt.setString(2, exame.getHorarioInicio());
             stmt.setString(3, exame.getHorarioFim());
@@ -38,8 +40,11 @@ public class ExameDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            return exame.getCodigoExame();
+            final ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar! " + ex);
             return 0;
@@ -139,7 +144,6 @@ public class ExameDao {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar! " + ex);
@@ -196,7 +200,6 @@ public class ExameDao {
             stmt.setInt(1, codExame);
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
             return true;
 
         } catch (SQLException ex) {
