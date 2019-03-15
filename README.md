@@ -5,7 +5,7 @@
 
 # Objetivos:
 
-   Permitir de maneira simples que o usuário sempre possa dispor funcionalidades para 
+   Permitir de maneira simples que o usuário possa dispor funcionalidades para 
    gerenciar a auto escola (cadastrar alunos, cadastrar funcionários, marcar aulas, etc), 
    de maneira a tornar a gestão das auto escolas mais práticas e dinâmicas.
   
